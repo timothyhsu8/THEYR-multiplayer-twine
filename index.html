@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SocketIO App</title>
+  </head>
+  <body>
+    <ul id="messages"></ul>
+    
+    <button id="park">Go to the park</button>
+    <button id="gym">Go to the gym </button>
+    <button id="library">Go to the library</button>
+    <button id="school">Go to the school</button>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io();
+      
+        var messages = document.getElementById('messages');
+        var form = document.getElementById('form');
+        var input = document.getElementById('input');
+
+        document.getElementById("park").addEventListener('click', go_somewhere)
+        document.getElementById("gym").addEventListener('click', go_somewhere)
+        document.getElementById("library").addEventListener('click', go_somewhere)
+        document.getElementById("school").addEventListener('click', go_somewhere)
+
+        function go_somewhere(event) {
+          socket.emit('chat message', "Someone went to the " + event.target.id);
+          input.value = '';
+        }
+      
+        socket.on('chat message', function(msg) {
+          var item = document.createElement('li');
+          item.textContent = msg;
+          messages.appendChild(item);
+          window.scrollTo(0, document.body.scrollHeight);
+        });
+      </script>
+  </body>
+</html>
