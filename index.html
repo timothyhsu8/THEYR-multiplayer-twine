@@ -13,8 +13,22 @@
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
+        var users = {};
         var socket = io();
-      
+        
+        // Want to create dictionary of users 
+        /*socket.on("connect", () => {
+          
+          console.log(socket.id)
+          users[socket.id] = [socket.id, " has entered the server"];
+          var item = document.createElement('li');
+          item.setAttribute("id", socket.id);
+          item.textContent = users[socket.id][0] + users[socket.id][1];
+          messages.appendChild(item);
+          console.log(users);
+        });
+        */
+
         var messages = document.getElementById('messages');
         var form = document.getElementById('form');
         var input = document.getElementById('input');
@@ -25,13 +39,19 @@
         document.getElementById("school").addEventListener('click', go_somewhere)
 
         function go_somewhere(event) {
-          socket.emit('chat message', "Someone went to the " + event.target.id);
-          input.value = '';
+          /*
+          users[socket.id][1] = event.target.id;
+          socket.emit('chat message', socket.id);
+          */
+          socket.emit('chat message', [socket.id, event.target.id]);
+          //input.value = '';
         }
       
         socket.on('chat message', function(msg) {
           var item = document.createElement('li');
-          item.textContent = msg;
+          //var item = document.getElementById(id);
+          //item.textContent = users[socket.id][0] + " is at the " + users[socket.id][1];
+          item.textContent = "User " + msg[0] + " is now at the " + msg[1];
           messages.appendChild(item);
           window.scrollTo(0, document.body.scrollHeight);
         });
