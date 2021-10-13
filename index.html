@@ -51,7 +51,7 @@
           var item = document.createElement('li');
           //var item = document.getElementById(id);
           //item.textContent = users[socket.id][0] + " is at the " + users[socket.id][1];
-          item.textContent = "User " + msg[0] + " is now at the " + msg[1];
+          item.textContent = "User [" + msg[0] + "] is now at the " + msg[1];
           messages.appendChild(item);
           window.scrollTo(0, document.body.scrollHeight);
         });
