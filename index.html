@@ -13,21 +13,14 @@
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
-        var users = {};
         var socket = io();
         
         // Want to create dictionary of users 
-        /*socket.on("connect", () => {
-          
-          console.log(socket.id)
-          users[socket.id] = [socket.id, " has entered the server"];
-          var item = document.createElement('li');
-          item.setAttribute("id", socket.id);
-          item.textContent = users[socket.id][0] + users[socket.id][1];
-          messages.appendChild(item);
-          console.log(users);
+        socket.on("connect", () => {
+          //users[socket.id] = [socket.id, " has entered the server"];
+          //socket.emit('chat message', [users[socket.id][0], users[socket.id][1]]);
         });
-        */
+        
 
         var messages = document.getElementById('messages');
         var form = document.getElementById('form');
@@ -43,16 +36,28 @@
           users[socket.id][1] = event.target.id;
           socket.emit('chat message', socket.id);
           */
-          socket.emit('chat message', [socket.id, event.target.id]);
+          socket.emit('go somewhere', [socket.id, event.target.id]);
           //input.value = '';
         }
-      
-        socket.on('chat message', function(msg) {
-          var item = document.createElement('li');
-          //var item = document.getElementById(id);
-          //item.textContent = users[socket.id][0] + " is at the " + users[socket.id][1];
-          item.textContent = "User [" + msg[0] + "] is now at the " + msg[1];
-          messages.appendChild(item);
+
+        socket.on('go somewhere', function(data) {
+          var id = data[0];
+          var location = data[1];
+          var item = document.getElementById(id);
+          item.textContent = "User [" + id + "] is now at the " + location;
+        })
+
+        socket.on('entered', function(users) {
+          console.log(users);
+          for(var key in users){
+            console.log(key);
+            if(!document.getElementById(key)){
+              var item = document.createElement('li');
+              item.setAttribute("id", key);
+              item.textContent = "User [" + key + "] has entered the server.";
+              messages.appendChild(item);
+            }
+          }
           window.scrollTo(0, document.body.scrollHeight);
         });
       </script>
