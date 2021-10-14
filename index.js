@@ -14,13 +14,12 @@ app.get('/', (req, res) => {
 io.on('connection', (socket) => {
   if(!users[socket.id]){
     users[socket.id] = [socket.id, " has entered the server"];
-    socket.emit('entered', users);
+    io.sockets.emit('entered', users);
+    socket.on('go somewhere', function(users) {
+      io.sockets.emit('go somewhere', users);
+    })
   }
 });
-
-io.on('go somewhere', (data) =>{
-  socket.emit('go somewhere', data);
-})
 
 server.listen(3000, () => {
   console.log('listening on PORT:3000');
