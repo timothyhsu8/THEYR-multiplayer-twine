@@ -19,6 +19,8 @@
 
     <!-- SCRIPTS -->
     <script src="/socket.io/socket.io.js"></script>
+    <script src="static/axios/dist/axios.min.js"></script>
+    <script src="static/api_calls.js"></script>
     <script>
         var socket = io();
 
@@ -40,7 +42,13 @@
         
         // Sets user as king of the hill
         function take_hill(event) {
-          document.getElementById("king").innerHTML = "Jeffery"
+          users = getUsers()
+          users.then(function(response) {
+            for(let i = 0; i < response.length; i++)
+              console.log(response[i])
+
+            document.getElementById("king").innerHTML = "Jeffery"
+          })
         }
 
         // *************************** SOCKET EVENTS ********************************************* //

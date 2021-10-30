@@ -16,6 +16,8 @@ app.use(cors())
 const router = require('./server/router.js')
 app.use('/api', router)
 
+app.use("/static", express.static('./static/'));
+
 const CONNECTION_URL = 'mongodb+srv://timhsu:7xvPjvAEI3jMuhhf@users.xnee2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 const PORT = process.env.PORT || 5000;
 
