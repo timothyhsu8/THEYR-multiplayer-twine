@@ -5,11 +5,12 @@ const api = axios.create({
 function getUsers(){
     promise = api.get("/users")
     return promise.then(function(response) {
+        console.log(response.data)
         return response.data
     })
     .catch(error => console.error(error));
 }
 
-const apis = {
-    getUsers
+function printSugarcubeVariables() {
+    console.log(SugarCube.State.variables)
 }

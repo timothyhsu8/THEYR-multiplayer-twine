@@ -27,6 +27,10 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
 });
 
+app.get('/game', (req, res) => {
+  res.sendFile(__dirname + '/socket_game.html');
+})
+
 // Socket event for someone new connecting to the server
 io.on('connection', (socket) => {
   if(!users[socket.id]){
