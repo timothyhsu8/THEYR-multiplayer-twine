@@ -44,8 +44,23 @@ io.on('connection', (socket) => {
     // Connection to MongoDB
     mongoose.connect(CONNECTION_URL, { useNewUrlparser: true, useUnifiedTopology: true })
     
-    // Save user to database
-    let newUser = new User({ name: socket.id, location: "PlaceUpdated" })
+    // Generate random map
+    rand_int = Math.floor(Math.random() * 3);
+    let map = null
+    if (rand_int === 0)
+      map = {redKey: true}
+    if (rand_int === 1)
+      map = {blueKey: true}
+    if (rand_int === 2)
+      map = {greenKey: true}
+
+    // Create new user
+    let newUser = new User({ 
+      name: socket.id, 
+      location: "New Location", 
+      variables: map
+    })
+
     // newUser.save()
     // .then(() => app.listen(PORT, () => console.log(`Server running on port: ${PORT}`)))
     // .catch((error) => console.log(error.message))

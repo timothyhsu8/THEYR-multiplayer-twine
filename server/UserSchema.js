@@ -6,6 +6,9 @@ const userSchema = new Schema({
     },
     location: {
         type: String
+    },
+    variables: {
+        type: Map
     }
     }
 )
