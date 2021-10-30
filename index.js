@@ -4,7 +4,7 @@ const { Server } = require("socket.io");
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const User = require('./UserSchema');
+const User = require('./server/UserSchema');
 
 const app = express();
 const server = http.createServer(app);
@@ -13,6 +13,9 @@ const io = new Server(server);
 app.use(bodyParser.json({limit: "30mb", extended: true }))
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }))
 app.use(cors())
+
+const router = require('./server/router.js')
+app.use('/api', router)
 
 const users = {};
 
@@ -34,8 +37,8 @@ io.on('connection', (socket) => {
 
     mongoose.connect(CONNECTION_URL, { useNewUrlparser: true, useUnifiedTopology: true })
 
-    let newUser = new User({ name: socket.id, location: "Place" })
-    newUser.save()
+    let newUser = new User({ name: socket.id, location: "PlaceUpdated" })
+    // newUser.save()
     // .then(() => app.listen(PORT, () => console.log(`Server running on port: ${PORT}`)))
     // .catch((error) => console.log(error.message))
   }
