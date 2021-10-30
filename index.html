@@ -11,48 +11,43 @@
     <button id="library">Go to the library</button>
     <button id="school">Go to the school</button>
 
+    <br/><br/><br/><br/>
+    
+
+    <div id="king"></div>
+    <button id="hill_button">Take control of the hill</button>
+
+    <!-- SCRIPTS -->
     <script src="/socket.io/socket.io.js"></script>
     <script>
         var socket = io();
-        
-        // Want to create dictionary of users 
-        socket.on("connect", () => {
-          //users[socket.id] = [socket.id, " has entered the server"];
-          //socket.emit('chat message', [users[socket.id][0], users[socket.id][1]]);
-        });
-        
 
         var messages = document.getElementById('messages');
         var form = document.getElementById('form');
         var input = document.getElementById('input');
 
+        // Add event listener to each button
         document.getElementById("park").addEventListener('click', go_somewhere)
         document.getElementById("gym").addEventListener('click', go_somewhere)
         document.getElementById("library").addEventListener('click', go_somewhere)
         document.getElementById("school").addEventListener('click', go_somewhere)
+        document.getElementById("hill_button").addEventListener('click', take_hill)
 
+        // Call the socket function to go somewhere
         function go_somewhere(event) {
-          /*
-          users[socket.id][1] = event.target.id;
-          socket.emit('chat message', socket.id);
-          */
           socket.emit('go somewhere', [socket.id, event.target.id]);
-          //input.value = '';
         }
         
-        socket.on('go somewhere', function(data) {
-          console.log("client go somewhere")
-          console.log(data);
-          var id = data[0];
-          var location = data[1];
-          var item = document.getElementById(id);
-          item.textContent = "User [" + id + "] is now at the " + location;
-        })
+        // Sets user as king of the hill
+        function take_hill(event) {
+          document.getElementById("king").innerHTML = "Jeffery"
+        }
 
+        // *************************** SOCKET EVENTS ********************************************* //
+        // Socket event for user entering the server
         socket.on('entered', function(users) {
-          console.log(users);
+          // console.log(users);
           for(var key in users){
-            console.log(key);
             if(!document.getElementById(key)){
               var item = document.createElement('li');
               item.setAttribute("id", key);
@@ -63,6 +58,17 @@
           window.scrollTo(0, document.body.scrollHeight);
           socket.emit('entered', users);
         });
+
+        // Socket event for user going somewhere
+        socket.on('go somewhere', function(data) {
+          // console.log("client go somewhere")
+          // console.log(data);
+          var id = data[0];
+          var location = data[1];
+          var item = document.getElementById(id);
+          item.textContent = "User [" + id + "] is now at the " + location;
+        })
+      
       </script>
   </body>
 </html>
