@@ -1,9 +1,12 @@
-name: lando-heroku
+name: lando-heroku-sockets
 recipe: mean
 config:
   webroot: public
 
 services:
+ appserver:
+   extras:
+    - "wget -qO- https://cli-assets.heroku.com/install-ubuntu.sh | sh"
  mongoservice:
    type: mongo
    portforward: true
