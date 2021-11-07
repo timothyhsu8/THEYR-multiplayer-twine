@@ -10,6 +10,8 @@ const User = require('./server/UserSchema');
 const router = require('./server/router.js')
 app.use('/api', router)
 
+app.use("/static", express.static('./static/'));
+
 const PORT = process.env.PORT || 5000
 const CONNECTION_URL = 'mongodb+srv://timhsu:7xvPjvAEI3jMuhhf@users.xnee2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 
@@ -17,8 +19,12 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
 });
 
+app.get('/game', (req, res) => {
+  res.sendFile(__dirname + '/socket_game.html');
+})
+
 io.on('connection', (socket) => {
-  
+  console.log(PORT)
   socket.on('chat message', (msg) => {
     io.emit('chat message', msg);
   });
