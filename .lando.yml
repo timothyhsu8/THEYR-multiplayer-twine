@@ -11,7 +11,7 @@ services:
    type: mongo
    portforward: true
  nodeservice:
-   type: node
+   type: node:14
    build:
     - npm install
    command: npm start server.js
