@@ -24,7 +24,7 @@ app.get('/game', (req, res) => {
 })
 
 io.on('connection', (socket) => {
-  console.log(PORT)
+
   socket.on('chat message', (msg) => {
     io.emit('chat message', msg);
   });

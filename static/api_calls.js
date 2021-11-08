@@ -17,3 +17,7 @@ function getUsers(){
 function printSugarcubeVariables() {
     console.log(SugarCube.State.variables)
 }
+
+function printLodashDiff() {
+    console.log(_.difference([2, 1], [2, 3]))
+}
