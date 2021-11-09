@@ -23,6 +23,10 @@ app.get('/game', (req, res) => {
   res.sendFile(__dirname + '/socket_game.html');
 })
 
+app.get('/redux', (req, res) => {
+  res.sendFile(__dirname + '/redux.html');
+})
+
 io.on('connection', (socket) => {
 
   socket.on('chat message', (msg) => {
