@@ -98,14 +98,24 @@ var LZString={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234
 		<div id="init-lacking">Your browser lacks required capabilities. Please upgrade it or switch to another to continue.</div>
 		<div id="init-loading"><div>Loading&hellip;</div></div>
 	</div>
-	<tw-storydata name="Ruby" startnode="5" creator="Twine" creator-version="2.3.14" ifid="B6642567-EE35-472A-9113-82C3BBA28CD3" zoom="1" format="SugarCube" format-version="2.34.1" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css"></style><script role="script" id="twine-user-script" type="text/twine-javascript">importScripts(
+	<tw-storydata name="Ruby" startnode="5" creator="Twine" creator-version="2.3.15" ifid="B6642567-EE35-472A-9113-82C3BBA28CD3" zoom="1" format="SugarCube" format-version="2.34.1" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css"></style><script role="script" id="twine-user-script" type="text/twine-javascript">importScripts([
 	'/socket.io/socket.io.js',
 	'static/axios/dist/axios.min.js',
 	'static/api_calls.js',
-	'reducer.js',
-	'https://cdn.jsdelivr.net/npm/lodash@4.17.21/differenceWith.js',
-	'https://cdn.jsdelivr.net/npm/lodash@4.17.21/isEqual.js'
-);</script><tw-passagedata pid="1" name="Lobby" tags="" position="671,294" size="100,100">There are two rooms, one room has $room1rubies rubies, the other has $room2rubies rubies.
+	'https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js',
+	'static/reducer.js'])
+	
+
+function difference(object, base) {
+	function changes(object, base) {
+		return _.transform(object, function(result, value, key) {
+			if (!_.isEqual(value, base[key])) {
+				result[key] = (_.isObject(value) && _.isObject(base[key])) ? changes(value, base[key]) : value;
+			}
+		});
+	}
+	return changes(object, base);
+}</script><tw-passagedata pid="1" name="Lobby" tags="" position="671,294" size="100,100">There are two rooms, one room has $room1rubies rubies, the other has $room2rubies rubies.
 
 [[Room 1]] and [[Room 2]]
 

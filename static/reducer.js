@@ -69,6 +69,7 @@ function sub_rubies2(){
 }
 
 function currentState() {
-    console.log(_differenceWith(initialState, SugarCube.State.variables, _isEqual));
+    //getting functions from Twine importScripts()
+    console.log(_.difference(initialState, SugarCube.State.variables));
 }
 
