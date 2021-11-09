@@ -17,7 +17,7 @@ const router = require('./server/router.js')
 app.use('/api', router)
 
 app.use("/static", express.static('./static/'));
-
+app.use("/reduxxer", express.static('./reduxxer/'));
 const CONNECTION_URL = 'mongodb+srv://timhsu:7xvPjvAEI3jMuhhf@users.xnee2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 const PORT = process.env.PORT || 5000;
 
@@ -29,6 +29,10 @@ app.get('/', (req, res) => {
 
 app.get('/game', (req, res) => {
   res.sendFile(__dirname + '/socket_game.html');
+})
+
+app.get('/ruby', (req, res) => {
+  res.sendFile(__dirname + '/Ruby.html');
 })
 
 // Socket event for someone new connecting to the server
