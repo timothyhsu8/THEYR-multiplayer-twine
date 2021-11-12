@@ -1,48 +1,82 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Socket.IO chat</title>
-    <style>
-      body { margin: 0; padding-bottom: 3rem; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
-
-      #form { background: rgba(0, 0, 0, 0.15); padding: 0.25rem; position: fixed; bottom: 0; left: 0; right: 0; display: flex; height: 3rem; box-sizing: border-box; backdrop-filter: blur(10px); }
-      #input { border: none; padding: 0 1rem; flex-grow: 1; border-radius: 2rem; margin: 0.25rem; }
-      #input:focus { outline: none; }
-      #form > button { background: #333; border: none; padding: 0 1rem; margin: 0.25rem; border-radius: 3px; outline: none; color: #fff; }
-
-      #messages { list-style-type: none; margin: 0; padding: 0; }
-      #messages > li { padding: 0.5rem 1rem; }
-      #messages > li:nth-child(odd) { background: #efefef; }
-    </style>
+    <title>SocketIO App</title>
   </head>
   <body>
     <ul id="messages"></ul>
-    <form id="form" action="">
-      <input id="input" autocomplete="off" /><button>Send</button>
-    </form>
+    
+    <button id="park">Go to the park</button>
+    <button id="gym">Go to the gym </button>
+    <button id="library">Go to the library</button>
+    <button id="school">Go to the school</button>
+
+    <br/><br/><br/><br/>
+    
+
+    <div id="king"></div>
+    <!-- <button id="hill_button">Take control of the hill</button> -->
+
+    <!-- SCRIPTS -->
     <script src="/socket.io/socket.io.js"></script>
-
+    <script src="static/axios/dist/axios.min.js"></script>
+    <script src="static/api_calls.js"></script>
     <script>
-      var socket = io();
+        var socket = io();
 
-      var messages = document.getElementById('messages');
-      var form = document.getElementById('form');
-      var input = document.getElementById('input');
+        var messages = document.getElementById('messages');
+        var form = document.getElementById('form');
+        var input = document.getElementById('input');
 
-      form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        if (input.value) {
-          socket.emit('chat message', input.value);
-          input.value = '';
+        // Add event listener to each button
+        document.getElementById("park").addEventListener('click', go_somewhere)
+        document.getElementById("gym").addEventListener('click', go_somewhere)
+        document.getElementById("library").addEventListener('click', go_somewhere)
+        document.getElementById("school").addEventListener('click', go_somewhere)
+        document.getElementById("hill_button").addEventListener('click', take_hill)
+
+        // Call the socket function to go somewhere
+        function go_somewhere(event) {
+          socket.emit('go somewhere', [socket.id, event.target.id]);
         }
-      });
+        
+        // Sets user as king of the hill
+        function take_hill(event) {
+          users = getUsers()
+          users.then(function(response) {
+            for(let i = 0; i < response.length; i++)
+              console.log(response[i])
 
-      socket.on('chat message', function(msg) {
-        var item = document.createElement('li');
-        item.textContent = msg;
-        messages.appendChild(item);
-        window.scrollTo(0, document.body.scrollHeight);
-      });
-    </script>
+            document.getElementById("king").innerHTML = "Jeffery"
+          })
+        }
+
+        // *************************** SOCKET EVENTS ********************************************* //
+        // Socket event for user entering the server
+        socket.on('entered', function(users) {
+          // console.log(users);
+          for(var key in users){
+            if(!document.getElementById(key)){
+              var item = document.createElement('li');
+              item.setAttribute("id", key);
+              item.textContent = "User [" + key + "] has entered the server.";
+              messages.appendChild(item);
+            }
+          }
+          window.scrollTo(0, document.body.scrollHeight);
+          socket.emit('entered', users);
+        });
+
+        // Socket event for user going somewhere
+        socket.on('go somewhere', function(data) {
+          // console.log("client go somewhere")
+          // console.log(data);
+          var id = data[0];
+          var location = data[1];
+          var item = document.getElementById(id);
+          item.textContent = "User [" + id + "] is now at the " + location;
+        })
+      
+      </script>
   </body>
 </html>
