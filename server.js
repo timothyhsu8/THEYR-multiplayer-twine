@@ -15,32 +15,31 @@ app.use("/static", express.static('./static/'));
 const PORT = process.env.PORT || 5000
 const CONNECTION_URL = 'mongodb+srv://timhsu:7xvPjvAEI3jMuhhf@users.xnee2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
-});
+// app.get('/', (req, res) => {
+//   res.sendFile(__dirname + '/index.html');
+// });
 
-app.get('/game', (req, res) => {
+app.get('/', (req, res) => {
   res.sendFile(__dirname + '/socket_game.html');
 })
 
-app.get('/redux', (req, res) => {
-  res.sendFile(__dirname + '/redux.html');
-})
-
+// All socket.io related events
 io.on('connection', (socket) => {
 
-  socket.on('chat message', (msg) => {
-    io.emit('chat message', msg);
-  });
-  
-  mongoose.connect(CONNECTION_URL, { useNewUrlparser: true, useUnifiedTopology: true })
-
-  let newUser = new User({ 
-    name: "Meekaser", 
-    location: "New Location"
+  socket.on('check diff', (state) => {
+    socket.broadcast.emit('check diff', state)  // socket.broadcast sends event to all clients except the sender
   })
 
-  newUser.save()
+  // socket.on('chat message', (msg) => {
+  //   io.emit('chat message', msg);
+  // });
+
+  // mongoose.connect(CONNECTION_URL, { useNewUrlparser: true, useUnifiedTopology: true })
+  // let newUser = new User({ 
+  //   name: "Meekaser", 
+  //   location: "New Location"
+  // })
+  // newUser.save()
 });
 
 server.listen(PORT, () => {

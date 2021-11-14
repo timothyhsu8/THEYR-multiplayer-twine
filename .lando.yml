@@ -2,20 +2,16 @@ name: lando-heroku-sockets
 recipe: mean
 config:
   webroot: public
+  node: 14
+  build:
+    - npm install
+  command: npm start server.js
+  port: 5000
 
 services:
  appserver:
    extras:
     - "wget -qO- https://cli-assets.heroku.com/install-ubuntu.sh | sh"
- mongoservice:
-   type: mongo
-   portforward: true
- nodeservice:
-   type: node:14
-   build:
-    - npm install
-   command: npm start server.js
-   port: 5000
 
 tooling:
   heroku:
