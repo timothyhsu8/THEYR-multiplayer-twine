@@ -23,6 +23,10 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/socket_game.html');
 })
 
+app.get('/coins/', (req, res) => {
+  res.sendFile(__dirname + '/Coins.html');
+})
+
 // All socket.io related events
 io.on('connection', (socket) => {
 
