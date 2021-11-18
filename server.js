@@ -10,6 +10,9 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
 });
 
+app.get('/twinegame', (req, res) => {
+  res.sendFile(__dirname + '/Ruby.html');
+})
 // app.get('/group/:groupId', (req, res) => {
 //   res.send("Welcome Group " + req.params.groupId + "!")
 // })

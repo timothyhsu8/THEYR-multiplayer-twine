@@ -1,10 +1,40 @@
+var socket = io();
+
+socket.on('connect', function(state){
+    console.log("NEW CONNECTION, ", state)
+    console.log(store.getState())
+    let diff = difference(store.getState(), state)
+    if(diff.length === 0){
+        console.log("NO DIFFERENCE")
+    }
+    else{
+        store.dispatch({type: 'UPDATE', payload: state})
+        SugarCube.State.variables = store.getState();
+        SugarCube.Engine.show()
+    }
+})
+
+socket.on('difference', function(new_state){
+    console.log("DIFF FOUND, ", new_state)
+    let diff = difference(SugarCube.State.variables, store.getState());
+    if(diff.length === 0){
+        console.log("NO DIFFERENCE")
+    }
+    else{
+        store.dispatch({type: 'UPDATE', payload: new_state});
+        SugarCube.State.variables = store.getState();
+        SugarCube.Engine.show()
+    }
+})
+
 function reducer(state, action){
     if(typeof state === 'undefined'){
         return {...state, ...SugarCube.State.variables}
     }
     switch(action.type){
         case 'UPDATE':
-            console.log(action);
+            console.log({...state, ...action.payload});
+            socket.emit('difference', {...state, ...action.payload}) //causes error state not iterable
             return {...state, ...action.payload}
         default:
             return state

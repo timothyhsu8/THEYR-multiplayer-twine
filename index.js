@@ -1,5 +1,6 @@
 const express = require('express');
 const http = require('http');
+const Redux = require('redux');
 const { Server } = require("socket.io");
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -35,7 +36,31 @@ app.get('/ruby', (req, res) => {
   res.sendFile(__dirname + '/Ruby.html');
 })
 
-// Socket event for someone new connecting to the server
+io.on('connection', (socket) => {
+  socket.on('difference', (state) => {
+    socket.broadcast.emit('difference', state)
+    store.dispatch({type: 'UPDATE', payload: state});
+  })
+  socket.on('connect', (state) => {
+    socket.emit('connect', state)
+  })
+})
+
+var store = Redux.createStore(reducer);
+
+function reducer(state, action){
+  switch(action.type){
+    case 'UPDATE':
+      console.log({...state, ...action.payload});
+      socket.emit('difference', {...state, ...action.payload}) //causes error state not iterable
+      return {...state, ...action.payload}
+    default:
+      return state
+  }
+  console.log("SERVER STORE: ", store.getState())
+}
+
+/* Socket event for someone new connecting to the server
 io.on('connection', (socket) => {
   if(!users[socket.id]){
     users[socket.id] = [socket.id, " has entered the server"];
@@ -74,7 +99,7 @@ io.on('connection', (socket) => {
     // .catch((error) => console.log(error.message))
   }
 });
-
+*/
 
 server.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
