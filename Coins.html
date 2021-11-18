@@ -98,7 +98,7 @@ var LZString={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234
 		<div id="init-lacking">Your browser lacks required capabilities. Please upgrade it or switch to another to continue.</div>
 		<div id="init-loading"><div>Loading&hellip;</div></div>
 	</div>
-	<tw-storydata name="Coins" startnode="5" creator="Twine" creator-version="2.3.15" ifid="B6642567-EE35-472A-9113-82C3BBA28CD3" zoom="1" format="SugarCube" format-version="2.34.1" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css"></style><script role="script" id="twine-user-script" type="text/twine-javascript">importScripts([
+	<tw-storydata name="Coins" startnode="5" creator="Twine" creator-version="2.3.14" ifid="B6642567-EE35-472A-9113-82C3BBA28CD3" zoom="1" format="SugarCube" format-version="2.34.1" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css"></style><script role="script" id="twine-user-script" type="text/twine-javascript">importScripts([
 	'/socket.io/socket.io.js',
 	'static/axios/dist/axios.min.js',
 	'https://unpkg.com/redux@latest/dist/redux.min.js',
@@ -141,9 +141,16 @@ There are no more coins left in this room!
 &lt;&lt;/button&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
-&lt;button onclick=printVars()&gt;Print SugarCube &amp; Store&lt;/button&gt;</tw-passagedata><tw-passagedata pid="4" name=" Lobby" tags="" position="668,86" size="100,100"></tw-passagedata><tw-passagedata pid="5" name="INIT" tags="" position="950,110" size="100,100">&lt;&lt;set $room1coins to 0&gt;&gt;
-&lt;&lt;set $room2coins to 100&gt;&gt;
-
+&lt;button onclick=printVars()&gt;Print SugarCube &amp; Store&lt;/button&gt;</tw-passagedata><tw-passagedata pid="4" name=" Lobby" tags="" position="668,86" size="100,100"></tw-passagedata><tw-passagedata pid="5" name="INIT" tags="" position="950,110" size="100,100">&lt;&lt;if ($room1coins === undefined)&gt;&gt;
+	&lt;&lt;set $room1coins to 0&gt;&gt;
+&lt;&lt;else&gt;&gt;
+	&lt;&lt;set $room1coins = $room1coins&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+&lt;&lt;if ($room2coins ===undefined)&gt;&gt;
+	&lt;&lt;set $room2coins to 100&gt;&gt;
+&lt;&lt;else&gt;&gt;
+	&lt;&lt;set $room1coins = $room1coins&gt;&gt;
+&lt;&lt;/if&gt;&gt;
 Enter the [[Lobby]] 
 </tw-passagedata></tw-storydata>
 	<script id="script-sugarcube" type="text/javascript">

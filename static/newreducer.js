@@ -1,11 +1,28 @@
+var socket = io();
+
+socket.on('connect', () => {
+    console.log("CONNECT SOCKET ON", socket.id);
+    socket.emit('new user', socket.id);
+  })
+
+socket.on('new connection', (gstate) => {
+    console.log('CLIENT, getting server state', gstate);
+    store.dispatch({type: 'UPDATEGAME', payload: gstate})
+    store.dispatch({type: 'UPDATESTORE', payload: gstate})
+})
 function reducer(state, action){
     if(typeof state === 'undefined'){
         return {...state, ...SugarCube.State.variables}
     }
     switch(action.type){
-        case 'UPDATE':
-            console.log(action);
+        case 'UPDATESTORE':
+            console.log('Updating Store')
+            socket.emit('difference', {...state, ...action.payload})
             return {...state, ...action.payload}
+        case 'UPDATEGAME':
+            console.log('Updating Game');
+            updateSugarCubeState(SugarCube.State.variables, action.payload);
+            return
         default:
             return state
     }
@@ -20,7 +37,8 @@ function update(){
     printVars();
     let diff = difference(SugarCube.State.variables, store.getState());
     console.log("DIFF:", difference(SugarCube.State.variables, store.getState()));
-    store.dispatch({type: 'UPDATE', payload: diff});
+    store.dispatch({type: 'UPDATESTORE', payload: diff});
+    updateSugarCubeState(SugarCube.State.variables, store.getState());
 }
 
 function printVars(){
@@ -37,4 +55,11 @@ function difference(object, base) {
 		});
 	}
 	return changes(object, base);
+}
+
+function updateSugarCubeState(old_state, new_state) {
+    for (const [key, value] of Object.entries(new_state)) {
+        old_state[key] = value
+    }
+    SugarCube.Engine.show()
 }

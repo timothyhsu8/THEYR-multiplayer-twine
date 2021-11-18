@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const http = require("http")
 const server = http.createServer(app)
+const Redux = require('redux')
 const { Server } = require("socket.io");
 const io = new Server(server);
 const mongoose = require('mongoose');
@@ -29,11 +30,23 @@ app.get('/coins/', (req, res) => {
 
 // All socket.io related events
 io.on('connection', (socket) => {
-
+  let gstate = serverStore.getState();
+  console.log("GSTATE:", serverStore.getState());
   socket.on('check diff', (state) => {
     socket.broadcast.emit('check diff', state)  // socket.broadcast sends event to all clients except the sender
   })
 
+  socket.once('new user', (id) => {
+    console.log("SERVER RECEIVES NEW USER:", id);
+    if(typeof gstate !== 'undefined'){
+      socket.emit('new connection',gstate)
+    }
+  })
+
+  socket.on('difference', (state)=> {
+    serverStore.dispatch({type: 'UPDATE', payload: state})
+    console.log(serverStore.getState());
+  })
   // socket.on('chat message', (msg) => {
   //   io.emit('chat message', msg);
   // });
@@ -46,6 +59,16 @@ io.on('connection', (socket) => {
   // newUser.save()
 });
 
+function reducer(state, action){
+    switch(action.type){
+        case 'UPDATE':
+          return {...state, ...action.payload}
+        default:
+          return state
+    }
+}
+
+var serverStore = Redux.createStore(reducer);
 server.listen(PORT, () => {
   console.log(`Server listening at http://localhost:${PORT}`)
 })
