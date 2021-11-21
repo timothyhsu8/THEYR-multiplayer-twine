@@ -9,7 +9,8 @@
   "keywords": [
     "node",
     "docker",
-    "localdev"
+    "localdev",
+    "nodemon"
   ],
   "dependencies": {
     "axios": "^0.24.0",
