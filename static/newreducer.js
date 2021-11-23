@@ -3,6 +3,20 @@ var socket = io();
 socket.on('connect', () => {
     console.log("CONNECT SOCKET ON", socket.id);
     socket.emit('new user', socket.id);
+    if(window.localStorage.hasOwnProperty('userID')){ //checks if connected user has userID in localStorage
+        console.log("Brand New User has joined")
+    }
+    /*
+    We want to have User Objects added to the ServerStore/DB
+    TODO:
+    1: Edit the Twine story such that players can pick up coins = User={UserName, numberOfCoins}
+    2: When a player connects, the server checks if the User exists, if true, return their User data & game state, else return game state
+        a: Check thier localStorage for a UserID
+        b: Query the database for that UserID and return their User data
+    3: Each User(Client) will have their own User Object = {UserID, numberOfCoins} and the game state
+    4: The ServerStore will have an array of Users[], and the game state
+
+     */
   })
 
 socket.on('new connection', (gstate) => {
@@ -40,7 +54,7 @@ function update(){
     //console.log(store.getState());
     //console.log(difference(SugarCube.State.variables, store.getState()));
     //console.log("DIFF:" + diff);
-    printVars();
+    //printVars();
     let diff = difference(SugarCube.State.variables, store.getState());
     if(!_.isEqual(diff, store.getState)){
         console.log("DIFF:", difference(SugarCube.State.variables, store.getState()));

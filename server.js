@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 5000
 const CONNECTION_URL = 'mongodb+srv://timhsu:M3AMNhKlV0TyPscj@users.xnee2.mongodb.net/myFirstDatabase?'
 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/socket_game.html');
+  res.sendFile(__dirname + '/Coins.html');
 })
 
 app.get('/coins/', (req, res) => {
