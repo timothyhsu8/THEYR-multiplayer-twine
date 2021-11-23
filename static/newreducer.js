@@ -9,13 +9,15 @@ socket.on('connect', () => {
     /*
     We want to have User Objects added to the ServerStore/DB
     TODO:
-    1: Edit the Twine story such that players can pick up coins = User={UserName, numberOfCoins}
+    User has to be created in the Twine game first in a passage!
+    
+    1: Edit the Twine story such that players can pick up coins = User={UserID, numberOfCoins}
     2: When a player connects, the server checks if the User exists, if true, return their User data & game state, else return game state
         a: Check thier localStorage for a UserID
         b: Query the database for that UserID and return their User data
     3: Each User(Client) will have their own User Object = {UserID, numberOfCoins} and the game state
     4: The ServerStore will have an array of Users[], and the game state
-
+    5: 
      */
   })
 
