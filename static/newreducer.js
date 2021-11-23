@@ -10,6 +10,12 @@ socket.on('new connection', (gstate) => {
     store.dispatch({type: 'UPDATEGAME', payload: gstate})
     store.dispatch({type: 'UPDATESTORE', payload: gstate})
 })
+
+socket.on('difference', (state) => {
+    store.dispatch({type: 'UPDATEGAME', payload:state})
+    store.dispatch({type: 'UPDATESTORE', payload: state})
+})
+
 function reducer(state, action){
     if(typeof state === 'undefined'){
         return {...state, ...SugarCube.State.variables}
@@ -36,9 +42,11 @@ function update(){
     //console.log("DIFF:" + diff);
     printVars();
     let diff = difference(SugarCube.State.variables, store.getState());
-    console.log("DIFF:", difference(SugarCube.State.variables, store.getState()));
-    store.dispatch({type: 'UPDATESTORE', payload: diff});
-    updateSugarCubeState(SugarCube.State.variables, store.getState());
+    if(!_.isEqual(diff, store.getState)){
+        console.log("DIFF:", difference(SugarCube.State.variables, store.getState()));
+        store.dispatch({type: 'UPDATESTORE', payload: diff});
+        updateSugarCubeState(SugarCube.State.variables, store.getState());
+    }
 }
 
 function printVars(){

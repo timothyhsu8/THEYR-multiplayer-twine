@@ -41,7 +41,7 @@ io.on('connection', (socket) => {
   socket.on('difference', (state) => {
     serverStore.dispatch({type: 'UPDATE', payload: state})
     console.log(serverStore.getState());
-
+    socket.broadcast.emit('difference', state)
     // var query = {''}
 	
     updateMongoState(state)
