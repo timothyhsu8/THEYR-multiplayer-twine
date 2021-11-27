@@ -105,27 +105,40 @@ var LZString={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234
 	'https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js',
 	'static/newreducer.js'
 ])
-</script><tw-passagedata pid="1" name="Lobby" tags="" position="671,294" size="100,100">There are two rooms, one room has $room1coins coins, the other has $room2coins coins.
+</script><tw-passagedata pid="1" name="Lobby" tags="" position="668,294" size="100,100">There are two rooms, one room has $room1coins coins, the other has $room2coins coins.
 
 [[Room 1]] and [[Room 2]]
 
-&lt;button onclick=printVars()&gt;Print SugarCube &amp; Store&lt;/button&gt;</tw-passagedata><tw-passagedata pid="2" name="Room 1" tags="" position="574,445" size="100,100">There are &lt;&lt;print $room1coins&gt;&gt; coins in this room.
+&lt;button onclick=printVars()&gt;Print SugarCube &amp; Store&lt;/button&gt;
+
+&lt;button onclick=printUser()&gt; Print User &lt;/button&gt;
+
+&lt;&lt;script&gt;&gt;
+	console.log(user)
+&lt;&lt;/script&gt;&gt;</tw-passagedata><tw-passagedata pid="2" name="Room 1" tags="" position="489,501" size="100,100">There are &lt;&lt;print $room1coins&gt;&gt; coins in this room.
 
 [[Leave this room -&gt; Lobby]]
 
 &lt;&lt;if ($room1coins == 0)&gt;&gt;
 There are no more coins left in this room!
+
 &lt;&lt;else&gt;&gt;
 &lt;&lt;button &quot;Move 10 Coins to Room 2&quot;&gt;&gt;
-&lt;&lt;set $room1coins = $room1coins - 10&gt;&gt;
-&lt;&lt;set $room2coins = $room2coins + 10&gt;&gt;
-&lt;&lt;script&gt;&gt;update();&lt;&lt;/script&gt;&gt;
-&lt;&lt;goto &quot;Room 1&quot;&gt;&gt;
+  &lt;&lt;set $room1coins = $room1coins - 10&gt;&gt;
+  &lt;&lt;set $room2coins = $room2coins + 10&gt;&gt;
+  &lt;&lt;goto &quot;Room 1&quot;&gt;&gt;
 &lt;&lt;/button&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
+&lt;&lt;button &quot;Steal 10 Coins for yourself&quot;&gt;&gt;
+	&lt;&lt;script&gt;&gt;
+		user.coins += 10
+	&lt;&lt;/script&gt;&gt;
+	&lt;&lt;set $room1coins = $room1coins - 10&gt;&gt;
+&lt;&lt;/button&gt;&gt;
 
-&lt;button onclick=printVars()&gt;Print SugarCube &amp; Store&lt;/button&gt;</tw-passagedata><tw-passagedata pid="3" name="Room 2" tags="" position="741,444" size="100,100">There are &lt;&lt;print $room2coins&gt;&gt; coins in this room.
+
+&lt;button onclick=printVars()&gt;Print SugarCube &amp; Store&lt;/button&gt;</tw-passagedata><tw-passagedata pid="3" name="Room 2" tags="" position="809,497" size="100,100">There are &lt;&lt;print $room2coins&gt;&gt; coins in this room.
 
 [[Leave this room -&gt; Lobby]]
 
@@ -134,14 +147,20 @@ There are no more coins left in this room!
 &lt;&lt;else&gt;&gt;
 
 &lt;&lt;button &quot;Move 10 Coins to Room 1&quot;&gt;&gt;
-&lt;&lt;set $room1coins = $room1coins + 10&gt;&gt;
-&lt;&lt;set $room2coins = $room2coins - 10&gt;&gt;
-&lt;&lt;script&gt;&gt;update();&lt;&lt;/script&gt;&gt;
-&lt;&lt;goto &quot;Room 2&quot;&gt;&gt;
+	&lt;&lt;set $room1coins = $room1coins + 10&gt;&gt;
+	&lt;&lt;set $room2coins = $room2coins - 10&gt;&gt;
+	&lt;&lt;goto &quot;Room 2&quot;&gt;&gt;
 &lt;&lt;/button&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
-&lt;button onclick=printVars()&gt;Print SugarCube &amp; Store&lt;/button&gt;</tw-passagedata><tw-passagedata pid="4" name=" Lobby" tags="" position="668,86" size="100,100"></tw-passagedata><tw-passagedata pid="5" name="INIT" tags="" position="950,110" size="100,100">&lt;&lt;if ($room1coins === undefined)&gt;&gt;
+&lt;&lt;button &quot;Steal 10 Coins for yourself&quot;&gt;&gt;
+	&lt;&lt;script&gt;&gt;
+		user.coins += 10
+	&lt;&lt;/script&gt;&gt;
+	&lt;&lt;set $room2coins = $room2coins - 10&gt;&gt;
+&lt;&lt;/button&gt;&gt;
+
+&lt;button onclick=printVars()&gt;Print SugarCube &amp; Store&lt;/button&gt;</tw-passagedata><tw-passagedata pid="4" name=" Lobby" tags="" position="667,85" size="100,100"></tw-passagedata><tw-passagedata pid="5" name="INIT" tags="" position="947,110" size="100,100">&lt;&lt;if ($room1coins === undefined)&gt;&gt;
 	&lt;&lt;set $room1coins to 0&gt;&gt;
 &lt;&lt;else&gt;&gt;
 	&lt;&lt;set $room1coins = $room1coins&gt;&gt;
@@ -152,6 +171,7 @@ There are no more coins left in this room!
 	&lt;&lt;set $room1coins = $room1coins&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 Enter the [[Lobby]] 
+
 </tw-passagedata></tw-storydata>
 	<script id="script-sugarcube" type="text/javascript">
 	/*! SugarCube JS */

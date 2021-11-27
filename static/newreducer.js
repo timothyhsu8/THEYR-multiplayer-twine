@@ -1,11 +1,30 @@
 var socket = io();
 
+// State for this individual user
+var user = {
+    id: "id",
+    coins: 0
+}
+
 socket.on('connect', () => {
     console.log("CONNECT SOCKET ON", socket.id);
     socket.emit('new user', socket.id);
-    if(window.localStorage.hasOwnProperty('userID')){ //checks if connected user has userID in localStorage
-        console.log("Brand New User has joined")
+    // if(window.localStorage.hasOwnProperty('userID')){ //checks if connected user has userID in localStorage
+    //     console.log("Brand New User has joined")
+    // }
+
+    // If this is the first time a user is connecting, assign them a userId in local storage
+    if (localStorage.getItem('userId') === null){
+        localStorage.setItem('userId', socket.id)
+        
+        // TODO: Create new user in the database
     }
+
+    // Returning user
+    else {
+        // TODO: Use userId to get correct user state from database
+    }
+
     /*
     We want to have User Objects added to the ServerStore/DB
     TODO:
@@ -43,7 +62,7 @@ function reducer(state, action){
             return {...state, ...action.payload}
         case 'UPDATEGAME':
             console.log('Updating Game');
-            updateSugarCubeState(SugarCube.State.variables, action.payload);
+            updateSugarCubeState(action.payload);
             return
         default:
             return state
@@ -52,16 +71,15 @@ function reducer(state, action){
 
 var store = Redux.createStore(reducer);
 
+setInterval(update, 100)    // Check for differences and send a socket event to the server with your current state if differences are found 
+
 function update(){
-    //console.log(store.getState());
-    //console.log(difference(SugarCube.State.variables, store.getState()));
-    //console.log("DIFF:" + diff);
-    //printVars();
-    let diff = difference(SugarCube.State.variables, store.getState());
-    if(!_.isEqual(diff, store.getState)){
+    // If differences between SugarCube state and store detected, update your store and the other clients
+    if(!_.isEqual(SugarCube.State.variables, store.getState())){
+        let diff = difference(SugarCube.State.variables, store.getState());
         console.log("DIFF:", difference(SugarCube.State.variables, store.getState()));
         store.dispatch({type: 'UPDATESTORE', payload: diff});
-        updateSugarCubeState(SugarCube.State.variables, store.getState());
+        updateSugarCubeState(store.getState());
     }
 }
 
@@ -81,9 +99,13 @@ function difference(object, base) {
 	return changes(object, base);
 }
 
-function updateSugarCubeState(old_state, new_state) {
+function updateSugarCubeState(new_state) {
     for (const [key, value] of Object.entries(new_state)) {
-        old_state[key] = value
+        SugarCube.State.variables[key] = value
     }
     SugarCube.Engine.show()
+}
+
+function printUser() {
+    console.log(user)
 }

@@ -12,6 +12,7 @@ app.use("/static", express.static('./static/'));
 
 const PORT = process.env.PORT || 5000
 const CONNECTION_URL = 'mongodb+srv://timhsu:M3AMNhKlV0TyPscj@users.xnee2.mongodb.net/myFirstDatabase?'
+// const CONNECTION_URL = 'mongodb://database:27017/mean'
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/Coins.html');
@@ -26,10 +27,6 @@ io.on('connection', (socket) => {
   mongoose.connect(CONNECTION_URL, { useNewUrlparser: true, useUnifiedTopology: true })
   let gstate = serverStore.getState();
   console.log("GSTATE:", serverStore.getState());
-
-  socket.on('check diff', (state) => {
-    socket.broadcast.emit('check diff', state)  // socket.broadcast sends event to all clients except the sender
-  })
 
   socket.once('new user', (id) => {
     console.log("SERVER RECEIVES NEW USER:", id);
