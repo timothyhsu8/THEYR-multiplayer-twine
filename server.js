@@ -7,12 +7,21 @@ const { Server } = require("socket.io");
 const io = new Server(server);
 const mongoose = require('mongoose');
 const MongoState = require('./MongoStateSchema');
+const User = require('./UserSchema')
 
 app.use("/static", express.static('./static/'));
 
 const PORT = process.env.PORT || 5000
 const CONNECTION_URL = 'mongodb+srv://timhsu:M3AMNhKlV0TyPscj@users.xnee2.mongodb.net/myFirstDatabase?'
 // const CONNECTION_URL = 'mongodb://database:27017/mean'
+
+mongoose.connect(CONNECTION_URL, function(error) {
+  if (error) {
+    console.log(error)
+  }
+  
+  console.log('Database state is ' + mongoose.connection.readyState)
+})
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/Coins.html');
@@ -24,24 +33,45 @@ app.get('/coins/', (req, res) => {
 
 // All socket.io related events
 io.on('connection', (socket) => {
-  mongoose.connect(CONNECTION_URL, { useNewUrlparser: true, useUnifiedTopology: true })
   let gstate = serverStore.getState();
   console.log("GSTATE:", serverStore.getState());
 
+  // User connects 
   socket.once('new user', (id) => {
     console.log("SERVER RECEIVES NEW USER:", id);
-    if(typeof gstate !== 'undefined'){
-      socket.emit('new connection',gstate)
+    if (typeof gstate !== 'undefined'){
+      socket.emit('new connection', gstate)
     }
   })
 
+  // Difference found in SugarCube State, update all clients
   socket.on('difference', (state) => {
     serverStore.dispatch({type: 'UPDATE', payload: state})
     console.log(serverStore.getState());
     socket.broadcast.emit('difference', state)
     // var query = {''}
-	
+
     updateMongoState(state)
+  })
+
+
+  // Client connects for the first time, create a new user for them in Mongo and send it back to the client
+  socket.on('create new user', (socketId) => {
+    createUser(socketId).then((userData) => {
+      io.to(socketId).emit('obtain user state', userData)
+    })
+  })
+
+
+  // Client is returning, retrieve their user information from Mongo
+  socket.on('retrieve user state', (clientInfo) => {
+    let socketId = clientInfo.socketId
+    let userId = clientInfo.userId
+
+    // Retrieve user data and send it to the client who requested it
+    retrieveUser(userId).then((userData) => {
+      io.to(socketId).emit('obtain user state', userData)
+    })
   })
 });
 
@@ -79,6 +109,32 @@ async function updateMongoState(state) {
 	} catch (err) {
 		throw new Error(err)
 	}
+}
+
+// Client connects for the first time, create a new user for them in Mongo
+async function createUser(socketId) {
+  const newUser = new User({
+    userId: socketId,
+    variables: {
+      userId: socketId,
+      coins: 0
+    }
+  })
+
+  newUser.save()
+  return newUser.variables
+}
+
+
+// Client is returning, retrieve their user information from Mongo
+async function retrieveUser(userId) {
+  try {
+    const user = await User.findOne({ userId: userId })
+    return user.variables
+  } 
+  catch (err) {
+    throw new Error(err)
+  }
 }
 
 var serverStore = Redux.createStore(reducer);

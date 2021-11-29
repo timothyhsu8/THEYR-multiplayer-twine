@@ -1,28 +1,22 @@
 var socket = io();
 
 // State for this individual user
-var user = {
-    id: "id",
-    coins: 0
-}
+var user = {}
 
 socket.on('connect', () => {
     console.log("CONNECT SOCKET ON", socket.id);
     socket.emit('new user', socket.id);
-    // if(window.localStorage.hasOwnProperty('userID')){ //checks if connected user has userID in localStorage
-    //     console.log("Brand New User has joined")
-    // }
 
     // If this is the first time a user is connecting, assign them a userId in local storage
-    if (localStorage.getItem('userId') === null){
-        localStorage.setItem('userId', socket.id)
-        
-        // TODO: Create new user in the database
+    if (localStorage.getItem('userId') === null) {
+        localStorage.setItem('userId', socket.id);
+
+        socket.emit('create new user', socket.id);
     }
 
-    // Returning user
+    // Returning user, get correct user state from database
     else {
-        // TODO: Use userId to get correct user state from database
+        socket.emit('retrieve user state', {socketId: socket.id, userId: localStorage.getItem('userId')});
     }
 
     /*
@@ -49,6 +43,11 @@ socket.on('new connection', (gstate) => {
 socket.on('difference', (state) => {
     store.dispatch({type: 'UPDATEGAME', payload:state})
     store.dispatch({type: 'UPDATESTORE', payload: state})
+})
+
+// Retrieves user state from the server
+socket.on('obtain user state', (state) => {
+    user = state
 })
 
 function reducer(state, action){
