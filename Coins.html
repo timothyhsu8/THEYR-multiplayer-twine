@@ -98,7 +98,12 @@ var LZString={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234
 		<div id="init-lacking">Your browser lacks required capabilities. Please upgrade it or switch to another to continue.</div>
 		<div id="init-loading"><div>Loading&hellip;</div></div>
 	</div>
-	<tw-storydata name="Coins" startnode="5" creator="Twine" creator-version="2.3.14" ifid="B6642567-EE35-472A-9113-82C3BBA28CD3" zoom="1" format="SugarCube" format-version="2.34.1" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css"></style><script role="script" id="twine-user-script" type="text/twine-javascript">importScripts([
+	<tw-storydata name="Coins" startnode="6" creator="Twine" creator-version="2.3.15" ifid="B6642567-EE35-472A-9113-82C3BBA28CD3" zoom="1" format="SugarCube" format-version="2.34.1" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">.passage{
+  transition-property: none;
+}
+.transition-out{
+  display: none;
+}</style><script role="script" id="twine-user-script" type="text/twine-javascript">importScripts([
 	'/socket.io/socket.io.js',
 	'static/axios/dist/axios.min.js',
 	'https://unpkg.com/redux@latest/dist/redux.min.js',
@@ -160,7 +165,7 @@ There are no more coins left in this room!
 	&lt;&lt;set $room2coins = $room2coins - 10&gt;&gt;
 &lt;&lt;/button&gt;&gt;
 
-&lt;button onclick=printVars()&gt;Print SugarCube &amp; Store&lt;/button&gt;</tw-passagedata><tw-passagedata pid="4" name=" Lobby" tags="" position="667,85" size="100,100"></tw-passagedata><tw-passagedata pid="5" name="INIT" tags="" position="947,110" size="100,100">&lt;&lt;if ($room1coins === undefined)&gt;&gt;
+&lt;button onclick=printVars()&gt;Print SugarCube &amp; Store&lt;/button&gt;</tw-passagedata><tw-passagedata pid="4" name=" Lobby" tags="" position="667,85" size="100,100"></tw-passagedata><tw-passagedata pid="5" name="Begin" tags="" position="989,82" size="100,100">&lt;&lt;if ($room1coins === undefined)&gt;&gt;
 	&lt;&lt;set $room1coins to 0&gt;&gt;
 &lt;&lt;else&gt;&gt;
 	&lt;&lt;set $room1coins = $room1coins&gt;&gt;
@@ -171,6 +176,10 @@ There are no more coins left in this room!
 	&lt;&lt;set $room1coins = $room1coins&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 Enter the [[Lobby]] 
+
+</tw-passagedata><tw-passagedata pid="6" name="Login" tags="" position="1170.5,104" size="100,100">&lt;&lt;set $users = {}&gt;&gt;
+&lt;&lt;set $users[$userId] = {}&gt;&gt;
+Your name is &lt;&lt;textbox &quot;$users[$userId][&#39;name&#39;]&quot; &quot;Your Name&quot; &quot;Begin&quot; autofocus&gt;&gt;
 
 </tw-passagedata></tw-storydata>
 	<script id="script-sugarcube" type="text/javascript">

@@ -10,13 +10,15 @@ socket.on('connect', () => {
     // If this is the first time a user is connecting, assign them a userId in local storage
     if (localStorage.getItem('userId') === null) {
         localStorage.setItem('userId', socket.id);
-
+        SugarCube.State.setVar('$userId', socket.id);
         socket.emit('create new user', socket.id);
     }
 
     // Returning user, get correct user state from database
     else {
-        socket.emit('retrieve user state', {socketId: socket.id, userId: localStorage.getItem('userId')});
+        let userId = localStorage.getItem('userId')
+        SugarCube.State.setVar('$userId', userId);
+        socket.emit('retrieve user state', {socketId: socket.id, userId: userId});
     }
 
     /*
