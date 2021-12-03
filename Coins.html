@@ -98,11 +98,8 @@ var LZString={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234
 		<div id="init-lacking">Your browser lacks required capabilities. Please upgrade it or switch to another to continue.</div>
 		<div id="init-loading"><div>Loading&hellip;</div></div>
 	</div>
-	<tw-storydata name="Coins" startnode="6" creator="Twine" creator-version="2.3.15" ifid="B6642567-EE35-472A-9113-82C3BBA28CD3" zoom="1" format="SugarCube" format-version="2.34.1" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">.passage{
-  transition-property: none;
-}
-.transition-out{
-  display: none;
+	<tw-storydata name="Coins" startnode="6" creator="Twine" creator-version="2.3.14" ifid="B6642567-EE35-472A-9113-82C3BBA28CD3" zoom="1" format="SugarCube" format-version="2.34.1" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">.passage-in {
+	opacity: 1;
 }</style><script role="script" id="twine-user-script" type="text/twine-javascript">importScripts([
 	'/socket.io/socket.io.js',
 	'static/axios/dist/axios.min.js',
@@ -177,7 +174,7 @@ There are no more coins left in this room!
 &lt;&lt;/if&gt;&gt;
 Enter the [[Lobby]] 
 
-</tw-passagedata><tw-passagedata pid="6" name="Login" tags="" position="1170.5,104" size="100,100">Your name is &lt;&lt;textbox &quot;$users[$userId][&#39;name&#39;]&quot; &quot;Your Name&quot; &quot;Begin&quot; autofocus&gt;&gt;</tw-passagedata><tw-passagedata pid="7" name="PassageHeader" tags="" position="1115.5,245.5" size="100,100">&lt;&lt;set $users[$userId].lastSeen = new Date().getTime()&gt;&gt;
+</tw-passagedata><tw-passagedata pid="6" name="Login" tags="" position="1170,104" size="100,100">Your name is &lt;&lt;textbox &quot;$users[$userId][&#39;name&#39;]&quot; &quot;Your Name&quot; &quot;Begin&quot; autofocus&gt;&gt;</tw-passagedata><tw-passagedata pid="7" name="PassageHeader" tags="" position="1115,245" size="100,100">&lt;&lt;set $users[$userId].lastSeen = new Date().getTime()&gt;&gt;
 &lt;div id = &#39;loggedIn&#39;&gt;
 	&lt;&lt;script&gt;&gt;
 		let users = State.getVar(&#39;$users&#39;)
@@ -191,7 +188,7 @@ Enter the [[Lobby]]
 		console.log(currentUsers)
 		$(output).wiki(currentUsers.join(&#39;,&#39;))
 	&lt;&lt;/script&gt;&gt;
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="8" name="StoryInit" tags="" position="999.5,243.5" size="100,100">&lt;&lt;set $users = {}&gt;&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="8" name="StoryInit" tags="" position="999,243" size="100,100">&lt;&lt;set $users = {}&gt;&gt;
 &lt;&lt;set $users[$userId] = {}&gt;&gt;</tw-passagedata></tw-storydata>
 	<script id="script-sugarcube" type="text/javascript">
 	/*! SugarCube JS */
