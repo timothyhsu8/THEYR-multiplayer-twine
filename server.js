@@ -36,20 +36,21 @@ io.on('connection', (socket) => {
 
 		// If server has global state, send it to the user
 		if (typeof gstate !== 'undefined') {
-			socket.emit('new connection', gstate)
+			io.to(id).emit('new connection', gstate)
 		}
 
 		// If server does not have the global state, retrieve it from MongoDB and send it to the user
 		else {
 			console.log("Retrieving state from mongo")
 			retrieveMongoState().then((mongoState) => {
-				io.to(id).emit('difference', mongoState.state)
+				io.to(id).emit('new connection', mongoState.state)
 			})
 		}
 	})
 
 	// Difference found in SugarCube State, update all clients and MongoDB
 	socket.on('difference', (state) => {
+		delete state['userId']	// Removes userId from the global state (Prevents users overriding each other's userId variables)
 		serverStore.dispatch({ type: 'UPDATE', payload: state })
 		socket.broadcast.emit('difference', state)
 
@@ -90,7 +91,9 @@ async function retrieveMongoState() {
 	if (mongoState === null) {
 		console.log("Initializing Mongo State")
 		let newState = new MongoState({
-			state: {}
+			state: {
+				users: {}
+			}
 		})
 		newState.save()
 		return newState
