@@ -1,10 +1,10 @@
 var socket = io();
 
 // State for this individual user
-var user = {}
+// var user = {}
 
 socket.on('connect', () => {
-    console.log("CONNECT SOCKET ON", socket.id);
+    // console.log("CONNECT SOCKET ON", socket.id);
     socket.emit('new user', socket.id);
 
     // If this is the first time a user is connecting, assign them a userId in local storage
@@ -20,24 +20,10 @@ socket.on('connect', () => {
         SugarCube.State.setVar('$userId', userId);
         socket.emit('retrieve user state', {socketId: socket.id, userId: userId});
     }
-
-    /*
-    We want to have User Objects added to the ServerStore/DB
-    TODO:
-    User has to be created in the Twine game first in a passage!
-    
-    1: Edit the Twine story such that players can pick up coins = User={UserID, numberOfCoins}
-    2: When a player connects, the server checks if the User exists, if true, return their User data & game state, else return game state
-        a: Check thier localStorage for a UserID
-        b: Query the database for that UserID and return their User data
-    3: Each User(Client) will have their own User Object = {UserID, numberOfCoins} and the game state
-    4: The ServerStore will have an array of Users[], and the game state
-    5: 
-     */
   })
 
 socket.on('new connection', (gstate) => {
-    console.log('CLIENT, getting server state', gstate);
+    // console.log('CLIENT, getting server state', gstate);
     store.dispatch({type: 'UPDATEGAME', payload: gstate})
     store.dispatch({type: 'UPDATESTORE', payload: gstate})
 })
@@ -108,5 +94,7 @@ function updateSugarCubeState(new_state) {
 }
 
 function printUser() {
-    console.log(user)
+    const userId = SugarCube.State.variables.userId
+    console.log(`User is ${userId}`)
+    console.log(SugarCube.State.variables.users[userId])
 }

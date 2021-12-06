@@ -174,7 +174,10 @@ There are no more coins left in this room!
 &lt;&lt;/if&gt;&gt;
 Enter the [[Lobby]] 
 
-</tw-passagedata><tw-passagedata pid="6" name="Login" tags="" position="1170,104" size="100,100">Your name is &lt;&lt;textbox &quot;$users[$userId][&#39;name&#39;]&quot; &quot;Your Name&quot; &quot;Begin&quot; autofocus&gt;&gt;</tw-passagedata><tw-passagedata pid="7" name="PassageHeader" tags="" position="1115,245" size="100,100">&lt;&lt;set $users[$userId].lastSeen = new Date().getTime()&gt;&gt;
+</tw-passagedata><tw-passagedata pid="6" name="Login" tags="" position="1168,111" size="100,100">Your name is &lt;&lt;textbox &quot;$users[$userId][&#39;name&#39;]&quot; &quot;Your Name&quot; &quot;Begin&quot; autofocus&gt;&gt;</tw-passagedata><tw-passagedata pid="7" name="PassageHeader" tags="" position="1111,244" size="100,100">/* Set current user&#39;s Last Seen status to the current time */
+&lt;&lt;set $users[$userId].lastSeen = new Date().getTime()&gt;&gt;
+
+/* Find users who have been active in the last 5 minutes and add them to the user list */
 &lt;div id = &#39;loggedIn&#39;&gt;
 	&lt;&lt;script&gt;&gt;
 		let users = State.getVar(&#39;$users&#39;)
@@ -188,7 +191,9 @@ Enter the [[Lobby]]
 		console.log(currentUsers)
 		$(output).wiki(currentUsers.join(&#39;,&#39;))
 	&lt;&lt;/script&gt;&gt;
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="8" name="StoryInit" tags="" position="999,243" size="100,100">&lt;&lt;set $users = {}&gt;&gt;
+&lt;/div&gt;
+
+/*&lt;button onclick=printVars()&gt;Print SugarCube &amp; Store&lt;/button&gt;*/</tw-passagedata><tw-passagedata pid="8" name="StoryInit" tags="" position="997,241" size="100,100">&lt;&lt;set $users = {}&gt;&gt;
 &lt;&lt;set $users[$userId] = {}&gt;&gt;</tw-passagedata></tw-storydata>
 	<script id="script-sugarcube" type="text/javascript">
 	/*! SugarCube JS */
