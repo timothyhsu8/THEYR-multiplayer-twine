@@ -1,8 +1,6 @@
 var socket = io();
 
-// State for this individual user
-// var user = {}
-
+// User connects
 socket.on('connect', () => {
     // console.log("CONNECT SOCKET ON", socket.id);
     socket.emit('new user', socket.id);
@@ -11,16 +9,14 @@ socket.on('connect', () => {
     if (localStorage.getItem('userId') === null) {
         localStorage.setItem('userId', socket.id);
         SugarCube.State.setVar('$userId', socket.id);
-        socket.emit('create new user', socket.id);
     }
 
     // Returning user, get correct user state from database
     else {
         let userId = localStorage.getItem('userId')
         SugarCube.State.setVar('$userId', userId);
-        socket.emit('retrieve user state', {socketId: socket.id, userId: userId});
     }
-  })
+})
 
 socket.on('new connection', (gstate) => {
     // console.log('CLIENT, getting server state', gstate);
@@ -28,14 +24,10 @@ socket.on('new connection', (gstate) => {
     store.dispatch({type: 'UPDATESTORE', payload: gstate})
 })
 
+// Incoming difference, update your state and store
 socket.on('difference', (state) => {
     store.dispatch({type: 'UPDATEGAME', payload:state})
     store.dispatch({type: 'UPDATESTORE', payload: state})
-})
-
-// Retrieves user state from the server
-socket.on('obtain user state', (state) => {
-    user = state
 })
 
 function reducer(state, action){

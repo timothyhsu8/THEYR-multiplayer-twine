@@ -7,7 +7,6 @@ const { Server } = require("socket.io");
 const io = new Server(server);
 const mongoose = require('mongoose');
 const MongoState = require('./MongoStateSchema');
-const User = require('./UserSchema')
 
 app.use("/static", express.static('./static/'));
 
@@ -56,26 +55,6 @@ io.on('connection', (socket) => {
 
 		updateMongoState(state)
 	})
-
-
-	// Client connects for the first time, create a new user for them in Mongo and send it back to the client
-	socket.on('create new user', (socketId) => {
-		createUser(socketId).then((userData) => {
-			io.to(socketId).emit('obtain user state', userData)
-		})
-	})
-
-
-	// Client is returning, retrieve their user information from Mongo
-	socket.on('retrieve user state', (clientInfo) => {
-		let socketId = clientInfo.socketId
-		let userId = clientInfo.userId
-
-		// Retrieve user data and send it to the client who requested it
-		retrieveUser(userId).then((userData) => {
-			io.to(socketId).emit('obtain user state', userData)
-		})
-	})
 });
 
 function reducer(state, action) {
@@ -91,23 +70,12 @@ function reducer(state, action) {
 async function updateMongoState(state) {
 	try {
 		let oldMongoState = await MongoState.findOne()
-
-		// If the state in MongoDB has never been set before, create it
-		if (oldMongoState === null) {
-			let newState = new MongoState({
-				state: state
-			})
-			newState.save()
+		
+		const updatedState = {
+			state: state
 		}
 
-		// If the state in MongoDB already exists, update it
-		else {
-			const updatedState = {
-				state: state
-			}
-
-			await MongoState.findByIdAndUpdate(oldMongoState._id, updatedState)
-		}
+		await MongoState.findByIdAndUpdate(oldMongoState._id, updatedState)		
 
 	} catch (err) {
 		throw new Error(err)
@@ -120,8 +88,9 @@ async function retrieveMongoState() {
 
 	// If the state in MongoDB has never been set before, create it
 	if (mongoState === null) {
+		console.log("Initializing Mongo State")
 		let newState = new MongoState({
-			state: state
+			state: {}
 		})
 		newState.save()
 		return newState
@@ -130,32 +99,6 @@ async function retrieveMongoState() {
 	return mongoState
 }
 
-
-// Client connects for the first time, create a new user for them in Mongo
-async function createUser(socketId) {
-	const newUser = new User({
-		userId: socketId,
-		variables: {
-			userId: socketId,
-			coins: 0
-		}
-	})
-
-	newUser.save()
-	return newUser.variables
-}
-
-
-// Client is returning, retrieve their user information from Mongo
-async function retrieveUser(userId) {
-	try {
-		const user = await User.findOne({ userId: userId })
-		return user.variables
-	}
-	catch (err) {
-		throw new Error(err)
-	}
-}
 
 var serverStore = Redux.createStore(reducer);
 server.listen(PORT, () => {
