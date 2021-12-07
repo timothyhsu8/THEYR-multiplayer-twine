@@ -61,6 +61,7 @@ function reducer(state, action){
         case 'UPDATESTORE':
             console.log('Updating Store and Other Clients')
             socket.emit('difference', {...state, ...action.payload})
+            SugarCube.Engine.show()
             return {...state, ...action.payload}
         case 'UPDATEGAME':
             console.log('Updating Game');
@@ -81,8 +82,9 @@ function update() {
     // If differences between SugarCube state and store detected, update your store and the other clients
     if(!_.isEqual(SugarCube.State.variables, store.getState())){
         let diff = difference(SugarCube.State.variables, store.getState());
-        store.dispatch({type: 'UPDATESTORE', payload: diff});
-        console.log("diff detected:", store.getState())
+        console.log("diff detected:", diff)
+        store.dispatch({type: 'UPDATESTORE', payload: SugarCube.State.variables});
+        // store.dispatch({type: 'UPDATESTORE', payload: diff});    // Old dispatch call (Was being buggy, we can test it on tuesday)
         // updateSugarCubeState(store.getState());
     }
 }

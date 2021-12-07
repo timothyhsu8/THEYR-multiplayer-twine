@@ -113,7 +113,7 @@ var LZString={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234
 
 &lt;button onclick=printVars()&gt;Print SugarCube &amp; Store&lt;/button&gt;
 
-&lt;button onclick=printUser()&gt; Print User &lt;/button&gt;</tw-passagedata><tw-passagedata pid="2" name="Room 1" tags="" position="489,501" size="100,100">There are &lt;&lt;print $room1coins&gt;&gt; coins in this room.
+&lt;button onclick=printUser()&gt; Print User &lt;/button&gt;</tw-passagedata><tw-passagedata pid="2" name="Room 1" tags="" position="490,501" size="100,100">There are &lt;&lt;print $room1coins&gt;&gt; coins in this room.
 
 [[Leave this room -&gt; Lobby]]
 
@@ -136,8 +136,11 @@ There are no more coins left in this room!
 &lt;&lt;/button&gt;&gt;
 
 
-&lt;button onclick=printVars()&gt;Print SugarCube &amp; Store&lt;/button&gt;</tw-passagedata><tw-passagedata pid="3" name="Room 2" tags="" position="804,500" size="100,100">There are &lt;&lt;print $room2coins&gt;&gt; coins in this room.
-
+&lt;button onclick=printVars()&gt;Print SugarCube &amp; Store&lt;/button&gt;</tw-passagedata><tw-passagedata pid="3" name="Room 2" tags="" position="803,500" size="100,100">There are &lt;&lt;print $room2coins&gt;&gt; coins in this room.
+	&lt;&lt;if ndef $users[$userId][&quot;coins&quot;]&gt;&gt;
+	&lt;&lt;set $users[$userId][&quot;coins&quot;]=0&gt;&gt;
+	&lt;&lt;/if&gt;&gt;
+You have &lt;&lt;print $users[$userId][&quot;coins&quot;]&gt;&gt; coins
 [[Leave this room -&gt; Lobby]]
 
 &lt;&lt;if ($room2coins == 0)&gt;&gt;
@@ -152,12 +155,8 @@ There are no more coins left in this room!
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;button &quot;Steal 10 Coins for yourself&quot;&gt;&gt;
-	&lt;&lt;script&gt;&gt;
-		let userId = State.getVar(&#39;$userId&#39;)
-		let users = State.getVar(&#39;$users&#39;)
-		users[userId].coins += 10
-	&lt;&lt;/script&gt;&gt;
-	/* &lt;&lt;set $room2coins = $room2coins - 10&gt;&gt; */
+	&lt;&lt;set $users[$userId][&quot;coins&quot;] += 10&gt;&gt;
+ 	/*&lt;&lt;set $room2coins = $room2coins - 10&gt;&gt;*/
 &lt;&lt;/button&gt;&gt;
 
 &lt;button onclick=printVars()&gt;Print SugarCube &amp; Store&lt;/button&gt;</tw-passagedata><tw-passagedata pid="4" name=" Lobby" tags="" position="667,85" size="100,100"></tw-passagedata><tw-passagedata pid="5" name="Begin" tags="" position="987,83" size="100,100">&lt;&lt;if ($room1coins === undefined)&gt;&gt;
@@ -172,7 +171,7 @@ There are no more coins left in this room!
 &lt;&lt;/if&gt;&gt;
 Enter the [[Lobby]] 
 
-</tw-passagedata><tw-passagedata pid="6" name="Login" tags="" position="1168,111" size="100,100">Your name is &lt;&lt;textbox &quot;$users[$userId][&#39;name&#39;]&quot; &quot;Your Name&quot; &quot;Begin&quot; autofocus&gt;&gt;</tw-passagedata><tw-passagedata pid="7" name="PassageHeader" tags="" position="1103,241" size="100,100">/* Set current user&#39;s Last Seen status to the current time */
+</tw-passagedata><tw-passagedata pid="6" name="Login" tags="" position="1167,111" size="100,100">Your name is &lt;&lt;textbox &quot;$users[$userId][&#39;name&#39;]&quot; &quot;Your Name&quot; &quot;Begin&quot; autofocus&gt;&gt;</tw-passagedata><tw-passagedata pid="7" name="PassageHeader" tags="" position="1102,241" size="100,100">/* Set current user&#39;s Last Seen status to the current time */
 /*&lt;&lt;set $users[$userId].lastSeen = new Date().getTime()&gt;&gt;*/
 
 /* Find users who have been active in the last 5 minutes and add them to the user list */
