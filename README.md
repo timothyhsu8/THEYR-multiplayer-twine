@@ -44,5 +44,7 @@ git push heroku master
 ```
 
 ## Authors
-[@Alex Lau](alexlau347@gmail.com)(https://github.com/meetAlexLau)
-[@Timothy Hsu](https://github.com/timothyhsu8)
+- [@Alex Lau](https://github.com/meetAlexLau)
+    - alexlau347@gmail.com
+- [@Timothy Hsu](https://github.com/timothyhsu8)
+    - timothy.hsu@stonybrook.edu
