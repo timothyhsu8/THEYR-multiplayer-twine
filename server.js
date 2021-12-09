@@ -11,19 +11,17 @@ const MongoState = require('./MongoStateSchema');
 app.use("/static", express.static('./static/'));
 
 const PORT = process.env.PORT || 5000
-const CONNECTION_URL = 'mongodb+srv://timhsu:M3AMNhKlV0TyPscj@users.xnee2.mongodb.net/myFirstDatabase?'
-// const CONNECTION_URL = 'mongodb://database:27017/mean'
+const CONNECTION_URL = 'mongodb+srv://timhsu:M3AMNhKlV0TyPscj@users.xnee2.mongodb.net/myFirstDatabase?'	// **REPLACE WITH YOUR OWN MONGODB ATLAS URL
 
 mongoose.connect(CONNECTION_URL, function (error) {
 	if (error) {
 		console.log(error)
 	}
-
 	console.log('Database state is ' + mongoose.connection.readyState)
 })
 
 app.get('/', (req, res) => {
-	res.sendFile(__dirname + '/Coins.html');
+	res.sendFile(__dirname + '/MultiplayerTemplate.html');	// Replace with Coins.html if you want to try our example
 })
 
 // All socket.io related events
