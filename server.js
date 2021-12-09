@@ -13,6 +13,7 @@ app.use("/static", express.static('./static/'));
 const PORT = process.env.PORT || 5000
 const CONNECTION_URL = 'mongodb+srv://timhsu:M3AMNhKlV0TyPscj@users.xnee2.mongodb.net/myFirstDatabase?'	// **REPLACE WITH YOUR OWN MONGODB ATLAS URL
 
+// Connect to MongoDB Database
 mongoose.connect(CONNECTION_URL, function (error) {
 	if (error) {
 		console.log(error)
@@ -56,6 +57,7 @@ io.on('connection', (socket) => {
 	})
 });
 
+// Reducer that updates the server store whenever a client updates the game state
 function reducer(state, action) {
 	switch (action.type) {
 		case 'UPDATE':

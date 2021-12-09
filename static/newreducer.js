@@ -2,7 +2,6 @@ var socket = io();
 
 // User connects, asks server for game state
 socket.on('connect', () => {
-    // console.log("CONNECT SOCKET ON", socket.id);
     socket.emit('new user', socket.id);
 })
 
@@ -53,6 +52,7 @@ socket.on('difference', (state) => {
     store.dispatch({type: 'UPDATESTORE', payload: state})
 })
 
+// Reducer to update your store and send the difference to all other clients
 function reducer(state, action){
     if(typeof state === 'undefined'){
         return {...state, ...SugarCube.State.variables}
@@ -76,28 +76,24 @@ var store = Redux.createStore(reducer);
 
 setInterval(update, 100)    // Check for differences and send a socket event to the server with your current state if differences are found 
 
+// Checks for changes between SugarCube State and Store, update other clients if difference is detected
 function update() {
-    // delete SugarCube.State.variables.users[undefined]
-
     // If differences between SugarCube state and store detected, update your store and the other clients
     if(!_.isEqual(SugarCube.State.variables, store.getState())){
         let diff = difference(SugarCube.State.variables, store.getState());
         console.log("diff detected:", diff)
         store.dispatch({type: 'UPDATESTORE', payload: SugarCube.State.variables});
-        // store.dispatch({type: 'UPDATESTORE', payload: diff});    // Old dispatch call (Was being buggy, we can test it on tuesday)
-        // updateSugarCubeState(store.getState());
+        // store.dispatch({type: 'UPDATESTORE', payload: diff});    // Old dispatch call
     }
 }
 
-function forceUpdate() {
-    
-}
-
+// Print SugarCube State and Store
 function printVars(){
     console.log("STORE:", store.getState());
     console.log("SUGARCUBE:", SugarCube.State.variables);
 }
 
+// Finds the difference between 2 different objects (Used to compare SugarCube State and Store)
 function difference(object, base) {
 	function changes(object, base) {
 		return _.transform(object, function(result, value, key) {
@@ -109,6 +105,7 @@ function difference(object, base) {
 	return changes(object, base);
 }
 
+// Updates client's SugarCube State when state changes are received from the server
 function updateSugarCubeState(new_state) {
     for (const [key, value] of Object.entries(new_state)) {
         SugarCube.State.variables[key] = value
@@ -116,6 +113,7 @@ function updateSugarCubeState(new_state) {
     SugarCube.Engine.show()
 }
 
+// Prints User information in the console
 function printUser() {
     const userId = SugarCube.State.variables.userId
     console.log(`User is ${userId}`)
