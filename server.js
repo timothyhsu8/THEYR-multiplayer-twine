@@ -22,7 +22,7 @@ mongoose.connect(CONNECTION_URL, function (error) {
 })
 
 app.get('/', (req, res) => {
-	res.sendFile(__dirname + '/MultiplayerTemplate.html');	// Replace with Coins.html if you want to try our example
+	res.sendFile(__dirname + '/index.html');	// Replace with Coins.html if you want to try our example
 })
 
 // All socket.io related events

@@ -4,6 +4,7 @@
   "main": "app.js",
   "scripts": {
     "start": "nodemon server.js",
+    "dev": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -19,5 +20,8 @@
     "nodemon": "^2.0.15",
     "redux": "^4.1.2",
     "socket.io": "^4.3.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   }
 }
