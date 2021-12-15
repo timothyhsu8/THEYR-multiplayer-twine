@@ -7,6 +7,8 @@ const { Server } = require("socket.io");
 const io = new Server(server);
 const mongoose = require('mongoose');
 const MongoState = require('./MongoStateSchema');
+require('./tweeWatch');
+
 
 app.use("/static", express.static('./static/'));
 
@@ -22,7 +24,7 @@ mongoose.connect(CONNECTION_URL, function (error) {
 })
 
 app.get('/', (req, res) => {
-	res.sendFile(__dirname + '/MultiplayerTemplate.html');	// Replace with Coins.html if you want to try our example
+	res.sendFile(__dirname + '/Twine/MultiplayerTemplate.html');	// Replace with Coins.html if you want to try our example
 })
 
 // All socket.io related events

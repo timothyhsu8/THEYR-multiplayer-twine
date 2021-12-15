@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+echo "called"
+while test $# -gt 0
+do
+    case "$1" in
+       *.html) echo "option 1"
+            break
+            ;;
+        *.twee) echo "option 2"
+            break 
+            ;;
+        *) echo "$1 should be a *.twee or *.html file"
+            ;;
+    esac
+    shift
+done
+
+exit 0
