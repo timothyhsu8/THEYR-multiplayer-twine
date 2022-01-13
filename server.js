@@ -7,8 +7,14 @@ const { Server } = require("socket.io");
 const io = new Server(server);
 const mongoose = require('mongoose');
 const MongoState = require('./MongoStateSchema');
-require('./tweeWatch');
+require('./tweeGaze');
 
+// Include process module
+// const process = require('process');
+  
+// Printing current directory
+// console.log("Current working directory: ~~~",
+// process.cwd());
 
 app.use("/static", express.static('./static/'));
 
@@ -20,15 +26,11 @@ mongoose.connect(CONNECTION_URL, function (error) {
 	if (error) {
 		console.log(error)
 	}
-	console.log('Database state is ' + mongoose.connection.readyState)
+	console.log('Database state is ~~~~ ' + mongoose.connection.readyState)
 })
 
 app.get('/', (req, res) => {
-<<<<<<< HEAD
 	res.sendFile(__dirname + '/index.html');	// Replace with Coins.html if you want to try our example
-=======
-	res.sendFile(__dirname + '/Twine/MultiplayerTemplate.html');	// Replace with Coins.html if you want to try our example
->>>>>>> b4b7f29accdd9cebaddfb809772cc35e4392e23a
 })
 
 // All socket.io related events
