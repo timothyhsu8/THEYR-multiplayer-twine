@@ -2,23 +2,30 @@ var gaze = require('gaze');
 const { exec } = require('child_process');
 
 // Watch all .js files/dirs in process.cwd() 
-gaze('Twine/*.html', function(err, watcher) {
+gaze('Twine/*.*', function(err, watcher) {
     // Files have all started watching 
     // watcher === this 
     console.log('Watching files...');
 
     // Get all watched files 
     var watched = this.watched();
-
+console.log(watched)
     // On file changed 
     this.on('changed', function(filepath) {
         [suffix, ...prefix] = filepath.split(".").reverse()
-        console.log(prefix, suffix)
+        prefix=prefix.reverse().join(".")
+     let command;
 
         if (suffix == "html") {
-            let command = `tweego -f sugarcube-2 -d -o ${prefix}.twee ${prefix}.html`
-            console.log(command)
-        
+            command = `tweego -f sugarcube-2 -d -o ${prefix}.twee ${prefix}.html`
+      
+        } else if (suffix == "twee"){
+            command = `tweego -f sugarcube-2  ${prefix}.twee -o ${prefix}.html`
+        }
+        else {
+            console.log(prefix, suffix)
+            return
+        }
             // Executes shell command to convert .html file to .twee file
             exec(command, (err, stdout, stderr) => {					// tweego -d -o index.twee index.html
                 if (err) {
@@ -29,7 +36,7 @@ gaze('Twine/*.html', function(err, watcher) {
                     // console.log(`stdout: ${stdout}`);
                 }
             });
-        }
+       
 
         console.log(filepath + ' was changed');
     });

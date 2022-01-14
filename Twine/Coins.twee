@@ -6,7 +6,7 @@ Coins (Current)
 {
 	"ifid": "B6642567-EE35-472A-9113-82C3BBA28CD3",
 	"format": "SugarCube",
-	"format-version": "2.34.1",
+	"format-version": "2.30.0",
 	"start": "Login",
 	"zoom": 1
 }
@@ -28,12 +28,7 @@ importScripts([
 ])
 
 
-:: Lobby {"position":"667,294","size":"100,100"}
-There are two rooms, one room has $room1coins coins, the other has $room2coins coins.
-
-[[Room 1]] and [[Room 2]]
-
-<button onclick=printVars()>Print SugarCube & Store</button>
+:: Lobby {"position":"667,85","size":"100,100"}
 
 
 :: Room 1 {"position":"489,501","size":"100,100"}
@@ -90,9 +85,6 @@ There are no more coins left in this room!
 <</if>>
 
 <button onclick=printVars()>Print SugarCube & Store</button>
-
-
-::  Lobby {"position":"667,85","size":"100,100"}
 
 
 :: Begin {"position":"986,84","size":"100,100"}
