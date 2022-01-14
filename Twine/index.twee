@@ -1,0 +1,38 @@
+:: StoryTitle
+MultiplayerTemplate
+
+
+:: StoryData
+{
+	"ifid": "FE0F3E53-ACC5-4712-8CFB-BF1BEF0ED23E",
+	"format": "SugarCube",
+	"format-version": "2.34.1",
+	"start": "Login",
+	"zoom": 1
+}
+
+
+:: Story Stylesheet [stylesheet]
+.passage-in {
+	opacity: 1;
+}
+
+
+:: Story JavaScript [script]
+importScripts([
+	'/socket.io/socket.io.js',
+	'static/axios/dist/axios.min.js',
+	'https://unpkg.com/redux@latest/dist/redux.min.js',
+	'https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js',
+	'static/newreducer.js'
+])
+
+
+:: Login {"position":"728,294","size":"100,100"}
+Your name is <<textbox "$users[$userId]['name']" "Your Name" "Begin" autofocus>>
+
+
+:: Begin {"position":"727,453","size":"100,100"}
+Begin writing your story here...
+
+

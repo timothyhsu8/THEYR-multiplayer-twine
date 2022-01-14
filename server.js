@@ -30,7 +30,7 @@ mongoose.connect(CONNECTION_URL, function (error) {
 })
 
 app.get('/', (req, res) => {
-	res.sendFile(__dirname + '/index.html');	// Replace with Coins.html if you want to try our example
+	res.sendFile(__dirname + '/Twine/index.html');	
 })
 
 // All socket.io related events
