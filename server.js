@@ -7,14 +7,13 @@ const { Server } = require("socket.io");
 const io = new Server(server);
 const mongoose = require('mongoose');
 const MongoState = require('./MongoStateSchema');
+const Db = require('./db')
 require('./tweeGaze');
 
 // Include process module
 // const process = require('process');
-  
-// Printing current directory
-// console.log("Current working directory: ~~~",
-// process.cwd());
+
+let database = new Db()
 
 app.use("/static", express.static('./static/'));
 
@@ -26,7 +25,7 @@ mongoose.connect(CONNECTION_URL, function (error) {
 	if (error) {
 		console.log(error)
 	}
-	console.log('Database state is ~~~~ ' + mongoose.connection.readyState)
+	// console.log('Database state is ' + mongoose.connection.readyState)
 })
 
 app.get('/', (req, res) => {
@@ -46,12 +45,13 @@ io.on('connection', (socket) => {
 			io.to(id).emit('new connection', gstate)
 		}
 
-		// If server does not have the global state, retrieve it from MongoDB and send it to the user
+		// If server does not have the global state, retrieve it from the database and send it to the user
 		else {
-			console.log("Retrieving state from mongo")
-			retrieveMongoState().then((mongoState) => {
-				io.to(id).emit('new connection', mongoState.state)
-			})
+			console.log("Retrieving state from mongo", database.getData())
+			io.to(id).emit('new connection', database.getData())
+			// retrieveMongoState().then((mongoState) => {
+			// 	io.to(id).emit('new connection', mongoState.state)
+			// })
 		}
 	})
 
@@ -61,7 +61,8 @@ io.on('connection', (socket) => {
 		serverStore.dispatch({ type: 'UPDATE', payload: state })
 		socket.broadcast.emit('difference', state)
 
-		updateMongoState(state)
+		database.setData(state) // Updates the database
+		// updateMongoState(state)
 	})
 });
 
@@ -75,7 +76,7 @@ function reducer(state, action) {
 	}
 }
 
-// Updates the state in MongoDB when a client makes a change to the game
+// Updates the state in the database when a client makes a change to the game
 async function updateMongoState(state) {
 	try {
 		let oldMongoState = await MongoState.findOne()
