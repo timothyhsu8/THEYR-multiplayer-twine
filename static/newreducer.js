@@ -64,7 +64,7 @@ function reducer(state, action){
             SugarCube.Engine.show()
             return {...state, ...action.payload}
         case 'UPDATEGAME':
-            console.log('Updating Game');
+            console.log('Updating Game', action.payload);
             updateSugarCubeState(action.payload);
             return
         default:

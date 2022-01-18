@@ -3,9 +3,10 @@ const path = require('path')
 
 
 
-module.exports = class JSONFS {
+// module.exports = class JSONFS {
+class JSONFS {
 
-    constructor(home = `${__dirname}/data/`) {
+    constructor(home = `${__dirname}/jsonFS/data/`) {
         this.home = home;
     }
 
@@ -49,11 +50,12 @@ module.exports = class JSONFS {
 
                     // console.log(passedObject, key, value)
 
-
+                    let newDir = this.home + passedObject + key
+                    this.delTree(newDir)
                     fs.mkdirSync(this.home + passedObject, {
                         recursive: true
                     });
-                    fs.writeFileSync(this.home + passedObject + key, JSON.stringify(value)) // Serializes data as a string in order to store as a text file
+                    fs.writeFileSync(newDir, JSON.stringify(value)) // Serializes data as a string in order to store as a text file
 
 
 
@@ -88,10 +90,20 @@ module.exports = class JSONFS {
 
     }
 
+    delTree(path) {
+        fs.rmdirSync( path, {
+            recursive: true
+        })
+    }
+
 }
 
 if (require.main === module) {
     let testData = {
+        "title": "test2"
+    }
+
+    let testDataTwo = {
         "title": {
             "plain": "Send Money"
         },
@@ -187,7 +199,9 @@ if (require.main === module) {
         ]
     }
 
-    // let jsonFS = new JSONFS();
-    // jsonFS.setJSON(testData);
-    // console.log(JSON.stringify(jsonFS.getJSON()));
+    let jsonFS = new JSONFS();
+    jsonFS.setJSON(testData);
+    console.log(JSON.stringify(jsonFS.getJSON()));
 }
+
+module.exports = JSONFS;

@@ -1,6 +1,6 @@
 const JSONFS = require('./fs')
 
-module.exports = class Db {
+class Db {
     constructor(data) {
         this.data = data
         this.jsonFs = new JSONFS();
@@ -22,3 +22,5 @@ module.exports = class Db {
         this.jsonFs.setJSON(data)
     }
 }
+
+module.exports = Db;
