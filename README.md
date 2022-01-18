@@ -1,16 +1,20 @@
 <p align="center">
-  <img src="https://res.cloudinary.com/dsry3cnco/image/upload/v1638989534/their_logo_d1rgmw.png" alt="Their Logo"/>
+  <img src="https://res.cloudinary.com/dsry3cnco/image/upload/v1642440780/theyr_logo_axzsjz.png" alt="Theyr Logo"/>
 </p>
 
-# Their (Twine Multiplayer Package)
-"Their" provides a development environment that allows anyone to create multiplayer <a href="https://twinery.org/">Twine</a> applications using the <a href="http://www.motoslave.net/sugarcube/2/">SugarCube</a> story format.
+# Theyr (Twine Multiplayer Package)
+Theyr provides a development environment that allows anyone to create multiplayer <a href="https://twinery.org/">Twine</a> applications using the <a href="http://www.motoslave.net/sugarcube/2/">SugarCube</a> story format.
+
+```diff
+Note: This project is still actively being developed. If any features are buggy feel free to let us know!
+```
 
 ## Description
-"Their" was created in response to a Stony Brook University professor's need for a real-time updating multiplayer Twine game. Standalone Twine only provides support for single player stories, but through the SugarCube story format, JavaScript, and  <a href="https://socket.io/">Socket.IO</a>, multiplayer Twine becomes possible. This project utilizes  <a href="https://lando.dev/">Lando</a>, which sets up your development environment instantly so that you don't have to manually install all of the dependencies yourself. This includes linking the application to your <a href="https://www.heroku.com/">Heroku</a> account, so once you've written your Twine story, all you have to do is follow the instructions below to deploy the application to Heroku and make your game available to play over the web!
+Theyr was created in response to a Stony Brook University professor's need for a real-time updating multiplayer Twine game. Standalone Twine only provides support for single player stories, but through the SugarCube story format, JavaScript, and  <a href="https://socket.io/">Socket.IO</a>, multiplayer Twine becomes possible. This project utilizes  <a href="https://lando.dev/">Lando</a>, which sets up your development environment instantly so that you don't have to manually install all of the dependencies yourself. This includes linking the application to your <a href="https://www.heroku.com/">Heroku</a> account, so once you've written your Twine story, all you have to do is follow the instructions below to deploy the application to Heroku and make your game available to play over the web!
 
 ## How It Works
-If you're familiar with SugarCube, you'll know that the variables for a Twine story are stored within the SugarCube State. In order to provide a multiplayer experience, "Their" uses sockets to ensure that each player's SugarCube State is synchronized with every other player in the game. This happens in realtime, so when one player does something that changes the state of the game, a socket event is sent to all of the other clients to reflect these new changes. <br/><br/>
-That's it! You don't need to do anything extra to your Twine- the multiplayer features will come automatically from "Their".
+If you're familiar with SugarCube, you'll know that the variables for a Twine story are stored within the SugarCube State. In order to provide a multiplayer experience, Theyr uses sockets to ensure that each player's SugarCube State is synchronized with every other player in the game. This happens in realtime, so when one player does something that changes the state of the game, a socket event is sent to all of the other clients to reflect these new changes. <br/><br/>
+That's it! You don't need to do anything extra to your Twine- the multiplayer features will come automatically from Theyr.
 
 ## What You'll Need to Get Started
 1. Install Lando at https://lando.dev/download/
