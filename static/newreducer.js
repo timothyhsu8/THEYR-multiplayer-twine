@@ -7,9 +7,6 @@ socket.on('connect', () => {
 
 // Receive state from server upon connecting
 socket.on('new connection', (state) => {
-    // Update game/store with the global state
-    store.dispatch({type: 'UPDATESTORE', payload: state})
-    store.dispatch({type: 'UPDATEGAME', payload: state})
 
     // If this is the first time a user is connecting, assign them a userId in local storage
     if (localStorage.getItem('userId') === null) {
@@ -19,15 +16,15 @@ socket.on('new connection', (state) => {
         SugarCube.State.setVar('$userId', userId);
         
         // ** Initialize variables you want a character to start out with
-        SugarCube.State.variables.users[userId] = {
-            name: "New Character",
-            coins: 0,
-            lastSeen: new Date(),
-        }
+        // SugarCube.State.variables.users[userId] = {
+        //     name: "New Character",
+        //     coins: 0,
+        //     lastSeen: new Date(),
+        // }
 
         // Include in store
-        state['userId'] = userId
-        state['users'] = SugarCube.State.variables.users
+        // state['userId'] = userId
+        // state['users'] = SugarCube.State.variables.users
     }
 
     // Returning user, get correct user state from database
@@ -36,7 +33,7 @@ socket.on('new connection', (state) => {
         SugarCube.State.setVar('$userId', userId);
 
         // Include in store
-        state['userId'] = userId
+        // state['userId'] = userId
     }
 
     // Update game/store with your new user information
@@ -59,7 +56,7 @@ function reducer(state, action){
     }
     switch(action.type){
         case 'UPDATESTORE':
-            console.log('Updating Store and Other Clients')
+            console.log('Updating Store and Other Clients', action.payload)
             socket.emit('difference', {...state, ...action.payload})
             SugarCube.Engine.show()
             return {...state, ...action.payload}
@@ -80,6 +77,8 @@ setInterval(update, 100)    // Check for differences and send a socket event to 
 function update() {
     // If differences between SugarCube state and store detected, update your store and the other clients
     if(!_.isEqual(SugarCube.State.variables, store.getState())){
+        console.log("SUGARCUBE", SugarCube.State.variables)
+        console.log("STORE", store.getState())
         let diff = difference(SugarCube.State.variables, store.getState());
         console.log("diff detected:", diff)
         store.dispatch({type: 'UPDATESTORE', payload: SugarCube.State.variables});

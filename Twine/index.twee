@@ -1,13 +1,13 @@
 :: StoryTitle
-MultiplayerTemplate
+Coins Updated
 
 
 :: StoryData
 {
-	"ifid": "FE0F3E53-ACC5-4712-8CFB-BF1BEF0ED23E",
+	"ifid": "01AFBAC8-E431-41ED-9051-6E99F4D55374",
 	"format": "SugarCube",
 	"format-version": "2.34.1",
-	"start": "Login",
+	"start": "Begin",
 	"zoom": 1
 }
 
@@ -28,11 +28,110 @@ importScripts([
 ])
 
 
-:: Login {"position":"728,294","size":"100,100"}
-Your name is <<textbox "$users[$userId]['name']" "Your Name" "Begin" autofocus>>
+:: Lobby {"position":"861,404","size":"100,100"}
+There are two rooms, one room has $room1coins coins, the other has $room2coins coins.
+
+[[Room 1]] and [[Room 2]]
+
+<button onclick=printVars()>Print SugarCube & Store</button>
+
+<button onclick=printUser()> Print User </button>
 
 
-:: Begin {"position":"727,453","size":"100,100"}
-Begin writing your story here...
+:: Room 1 {"position":"713,673","size":"100,100"}
+There are <<print $room1coins>> coins in this room.
+
+[[Leave this room -> Lobby]]
+
+<<if ($room1coins == 0)>>
+There are no more coins left in this room!
+
+<<else>>
+<<button "Move 10 Coins to Room 2">>
+  <<set $room1coins = $room1coins - 10>>
+  <<set $room2coins = $room2coins + 10>>
+  <<goto "Room 1">>
+<</button>>
+<</if>>
+
+<<button "Steal 10 Coins for yourself">>
+	<<set $users[$userId]["coins"] += 10>>
+	<<set $room1coins = $room1coins - 10>>
+<</button>>
+
+
+<button onclick=printVars()>Print SugarCube & Store</button>
+
+
+:: Room 2 {"position":"1024,667","size":"100,100"}
+There are <<print $room2coins>> coins in this room.
+	<<if ndef $users[$userId]["coins"]>>
+	<<set $users[$userId]["coins"]=0>>
+	<</if>>
+You have <<print $users[$userId]["coins"]>> coins
+[[Leave this room -> Lobby]]
+
+<<if ($room2coins == 0)>>
+There are no more coins left in this room!
+<<else>>
+
+<<button "Move 10 Coins to Room 1">>
+	<<set $room1coins = $room1coins + 10>>
+	<<set $room2coins = $room2coins - 10>>
+	<<goto "Room 2">>
+<</button>>
+<</if>>
+
+<<button "Steal 10 Coins for yourself">>
+	<<set $users[$userId]["coins"] += 10>>
+ 	<<set $room2coins = $room2coins - 10>>
+<</button>>
+
+<button onclick=printVars()>Print SugarCube & Store</button>
+
+
+::  Lobby {"position":"867,575","size":"100,100"}
+
+
+:: Begin {"position":"862,212","size":"100,100"}
+<<if ($room1coins === undefined)>>
+	<<set $room1coins to 0>>
+<<else>>
+	<<set $room1coins = $room1coins>>
+<</if>>
+<<if ($room2coins === undefined)>>
+	<<set $room2coins to 100>>
+<<else>>
+	<<set $room1coins = $room1coins>>
+<</if>>
+Enter the [[Lobby]]
+
+
+:: PassageHeader {"position":"981,51","size":"100,100"}
+/* Set current user's Last Seen status to the current time */
+/*<<set $users[$userId].lastSeen = new Date().getTime()>>*/
+
+/* Find users who have been active in the last 5 minutes and add them to the user list */
+/*<div id = 'loggedIn'>
+	<<script>>
+		let users = State.getVar('$users')
+		let currentUsers = []
+		Object.keys(users).forEach((userId) => {
+			let diff = Math.abs(users[userId].lastSeen - new Date().getTime())
+			console.log(diff)
+			if(diff < 300000)
+				currentUsers.push(users[userId].name)
+		}) || []
+		console.log(currentUsers)
+		$(output).wiki(currentUsers.join(','))
+	<</script>>
+</div>*/
+
+/*<button onclick=printVars()>Print SugarCube & Store</button>*/
+
+
+:: StoryInit {"position":"688,58","size":"100,100"}
+/* <<set $users = {}>>
+<<set $users[$userId] = {}>> */
 
 
