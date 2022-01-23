@@ -1,5 +1,9 @@
 var socket = io();
-
+if(userData){
+    setId(userData.id)
+   
+ }
+ 
 // User connects, asks server for game state
 socket.on('connect', () => {
     socket.emit('new user', socket.id);
@@ -9,34 +13,15 @@ socket.on('connect', () => {
 socket.on('new connection', (state) => {
 
     // If this is the first time a user is connecting, assign them a userId in local storage
+  
     if (localStorage.getItem('userId') === null) {
-        let userId = socket.id
-        console.log(`User ${userId} connecting for the first time`)
-        localStorage.setItem('userId', userId);
-        SugarCube.State.setVar('$userId', userId);
-        
-        // ** Initialize variables you want a character to start out with
-        // SugarCube.State.variables.users[userId] = {
-        //     name: "New Character",
-        //     coins: 0,
-        //     lastSeen: new Date(),
-        // }
-
-        // Include in store
-        // state['userId'] = userId
-        // state['users'] = SugarCube.State.variables.users
+        setId(socket.id)
     }
 
     // Returning user, get correct user state from database
     else {
-        let userId = localStorage.getItem('userId')
-        SugarCube.State.setVar('$userId', userId);
-
-        // Include in store
-        // state['userId'] = userId
+        setId(localStorage.getItem('userId'))
     }
-
-    // Update game/store with your new user information
     store.dispatch({type: 'UPDATEGAME', payload: state})
     store.dispatch({type: 'UPDATESTORE', payload: state})
 })
@@ -50,6 +35,12 @@ socket.on('difference', (state) => {
 })
 
 // Reducer to update your store and send the difference to all other clients
+function setId(userId){
+    
+    localStorage.setItem('userId', userId);
+    SugarCube.State.setVar('$userId', userId);
+    console.log(`User ${userId} connecting for the first time`)
+}
 function reducer(state, action){
     if(typeof state === 'undefined'){
         return {...state, ...SugarCube.State.variables}
