@@ -34,3 +34,18 @@
     opacity: 70%;
     transition: .1s linear;
 }
+
+#mainbody {
+    color: #383838; 
+    background-color: #b9c8f0;
+}
+
+#maincontainer {
+    width: 500px; 
+    height: 400px; 
+    padding: 20px; 
+    margin:auto; 
+    margin-top: 50px; 
+    background-color: white; 
+    box-shadow: 0 3px 3px rgba(0,0,0,0.2);
+}
