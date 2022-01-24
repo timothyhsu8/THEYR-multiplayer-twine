@@ -1,4 +1,4 @@
-const JSONFS = require('./fs')
+const JSONFS = require('./jsonfs')
 
 class Db {
     constructor(data) {

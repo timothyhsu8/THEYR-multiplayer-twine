@@ -1,12 +1,12 @@
 :: StoryTitle
-Coins Updated
+Theyr
 
 
 :: StoryData
 {
 	"ifid": "01AFBAC8-E431-41ED-9051-6E99F4D55374",
 	"format": "SugarCube",
-	"format-version": "2.34.1",
+	"format-version": "2.33.4",
 	"start": "Begin",
 	"zoom": 1
 }
@@ -24,18 +24,24 @@ importScripts([
 	'static/axios/dist/axios.min.js',
 	'https://unpkg.com/redux@latest/dist/redux.min.js',
 	'https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js',
-	'static/newreducer.js'
+	'static/Client.js'
 ])
+	$(document).one(':storyready', ()=>{
+			console.log("made it")
+			let users = State.getVar('$users');
+			if (users==0){
+				users={}
+			} 
+			if(!(userData.id in users)) {
+			users[userData.id]={}
+			users[userData.id].name= userData.username
+			 State.setVar('$users',users);
+			}  
+		})
 
 
-:: Lobby {"position":"861,404","size":"100,100"}
-There are two rooms, one room has $room1coins coins, the other has $room2coins coins.
-
-[[Room 1]] and [[Room 2]]
-
-<button onclick=printVars()>Print SugarCube & Store</button>
-
-<button onclick=printUser()> Print User </button>
+:: Lobby {"position":"867,575","size":"100,100"}
+[[Room 2]] [[Room 1]]
 
 
 :: Room 1 {"position":"713,673","size":"100,100"}
@@ -60,11 +66,9 @@ There are no more coins left in this room!
 <</button>>
 
 
-<button onclick=printVars()>Print SugarCube & Store</button>
-
-
 :: Room 2 {"position":"1024,667","size":"100,100"}
 There are <<print $room2coins>> coins in this room.
+	
 	<<if ndef $users[$userId]["coins"]>>
 	<<set $users[$userId]["coins"]=0>>
 	<</if>>
@@ -86,11 +90,6 @@ There are no more coins left in this room!
 	<<set $users[$userId]["coins"] += 10>>
  	<<set $room2coins = $room2coins - 10>>
 <</button>>
-
-<button onclick=printVars()>Print SugarCube & Store</button>
-
-
-::  Lobby {"position":"867,575","size":"100,100"}
 
 
 :: Begin {"position":"862,212","size":"100,100"}
@@ -131,7 +130,7 @@ Enter the [[Lobby]]
 
 
 :: StoryInit {"position":"688,58","size":"100,100"}
-/* <<set $users = {}>>
-<<set $users[$userId] = {}>> */
+<<set $users = {}>>
+<<set $users[$userId] = {}>>
 
 

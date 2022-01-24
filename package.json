@@ -4,6 +4,7 @@
   "scripts": {
     "start": "nodemon server.js",
     "dev": "nodemon loginSimple/",
+    "discord": "nodemon loginDiscord/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
