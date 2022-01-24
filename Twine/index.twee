@@ -21,23 +21,11 @@ Theyr
 :: Story JavaScript [script]
 importScripts([
 	'/socket.io/socket.io.js',
-	'static/axios/dist/axios.min.js',
 	'https://unpkg.com/redux@latest/dist/redux.min.js',
 	'https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js',
 	'static/Client.js'
 ])
-	$(document).one(':storyready', ()=>{
-			console.log("made it")
-			let users = State.getVar('$users');
-			if (users==0){
-				users={}
-			} 
-			if(!(userData.id in users)) {
-			users[userData.id]={}
-			users[userData.id].name= userData.username
-			 State.setVar('$users',users);
-			}  
-		})
+	
 
 
 :: Lobby {"position":"867,575","size":"100,100"}

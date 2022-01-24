@@ -27,11 +27,12 @@ gaze('Twine/*.*', function (err, watcher) {
         if (suffix == "html") {
 
 
-            command = `tweego -f sugarcube-2 -d -o ${prefix}.twee ${prefix}.html`
+            command = `tweego -f sugarcube-2 -d -o "${prefix}".twee "${prefix}".html`
 
         } else if (suffix == "twee") {
-            command = `tweego -f sugarcube-2  ${prefix}.twee -o ${prefix}.html`
-        } else {
+            command = `tweego -f sugarcube-2  "${prefix}".twee -o "${prefix}".html`
+        } 
+        else {
             console.log(prefix, suffix)
             return
         }

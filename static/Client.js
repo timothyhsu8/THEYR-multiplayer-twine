@@ -1,9 +1,21 @@
 var socket = io();
 if(userData){
-    setId(userData.id)
-   
- }
- 
+    setId(userData.id)   
+}
+
+$(document).one(':storyready', ()=>{
+    console.log("made it")
+    let users = State.getVar('$users');
+    if (users==0){
+        users={}
+    } 
+    if(!(userData.id in users)) {
+    users[userData.id]={}
+    users[userData.id].name= userData.username
+     State.setVar('$users',users);
+    }  
+})
+
 // User connects, asks server for game state
 socket.on('connect', () => {
     socket.emit('new user', socket.id);
