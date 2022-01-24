@@ -89,11 +89,15 @@ class JSONFS {
         return dtype;
 
     }
-
+    
     delTree(path) {
-        fs.rmdirSync( path, {
-            recursive: true
-        })
+        try {
+            if (fs.existsSync(path)) {
+                fs.rmdirSync( path, { recursive: true })
+            }
+        } catch(err) {
+            // console.log(err)
+        }
     }
 
 }

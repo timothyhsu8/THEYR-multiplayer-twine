@@ -9,6 +9,8 @@ const mongoose = require('mongoose');
 const MongoState = require('./MongoStateSchema');
 const Db = require('./db')
 require('./tweeGaze');
+var bodyParser = require('body-parser')
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 // Include process module
 // const process = require('process');
@@ -16,6 +18,7 @@ require('./tweeGaze');
 let database = new Db()
 
 app.use("/static", express.static('./static/'));
+app.use(express.json());
 
 const PORT = process.env.PORT || 5000
 const CONNECTION_URL = 'mongodb+srv://timhsu:M3AMNhKlV0TyPscj@users.xnee2.mongodb.net/myFirstDatabase?'	// **REPLACE WITH YOUR OWN MONGODB ATLAS URL
@@ -27,14 +30,17 @@ mongoose.connect(CONNECTION_URL, function (error) {
 	}
 	// console.log('Database state is ' + mongoose.connection.readyState)
 })
+    
 
 app.get('/', (req, res) => {
 	res.sendFile(__dirname + '/login.html');	
 	// res.sendFile(__dirname + '/Twine/index.html');	
 })
 
-app.post('/joingame', (req, res) => {
-	res.sendFile(__dirname + '/Twine/index.html');	
+app.post('/joingame', urlencodedParser, (req, res) => {
+	req.body; // JavaScript object containing the parse JSON
+  	res.json(req.body);
+	// res.sendFile(__dirname + '/Twine/index.html');	
 })
 
 // All socket.io related events
@@ -43,31 +49,39 @@ io.on('connection', (socket) => {
 
 	// User connects 
 	socket.once('new user', (id) => {
-		console.log("SERVER RECEIVES NEW USER:", id);
+		try {
+			console.log("SERVER RECEIVES NEW USER:", id);
 
-		// If server has global state, send it to the user
-		if (typeof gstate !== 'undefined') {
-			io.to(id).emit('new connection', gstate)
-		}
+			// If server has global state, send it to the user
+			if (typeof gstate !== 'undefined') {
+				io.to(id).emit('new connection', gstate)
+			}
 
-		// If server does not have the global state, retrieve it from the database and send it to the user
-		else {
-			console.log("Retrieving state from mongo", database.getData())
-			io.to(id).emit('new connection', database.getData())
-			// retrieveMongoState().then((mongoState) => {
-			// 	io.to(id).emit('new connection', mongoState.state)
-			// })
+			// If server does not have the global state, retrieve it from the database and send it to the user
+			else {
+				console.log("Retrieving state from mongo", database.getData())
+				io.to(id).emit('new connection', database.getData())
+				// retrieveMongoState().then((mongoState) => {
+				// 	io.to(id).emit('new connection', mongoState.state)
+				// })
+			}
+		} catch(err) {
+			throw new Error(err)
 		}
 	})
 
 	// Difference found in SugarCube State, update all clients and MongoDB
 	socket.on('difference', (state) => {
-		delete state['userId']	// Removes userId from the global state (Prevents users overriding each other's userId variables)
-		serverStore.dispatch({ type: 'UPDATE', payload: state })
-		socket.broadcast.emit('difference', state)
+		try {
+			delete state['userId']	// Removes userId from the global state (Prevents users overriding each other's userId variables)
+			serverStore.dispatch({ type: 'UPDATE', payload: state })
+			socket.broadcast.emit('difference', state)
 
-		database.setData(state) // Updates the database
-		// updateMongoState(state)
+			database.setData(state) // Updates the database
+			// updateMongoState(state)
+		} catch(err) {
+			throw new Error(err)
+		}
 	})
 });
 
