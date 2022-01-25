@@ -1,6 +1,7 @@
 {
   "name": "lando-heroku-test",
   "version": "1.0.0",
+  "type": "module",
   "scripts": {
     "start": "nodemon server.js",
     "dev": "nodemon login/",

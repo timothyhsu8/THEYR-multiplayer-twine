@@ -1,4 +1,4 @@
-const JSONFS = require('./jsonfs')
+import JSONFS from './jsonFS.js'
 
 class Db {
     constructor(data) {
@@ -23,4 +23,4 @@ class Db {
     }
 }
 
-module.exports = Db;
+export default Db;

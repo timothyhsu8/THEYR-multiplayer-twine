@@ -1,15 +1,21 @@
-const express = require('express');
+import express from 'express'
+import http from 'http'
+import Redux from 'redux'
+import { Server } from 'socket.io'
+import mongoose from 'mongoose'
+import Db from './db.js';
+import './tweeGaze.js'
+import bodyParser from 'body-parser'
+import path from 'path'
+import { fileURLToPath } from 'url';
+// import MongoState from './MongoStateSchema';
 const app = express();
-const http = require("http")
 const server = http.createServer(app)
-const Redux = require('redux')
-const { Server } = require("socket.io");
 const io = new Server(server);
-const mongoose = require('mongoose');
-const MongoState = require('./MongoStateSchema');
-const Db = require('./db')
-require('./tweeGaze');
-var bodyParser = require('body-parser')
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 // Include process module

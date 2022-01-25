@@ -1,9 +1,10 @@
-const fs = require('fs');
-const path = require('path')
+import fs from 'fs'
+import path from 'path'
+import { fileURLToPath } from 'url';
 
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
-
-// module.exports = class JSONFS {
 class JSONFS {
 
     constructor(home = `${__dirname}/jsonFS/data/`) {
@@ -102,110 +103,110 @@ class JSONFS {
 
 }
 
-if (require.main === module) {
-    let testData = {
-        "title": "test2"
-    }
+// if (require.main === module) {
+//     let testData = {
+//         "title": "test2"
+//     }
 
-    let testDataTwo = {
-        "title": {
-            "plain": "Send Money"
-        },
-        "fieldset": [{
-                "label": {
-                    "plain": "Personal Info Section"
-                },
-                "fieldset": [{
-                    "field": [{
-                            "label": {
-                                "plain": "First Name"
-                            },
-                            "value": {
-                                "plain": "Bob"
-                            },
-                            "id": "a_1"
-                        },
-                        {
-                            "label": {
-                                "plain": "Last Name"
-                            },
-                            "value": {
-                                "plain": "Hogan"
-                            },
-                            "id": "a_2"
-                        }
-                    ],
-                    "id": "a_8"
-                }],
-                "id": "a_5"
-            },
-            {
-                "label": {
-                    "plain": "Billing Details Section"
-                },
-                "fieldset": {
-                    "field": {
-                        "choices": {
-                            "choice": {
-                                "label": {
-                                    "plain": "Gift"
-                                },
-                                "id": "a_17",
-                                "switch": ""
-                            }
-                        },
-                        "label": {
-                            "plain": "Choose a category:"
-                        },
-                        "value": {
-                            "plain": "Gift"
-                        },
-                        "id": "a_14"
-                    },
-                    "fieldset": {
-                        "label": {
-                            "plain": ""
-                        },
-                        "field": [{
-                                "choices": {
-                                    "choice": {
-                                        "label": {
-                                            "plain": "Other"
-                                        },
-                                        "id": "a_25",
-                                        "switch": ""
-                                    }
-                                },
-                                "label": {
-                                    "plain": "Amount"
-                                },
-                                "value": {
-                                    "plain": "Other" //(This could also be a dollar amount like 10.00)
-                                },
-                                "id": "a_21"
-                            },
-                            {
-                                "label": {
-                                    "plain": "Other Amount"
-                                },
-                                "value": {
-                                    "plain": "200"
-                                },
-                                "id": "a_20"
-                            }
-                        ],
-                        "id": "a_26"
-                    },
-                    "id": "a_13"
-                },
-                "id": "a_12"
-            }
-        ]
-    }
+//     let testDataTwo = {
+//         "title": {
+//             "plain": "Send Money"
+//         },
+//         "fieldset": [{
+//                 "label": {
+//                     "plain": "Personal Info Section"
+//                 },
+//                 "fieldset": [{
+//                     "field": [{
+//                             "label": {
+//                                 "plain": "First Name"
+//                             },
+//                             "value": {
+//                                 "plain": "Bob"
+//                             },
+//                             "id": "a_1"
+//                         },
+//                         {
+//                             "label": {
+//                                 "plain": "Last Name"
+//                             },
+//                             "value": {
+//                                 "plain": "Hogan"
+//                             },
+//                             "id": "a_2"
+//                         }
+//                     ],
+//                     "id": "a_8"
+//                 }],
+//                 "id": "a_5"
+//             },
+//             {
+//                 "label": {
+//                     "plain": "Billing Details Section"
+//                 },
+//                 "fieldset": {
+//                     "field": {
+//                         "choices": {
+//                             "choice": {
+//                                 "label": {
+//                                     "plain": "Gift"
+//                                 },
+//                                 "id": "a_17",
+//                                 "switch": ""
+//                             }
+//                         },
+//                         "label": {
+//                             "plain": "Choose a category:"
+//                         },
+//                         "value": {
+//                             "plain": "Gift"
+//                         },
+//                         "id": "a_14"
+//                     },
+//                     "fieldset": {
+//                         "label": {
+//                             "plain": ""
+//                         },
+//                         "field": [{
+//                                 "choices": {
+//                                     "choice": {
+//                                         "label": {
+//                                             "plain": "Other"
+//                                         },
+//                                         "id": "a_25",
+//                                         "switch": ""
+//                                     }
+//                                 },
+//                                 "label": {
+//                                     "plain": "Amount"
+//                                 },
+//                                 "value": {
+//                                     "plain": "Other" //(This could also be a dollar amount like 10.00)
+//                                 },
+//                                 "id": "a_21"
+//                             },
+//                             {
+//                                 "label": {
+//                                     "plain": "Other Amount"
+//                                 },
+//                                 "value": {
+//                                     "plain": "200"
+//                                 },
+//                                 "id": "a_20"
+//                             }
+//                         ],
+//                         "id": "a_26"
+//                     },
+//                     "id": "a_13"
+//                 },
+//                 "id": "a_12"
+//             }
+//         ]
+//     }
 
-    let jsonFS = new JSONFS();
-    jsonFS.setJSON(testData);
-    console.log(JSON.stringify(jsonFS.getJSON()));
-}
+//     let jsonFS = new JSONFS();
+//     jsonFS.setJSON(testData);
+//     console.log(JSON.stringify(jsonFS.getJSON()));
+// }
 
-module.exports = JSONFS;
+export default JSONFS;

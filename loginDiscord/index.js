@@ -1,13 +1,18 @@
-const fetch = require('node-fetch');
-const path = require('path');
-const fs=require('fs');
-const webstack= require('../Webstack')
+import fetch from 'node-fetch'
+import path from 'path'
+import fs from 'fs'
+import webstack from '../Webstack.js'
+import '../tweeGaze.js'
+import { fileURLToPath } from 'url';
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
 const { clientId, clientSecret, twinePath,port } = require('./config.json');
-const {app} = new webstack(port).get();
-require('../tweeGaze');
+const { app } = new webstack(port).get();
 
-//const PORT = process.env.PORT || 5000
-const PORT=port
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+
+const PORT = port
 
 app.get('/', async ({ query }, response) => {
 	const { code } = query;

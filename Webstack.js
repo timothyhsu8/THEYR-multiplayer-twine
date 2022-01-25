@@ -1,11 +1,12 @@
-const express = require('express');
-const app =express();
+import express from 'express';
+import Db from './db.js'
+import Redux from 'redux'
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
+const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
-const Db = require('./db')
 const database = new Db()
-const Redux = require('redux')
-const fs = require('fs');
 
 class Webstack {
 	constructor(port) {
@@ -74,4 +75,4 @@ class Webstack {
 
 
 
-module.exports = Webstack;
+export default Webstack;

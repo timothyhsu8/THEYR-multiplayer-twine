@@ -1,10 +1,7 @@
-let gaze = require('gaze');
+import gaze from 'gaze'
+import fs from 'fs'
+import { exec } from 'child_process';
 let coolDown = 0;
-const fs = require('fs');
-const {
-    exec
-} = require('child_process');
-const e = require('express');
 
 // Watch all .js files/dirs in process.cwd() 
 gaze('Twine/*.*', function (err, watcher) {

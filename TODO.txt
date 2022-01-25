@@ -1,6 +1,0 @@
-1. Fix displaying online users (bug: user is not being set for some reason)
-2. Update 'Getting Started' steps on README.md
-3. Document any code that needs further explanation (MongoStateSchema, Twine Init passage, static folder)
-4. Rename files and variables appropriately (newreducer.js, Stores)
-5. Try to fix weird Twine whitespacing
-6. Clean up code and delete unused functions, variables, etc.
