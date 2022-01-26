@@ -1,21 +1,23 @@
-import fetch from 'node-fetch'
-import path from 'path'
-import fs from 'fs'
-import webstack from '../Webstack.js'
-import '../tweeGaze.js'
+import fetch from 'node-fetch';
+import path from 'path';
+import fs from 'fs';
+import webstack from '../Webstack.js';
+import '../tweeGaze.js';
 import { fileURLToPath } from 'url';
-import { createRequire } from "module";
+import { createRequire } from 'module';
+
 const require = createRequire(import.meta.url);
-const { clientId, clientSecret, twinePath,port } = require('./config.json');
-const { app } = new webstack(port).get();
+const { clientId, clientSecret, twinePath, port, discordURL } = require('./config.json');
+
+const PORT = port
+const { app } = new webstack(PORT).get();
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-const PORT = port
-
 app.get('/', async ({ query }, response) => {
 	const { code } = query;
+	const htmlTemplate = './views/index.html'
 
 	if (code) {
 		try {
@@ -26,7 +28,7 @@ app.get('/', async ({ query }, response) => {
 					client_secret: clientSecret,
 					code,
 					grant_type: 'authorization_code',
-					redirect_uri: `http://localhost:${port}`,
+					redirect_uri: `http://localhost:${PORT}`,
 					scope: 'identify',
 				}),
 				headers: {
@@ -35,21 +37,21 @@ app.get('/', async ({ query }, response) => {
 			});
 
 			const oauthData = await oauthResult.json();
-
 			const userResult = await fetch('https://discord.com/api/users/@me', {
 				headers: {
 					authorization: `${oauthData.token_type} ${oauthData.access_token}`,
 				},
 			});
 			const userResultJson= await userResult.json();
-			let userData=JSON.stringify(userResultJson);
+			let userData = JSON.stringify(userResultJson);
 			let userDataScript=`
-			<script>let userData=${userData}</script>
+			<script> let userData=${userData} </script>
 			`
-			let file=twinePath
-			if(userResultJson.message){
-             file=path.join(__dirname, 'index.html')
+			let file = twinePath
+			if (userResultJson.message) {
+            	file = path.join(__dirname, 'index.html')
 			}
+			
 			let fileContents = fs.readFileSync(file)
 			return response.send(`${fileContents} ${userDataScript}`);
 			
@@ -60,7 +62,11 @@ app.get('/', async ({ query }, response) => {
 		}
 	}
 
-	return response.sendFile(path.join(__dirname, 'index.html'));
+	console.log(discordURL)
+	let htmlContents = fs.readFileSync(htmlTemplate, 'utf8')
+	let foo = htmlContents.replace("discordURL", discordURL)
+
+	return response.send(foo);
 });
 
 
