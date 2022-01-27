@@ -14,18 +14,16 @@ gaze('Twine/*.*', function (err, watcher) {
     // Get all watched files 
     var watched = this.watched();
     console.log(watched)
+    
     // On file changed 
     this.on('changed', function (filepath) {
-   
-        [suffix, ...prefix] = filepath.split(".").reverse()
-        prefix = prefix.reverse().join(".")
+        
+        let [suffix, ...prefix] = filepath.split(".").reverse();
+        prefix = prefix.reverse().join(".");
         let command;
 
         if (suffix == "html") {
-
-
             command = `tweego -f sugarcube-2 -d -o "${prefix}".twee "${prefix}".html`
-
         } else if (suffix == "twee") {
             command = `tweego -f sugarcube-2  "${prefix}".twee -o "${prefix}".html`
         } 
@@ -33,6 +31,7 @@ gaze('Twine/*.*', function (err, watcher) {
             console.log(prefix, suffix)
             return
         }
+        
         const mtime = fs.statSync(filepath).mtime;
         if (mtime - coolDown > 1000) {
             coolDown = mtime
@@ -46,7 +45,6 @@ gaze('Twine/*.*', function (err, watcher) {
                     // console.log(`stdout: ${stdout}`);
                 }
             });
-
 
             console.log(filepath + ' was changed');
         }
