@@ -1,0 +1,7 @@
+{
+	"clientId": "934289017766305822",
+	"clientSecret": "QO2QA-moTD40MUSKX8gONX-Ud_ebpYGM",
+	"port": 53134,
+	"twinePath":"Twine/index.html",
+	"discordURL": "https://discord.com/api/oauth2/authorize?client_id=934289017766305822&redirect_uri=http%3A%2F%2Flocalhost%3A53134&response_type=code&scope=identify"
+}
