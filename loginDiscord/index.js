@@ -42,9 +42,9 @@ app.get('/', async ({ query }, response) => {
 					authorization: `${oauthData.token_type} ${oauthData.access_token}`,
 				},
 			});
-			const userResultJson= await userResult.json();
+			const userResultJson = await userResult.json();
 			let userData = JSON.stringify(userResultJson);
-			let userDataScript=`
+			let userDataScript = `
 			<script> let userData=${userData} </script>
 			`
 			let file = twinePath

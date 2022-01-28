@@ -40,13 +40,11 @@ mongoose.connect(CONNECTION_URL, function (error) {
 
 app.get('/', (req, res) => {
 	res.sendFile(__dirname + '/login.html');	
-	// res.sendFile(__dirname + '/Twine/index.html');	
 })
 
 app.post('/joingame', urlencodedParser, (req, res) => {
 	req.body; // JavaScript object containing the parse JSON
   	res.json(req.body);
-	// res.sendFile(__dirname + '/Twine/index.html');	
 })
 
 // All socket.io related events
