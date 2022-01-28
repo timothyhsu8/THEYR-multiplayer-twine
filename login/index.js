@@ -7,12 +7,12 @@ import { fileURLToPath } from 'url';
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
 const { clientId, clientSecret, twinePath, port } = require('./config.json')
-const { app } = new webstack(port).get();
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-const PORT = port
+const PORT = process.env.PORT || port
+const { app } = new webstack(PORT).get();
 
 app.get('/', async ({ query }, response) => {
 	const userData = query;

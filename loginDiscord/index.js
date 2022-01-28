@@ -9,7 +9,7 @@ import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 const { clientId, clientSecret, twinePath, port, discordURL } = require('./config.json');
 
-const PORT = port
+const PORT = process.env.PORT || port
 const { app } = new webstack(PORT).get();
 
 const __filename = fileURLToPath(import.meta.url)
