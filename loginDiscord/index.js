@@ -7,7 +7,11 @@ import { fileURLToPath } from 'url';
 import { createRequire } from 'module';
 
 const require = createRequire(import.meta.url);
-const { clientId, clientSecret, twinePath, port, redirectURL, herokuURL } = require('./config.json');
+let { clientId, clientSecret, twinePath, port, redirectURL, herokuURL, redirectURLLocal, herokuURLLocal } = require('./config.json');
+
+// Comment these out for pushing to heroku
+// redirectURL = redirectURLLocal
+// herokuURL = herokuURLLocal
 
 const PORT = process.env.PORT || port
 const { app } = new webstack(PORT).get();

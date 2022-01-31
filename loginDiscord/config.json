@@ -4,5 +4,7 @@
 	"port": 53134,
 	"twinePath":"Twine/index.html",
 	"redirectURL": "https://discord.com/api/oauth2/authorize?client_id=937770626104574013&redirect_uri=https%3A%2F%2Flando-sockets.herokuapp.com%2F&response_type=code&scope=identify",
-	"herokuURL": "https://lando-sockets.herokuapp.com/"
+	"herokuURL": "https://lando-sockets.herokuapp.com/",
+	"redirectURLLocal": "http://discord.com/api/oauth2/authorize?client_id=937770626104574013&redirect_uri=http%3A%2F%2Flocalhost%3A53134&response_type=code&scope=identify",
+	"herokuURLLocal": "http://localhost:53134"
 }
