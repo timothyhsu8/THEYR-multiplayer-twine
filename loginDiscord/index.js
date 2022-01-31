@@ -50,6 +50,7 @@ app.get('/', async ({ query }, response) => {
 			`
 			let file = twinePath
 			if (userResultJson.message) {
+				return response.send(JSON.stringify(userResultJson));
             	file = path.join(__dirname, 'index.html')
 			}
 			
