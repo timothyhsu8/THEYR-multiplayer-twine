@@ -1,6 +1,6 @@
 {
-	"clientId": "934289017766305822",
-	"clientSecret": "QO2QA-moTD40MUSKX8gONX-Ud_ebpYGM",
+	"clientId": "937770626104574013",
+	"clientSecret": "XhCfxpsgPXyURt5pnXOKCxNyn35JfgXI",
 	"port": 53134,
 	"twinePath":"Twine/index.html",
 	"redirectURL": "https://discord.com/api/oauth2/authorize?client_id=937770626104574013&redirect_uri=https%3A%2F%2Flando-sockets.herokuapp.com%2F&response_type=code&scope=identify",
