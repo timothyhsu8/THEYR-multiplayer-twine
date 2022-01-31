@@ -62,7 +62,6 @@ app.get('/', async ({ query }, response) => {
 		}
 	}
 
-	console.log(discordURL)
 	let htmlContents = fs.readFileSync(htmlTemplate, 'utf8')
 	let foo = htmlContents.replace("redirectURL", redirectURL)
 
