@@ -20,6 +20,7 @@ app.get('/', async ({ query }, response) => {
 	const htmlTemplate = './views/index.html'
 
 	if (code) {
+		console.log(code)
 		try {
 			const oauthResult = await fetch('https://discord.com/api/oauth2/token', {
 				method: 'POST',
