@@ -4,7 +4,8 @@ import Redux from 'redux'
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
 const app = express();
-const http = require('http').Server(app);
+const http = require('http')
+const server = http.createServer(app)
 const io = require("socket.io")(server, {
 	cors: {
 		origin: "*",
