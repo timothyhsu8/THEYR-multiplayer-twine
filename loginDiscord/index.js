@@ -28,7 +28,7 @@ app.get('/', async ({ query }, response) => {
 					client_secret: clientSecret,
 					code,
 					grant_type: 'authorization_code',
-					redirect_uri: redirectURL,
+					redirect_uri: herokuURL,
 					scope: 'identify',
 				}),
 				headers: {
@@ -62,8 +62,9 @@ app.get('/', async ({ query }, response) => {
 		}
 	}
 
+	console.log(discordURL)
 	let htmlContents = fs.readFileSync(htmlTemplate, 'utf8')
-	let foo = htmlContents.replace("herokuURL", herokuURL)
+	let foo = htmlContents.replace("redirectURL", redirectURL)
 
 	return response.send(foo);
 });
