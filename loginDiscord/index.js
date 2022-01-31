@@ -7,7 +7,7 @@ import { fileURLToPath } from 'url';
 import { createRequire } from 'module';
 
 const require = createRequire(import.meta.url);
-const { clientId, clientSecret, twinePath, port, discordURL } = require('./config.json');
+const { clientId, clientSecret, twinePath, port, redirectURL, herokuURL } = require('./config.json');
 
 const PORT = process.env.PORT || port
 const { app } = new webstack(PORT).get();
@@ -28,7 +28,7 @@ app.get('/', async ({ query }, response) => {
 					client_secret: clientSecret,
 					code,
 					grant_type: 'authorization_code',
-					redirect_uri: `http://localhost:${PORT}`,
+					redirect_uri: redirectURL,
 					scope: 'identify',
 				}),
 				headers: {
@@ -62,9 +62,8 @@ app.get('/', async ({ query }, response) => {
 		}
 	}
 
-	console.log(discordURL)
 	let htmlContents = fs.readFileSync(htmlTemplate, 'utf8')
-	let foo = htmlContents.replace("discordURL", discordURL)
+	let foo = htmlContents.replace("herokuURL", herokuURL)
 
 	return response.send(foo);
 });

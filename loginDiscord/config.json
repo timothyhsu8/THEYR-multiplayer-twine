@@ -3,5 +3,6 @@
 	"clientSecret": "QO2QA-moTD40MUSKX8gONX-Ud_ebpYGM",
 	"port": 53134,
 	"twinePath":"Twine/index.html",
-	"discordURL": "https://discord.com/api/oauth2/authorize?client_id=934289017766305822&redirect_uri=http%3A%2F%2Flocalhost%3A53134&response_type=code&scope=identify"
+	"redirectURL": "https://discord.com/api/oauth2/authorize?client_id=937770626104574013&redirect_uri=https%3A%2F%2Flando-sockets.herokuapp.com%2F&response_type=code&scope=identify",
+	"herokuURL": "https://lando-sockets.herokuapp.com/"
 }
