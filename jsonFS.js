@@ -16,6 +16,9 @@ class JSONFS {
         let isArray = parseInt(files[0]);
         let container = {}
         for (let file of files) {
+            if (file === ".gitignore")  // Skips gitignore file
+                continue;
+            
             let filePath = dirPath + file
             isArray = this.isInt(file);
             if (fs.statSync(filePath).isDirectory()) {

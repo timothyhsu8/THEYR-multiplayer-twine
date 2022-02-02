@@ -13,7 +13,14 @@ let { clientId, clientSecret, twinePath, port, redirectURL, herokuURL, redirectU
 // redirectURL = redirectURLLocal
 // herokuURL = herokuURLLocal
 
+const CLIENT_ID = process.env.clientId || clientId
+const CLIENT_SECRET = process.env.clientSecret || clientSecret
+const TWINE_PATH = process.env.twinePath || twinePath
+const REDIRECTURL = process.env.redirectURL || redirectURL
 const PORT = process.env.PORT || port
+const HEROKU_URL = process.env.herokuURL || herokuURL
+
+
 const { app } = new webstack(PORT).get();
 
 const __filename = fileURLToPath(import.meta.url)
@@ -24,16 +31,15 @@ app.get('/', async ({ query }, response) => {
 	const htmlTemplate = './views/index.html'
 
 	if (code) {
-		console.log(code)
 		try {
 			const oauthResult = await fetch('https://discord.com/api/oauth2/token', {
 				method: 'POST',
 				body: new URLSearchParams({
-					client_id: clientId,
-					client_secret: clientSecret,
+					client_id: CLIENT_ID,
+					client_secret: CLIENT_SECRET,
 					code,
 					grant_type: 'authorization_code',
-					redirect_uri: herokuURL,
+					redirect_uri: HEROKU_URL,
 					scope: 'identify',
 				}),
 				headers: {
@@ -52,7 +58,7 @@ app.get('/', async ({ query }, response) => {
 			let userDataScript = `
 			<script> let userData=${userData} </script>
 			`
-			let file = twinePath
+			let file = TWINE_PATH
 			if (userResultJson.message) {
 				return response.send(JSON.stringify(userResultJson));
             	file = path.join(__dirname, 'index.html')
@@ -69,7 +75,7 @@ app.get('/', async ({ query }, response) => {
 	}
 
 	let htmlContents = fs.readFileSync(htmlTemplate, 'utf8')
-	let foo = htmlContents.replace("redirectURL", redirectURL)
+	let foo = htmlContents.replace("redirectURL", REDIRECTURL)
 
 	return response.send(foo);
 });
