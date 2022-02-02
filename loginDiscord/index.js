@@ -5,11 +5,10 @@ import webstack from '../Webstack.js';
 import '../tweeGaze.js';
 import { fileURLToPath } from 'url';
 import { createRequire } from 'module';
-
 const require = createRequire(import.meta.url);
-let { clientId, clientSecret, twinePath, port, redirectURL, herokuURL, redirectURLLocal, herokuURLLocal } = require('./config.json');
 
 // Comment these out for pushing to heroku
+// let { clientId, clientSecret, twinePath, port, redirectURL, herokuURL } = require('./config.json');
 // redirectURL = redirectURLLocal
 // herokuURL = herokuURLLocal
 
