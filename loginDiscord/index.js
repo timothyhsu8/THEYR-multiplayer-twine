@@ -9,8 +9,6 @@ const require = createRequire(import.meta.url);
 
 // Comment these out for pushing to heroku
 // let { clientId, clientSecret, twinePath, port, redirectURL, herokuURL } = require('./config.json');
-// redirectURL = redirectURLLocal
-// herokuURL = herokuURLLocal
 
 const CLIENT_ID = process.env.clientId || clientId
 const CLIENT_SECRET = process.env.clientSecret || clientSecret
