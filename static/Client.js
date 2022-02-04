@@ -5,14 +5,14 @@ if(userData){
 
 $(document).one(':storyready', ()=>{
     console.log("made it")
-    let users = State.getVar('$users');
+    let users = SugarCube.State.getVar('$users');
     if (users==0){
         users={}
     } 
     if(!(userData.id in users)) {
     users[userData.id]={}
     users[userData.id].name= userData.username
-     State.setVar('$users',users);
+        SugarCube.State.setVar('$users',users);
     }  
 })
 

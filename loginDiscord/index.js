@@ -7,8 +7,15 @@ import { fileURLToPath } from 'url';
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 
-// Comment these out for pushing to heroku
-// let { clientId, clientSecret, twinePath, port, redirectURL, herokuURL } = require('./config.json');
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+
+let config_path = 'config.json'
+
+if (fs.existsSync(__dirname + "/" + config_path)) {
+	var { clientId, clientSecret, twinePath, port, redirectURL, herokuURL } = require('./' + config_path);
+}
 
 const CLIENT_ID = process.env.clientId || clientId
 const CLIENT_SECRET = process.env.clientSecret || clientSecret
@@ -17,11 +24,7 @@ const REDIRECTURL = process.env.redirectURL || redirectURL
 const PORT = process.env.PORT || port
 const HEROKU_URL = process.env.herokuURL || herokuURL
 
-
 const { app } = new webstack(PORT).get();
-
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
 
 app.get('/', async ({ query }, response) => {
 	const { code } = query;
