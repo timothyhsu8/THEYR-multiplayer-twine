@@ -6,7 +6,7 @@ Theyr
 {
 	"ifid": "01AFBAC8-E431-41ED-9051-6E99F4D55374",
 	"format": "SugarCube",
-	"format-version": "2.33.4",
+	"format-version": "2.30.0",
 	"start": "Begin",
 	"zoom": 1
 }
@@ -25,7 +25,6 @@ importScripts([
 	'https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js',
 	'static/Client.js'
 ])
-	
 
 
 :: Lobby {"position":"867,575","size":"100,100"}
@@ -57,10 +56,7 @@ There are no more coins left in this room!
 :: Room 2 {"position":"1024,667","size":"100,100"}
 There are <<print $room2coins>> coins in this room.
 	
-	<<if ndef $users[$userId]["coins"]>>
-	<<set $users[$userId]["coins"]=0>>
-	<</if>>
-You have <<print $users[$userId]["coins"]>> coins
+/* You have <<print $users[$userId]["coins"]>> coins */
 [[Leave this room -> Lobby]]
 
 <<if ($room2coins == 0)>>
@@ -117,8 +113,8 @@ Enter the [[Lobby]]
 /*<button onclick=printVars()>Print SugarCube & Store</button>*/
 
 
-:: StoryInit {"position":"688,58","size":"100,100"}
-<<set $users = {}>>
-<<set $users[$userId] = {}>>
+:: StoryInit {"position":"688,59","size":"100,100"}
+/* <<set $users = {}>>
+<<set $users[$userId] = {}>> */
 
 

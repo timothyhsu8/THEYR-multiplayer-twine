@@ -16,8 +16,8 @@ class Webstack {
 		this.initIO();
 		http.listen(this.port, () => console.log(`App listening at http://localhost:${this.port}`));
 	}
-	get() {
 
+	get() {
 		return {
 			app
 		}
@@ -33,8 +33,8 @@ class Webstack {
 					return state
 		}
 	}
-	initIO() {
 	
+	initIO() {
 		io.on('connection', (socket) => {
 			let gstate = this.serverStore.getState();
 

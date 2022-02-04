@@ -3,18 +3,23 @@ if(userData){
     setId(userData.id)   
 }
 
-$(document).one(':storyready', ()=>{
-    console.log("made it")
+$(document).one(':passageinit', () => {
+	console.log("STORY READY")
     let users = SugarCube.State.getVar('$users');
-    if (users==0){
-        users={}
+    
+    // If Users map is not defined, initialize it
+    if (users === undefined){
+        users = {}
     } 
+
+    // If client does not exist in Users, add them
     if(!(userData.id in users)) {
-    users[userData.id]={}
-    users[userData.id].name= userData.username
-        SugarCube.State.setVar('$users',users);
+        users[userData.id] = {}
+        users[userData.id].name= userData.username
+        SugarCube.State.setVar('$users', users);
+        console.log(SugarCube.State.variables)
     }  
-})
+});
 
 // User connects, asks server for game state
 socket.on('connect', () => {
@@ -25,7 +30,6 @@ socket.on('connect', () => {
 socket.on('new connection', (state) => {
 
     // If this is the first time a user is connecting, assign them a userId in local storage
-  
     if (localStorage.getItem('userId') === null) {
         setId(socket.id)
     }
@@ -34,8 +38,10 @@ socket.on('new connection', (state) => {
     else {
         setId(localStorage.getItem('userId'))
     }
+
     store.dispatch({type: 'UPDATEGAME', payload: state})
     store.dispatch({type: 'UPDATESTORE', payload: state})
+    console.log("NEW CONNECTION")
 })
 
 
@@ -48,12 +54,10 @@ socket.on('difference', (state) => {
 
 // Reducer to update your store and send the difference to all other clients
 function setId(userId){
-    
     localStorage.setItem('userId', userId);
     SugarCube.State.setVar('$userId', userId);
-
-    console.log(`User ${userId} connecting for the first time`)
 }
+
 function reducer(state, action){
     if(typeof state === 'undefined'){
         return {...state, ...SugarCube.State.variables}
