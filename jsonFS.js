@@ -1,28 +1,33 @@
 import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url';
+import process from 'process';
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
+const data_path = `${__dirname}${path.sep}jsonFS${path.sep}data${path.sep}`
 
 class JSONFS {
 
-    constructor(home = `${__dirname}/jsonFS/data/`) {
+    constructor(home = data_path) {
         this.home = home;
     }
 
     getJSON(dirPath = this.home) {
         const files = fs.readdirSync(dirPath)
-        let isArray = parseInt(files[0]);
+        let isArray;
         let container = {}
-        for (let file of files) {
+        for (let file of files) {   // File can be file or directory
             if (file === ".gitignore")  // Skips gitignore file
                 continue;
-            
+
+            isArray = this.isInt(file) && file < 100000;
+
+
             let filePath = dirPath + file
-            isArray = this.isInt(file);
             if (fs.statSync(filePath).isDirectory()) {
-                container[file] = this.getJSON(filePath + "/")
+                container[file] = this.getJSON(filePath + path.sep)
+                console.log(file, container[file])
             } else {
                 let fileContents = fs.readFileSync(filePath, {
                     encoding: 'utf8',
@@ -42,16 +47,10 @@ class JSONFS {
     setJSON(jsonObj, passedObject = "") {
 
         if (jsonObj !== null && (this.dataType(jsonObj) == "object" || this.dataType(jsonObj) == "array")) {
-
-
             Object.entries(jsonObj).forEach(([key, value]) => {
 
 
-                if (this.dataType(value) == "array") {
-
-                }
                 if (this.dataType(value) != "object" && this.dataType(value) != "array") {
-
                     // console.log(passedObject, key, value)
 
                     let newDir = this.home + passedObject + key
@@ -61,25 +60,33 @@ class JSONFS {
                     });
                     fs.writeFileSync(newDir, JSON.stringify(value)) // Serializes data as a string in order to store as a text file
 
-
-
-
-
                 } else {
+                    // let newDir = this.home + passedObject + key
+                    // if (this.dataType(value) === "object") {
+                    //     key = `-${key}-`
+                    // }
 
-
-
-                    return this.setJSON(value, passedObject + key + "/");
+                    console.log("Key is", this.dataType(value), value)
+                    // console.log(value, passedObject + key + path.sep)
+                    return this.setJSON(value, passedObject + key + path.sep);
                 }
             });
         }
     }
+
+    wipeData() {
+        let path = data_path
+        this.delTree(path)
+        fs.mkdirSync(path, {
+            recursive: true
+        });
+    }
+
     isInt(value) {
         return !isNaN(value) &&
             parseInt(Number(value)) == value &&
             !isNaN(parseInt(value, 10));
     }
-
 
     dataType(jsonObj) {
         var dtype;
@@ -95,121 +102,33 @@ class JSONFS {
     }
     
     delTree(path) {
-        try {
-            if (fs.existsSync(path)) {
+        if (fs.existsSync(path)) {
+            let statsObj = fs.statSync(path)
+            if (statsObj.isDirectory()) {
                 fs.rmdirSync( path, { recursive: true })
-            }
-        } catch(err) {
-            // console.log(err)
+            }    
         }
     }
 
 }
 
-// if (require.main === module) {
-//     let testData = {
-//         "title": "test2"
-//     }
 
-//     let testDataTwo = {
-//         "title": {
-//             "plain": "Send Money"
-//         },
-//         "fieldset": [{
-//                 "label": {
-//                     "plain": "Personal Info Section"
-//                 },
-//                 "fieldset": [{
-//                     "field": [{
-//                             "label": {
-//                                 "plain": "First Name"
-//                             },
-//                             "value": {
-//                                 "plain": "Bob"
-//                             },
-//                             "id": "a_1"
-//                         },
-//                         {
-//                             "label": {
-//                                 "plain": "Last Name"
-//                             },
-//                             "value": {
-//                                 "plain": "Hogan"
-//                             },
-//                             "id": "a_2"
-//                         }
-//                     ],
-//                     "id": "a_8"
-//                 }],
-//                 "id": "a_5"
-//             },
-//             {
-//                 "label": {
-//                     "plain": "Billing Details Section"
-//                 },
-//                 "fieldset": {
-//                     "field": {
-//                         "choices": {
-//                             "choice": {
-//                                 "label": {
-//                                     "plain": "Gift"
-//                                 },
-//                                 "id": "a_17",
-//                                 "switch": ""
-//                             }
-//                         },
-//                         "label": {
-//                             "plain": "Choose a category:"
-//                         },
-//                         "value": {
-//                             "plain": "Gift"
-//                         },
-//                         "id": "a_14"
-//                     },
-//                     "fieldset": {
-//                         "label": {
-//                             "plain": ""
-//                         },
-//                         "field": [{
-//                                 "choices": {
-//                                     "choice": {
-//                                         "label": {
-//                                             "plain": "Other"
-//                                         },
-//                                         "id": "a_25",
-//                                         "switch": ""
-//                                     }
-//                                 },
-//                                 "label": {
-//                                     "plain": "Amount"
-//                                 },
-//                                 "value": {
-//                                     "plain": "Other" //(This could also be a dollar amount like 10.00)
-//                                 },
-//                                 "id": "a_21"
-//                             },
-//                             {
-//                                 "label": {
-//                                     "plain": "Other Amount"
-//                                 },
-//                                 "value": {
-//                                     "plain": "200"
-//                                 },
-//                                 "id": "a_20"
-//                             }
-//                         ],
-//                         "id": "a_26"
-//                     },
-//                     "id": "a_13"
-//                 },
-//                 "id": "a_12"
-//             }
-//         ]
-//     }
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+    let testData = {
+        "title": "test2",
+        "array": ["Tim"],
+        "users": {
+            "123456789": {
+                "name": "Paul",
+                "coins": 23
+            }
+        }
+    }
 
-//     let jsonFS = new JSONFS();
-//     jsonFS.setJSON(testData);
-//     console.log(JSON.stringify(jsonFS.getJSON()));
-// }
+    let jsonFS = new JSONFS();
+    jsonFS.wipeData();
+    jsonFS.setJSON(testData);
+    console.log(JSON.stringify(jsonFS.getJSON()));
+}
 
 export default JSONFS;

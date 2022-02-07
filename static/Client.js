@@ -1,8 +1,12 @@
 var socket = io();
+var store = Redux.createStore(reducer);
+
+// If userData exists already, set your ID in localStorage
 if(userData){
     setId(userData.id)   
 }
 
+// Sets the UserId in the Users mapping
 $(document).one(':passageinit', () => {
 	console.log("STORY READY")
     let users = SugarCube.State.getVar('$users');
@@ -31,6 +35,7 @@ socket.on('new connection', (state) => {
 
     // If this is the first time a user is connecting, assign them a userId in local storage
     if (localStorage.getItem('userId') === null) {
+        console.log("UserID in LocalStorage is NULL")
         setId(socket.id)
     }
 
@@ -39,6 +44,7 @@ socket.on('new connection', (state) => {
         setId(localStorage.getItem('userId'))
     }
 
+    console.log("State being sent:", state)
     store.dispatch({type: 'UPDATEGAME', payload: state})
     store.dispatch({type: 'UPDATESTORE', payload: state})
     console.log("NEW CONNECTION")
@@ -60,6 +66,7 @@ function setId(userId){
 
 function reducer(state, action){
     if(typeof state === 'undefined'){
+        console.log("State is undefined")
         return {...state, ...SugarCube.State.variables}
     }
     switch(action.type){
@@ -77,18 +84,19 @@ function reducer(state, action){
     }
 }
 
-var store = Redux.createStore(reducer);
-
 setInterval(update, 100)    // Check for differences and send a socket event to the server with your current state if differences are found 
 
-// Checks for changes between SugarCube State and Store, update other clients if difference is detected
+// If differences between SugarCube state and store detected, update your store and the other clients
 function update() {
-    // If differences between SugarCube state and store detected, update your store and the other clients
     if(!_.isEqual(SugarCube.State.variables, store.getState())){
-        console.log("SUGARCUBE", SugarCube.State.variables)
-        console.log("STORE", store.getState())
         let diff = difference(SugarCube.State.variables, store.getState());
-        console.log("diff detected:", diff)
+        
+        // let diffKeys = Object.keys(diff)
+        // // If the only difference is userId, don't update
+        // if (diffKeys.length === 1 && diffKeys[0] === "userId")
+        //     return
+
+        console.log('diff detected', diff)
         store.dispatch({type: 'UPDATESTORE', payload: SugarCube.State.variables});
         // store.dispatch({type: 'UPDATESTORE', payload: diff});    // Old dispatch call
     }

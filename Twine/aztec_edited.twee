@@ -56,7 +56,7 @@ importScripts([
 
 
 :: StoryInit {"position":"22,135","size":"100,100"}
-<!-- <<set $users[$userId]['role'] = $users[$userId]['username']>> -->
+<<set $users[$userId]['role'] = $users[$userId]['username']>>
 <<cacheaudio "Gulls_and_waves__5min_" "audio/Gulls_and_waves__5min_.mp3">>
 <<cacheaudio "Library" "audio/Library.mp3">>
 <!-- <<masteraudio volume 0>> -->
@@ -7101,6 +7101,5 @@ The group has made a decision.  Continue to the next page to find out <<link "wh
 
 :: Generic New Spanish Leader {"position":"3743,1106","size":"100,100"}
 After much angry debate , you finally determine that <<print $Span_Leader>> has the greatest loyalty of his men, and you [[move forward under his leadership|Into the Mountain Pass]]
-
 
 
