@@ -35,7 +35,6 @@ socket.on('new connection', (state) => {
 
     // If this is the first time a user is connecting, assign them a userId in local storage
     if (localStorage.getItem('userId') === null) {
-        console.log("UserID in LocalStorage is NULL")
         setId(socket.id)
     }
 
@@ -43,11 +42,10 @@ socket.on('new connection', (state) => {
     else {
         setId(localStorage.getItem('userId'))
     }
-
-    console.log("State being sent:", state)
-    store.dispatch({type: 'UPDATEGAME', payload: state})
-    store.dispatch({type: 'UPDATESTORE', payload: state})
+    
     console.log("NEW CONNECTION")
+    store.dispatch({type: 'UPDATEGAME', payload: state, connecting: true})
+    store.dispatch({type: 'UPDATESTORE', payload: state, connecting: true})
 })
 
 
@@ -65,10 +63,12 @@ function setId(userId){
 }
 
 function reducer(state, action){
-    if(typeof state === 'undefined'){
+    // Checks for undefined to prevent feedback loop. Skips undefined check if connecting to the game (updates game as soon as client joins)
+    if(state === undefined && action.connecting === undefined) {
         console.log("State is undefined")
         return {...state, ...SugarCube.State.variables}
     }
+
     switch(action.type){
         case 'UPDATESTORE':
             console.log('Updating Store and Other Clients', action.payload)

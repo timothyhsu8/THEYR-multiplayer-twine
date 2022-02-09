@@ -66,7 +66,7 @@ class JSONFS {
                     //     key = `-${key}-`
                     // }
 
-                    console.log("Key is", this.dataType(value), value)
+                    // console.log("Key is", this.dataType(value), value)
                     // console.log(value, passedObject + key + path.sep)
                     return this.setJSON(value, passedObject + key + path.sep);
                 }
