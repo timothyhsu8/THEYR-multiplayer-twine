@@ -12,6 +12,7 @@ class Webstack {
 	constructor(port) {
 		this.port=port;
 		app.use("/static", express.static('./static/'));
+		app.use("/Twine", express.static('./Twine/'));
 		this.serverStore = Redux.createStore(this.reducer);
 		this.initIO();
 		http.listen(this.port, () => console.log(`App listening at http://localhost:${this.port}`));

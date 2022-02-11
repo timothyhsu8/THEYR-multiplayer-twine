@@ -33,8 +33,7 @@ function setBackground(image) {
 
     $(() => {
         $('#story').css({
-
-            'background-image': `url('https://apps.tlt.stonybrook.edu/Aztec/master/images/Borders/${faction}.jpg'),url('images/${image}')`,
+            'background-image': `url('Twine/images/Borders/${faction}.jpg'),url('images/${image}')`,
             'background-position': '30% 70%,0 0',
             'background-size': '100% 100%'
         })

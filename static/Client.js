@@ -8,29 +8,46 @@ if(userData){
 
 // Sets the UserId in the Users mapping
 $(document).one(':passageinit', () => {
-	console.log("STORY READY")
-    let users = SugarCube.State.getVar('$users');
-    
-    // If Users map is not defined, initialize it
-    if (users === undefined){
-        users = {}
-    } 
+    // SugarCube.setup.promise.then(() => {
+        console.log("STORY READY")
+        let users = SugarCube.State.getVar('$users');
+        console.log(users)
+        // If Users map is not defined, initialize it
+        if (users === undefined){
+            users = {}
+        } 
 
-    // If client does not exist in Users, add them
-    if(!(userData.id in users)) {
-        users[userData.id] = {}
-        users[userData.id].name= userData.username
-        SugarCube.State.setVar('$users', users);
-        console.log(SugarCube.State.variables)
-    }  
+        // If client does not exist in Users, add them
+        if(!(userData.id in users)) {
+            users[userData.id] = {}
+            users[userData.id].username= userData.username
+            SugarCube.State.setVar('$users', users);
+        }  
+    // })
 });
+
+// function theyrInit() {
+//     let users = SugarCube.State.getVar('$users');
+//     console.log(users)
+//     // If Users map is not defined, initialize it
+//     if (users === undefined){
+//         users = {}
+//     } 
+
+//     // If client does not exist in Users, add them
+//     if(!(userData.id in users)) {
+//         users[userData.id] = {}
+//         users[userData.id].username= userData.username
+//         SugarCube.State.setVar('$users', users);
+//     }  
+// }
 
 // User connects, asks server for game state
 socket.on('connect', () => {
     socket.emit('new user', socket.id);
 })
 
-// Receive state from server upon connecting
+// Receive state from server upon connecting, then update all other clients that you've connected
 socket.on('new connection', (state) => {
 
     // If this is the first time a user is connecting, assign them a userId in local storage

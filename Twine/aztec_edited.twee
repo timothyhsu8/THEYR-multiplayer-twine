@@ -25,7 +25,7 @@ Spanish Aztec War Ver 1.0
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
 @import url("https://unpkg.com/jquery.nice-number@2.1.0/dist/jquery.nice-number.min.css");
 @import url("//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css");
-@import url("https://apps.tlt.stonybrook.edu/Aztec/master/style.css");
+@import url("Twine/style.css");
 
 
 :: Story JavaScript [script]
@@ -52,24 +52,32 @@ importScripts([
 	"https://unpkg.com/jquery.nice-number@2.1.0/dist/jquery.nice-number.min.js",
 	"https://code.jquery.com/ui/1.12.1/jquery-ui.js"
 	
-]);
+])
 
 
 :: StoryInit {"position":"22,135","size":"100,100"}
-<<set $users[$userId]['role'] = $users[$userId]['username']>>
+/* <<script>> 
+	let lockId = LoadScreen.lock()
+	setTimeout(() => {
+		LoadScreen.unlock(lockId)
+	}, 1000);
+<</script>> */
+
+/* <<set $users[$userId]['role'] = $users[$userId]['username']>> */
 <<cacheaudio "Gulls_and_waves__5min_" "audio/Gulls_and_waves__5min_.mp3">>
 <<cacheaudio "Library" "audio/Library.mp3">>
 <!-- <<masteraudio volume 0>> -->
 
 
 :: PassageHeader {"position":"138,11","size":"100,100"}
-/* <<print passage()>>  */
+/* <<set $users[$userId]['role'] = $users[$userId]['username']>> */
+<<print JSON.stringify($users[$userId])>>
 <<audio ":all" stop>>
 <!-- <<masteraudio mute>> -->
 
 <<masteraudio unmute>>
- <<run showMap()>>
- <<run showStats()>>
+ /* <<run showMap()>>
+ <<run showStats()>> */
 <<run setBackground()>>
 
 

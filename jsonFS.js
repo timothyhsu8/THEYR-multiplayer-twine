@@ -20,39 +20,40 @@ class JSONFS {
         for (let file of files) {   // File can be file or directory
             if (file === ".gitignore")  // Skips gitignore file
                 continue;
-
-            isArray = this.isInt(file) && file < 100000;
-
-
+           
+            isArray = this.isInt(file);
+            // isArray = this.isInt(file) && file < 100000;
+            
             let filePath = dirPath + file
+
+            // File is an object, remove '-' from first and last index
+            if (file.charAt(0) === '-' && file.charAt(file.length - 1) === '-')
+                file = file.slice(1, file.length - 1)
+
             if (fs.statSync(filePath).isDirectory()) {
                 container[file] = this.getJSON(filePath + path.sep)
-                console.log(file, container[file])
+                // console.log(file, container[file])
             } else {
                 let fileContents = fs.readFileSync(filePath, {
                     encoding: 'utf8',
                     flag: 'r'
                 });
+
                 container[file] = JSON.parse(fileContents); // Converts data back to its original type from String
             }
         };
         if (isArray) {
             container = Object.values(container)
         }
+        console.log("container:", container)
         return container;
     }
 
-   
-
     setJSON(jsonObj, passedObject = "") {
-
         if (jsonObj !== null && (this.dataType(jsonObj) == "object" || this.dataType(jsonObj) == "array")) {
             Object.entries(jsonObj).forEach(([key, value]) => {
 
-
                 if (this.dataType(value) != "object" && this.dataType(value) != "array") {
-                    // console.log(passedObject, key, value)
-
                     let newDir = this.home + passedObject + key
                     this.delTree(newDir)
                     fs.mkdirSync(this.home + passedObject, {
@@ -62,11 +63,11 @@ class JSONFS {
 
                 } else {
                     // let newDir = this.home + passedObject + key
-                    // if (this.dataType(value) === "object") {
-                    //     key = `-${key}-`
-                    // }
+                    if (this.dataType(value) === "object") {
+                        key = `-${key}-`
+                    }
 
-                    // console.log("Key is", this.dataType(value), value)
+                    // console.log("Key is", key)
                     // console.log(value, passedObject + key + path.sep)
                     return this.setJSON(value, passedObject + key + path.sep);
                 }
