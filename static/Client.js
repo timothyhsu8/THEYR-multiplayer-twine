@@ -9,9 +9,9 @@ if(userData){
 // Sets the UserId in the Users mapping
 $(document).one(':passageinit', () => {
     // SugarCube.setup.promise.then(() => {
-        console.log("STORY READY")
+        console.log("STORY READY");
         let users = SugarCube.State.getVar('$users');
-        console.log(users)
+
         // If Users map is not defined, initialize it
         if (users === undefined){
             users = {}

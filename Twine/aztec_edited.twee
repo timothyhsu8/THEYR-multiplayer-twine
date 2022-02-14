@@ -64,13 +64,16 @@ importScripts([
 <</script>> */
 
 /* <<set $users[$userId]['role'] = $users[$userId]['username']>> */
+/* <<script>>
+	console.log("STORY INIT")
+<</script>> */
 <<cacheaudio "Gulls_and_waves__5min_" "audio/Gulls_and_waves__5min_.mp3">>
 <<cacheaudio "Library" "audio/Library.mp3">>
 <!-- <<masteraudio volume 0>> -->
 
 
 :: PassageHeader {"position":"138,11","size":"100,100"}
-/* <<set $users[$userId]['role'] = $users[$userId]['username']>> */
+<<set $users[$userId]['role'] = $users[$userId]['username']>>
 <<print JSON.stringify($users[$userId])>>
 <<audio ":all" stop>>
 <!-- <<masteraudio mute>> -->
