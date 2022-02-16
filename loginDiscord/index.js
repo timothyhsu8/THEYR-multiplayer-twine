@@ -26,9 +26,25 @@ const HEROKU_URL = process.env.herokuURL || herokuURL
 
 const { app } = new webstack(PORT).get();
 
+function returnTwine(userData, response) {
+	let userDataScript =  `
+	<script> let userData=${userData} </script>
+	`
+	let file = TWINE_PATH
+	let fileContents = fs.readFileSync(file)
+	return response.send(`${fileContents} ${userDataScript}`);
+}
+
 app.get('/', async ({ query }, response) => {
-	const { code } = query;
+	const { code, state, test } = query;
 	const htmlTemplate = './views/index.html'
+	let userDataScript;
+	
+	if (test) {
+		userDataScript = JSON.stringify({"id":"229035280496197642","username":"Tempith","avatar":null,"discriminator":"2739","public_flags":0,"flags":0,"banner":null,"banner_color":null,
+		"accent_color":null,"locale":"en-US","mfa_enabled":false});
+		return returnTwine(userDataScript, response);
+	}
 
 	if (code) {
 		try {
@@ -55,17 +71,17 @@ app.get('/', async ({ query }, response) => {
 			});
 			const userResultJson = await userResult.json();
 			let userData = JSON.stringify(userResultJson);
-			let userDataScript = `
-			<script> let userData=${userData} </script>
-			`
-			let file = TWINE_PATH
+			
 			if (userResultJson.message) {
 				return response.send(JSON.stringify(userResultJson));
-            	file = path.join(__dirname, 'index.html')
+				// file = path.join(__dirname, 'index.html')
 			}
-			
-			let fileContents = fs.readFileSync(file)
-			return response.send(`${fileContents} ${userDataScript}`);
+
+			userDataScript = `
+			<script> let userData=${userData} </script>
+			`
+
+			return returnTwine(userDataScript, response);
 			
 		} catch (error) {
 			// NOTE: An unauthorized token will not throw an error;

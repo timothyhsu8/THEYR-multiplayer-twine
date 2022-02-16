@@ -1,0 +1,16 @@
+Faction,Role,Character,isLeader
+Spaniards,Cortes,Hernán Cortés,TRUE
+Spaniards,Mariana,Doña Mariana/Malinche,FALSE
+Spaniards,Alvarado,Pedro de Alvarado,FALSE
+Spaniards,Aguilar,Gerónimo de Aguilar,FALSE
+Spaniards,Garrido,Juan Garrido,FALSE
+Spaniards,Olid,Cristóbal de Olid,FALSE
+Aztecs,Moctezuma,Moctezuma,TRUE
+Aztecs,Tlacaelel,Tlacaelel Xocoyotl (aka Tlacaelel the Younger),FALSE
+Aztecs,Cuauhtemoc,Cuauhtémoc,FALSE
+Aztecs,Cacamatzin,Cacamatzín,FALSE
+Aztecs,Aztec_Priest,Aztec Priest,FALSE
+Aztecs,Pochteca,Pochteca,FALSE
+Tlaxcalans,Xicotencatl_Elder,Xicotencatl the Elder,TRUE
+Tlaxcalans,Xicotencatl_Younger,Xicotencatl the Younger,FALSE
+Tlaxcalans,Maxixcatl,Maxixcatl,FALSE

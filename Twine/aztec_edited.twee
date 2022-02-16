@@ -48,6 +48,7 @@ importScripts([
 	`${urlPrefix}resize.js`,
 	`${urlPrefix}picker.js`,
 	`${urlPrefix}Client.js`,
+	`${urlPrefix}style.css`,
 	"https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/1.0.11/jquery.csv.min.js",
 	"https://unpkg.com/jquery.nice-number@2.1.0/dist/jquery.nice-number.min.js",
 	"https://code.jquery.com/ui/1.12.1/jquery-ui.js"
@@ -63,17 +64,56 @@ importScripts([
 	}, 1000);
 <</script>> */
 
+<<script>>
+	setup.theyrCallback = function() {
+		let users = State.variables.users;
+		let userId = State.variables.userId;
+		let user = users[userId];
+
+		const roles = [{"Faction": "Spaniards", "Role": "Mariana", "Character": "Do\u00c3\u00b1a Mariana/Malinche", "isLeader": "FALSE"},
+			{"Faction": "Spaniards", "Role": "Alvarado", "Character": "Pedro de Alvarado", "isLeader": "FALSE"},
+			{"Faction": "Spaniards", "Role": "Aguilar", "Character": "Ger\u00c3\u00b3nimo de Aguilar", "isLeader": "FALSE"},
+			{"Faction": "Spaniards", "Role": "Garrido", "Character": "Juan Garrido", "isLeader": "FALSE"},
+			{"Faction": "Spaniards", "Role": "Olid", "Character": "Crist\u00c3\u00b3bal de Olid", "isLeader": "FALSE"},
+			{"Faction": "Aztecs", "Role": "Moctezuma", "Character": "Moctezuma", "isLeader": "TRUE"},
+			{"Faction": "Aztecs", "Role": "Tlacaelel", "Character": "Tlacaelel Xocoyotl (aka Tlacaelel the Younger)", "isLeader": "FALSE"},
+			{"Faction": "Aztecs", "Role": "Cuauhtemoc", "Character": "Cuauht\u00c3\u00a9moc", "isLeader": "FALSE"},
+			{"Faction": "Aztecs", "Role": "Cacamatzin", "Character": "Cacamatz\u00c3\u00adn", "isLeader": "FALSE"},
+			{"Faction": "Aztecs", "Role": "Aztec_Priest", "Character": "Aztec Priest", "isLeader": "FALSE"},
+			{"Faction": "Aztecs", "Role": "Pochteca", "Character": "Pochteca", "isLeader": "FALSE"},
+			{"Faction": "Tlaxcalans", "Role": "Xicotencatl_Elder", "Character": "Xicotencatl the Elder", "isLeader": "TRUE"},
+			{"Faction": "Tlaxcalans", "Role": "Xicotencatl_Younger", "Character": "Xicotencatl the Younger", "isLeader": "FALSE"},
+			{"Faction": "Tlaxcalans", "Role": "Maxixcatl", "Character": "Maxixcatl", "isLeader": "FALSE"}]
+		
+		user['role'] = user['username'];
+		user['coins'] = 0;
+
+		let roleInfo = roles.find((item) => {
+			item.Role = user['role']
+		})
+		console.log(roleInfo)
+	}
+<</script>>
 /* <<set $users[$userId]['role'] = $users[$userId]['username']>> */
-/* <<script>>
-	console.log("STORY INIT")
-<</script>> */
 <<cacheaudio "Gulls_and_waves__5min_" "audio/Gulls_and_waves__5min_.mp3">>
 <<cacheaudio "Library" "audio/Library.mp3">>
 <!-- <<masteraudio volume 0>> -->
 
 
 :: PassageHeader {"position":"138,11","size":"100,100"}
-<<set $users[$userId]['role'] = $users[$userId]['username']>>
+/* <<set $users[$userId]['role'] = $users[$userId]['username']>> */
+<<script>>
+	let users = State.variables.users;
+	let userId = State.variables.userId;
+	let user = users[userId];
+
+	if (!passageInit) {
+		passageInit = true;
+		
+		user['role'] = user['username'];
+		user['coins'] = 0;
+	}
+<</script>>
 <<print JSON.stringify($users[$userId])>>
 <<audio ":all" stop>>
 <!-- <<masteraudio mute>> -->
