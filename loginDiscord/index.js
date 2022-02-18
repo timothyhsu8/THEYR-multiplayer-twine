@@ -77,11 +77,11 @@ app.get('/', async ({ query }, response) => {
 				// file = path.join(__dirname, 'index.html')
 			}
 
-			userDataScript = `
-			<script> let userData=${userData} </script>
-			`
+			// userDataScript = `
+			// <script> let userData=${userData} </script>
+			// `
 
-			return returnTwine(userDataScript, response);
+			return returnTwine(userData, response);
 			
 		} catch (error) {
 			// NOTE: An unauthorized token will not throw an error;

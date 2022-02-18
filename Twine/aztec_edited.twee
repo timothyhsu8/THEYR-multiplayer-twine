@@ -7,7 +7,7 @@ Spanish Aztec War Ver 1.0
 	"ifid": "5CAF53F2-B97C-45CA-9E53-CBD50086BDA5",
 	"format": "SugarCube",
 	"format-version": "2.30.0",
-	"start": "The Library",
+	"start": "Roles",
 	"tag-colors": {
 		"Breaks": "blue",
 		"Change-Title": "yellow",
@@ -57,18 +57,17 @@ importScripts([
 
 
 :: StoryInit {"position":"22,135","size":"100,100"}
-/* <<script>> 
-	let lockId = LoadScreen.lock()
-	setTimeout(() => {
-		LoadScreen.unlock(lockId)
-	}, 1000);
-<</script>> */
-
 <<script>>
 	setup.theyrCallback = function() {
 		let users = State.variables.users;
 		let userId = State.variables.userId;
 		let user = users[userId];
+		const rolemap = {'Tim' : 'Cuauhtemoc'} 
+
+		// Initialize user variables
+		// user['role'] = 'Cuauhtemoc';
+		user['role'] = rolemap[user['username']];
+		user['coins'] = 0;
 
 		const roles = [{"Faction": "Spaniards", "Role": "Mariana", "Character": "Do\u00c3\u00b1a Mariana/Malinche", "isLeader": "FALSE"},
 			{"Faction": "Spaniards", "Role": "Alvarado", "Character": "Pedro de Alvarado", "isLeader": "FALSE"},
@@ -84,14 +83,14 @@ importScripts([
 			{"Faction": "Tlaxcalans", "Role": "Xicotencatl_Elder", "Character": "Xicotencatl the Elder", "isLeader": "TRUE"},
 			{"Faction": "Tlaxcalans", "Role": "Xicotencatl_Younger", "Character": "Xicotencatl the Younger", "isLeader": "FALSE"},
 			{"Faction": "Tlaxcalans", "Role": "Maxixcatl", "Character": "Maxixcatl", "isLeader": "FALSE"}]
-		
-		user['role'] = user['username'];
-		user['coins'] = 0;
 
+		// Get role info for the player
 		let roleInfo = roles.find((item) => {
-			item.Role = user['role']
+			return item.Role === user['role']
 		})
-		console.log(roleInfo)
+
+		console.log("roleInfo", roleInfo)
+	
 	}
 <</script>>
 /* <<set $users[$userId]['role'] = $users[$userId]['username']>> */
@@ -101,20 +100,7 @@ importScripts([
 
 
 :: PassageHeader {"position":"138,11","size":"100,100"}
-/* <<set $users[$userId]['role'] = $users[$userId]['username']>> */
-<<script>>
-	let users = State.variables.users;
-	let userId = State.variables.userId;
-	let user = users[userId];
-
-	if (!passageInit) {
-		passageInit = true;
-		
-		user['role'] = user['username'];
-		user['coins'] = 0;
-	}
-<</script>>
-<<print JSON.stringify($users[$userId])>>
+/* <<print JSON.stringify($users[$userId])>> */
 <<audio ":all" stop>>
 <!-- <<masteraudio mute>> -->
 
@@ -122,6 +108,18 @@ importScripts([
  /* <<run showMap()>>
  <<run showStats()>> */
 <<run setBackground()>>
+
+:: Roles
+/* <<textbox "$Mal_Story" "">> */
+<<for _i to 0, _statNames to Object.keys($users); _i lt _statNames.length; _i++>>
+	<<print $users[_statNames[_i]]['username']>>
+	/* <<print $users[_statNames[_i]]['role']>> */
+	<<set $textUser=$users[_statNames[_i]]>>
+	<<set $textRole=$users[_statNames[_i]]['role']>>
+	<<textbox "$textUser.role" $textRole>>
+	<br>
+	/* <<print _statNames[_i]>> */
+<</for>>
 
 
 :: Act 1 Scene 1 [Done Breaks] {"position":"338,1151","size":"100,100"}
@@ -2182,6 +2180,7 @@ Vote is 2
 
 
 :: The Library [Done] {"position":"521,25","size":"100,100"}
+[[Roles]]
 It’s six weeks into the semester and you’re already drowning in work. You have your first exams this week, you need to get started on some research, and now your history professor has sprung a surprise assignment on you at the last minute--and it’s due tomorrow! The only way you’re going to get everything done is to pull an all-nighter. There’s no way you’ll be able to stay awake at home; your bed is there and it’s just too tempting. So you head to the library. <br>
 <br>
 It’s 7 pm and the library is more crowded than usual. It looks like you’re not the only one with a mountain of work to do this week! There’s no way you’ll be able to focus in the midst of so many people. Maybe the top floor is quieter. You head upstairs towards the study carrels, but they’re all taken. It’s dead quiet up here, but there’s nowhere to work. You begin wandering down unfamiliar hallways, poking your head into all the different rooms, but none of them work. You’re beginning to get frustrated when you notice a door you’ve never seen before. It’s tucked into an alcove in the very back corner of the building. You decide to check this one last spot before you give up and join the masses downstairs. <br>

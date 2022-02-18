@@ -17,7 +17,7 @@ function init() {
         $("body").addClass("blur")
     }); 
     fade($("body"), 1);
-    setInterval(checkDif, 1000)
+    // setInterval(checkDif, 1000)
 }
 
 
@@ -54,16 +54,30 @@ function fade(el, destination) {
 
 
 $(document).on(':passagestart', (ev) => {
+    let userId = SugarCube.State.getVar("$userId");
     var role = SugarCube.State.getVar("$role");
     var passage = $(ev.content).data("passage");
     var passageLength= Math.sqrt( SugarCube.Story.get(passage).text.length);
     var fs=`${Math.log(passageLength)}rem`;
     
-    console.log(passageLength)
+    console.log("User Id is:", userId)
+    console.log("Passage length:", passageLength)
     //$('#passages').css({"font-size":fs})
     SugarCube.State.setVar(`$${role}_currentPassage`, passage);
     fade($("#passages"), 1);
 })
+
+// $(document).on(':passagestart', (ev) => {
+//     var role = SugarCube.State.getVar("$role");
+//     var passage = $(ev.content).data("passage");
+//     var passageLength= Math.sqrt( SugarCube.Story.get(passage).text.length);
+//     var fs=`${Math.log(passageLength)}rem`;
+    
+//     console.log("Passage length:", passageLength)
+//     //$('#passages').css({"font-size":fs})
+//     SugarCube.State.setVar(`$${role}_currentPassage`, passage);
+//     fade($("#passages"), 1);
+// })
 
 
 /* JavaScript code */

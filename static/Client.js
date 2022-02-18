@@ -1,6 +1,5 @@
 var socket = io();
 var store = Redux.createStore(reducer);
-var passageInit = false;
 
 // If userData exists already, set your ID in localStorage
 if(userData){
@@ -9,23 +8,21 @@ if(userData){
 
 // Sets the UserId in the Users mapping
 $(document).one(':passageinit', () => {
-    // SugarCube.setup.promise.then(() => {
-        console.log("STORY READY");
-        let users = SugarCube.State.getVar('$users');
+    console.log("STORY READY");
+    let users = SugarCube.State.getVar('$users');
 
-        // If Users map is not defined, initialize it
-        if (users === undefined){
-            users = {}
-        } 
+    // If Users map is not defined, initialize it
+    if (users === undefined){
+        users = {}
+    } 
 
-        // If client does not exist in Users, add them
-        if(!(userData.id in users)) {
-            users[userData.id] = {}
-            users[userData.id].username= userData.username
-            SugarCube.State.setVar('$users', users);
-        }  
-        SugarCube.setup.theyrCallback();
-    // })
+    // If client does not exist in Users, add them
+    if(!(userData.id in users)) {
+        users[userData.id] = {}
+        users[userData.id].username= userData.username
+        SugarCube.State.setVar('$users', users);
+    }  
+    SugarCube.setup.theyrCallback();
 });
 
 // User connects, asks server for game state
