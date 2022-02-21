@@ -62,34 +62,35 @@ importScripts([
 		let users = State.variables.users;
 		let userId = State.variables.userId;
 		let user = users[userId];
-		const rolemap = {'Tim' : 'Cuauhtemoc'} 
 
 		// Initialize user variables
 		// user['role'] = 'Cuauhtemoc';
-		user['role'] = rolemap[user['username']];
+		user['role'] = userData.nick;
 		user['coins'] = 0;
 
-		const roles = [{"Faction": "Spaniards", "Role": "Mariana", "Character": "Do\u00c3\u00b1a Mariana/Malinche", "isLeader": "FALSE"},
-			{"Faction": "Spaniards", "Role": "Alvarado", "Character": "Pedro de Alvarado", "isLeader": "FALSE"},
-			{"Faction": "Spaniards", "Role": "Aguilar", "Character": "Ger\u00c3\u00b3nimo de Aguilar", "isLeader": "FALSE"},
-			{"Faction": "Spaniards", "Role": "Garrido", "Character": "Juan Garrido", "isLeader": "FALSE"},
-			{"Faction": "Spaniards", "Role": "Olid", "Character": "Crist\u00c3\u00b3bal de Olid", "isLeader": "FALSE"},
-			{"Faction": "Aztecs", "Role": "Moctezuma", "Character": "Moctezuma", "isLeader": "TRUE"},
-			{"Faction": "Aztecs", "Role": "Tlacaelel", "Character": "Tlacaelel Xocoyotl (aka Tlacaelel the Younger)", "isLeader": "FALSE"},
-			{"Faction": "Aztecs", "Role": "Cuauhtemoc", "Character": "Cuauht\u00c3\u00a9moc", "isLeader": "FALSE"},
-			{"Faction": "Aztecs", "Role": "Cacamatzin", "Character": "Cacamatz\u00c3\u00adn", "isLeader": "FALSE"},
-			{"Faction": "Aztecs", "Role": "Aztec_Priest", "Character": "Aztec Priest", "isLeader": "FALSE"},
-			{"Faction": "Aztecs", "Role": "Pochteca", "Character": "Pochteca", "isLeader": "FALSE"},
-			{"Faction": "Tlaxcalans", "Role": "Xicotencatl_Elder", "Character": "Xicotencatl the Elder", "isLeader": "TRUE"},
-			{"Faction": "Tlaxcalans", "Role": "Xicotencatl_Younger", "Character": "Xicotencatl the Younger", "isLeader": "FALSE"},
-			{"Faction": "Tlaxcalans", "Role": "Maxixcatl", "Character": "Maxixcatl", "isLeader": "FALSE"}]
+		const roles = [{"faction": "Spaniards", "role": "Mariana", "Character": "Doña Mariana/Malinche", "isLeader": "FALSE"},
+			{"faction": "Spaniards", "role": "Alvarado", "Character": "Pedro de Alvarado", "isLeader": "FALSE"},
+			{"faction": "Spaniards", "role": "Aguilar", "Character": "Gerónimo de Aguilar", "isLeader": "FALSE"},
+			{"faction": "Spaniards", "role": "Garrido", "Character": "Juan Garrido", "isLeader": "FALSE"},
+			{"faction": "Spaniards", "role": "Olid", "Character": "Cristóbal de Olid", "isLeader": "FALSE"},
+			{"faction": "Aztecs", "role": "Moctezuma", "Character": "Moctezuma", "isLeader": "TRUE"},
+			{"faction": "Aztecs", "role": "Tlacaelel", "Character": "Tlacaelel Xocoyotl (aka Tlacaelel the Younger)", "isLeader": "FALSE"},
+			{"faction": "Aztecs", "role": "Cuauhtémoc", "Character": "Cuauhtémoc", "isLeader": "FALSE"},
+			{"faction": "Aztecs", "role": "Cacamatzin", "Character": "Cacamatzín", "isLeader": "FALSE"},
+			{"faction": "Aztecs", "role": "Aztec_Priest", "Character": "Aztec Priest", "isLeader": "FALSE"},
+			{"faction": "Aztecs", "role": "Pochteca", "Character": "Pochteca", "isLeader": "FALSE"},
+			{"faction": "Tlaxcalans", "role": "Xicotencatl_Elder", "Character": "Xicotencatl the Elder", "isLeader": "TRUE"},
+			{"faction": "Tlaxcalans", "role": "Xicotencatl_Younger", "Character": "Xicotencatl the Younger", "isLeader": "FALSE"},
+			{"faction": "Tlaxcalans", "role": "Maxixcatl", "Character": "Maxixcatl", "isLeader": "FALSE"}]
 
 		// Get role info for the player
 		let roleInfo = roles.find((item) => {
-			return item.Role === user['role']
+			return item.role === user['role']
 		})
 
-		console.log("roleInfo", roleInfo)
+		console.log("role info:", roleInfo);
+		user = Object.assign(user, roleInfo);
+		console.log("User:", user);
 	
 	}
 <</script>>
@@ -101,6 +102,7 @@ importScripts([
 
 :: PassageHeader {"position":"138,11","size":"100,100"}
 /* <<print JSON.stringify($users[$userId])>> */
+<<print passage()>>
 <<audio ":all" stop>>
 <!-- <<masteraudio mute>> -->
 
@@ -794,8 +796,8 @@ You lie on your mat upon the floor listening to the thunder, unsettled by a very
 Use the counter below to develop your character. You have 20 points, which you may distribute however you choose between qualities: strength, loyalty, and wisdom. These qualities will be important in the days to come, so choose wisely. <br>
 <br>
 <</switch>>
- <div id="statsPicker"></div><br>
- <<print statPickerInit()>><br>
+<div id="statsPicker"></div><br>
+<<print statPickerInit()>><br>
 <div  class="show"><br>
 You need to assign points to your character to continue. <br>
 </div>

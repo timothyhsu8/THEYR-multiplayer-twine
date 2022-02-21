@@ -41,7 +41,7 @@ app.get('/', async ({ query }, response) => {
 	let userDataScript;
 	
 	if (test) {
-		userDataScript = JSON.stringify({"id":"229035280496197642","username":"Tempith","avatar":null,"discriminator":"2739","public_flags":0,"flags":0,"banner":null,"banner_color":null,
+		userDataScript = JSON.stringify({"id":"229035280496197642","nick":"Cuauhtémoc", "faction": "Aztecs", "avatar":null,"discriminator":"2739","public_flags":0,"flags":0,"banner":null,"banner_color":null,
 		"accent_color":null,"locale":"en-US","mfa_enabled":false});
 		return returnTwine(userDataScript, response);
 	}
@@ -69,11 +69,23 @@ app.get('/', async ({ query }, response) => {
 					authorization: `${oauthData.token_type} ${oauthData.access_token}`,
 				},
 			});
+			
 			const userResultJson = await userResult.json();
 			let userData = JSON.stringify(userResultJson);
 			
+			const guildResult = await fetch('https://discord.com/api/users/@me/guilds/931624626491101245/member', {
+				headers: {
+					authorization: `${oauthData.token_type} ${oauthData.access_token}`,
+				},
+			});
+			const guildResultJson = await guildResult.json();
+			let guildData = JSON.stringify(guildResultJson);
+			
+			const combineData = JSON.stringify({...guildResultJson, ...userResultJson});
+			
+
 			if (userResultJson.message) {
-				return response.send(JSON.stringify(userResultJson));
+				return response.send(JSON.stringify(combineData));
 				// file = path.join(__dirname, 'index.html')
 			}
 
@@ -81,7 +93,7 @@ app.get('/', async ({ query }, response) => {
 			// <script> let userData=${userData} </script>
 			// `
 
-			return returnTwine(userData, response);
+			return returnTwine(combineData, response);
 			
 		} catch (error) {
 			// NOTE: An unauthorized token will not throw an error;

@@ -6,27 +6,20 @@ class valueChanger {
     }
 
     change(direction, $currentInput) {
-
         var spinValue = parseInt($currentInput.val());
         var changed = false;
         var testValue = this.currentValue - direction;
 
-
         if (testValue < 0 || testValue > this.maxValue || spinValue < 0) {
-
             changed = false;
         } else {
-
             this.currentValue -= direction;
-
             $("#currentValue").html(this.currentValue);
-
 
             changed = true;
             disableButtons();
         }
         return changed;
-
     }
 }
 
@@ -48,26 +41,28 @@ function dialog(text) {
             }
         }
     });
+}
 
-
+function testFunc() {
+    console.log("IN the TEST function")
 }
 
 function statPickerInit() {
+    console.log("STAT PICKER INIT")
     var statNames = ["Strength", "Wisdom", "Loyalty"]
-
     var userId = SugarCube.State.getVar("$userId");
     var user = SugarCube.State.getVar("$users")[userId];
     var role = user["role"];
-    console.log("ROLE IS", role)
+
     var showPicker = true;
     statNames.forEach((stat) => {
         if (SugarCube.State.getVar(`$${role}_${stat}`)) {
             showPicker = false
         }
-
     })
+
     if (!showPicker) {
-       setTimeout(toggleHide,1000);
+        setTimeout(toggleHide,1000);
         return "";
     }
 
@@ -82,10 +77,7 @@ function statPickerInit() {
         "id": "stats"
     });
 
-
-
     statNames.forEach((stat) => makeStats(stat, container));
-
 
     var submitButton = $("<input/>", {
         "id": "submitButton",
@@ -95,18 +87,17 @@ function statPickerInit() {
     var newline = $("<br/>")
     container.append([newline]);
 
-
-
     var dialog = $("<div/>", {
         "id": "dialog-confirm",
         html: ""
     });
+
     var out = $("<div/>", {
         "class": "show"
     }).append([pointsLeftLabel,pointsLeft, container, submitButton, dialog])
 
     setTimeout(() => {
-        $('#statsPicker').append(out)
+        $('#statsPicker').empty().append(out)
         //makeRoleStats()
 
         $("#submitButton").on("click", submitStats)
@@ -126,10 +117,6 @@ function toggleHide() {
     $('.hide').addClass('show')
     $('.hide').removeClass('hide')
     $('.temp').addClass('hide')
-
-
-
-
 }
 
 function submitStats() {
@@ -143,25 +130,17 @@ function submitStats() {
     })
 
     if (valueChange.currentValue != 0) {
-
-        dialog
-            (`
-    You still have points to assign
-  `)
-
+        dialog(`You still have points to assign`)
     } else {
         toggleHide()
         makeRoleStats(stats)
     }
-
-
 }
 
 function disableButtons() {
     var total = 0;
     $('.nice-number').each(function () {
         var value = $($(this).children()[1]).val()
-
         var minus = $($(this).children()[0]);
         minus.prop("disabled", false);
         if (value == 0) {
@@ -172,24 +151,16 @@ function disableButtons() {
         //  
         //$( this) .attr("disabled","disabled");
     })
-
-
 }
 
 
 function change($currentInput, amount, settings, direction) {
-
-
     if (!valueChange.change(direction, $currentInput)) {
         $currentInput.val($currentInput.val() - direction);
-
-
     } else {
 
-
-
-
     }
+
     // if (amount >= 100) {
     //     $currentInput.classList.add('more-than-100');
     // } else {
@@ -198,7 +169,6 @@ function change($currentInput, amount, settings, direction) {
 }
 
 function makeStats(item, container, value = 0) {
-
     var label = $("<div/>", {
         "html": item
     });

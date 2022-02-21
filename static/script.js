@@ -26,12 +26,12 @@ function init() {
 
 
 function setBackground(image) {
-    image = image || "paper.jpg"
-    var faction = SugarCube.State.getVar('$faction')
+    // image = image || "paper.jpg"
+    let { faction } = getUser();
 
     $(() => {
         $('#story').css({
-            // 'background-image': `url('Twine/images/Borders/${faction}.jpg'),url('Twine/images/${image}')`,
+            'background-image': `url('Twine/images/Borders/${faction}.jpg')`,
             'background-position': '30% 70%,0 0',
             'background-size': '100% 100%'
         })
@@ -58,7 +58,7 @@ function fade(el, destination) {
 
 
 $(document).on(':passagestart', (ev) => {
-    var role = getRole();
+    let { role, faction } = getUser();
     var passage = $(ev.content).data("passage");
     var passageLength= Math.sqrt( SugarCube.Story.get(passage).text.length);
     var fs=`${Math.log(passageLength)}rem`;
@@ -97,14 +97,16 @@ function showMap(){
         }))
     }
  
-    var faction = SugarCube.State.getVar("$faction");  
+    let { faction } = getUser();
+    console.log("faction", faction);
+    // var faction = SugarCube.State.getVar("$faction");  
     var currentMap = 1 && SugarCube.State.getVar(`$${faction}_currentMap`);
     var showMap=$('#map').data("currentMap")
  
     if(showMap!=currentMap){
         console.log((showMap, currentMap))
         SugarCube.State.setVar(`$${faction}_currentMap`,currentMap);
-        $('#map').attr("src",`images/${faction}_${currentMap}.png`)
+        $('#map').attr("src",`Twine/images/${faction}_${currentMap}.png`)
       $('#map').data("currentMap",currentMap)
     }
 }
@@ -112,7 +114,7 @@ function showMap(){
 function showStats() {
     var showStats = false;
     var statString = "";
-    var role = getRole();
+    let { role } = getUser();
     var faction = SugarCube.State.getVar("$faction");
     var stats = {
         "Strength": 0,
@@ -185,14 +187,14 @@ function setFactionStrength(rawValue) {
 
 function makeRoleStats(statsIn) {
     var total = 0;
-    var role = getRole();
+    let { role } = getUser();
     var output = "";
 
     Object.keys(statsIn).forEach((stat) => {
-            var twineVar = `$${role}_${stat}`
+            var twineVar = `$${role}_${stat}`;
             val = parseInt(statsIn[stat]);
             SugarCube.State.setVar(twineVar, val);
-            output += `${stat}: ${val}\n`
+            output += `${stat}: ${val}\n`;
         } 
     )
     $('#statsPicker').html(output)
@@ -262,7 +264,7 @@ function loadGameData(data) {
         SugarCube.State.setVar("$" + key, val||0);
     }
 
-    var role = getRole();
+    let { role } = getUser();
     var currentPassage = SugarCube.State.getVar(`$${role}_currentPassage`) || vars["currentPassage"];
     
     SugarCube.Engine.play(currentPassage)
@@ -270,9 +272,8 @@ function loadGameData(data) {
 }
 
 // Returns the role of the current player
-function getRole() {
+function getUser() {
     var userId = SugarCube.State.getVar("$userId");
     var user = SugarCube.State.getVar("$users")[userId];
-    var role = user["role"];
-    return role;
+    return user;
 }

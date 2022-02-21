@@ -128,39 +128,40 @@ importScripts([
 	"https://unpkg.com/jquery.nice-number@2.1.0/dist/jquery.nice-number.min.js",
 	"https://code.jquery.com/ui/1.12.1/jquery-ui.js"
 	
-])</script><tw-tag name="Done" color="green"></tw-tag><tw-tag name="New-Passage" color="purple"></tw-tag><tw-tag name="Text-to-be-updated-by-Ashley" color="orange"></tw-tag><tw-tag name="Breaks" color="blue"></tw-tag><tw-tag name="Change-Title" color="yellow"></tw-tag><tw-tag name="Coding-Problem" color="red"></tw-tag><tw-passagedata pid="1" name="StoryInit" tags="" position="22,135" size="100,100">&lt;&lt;script&gt;&gt;
+])</script><tw-tag name="New-Passage" color="purple"></tw-tag><tw-tag name="Text-to-be-updated-by-Ashley" color="orange"></tw-tag><tw-tag name="Breaks" color="blue"></tw-tag><tw-tag name="Change-Title" color="yellow"></tw-tag><tw-tag name="Coding-Problem" color="red"></tw-tag><tw-tag name="Done" color="green"></tw-tag><tw-passagedata pid="1" name="StoryInit" tags="" position="22,135" size="100,100">&lt;&lt;script&gt;&gt;
 	setup.theyrCallback = function() {
 		let users = State.variables.users;
 		let userId = State.variables.userId;
 		let user = users[userId];
-		const rolemap = {&#39;Tim&#39; : &#39;Cuauhtemoc&#39;} 
 
 		// Initialize user variables
 		// user[&#39;role&#39;] = &#39;Cuauhtemoc&#39;;
-		user[&#39;role&#39;] = rolemap[user[&#39;username&#39;]];
+		user[&#39;role&#39;] = userData.nick;
 		user[&#39;coins&#39;] = 0;
 
-		const roles = [{&quot;Faction&quot;: &quot;Spaniards&quot;, &quot;Role&quot;: &quot;Mariana&quot;, &quot;Character&quot;: &quot;Do\u00c3\u00b1a Mariana/Malinche&quot;, &quot;isLeader&quot;: &quot;FALSE&quot;},
-			{&quot;Faction&quot;: &quot;Spaniards&quot;, &quot;Role&quot;: &quot;Alvarado&quot;, &quot;Character&quot;: &quot;Pedro de Alvarado&quot;, &quot;isLeader&quot;: &quot;FALSE&quot;},
-			{&quot;Faction&quot;: &quot;Spaniards&quot;, &quot;Role&quot;: &quot;Aguilar&quot;, &quot;Character&quot;: &quot;Ger\u00c3\u00b3nimo de Aguilar&quot;, &quot;isLeader&quot;: &quot;FALSE&quot;},
-			{&quot;Faction&quot;: &quot;Spaniards&quot;, &quot;Role&quot;: &quot;Garrido&quot;, &quot;Character&quot;: &quot;Juan Garrido&quot;, &quot;isLeader&quot;: &quot;FALSE&quot;},
-			{&quot;Faction&quot;: &quot;Spaniards&quot;, &quot;Role&quot;: &quot;Olid&quot;, &quot;Character&quot;: &quot;Crist\u00c3\u00b3bal de Olid&quot;, &quot;isLeader&quot;: &quot;FALSE&quot;},
-			{&quot;Faction&quot;: &quot;Aztecs&quot;, &quot;Role&quot;: &quot;Moctezuma&quot;, &quot;Character&quot;: &quot;Moctezuma&quot;, &quot;isLeader&quot;: &quot;TRUE&quot;},
-			{&quot;Faction&quot;: &quot;Aztecs&quot;, &quot;Role&quot;: &quot;Tlacaelel&quot;, &quot;Character&quot;: &quot;Tlacaelel Xocoyotl (aka Tlacaelel the Younger)&quot;, &quot;isLeader&quot;: &quot;FALSE&quot;},
-			{&quot;Faction&quot;: &quot;Aztecs&quot;, &quot;Role&quot;: &quot;Cuauhtemoc&quot;, &quot;Character&quot;: &quot;Cuauht\u00c3\u00a9moc&quot;, &quot;isLeader&quot;: &quot;FALSE&quot;},
-			{&quot;Faction&quot;: &quot;Aztecs&quot;, &quot;Role&quot;: &quot;Cacamatzin&quot;, &quot;Character&quot;: &quot;Cacamatz\u00c3\u00adn&quot;, &quot;isLeader&quot;: &quot;FALSE&quot;},
-			{&quot;Faction&quot;: &quot;Aztecs&quot;, &quot;Role&quot;: &quot;Aztec_Priest&quot;, &quot;Character&quot;: &quot;Aztec Priest&quot;, &quot;isLeader&quot;: &quot;FALSE&quot;},
-			{&quot;Faction&quot;: &quot;Aztecs&quot;, &quot;Role&quot;: &quot;Pochteca&quot;, &quot;Character&quot;: &quot;Pochteca&quot;, &quot;isLeader&quot;: &quot;FALSE&quot;},
-			{&quot;Faction&quot;: &quot;Tlaxcalans&quot;, &quot;Role&quot;: &quot;Xicotencatl_Elder&quot;, &quot;Character&quot;: &quot;Xicotencatl the Elder&quot;, &quot;isLeader&quot;: &quot;TRUE&quot;},
-			{&quot;Faction&quot;: &quot;Tlaxcalans&quot;, &quot;Role&quot;: &quot;Xicotencatl_Younger&quot;, &quot;Character&quot;: &quot;Xicotencatl the Younger&quot;, &quot;isLeader&quot;: &quot;FALSE&quot;},
-			{&quot;Faction&quot;: &quot;Tlaxcalans&quot;, &quot;Role&quot;: &quot;Maxixcatl&quot;, &quot;Character&quot;: &quot;Maxixcatl&quot;, &quot;isLeader&quot;: &quot;FALSE&quot;}]
+		const roles = [{&quot;faction&quot;: &quot;Spaniards&quot;, &quot;role&quot;: &quot;Mariana&quot;, &quot;Character&quot;: &quot;Doña Mariana/Malinche&quot;, &quot;isLeader&quot;: &quot;FALSE&quot;},
+			{&quot;faction&quot;: &quot;Spaniards&quot;, &quot;role&quot;: &quot;Alvarado&quot;, &quot;Character&quot;: &quot;Pedro de Alvarado&quot;, &quot;isLeader&quot;: &quot;FALSE&quot;},
+			{&quot;faction&quot;: &quot;Spaniards&quot;, &quot;role&quot;: &quot;Aguilar&quot;, &quot;Character&quot;: &quot;Gerónimo de Aguilar&quot;, &quot;isLeader&quot;: &quot;FALSE&quot;},
+			{&quot;faction&quot;: &quot;Spaniards&quot;, &quot;role&quot;: &quot;Garrido&quot;, &quot;Character&quot;: &quot;Juan Garrido&quot;, &quot;isLeader&quot;: &quot;FALSE&quot;},
+			{&quot;faction&quot;: &quot;Spaniards&quot;, &quot;role&quot;: &quot;Olid&quot;, &quot;Character&quot;: &quot;Cristóbal de Olid&quot;, &quot;isLeader&quot;: &quot;FALSE&quot;},
+			{&quot;faction&quot;: &quot;Aztecs&quot;, &quot;role&quot;: &quot;Moctezuma&quot;, &quot;Character&quot;: &quot;Moctezuma&quot;, &quot;isLeader&quot;: &quot;TRUE&quot;},
+			{&quot;faction&quot;: &quot;Aztecs&quot;, &quot;role&quot;: &quot;Tlacaelel&quot;, &quot;Character&quot;: &quot;Tlacaelel Xocoyotl (aka Tlacaelel the Younger)&quot;, &quot;isLeader&quot;: &quot;FALSE&quot;},
+			{&quot;faction&quot;: &quot;Aztecs&quot;, &quot;role&quot;: &quot;Cuauhtémoc&quot;, &quot;Character&quot;: &quot;Cuauhtémoc&quot;, &quot;isLeader&quot;: &quot;FALSE&quot;},
+			{&quot;faction&quot;: &quot;Aztecs&quot;, &quot;role&quot;: &quot;Cacamatzin&quot;, &quot;Character&quot;: &quot;Cacamatzín&quot;, &quot;isLeader&quot;: &quot;FALSE&quot;},
+			{&quot;faction&quot;: &quot;Aztecs&quot;, &quot;role&quot;: &quot;Aztec_Priest&quot;, &quot;Character&quot;: &quot;Aztec Priest&quot;, &quot;isLeader&quot;: &quot;FALSE&quot;},
+			{&quot;faction&quot;: &quot;Aztecs&quot;, &quot;role&quot;: &quot;Pochteca&quot;, &quot;Character&quot;: &quot;Pochteca&quot;, &quot;isLeader&quot;: &quot;FALSE&quot;},
+			{&quot;faction&quot;: &quot;Tlaxcalans&quot;, &quot;role&quot;: &quot;Xicotencatl_Elder&quot;, &quot;Character&quot;: &quot;Xicotencatl the Elder&quot;, &quot;isLeader&quot;: &quot;TRUE&quot;},
+			{&quot;faction&quot;: &quot;Tlaxcalans&quot;, &quot;role&quot;: &quot;Xicotencatl_Younger&quot;, &quot;Character&quot;: &quot;Xicotencatl the Younger&quot;, &quot;isLeader&quot;: &quot;FALSE&quot;},
+			{&quot;faction&quot;: &quot;Tlaxcalans&quot;, &quot;role&quot;: &quot;Maxixcatl&quot;, &quot;Character&quot;: &quot;Maxixcatl&quot;, &quot;isLeader&quot;: &quot;FALSE&quot;}]
 
 		// Get role info for the player
 		let roleInfo = roles.find((item) =&gt; {
-			return item.Role === user[&#39;role&#39;]
+			return item.role === user[&#39;role&#39;]
 		})
 
-		console.log(&quot;roleInfo&quot;, roleInfo)
+		console.log(&quot;role info:&quot;, roleInfo);
+		user = Object.assign(user, roleInfo);
+		console.log(&quot;User:&quot;, user);
 	
 	}
 &lt;&lt;/script&gt;&gt;
@@ -168,6 +169,7 @@ importScripts([
 &lt;&lt;cacheaudio &quot;Gulls_and_waves__5min_&quot; &quot;audio/Gulls_and_waves__5min_.mp3&quot;&gt;&gt;
 &lt;&lt;cacheaudio &quot;Library&quot; &quot;audio/Library.mp3&quot;&gt;&gt;
 &lt;!-- &lt;&lt;masteraudio volume 0&gt;&gt; --&gt;</tw-passagedata><tw-passagedata pid="2" name="PassageHeader" tags="" position="138,11" size="100,100">/* &lt;&lt;print JSON.stringify($users[$userId])&gt;&gt; */
+&lt;&lt;print passage()&gt;&gt;
 &lt;&lt;audio &quot;:all&quot; stop&gt;&gt;
 &lt;!-- &lt;&lt;masteraudio mute&gt;&gt; --&gt;
 
@@ -765,8 +767,8 @@ You lie on your mat upon the floor listening to the thunder, unsettled by a very
 Use the counter below to develop your character. You have 20 points, which you may distribute however you choose between qualities: strength, loyalty, and wisdom. These qualities will be important in the days to come, so choose wisely. &lt;br&gt;
 &lt;br&gt;
 &lt;&lt;/switch&gt;&gt;
- &lt;div id=&quot;statsPicker&quot;&gt;&lt;/div&gt;&lt;br&gt;
- &lt;&lt;print statPickerInit()&gt;&gt;&lt;br&gt;
+&lt;div id=&quot;statsPicker&quot;&gt;&lt;/div&gt;&lt;br&gt;
+&lt;&lt;print statPickerInit()&gt;&gt;&lt;br&gt;
 &lt;div  class=&quot;show&quot;&gt;&lt;br&gt;
 You need to assign points to your character to continue. &lt;br&gt;
 &lt;/div&gt;
