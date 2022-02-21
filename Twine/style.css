@@ -7,6 +7,7 @@ body {
   /* opacity: 0; */
   font-weight: 400;
 }
+
 .blur{
   animation-duration: .2s;
   animation-name: blur;
@@ -14,28 +15,19 @@ body {
   animation-timing-function: ease-in-out;
 }
 
-
-
 @keyframes blur {
-0%{
-  filter: blur(1.5rem);
-
-}
-30% {
-
-  filter: blur(.5rem);
- 
- }
- 50% {
-
-  filter: blur(1rem);
- 
- }
-100% {
-
- filter: blur(0px);
-
-}
+  0%{
+    filter: blur(1.5rem);
+  }
+  30% {
+    filter: blur(.5rem);
+  }
+  50% {
+    filter: blur(1rem);
+  }
+  100% {
+    filter: blur(0px);
+  }
 }
 
 .link-internal,a {
@@ -43,32 +35,33 @@ body {
   text-decoration: underline;
   color: rgb(65, 24, 6);
 }
-.link-internal:hover,a:hover{
 
+.link-internal:hover,a:hover {
   color: rgb(75, 34, 16);
 }
 
 body::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 }
+
 body::-webkit-scrollbar {
   width: .1em;
 }
+
 button {
-background-color:rgb(65, 24, 6);;
-outline: 1px solid slategrey;
+  background-color:rgb(65, 24, 6);;
+  outline: 1px solid slategrey;
 }
 
-.stat{
-width:33%;
-height:100%;
-display:block;
-background-size: 100%;
+.stat {
+  width:33%;
+  height:100%;
+  display:block;
+  background-size: 100%;
 }
 
 .hide {
   display: none !important;
-
 }
 
 [disabled] {
@@ -78,36 +71,36 @@ background-size: 100%;
 
 #map{
   position:absolute;
-
   top:30%;
-
 }
-#map,#factionStrength,#factionStrengthLabel{
+
+#map, #factionStrength, #factionStrengthLabel {
   width:30%;
   left:60%;
-position:absolute;
-
+  position:absolute;
 }
-#factionStrengthLabel{
+
+#factionStrengthLabel {
 top:84%;
 font-size: 3.5rem;
 width:30%;
 text-align: center;
 }
+
 .nice-number {
   margin: .5rem;
-
 }
 
 .show {
   display: block;
-
 }
-.voteVal{
+
+.voteVal {
   display: inline-block;
   width:3rem;
 }
-#displayStats{
+
+#displayStats {
   top: 9%;
   left: 58%;
   display: flex;
@@ -116,7 +109,7 @@ text-align: center;
   position: absolute;
 }
 
-#factionStrength{
+#factionStrength {
   margin:0;
   padding:0;
   top: 78%;
@@ -127,28 +120,24 @@ text-align: center;
   height: 5%;     
 }
 
-#factionStrengthBar{
-
-
+#factionStrengthBar {
   position: absolute;
   background: rgb(2, 0, 36);
-            background: linear-gradient(90deg,#7a2301 0%,#3a4e01  50%, #4a6403 100%);
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            left:0;
-            top:0;
-            margin:0;
-            padding:0;
-            border:0; 
-            opacity: .8; 
+  background: linear-gradient(90deg,#7a2301 0%,#3a4e01  50%, #4a6403 100%);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left:0;
+  top:0;
+  margin:0;
+  padding:0;
+  border:0; 
+  opacity: .8; 
 }
 
 #stats {
   display: flex;
   box-sizing: border-box;
-
-
   font-size:2rem;
 }
 
@@ -169,16 +158,13 @@ text-align: center;
    border-width:3rem;
     border-style: solid; */
   margin: 0 !important;
-
 }
 
 textarea {
   color: black;
-
 }
 
 #passages {
-  
   /* border-radius: 2%;1
   border-color: green;
   border-width: .1rem;
@@ -193,6 +179,7 @@ textarea {
   position: absolute;
   overflow: hidden;
 }
+
 .passage::-webkit-scrollbar {
   display: none;
 }
@@ -208,11 +195,9 @@ textarea {
   height: 98%;
   margin: 2%;
   overflow-y: scroll !important;
-
 }
 
 textarea:hover {
-
   background-color: white;
 }
 

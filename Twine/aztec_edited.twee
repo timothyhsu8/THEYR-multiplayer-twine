@@ -7,7 +7,7 @@ Spanish Aztec War Ver 1.0
 	"ifid": "5CAF53F2-B97C-45CA-9E53-CBD50086BDA5",
 	"format": "SugarCube",
 	"format-version": "2.30.0",
-	"start": "Roles",
+	"start": "The Library",
 	"tag-colors": {
 		"Breaks": "blue",
 		"Change-Title": "yellow",
@@ -48,7 +48,7 @@ importScripts([
 	`${urlPrefix}resize.js`,
 	`${urlPrefix}picker.js`,
 	`${urlPrefix}Client.js`,
-	`${urlPrefix}style.css`,
+	// `${urlPrefix}style.css`,
 	"https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/1.0.11/jquery.csv.min.js",
 	"https://unpkg.com/jquery.nice-number@2.1.0/dist/jquery.nice-number.min.js",
 	"https://code.jquery.com/ui/1.12.1/jquery-ui.js"
@@ -105,11 +105,12 @@ importScripts([
 <!-- <<masteraudio mute>> -->
 
 <<masteraudio unmute>>
- /* <<run showMap()>>
- <<run showStats()>> */
+ <<run showMap()>>
+ <<run showStats()>>
 <<run setBackground()>>
 
-:: Roles
+
+:: Roles {"position":"350,100","size":"100,100"}
 /* <<textbox "$Mal_Story" "">> */
 <<for _i to 0, _statNames to Object.keys($users); _i lt _statNames.length; _i++>>
 	<<print $users[_statNames[_i]]['username']>>

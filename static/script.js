@@ -1,7 +1,11 @@
 var gameVars;
 var lastStats=[];
 $(document).ready(function () {
-
+    // if (email == "") {
+    //     //   window.location = "login"
+   
+    //    }
+    $.get("roles.php", loadRole);
 });
 
 
@@ -54,30 +58,16 @@ function fade(el, destination) {
 
 
 $(document).on(':passagestart', (ev) => {
-    let userId = SugarCube.State.getVar("$userId");
-    var role = SugarCube.State.getVar("$role");
+    var role = getRole();
     var passage = $(ev.content).data("passage");
     var passageLength= Math.sqrt( SugarCube.Story.get(passage).text.length);
     var fs=`${Math.log(passageLength)}rem`;
     
-    console.log("User Id is:", userId)
     console.log("Passage length:", passageLength)
     //$('#passages').css({"font-size":fs})
     SugarCube.State.setVar(`$${role}_currentPassage`, passage);
     fade($("#passages"), 1);
 })
-
-// $(document).on(':passagestart', (ev) => {
-//     var role = SugarCube.State.getVar("$role");
-//     var passage = $(ev.content).data("passage");
-//     var passageLength= Math.sqrt( SugarCube.Story.get(passage).text.length);
-//     var fs=`${Math.log(passageLength)}rem`;
-    
-//     console.log("Passage length:", passageLength)
-//     //$('#passages').css({"font-size":fs})
-//     SugarCube.State.setVar(`$${role}_currentPassage`, passage);
-//     fade($("#passages"), 1);
-// })
 
 
 /* JavaScript code */
@@ -120,9 +110,9 @@ function showMap(){
 }
 
 function showStats() {
-    var showStats=false;
+    var showStats = false;
     var statString = "";
-    var role = SugarCube.State.getVar("$role");
+    var role = getRole();
     var faction = SugarCube.State.getVar("$faction");
     var stats = {
         "Strength": 0,
@@ -152,7 +142,7 @@ function showStats() {
             "html":twineVar || "0" 
         })))
     })
-    var dispLayStatsDOM =$('#displayStats')
+    var dispLayStatsDOM = $('#displayStats')
 
     if(showStats) {
         if(!dispLayStatsDOM.length){
@@ -195,10 +185,9 @@ function setFactionStrength(rawValue) {
 
 function makeRoleStats(statsIn) {
     var total = 0;
-    var role = SugarCube.State.getVar("$role");
+    var role = getRole();
     var output = "";
 
-    console.log(SugarCube.State.variables)
     Object.keys(statsIn).forEach((stat) => {
             var twineVar = `$${role}_${stat}`
             val = parseInt(statsIn[stat]);
@@ -273,9 +262,17 @@ function loadGameData(data) {
         SugarCube.State.setVar("$" + key, val||0);
     }
 
-    var role = SugarCube.State.getVar("$role");
+    var role = getRole();
     var currentPassage = SugarCube.State.getVar(`$${role}_currentPassage`) || vars["currentPassage"];
     
     SugarCube.Engine.play(currentPassage)
     init();
+}
+
+// Returns the role of the current player
+function getRole() {
+    var userId = SugarCube.State.getVar("$userId");
+    var user = SugarCube.State.getVar("$users")[userId];
+    var role = user["role"];
+    return role;
 }

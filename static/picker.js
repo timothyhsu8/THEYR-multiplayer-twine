@@ -54,7 +54,11 @@ function dialog(text) {
 
 function statPickerInit() {
     var statNames = ["Strength", "Wisdom", "Loyalty"]
-    var role = SugarCube.State.getVar("$role");
+
+    var userId = SugarCube.State.getVar("$userId");
+    var user = SugarCube.State.getVar("$users")[userId];
+    var role = user["role"];
+    console.log("ROLE IS", role)
     var showPicker = true;
     statNames.forEach((stat) => {
         if (SugarCube.State.getVar(`$${role}_${stat}`)) {

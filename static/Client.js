@@ -64,11 +64,12 @@ function setId(userId){
 
 function reducer(state, action){
     // Checks for undefined to prevent feedback loop. Skips undefined check if connecting to the game (updates game as soon as client joins)
+    console.log("In the reducer")
     if(state === undefined && action.connecting === undefined) {
         console.log("State is undefined")
         return {...state, ...SugarCube.State.variables}
     }
-
+    
     switch(action.type){
         case 'UPDATESTORE':
             console.log('Updating Store and Other Clients', action.payload)

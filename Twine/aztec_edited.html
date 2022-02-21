@@ -100,7 +100,7 @@ var saveAs=saveAs||navigator.msSaveBlob&&navigator.msSaveBlob.bind(navigator)||f
 		<div id="init-lacking">Your browser lacks required capabilities. Please upgrade it or switch to another to continue.</div>
 		<div id="init-loading"><div>Loading&hellip;</div></div>
 	</div>
-	<!-- UUID://5CAF53F2-B97C-45CA-9E53-CBD50086BDA5// --><tw-storydata name="Spanish Aztec War Ver 1.0" startnode="3" creator="Tweego" creator-version="2.1.1+81d1d71" ifid="5CAF53F2-B97C-45CA-9E53-CBD50086BDA5" zoom="1" format="SugarCube" format-version="2.30.0" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">@import url('https://fonts.googleapis.com/css2?family=Langar&display=swap');
+	<!-- UUID://5CAF53F2-B97C-45CA-9E53-CBD50086BDA5// --><tw-storydata name="Spanish Aztec War Ver 1.0" startnode="90" creator="Tweego" creator-version="2.1.1+81d1d71" ifid="5CAF53F2-B97C-45CA-9E53-CBD50086BDA5" zoom="1" format="SugarCube" format-version="2.30.0" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">@import url('https://fonts.googleapis.com/css2?family=Langar&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
 @import url("https://unpkg.com/jquery.nice-number@2.1.0/dist/jquery.nice-number.min.css");
 @import url("//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css");
@@ -123,12 +123,12 @@ importScripts([
 	`${urlPrefix}resize.js`,
 	`${urlPrefix}picker.js`,
 	`${urlPrefix}Client.js`,
-	`${urlPrefix}style.css`,
+	// `${urlPrefix}style.css`,
 	"https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/1.0.11/jquery.csv.min.js",
 	"https://unpkg.com/jquery.nice-number@2.1.0/dist/jquery.nice-number.min.js",
 	"https://code.jquery.com/ui/1.12.1/jquery-ui.js"
 	
-])</script><tw-tag name="New-Passage" color="purple"></tw-tag><tw-tag name="Text-to-be-updated-by-Ashley" color="orange"></tw-tag><tw-tag name="Breaks" color="blue"></tw-tag><tw-tag name="Change-Title" color="yellow"></tw-tag><tw-tag name="Coding-Problem" color="red"></tw-tag><tw-tag name="Done" color="green"></tw-tag><tw-passagedata pid="1" name="StoryInit" tags="" position="22,135" size="100,100">&lt;&lt;script&gt;&gt;
+])</script><tw-tag name="Done" color="green"></tw-tag><tw-tag name="New-Passage" color="purple"></tw-tag><tw-tag name="Text-to-be-updated-by-Ashley" color="orange"></tw-tag><tw-tag name="Breaks" color="blue"></tw-tag><tw-tag name="Change-Title" color="yellow"></tw-tag><tw-tag name="Coding-Problem" color="red"></tw-tag><tw-passagedata pid="1" name="StoryInit" tags="" position="22,135" size="100,100">&lt;&lt;script&gt;&gt;
 	setup.theyrCallback = function() {
 		let users = State.variables.users;
 		let userId = State.variables.userId;
@@ -172,8 +172,8 @@ importScripts([
 &lt;!-- &lt;&lt;masteraudio mute&gt;&gt; --&gt;
 
 &lt;&lt;masteraudio unmute&gt;&gt;
- /* &lt;&lt;run showMap()&gt;&gt;
- &lt;&lt;run showStats()&gt;&gt; */
+ &lt;&lt;run showMap()&gt;&gt;
+ &lt;&lt;run showStats()&gt;&gt;
 &lt;&lt;run setBackground()&gt;&gt;</tw-passagedata><tw-passagedata pid="3" name="Roles" tags="" position="350,100" size="100,100">/* &lt;&lt;textbox &quot;$Mal_Story&quot; &quot;&quot;&gt;&gt; */
 &lt;&lt;for _i to 0, _statNames to Object.keys($users); _i lt _statNames.length; _i++&gt;&gt;
 	&lt;&lt;print $users[_statNames[_i]][&#39;username&#39;]&gt;&gt;
