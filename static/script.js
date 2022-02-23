@@ -5,7 +5,7 @@ $(document).ready(function () {
     //     //   window.location = "login"
    
     //    }
-    $.get("roles.php", loadRole);
+    // $.get("roles.php", loadRole);
 });
 
 
@@ -192,9 +192,11 @@ function makeRoleStats(statsIn) {
 
     Object.keys(statsIn).forEach((stat) => {
             var twineVar = `$${role}_${stat}`;
+
             val = parseInt(statsIn[stat]);
             SugarCube.State.setVar(twineVar, val);
             output += `${stat}: ${val}\n`;
+            console.log("Role:", role, "Stat:", stat, "Value:", val)
         } 
     )
     $('#statsPicker').html(output)

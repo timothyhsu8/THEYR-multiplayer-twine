@@ -48,7 +48,6 @@ function testFunc() {
 }
 
 function statPickerInit() {
-    console.log("STAT PICKER INIT")
     var statNames = ["Strength", "Wisdom", "Loyalty"]
     var userId = SugarCube.State.getVar("$userId");
     var user = SugarCube.State.getVar("$users")[userId];

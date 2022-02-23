@@ -43,7 +43,6 @@ socket.on('new connection', (state) => {
         setId(localStorage.getItem('userId'))
     }
     
-    console.log("NEW CONNECTION")
     store.dispatch({type: 'UPDATEGAME', payload: state, connecting: true})
     store.dispatch({type: 'UPDATESTORE', payload: state, connecting: true})
 })
@@ -74,7 +73,7 @@ function reducer(state, action){
         case 'UPDATESTORE':
             console.log('Updating Store and Other Clients', action.payload)
             socket.emit('difference', {...state, ...action.payload})
-            SugarCube.Engine.show()
+            reloadPassage();
             return {...state, ...action.payload}
         case 'UPDATEGAME':
             console.log('Updating Game', action.payload);
@@ -126,7 +125,12 @@ function updateSugarCubeState(new_state) {
     for (const [key, value] of Object.entries(new_state)) {
         SugarCube.State.variables[key] = value
     }
-    SugarCube.Engine.show()
+    reloadPassage();
+}
+
+function reloadPassage() {
+    // if (SugarCube.State.passage !== "Character Identification")
+    SugarCube.Engine.show();
 }
 
 // Prints User information in the console
