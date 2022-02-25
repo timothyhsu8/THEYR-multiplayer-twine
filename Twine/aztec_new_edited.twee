@@ -92,10 +92,12 @@ importScripts([
 		let roleInfo = roles.find((item) => {
 			return item.role === user['role']
 		})
-
-		console.log("role info:", roleInfo);
 		user = Object.assign(user, roleInfo);
-		console.log("User:", user);
+
+		
+		// Start player at the passage they left off
+		let currentPassage = State.variables[`${user['role']}_currentPassage`]
+		Engine.play(currentPassage)
 	}
 <</script>>
 <<cacheaudio "Gulls_and_waves__5min_" "audio/Gulls_and_waves__5min_.mp3">>

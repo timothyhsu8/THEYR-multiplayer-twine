@@ -266,7 +266,8 @@ function loadGameData(data) {
 
     let { role } = getUser();
     var currentPassage = SugarCube.State.getVar(`$${role}_currentPassage`) || vars["currentPassage"];
-    
+    console.log("Current Passage is: ", currentPassage)
+
     SugarCube.Engine.play(currentPassage)
     init();
 }
