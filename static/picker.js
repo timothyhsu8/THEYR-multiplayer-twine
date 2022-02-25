@@ -43,24 +43,14 @@ function dialog(text) {
     });
 }
 
-function testFunc() {
-    console.log("IN the TEST function")
-}
-
 function statPickerInit() {
     var statNames = ["Strength", "Wisdom", "Loyalty"]
     var userId = SugarCube.State.getVar("$userId");
     var user = SugarCube.State.getVar("$users")[userId];
     var role = user["role"];
 
-    var showPicker = true;
-    statNames.forEach((stat) => {
-        if (SugarCube.State.getVar(`$${role}_${stat}`)) {
-            showPicker = false
-        }
-    })
-
-    if (!showPicker) {
+    let stats = user["stats"];
+    if (stats) {
         setTimeout(toggleHide,1000);
         return "";
     }

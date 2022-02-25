@@ -114,8 +114,7 @@ function showMap(){
 function showStats() {
     var showStats = false;
     var statString = "";
-    let { role } = getUser();
-    var faction = SugarCube.State.getVar("$faction");
+    let { role, faction } = getUser();
     var stats = {
         "Strength": 0,
         "Wisdom": 0,
@@ -188,15 +187,14 @@ function setFactionStrength(rawValue) {
 function makeRoleStats(statsIn) {
     var total = 0;
     let { role } = getUser();
+    let userId = SugarCube.State.variables.userId;
+    let user = SugarCube.State.variables.users[userId]
     var output = "";
 
+    user["stats"] = statsIn;
     Object.keys(statsIn).forEach((stat) => {
-            var twineVar = `$${role}_${stat}`;
-
             val = parseInt(statsIn[stat]);
-            SugarCube.State.setVar(twineVar, val);
             output += `${stat}: ${val}\n`;
-            console.log("Role:", role, "Stat:", stat, "Value:", val)
         } 
     )
     $('#statsPicker').html(output)
