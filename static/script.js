@@ -31,11 +31,10 @@ function setBackground(image) {
 
     $(() => {
         $('#story').css({
-            'background-image': `url('Twine/images/Borders/${faction}.jpg')`,
+            'background-image': `url('Twine/images/Borders/${faction}.jpg'),url('Twine/images/Borders/Observer.jpg')`,
             'background-position': '30% 70%,0 0',
             'background-size': '100% 100%'
         })
-
     })
 }
 
