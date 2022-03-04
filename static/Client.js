@@ -74,7 +74,7 @@ function reducer(state, action){
             console.log('Updating Store and Other Clients', action.payload)
             socket.emit('difference', {...state, ...action.payload})
             reloadPassage();
-            return {...state, ...action.payload}
+            return _.cloneDeep(SugarCube.State.variables)
         case 'UPDATEGAME':
             console.log('Updating Game', action.payload);
             updateSugarCubeState(action.payload);
@@ -88,6 +88,7 @@ setInterval(update, 100)    // Check for differences and send a socket event to 
 
 // If differences between SugarCube state and store detected, update your store and the other clients
 function update() {
+    let diff = difference(SugarCube.State.variables, store.getState());
     if(!_.isEqual(SugarCube.State.variables, store.getState())){
         let diff = difference(SugarCube.State.variables, store.getState());
         
@@ -97,8 +98,8 @@ function update() {
         //     return
 
         console.log('diff detected', diff)
-        store.dispatch({type: 'UPDATESTORE', payload: SugarCube.State.variables});
-        // store.dispatch({type: 'UPDATESTORE', payload: diff});    // Old dispatch call
+        // store.dispatch({type: 'UPDATESTORE', payload: SugarCube.State.variables});   // Old dispatch call
+        store.dispatch({type: 'UPDATESTORE', payload: diff});
     }
 }
 
@@ -130,6 +131,7 @@ function updateSugarCubeState(new_state) {
 
 function reloadPassage() {
     // if (SugarCube.State.passage !== "Character Identification")
+    // console.log("SugarCube Passage:", SugarCube.)
     SugarCube.Engine.show();
 }
 

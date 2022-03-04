@@ -97,7 +97,6 @@ function showMap(){
     }
  
     let { faction } = getUser();
-    console.log("faction", faction);
     // var faction = SugarCube.State.getVar("$faction");  
     var currentMap = 1 && SugarCube.State.getVar(`$${faction}_currentMap`);
     var showMap=$('#map').data("currentMap")
@@ -111,8 +110,6 @@ function showMap(){
 }
 
 function showStats() {
-    var showStats = false;
-    var statString = "";
     let { role, faction } = getUser();
     var stats = {
         "Strength": 0,
@@ -122,29 +119,27 @@ function showStats() {
    
     var displayStats = $('<div/>', {
         "id": "displayStats",
-      
     })
 
-    Object.keys(stats).forEach((stat,idx) => {
-        var twineVar = SugarCube.State.getVar(`$${role}_${stat}`);
-        statString += `${stat}: ${twineVar||"0"} `;
-        if(lastStats[idx]!=twineVar) {
-            showStats=true;
-        }
+    let userId = SugarCube.State.variables.userId
+    let twineStats = SugarCube.State.variables.users[userId].stats
 
-        lastStats[idx]=twineVar;
-        displayStats.append(
-            $('<div/>', {
-            "class": "stat",
-            "css":{"background-image":`url(images/Stats/${faction}_${stat}.png)`}
-        }).append($('<div/>', {
-            "class": "statNum",
-            "html":twineVar || "0" 
-        })))
-    })
-    var dispLayStatsDOM = $('#displayStats')
+    if (twineStats) {
+        Object.keys(stats).forEach((stat,idx) => {
+            var twineVar = twineStats[stat]
 
-    if(showStats) {
+            displayStats.append(
+                $('<div/>', {
+                "class": "stat",
+                "css":{"background-image":`url(images/Stats/${faction}_${stat}.png)`}
+            }).append($('<div/>', {
+                "class": "statNum",
+                "html":twineVar || "0" 
+            })))
+        })
+
+        var dispLayStatsDOM = $('#displayStats')
+
         if(!dispLayStatsDOM.length){
             $('#story').append(displayStats)
         }
@@ -153,7 +148,8 @@ function showStats() {
         }
     }
 
-    var twineVar = SugarCube.State.getVar(`$${faction}_strength`);
+    // let twineVar = SugarCube.State.variables.faction[faction].strength
+    let twineVar = 7
     if(twineVar) { 
         // statString = `${faction}: ${twineVar} `;
     
@@ -190,7 +186,7 @@ function makeRoleStats(statsIn) {
     let user = SugarCube.State.variables.users[userId]
     var output = "";
 
-    user["stats"] = statsIn;
+    SugarCube.State.variables.roles[role]["stats"] = statsIn;
     Object.keys(statsIn).forEach((stat) => {
             val = parseInt(statsIn[stat]);
             output += `${stat}: ${val}\n`;

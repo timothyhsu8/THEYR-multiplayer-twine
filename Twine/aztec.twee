@@ -27,20 +27,9 @@ Spanish Aztec War Ver 1.0
 @import url("//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css");
 @import url("Twine/style.css");
 
-.passage-in {
-	opacity: 1;
-}
-
 
 :: Story JavaScript [script]
 Config.passages.nobr = true;
-window.gameData={
-"faction":"Spaniards",
-"role":"Cortes",
-"isLeader":true,
-"Aztecs_strength":12,
-"currentPassage":"Loyalty Check",
-}
 
 var urlPrefix="static/"
 
@@ -68,41 +57,54 @@ importScripts([
 		// Initialize user variables
 		// user['role'] = 'Cuauhtemoc';
 
-		
-		user['role'] = userData.nick.normalize("NFD").replace(/\p{Diacritic}/gu, "");	// Replaces special characters
-		user['coins'] = 0;
-
-		// Initialize variables
-		if (State.variables.Start !== null) {
-			State.variables.Start = 15;
+		// Nickname not recognized
+		if (!userData.nick) {
+			Engine.play("Name Not Recognized")
 		}
-
-		const roles = [{"faction": "Spaniards", "role": "Mariana", "Character": "Doña Mariana/Malinche", "isLeader": "FALSE"},
-			{"faction": "Spaniards", "role": "Alvarado", "Character": "Pedro de Alvarado", "isLeader": "FALSE"},
-			{"faction": "Spaniards", "role": "Aguilar", "Character": "Gerónimo de Aguilar", "isLeader": "FALSE"},
-			{"faction": "Spaniards", "role": "Garrido", "Character": "Juan Garrido", "isLeader": "FALSE"},
-			{"faction": "Spaniards", "role": "Olid", "Character": "Cristóbal de Olid", "isLeader": "FALSE"},
-			{"faction": "Aztecs", "role": "Moctezuma", "Character": "Moctezuma", "isLeader": "TRUE"},
-			{"faction": "Aztecs", "role": "Tlacaelel", "Character": "Tlacaelel Xocoyotl (aka Tlacaelel the Younger)", "isLeader": "FALSE"},
-			{"faction": "Aztecs", "role": "Cuauhtemoc", "Character": "Cuauhtémoc", "isLeader": "FALSE"},
-			{"faction": "Aztecs", "role": "Catec_Priest", "Character": "Aztec Priest", "isLeader": "FALSE"},
-			{"faction": "Aztecs", "role": "Pocamatzin", "Character": "Cacamatzín", "isLeader": "FALSE"},
-			{"faction": "Aztecs", "role": "Azchteca", "Character": "Pochteca", "isLeader": "FALSE"},
-			{"faction": "Tlaxcalans", "role": "Xicotencatl_Elder", "Character": "Xicotencatl the Elder", "isLeader": "TRUE"},
-			{"faction": "Tlaxcalans", "role": "Xicotencatl_Younger", "Character": "Xicotencatl the Younger", "isLeader": "FALSE"},
-			{"faction": "Tlaxcalans", "role": "Maxixcatl", "Character": "Maxixcatl", "isLeader": "FALSE"}]
-
-		// Get role info for the player
-		let roleInfo = roles.find((item) => {
-			return item.role === user['role']
-		})
-		user = Object.assign(user, roleInfo);
-
 		
-		// Start player at the passage they left off
-		let currentPassage = State.variables[`${user['role']}_currentPassage`]
-		if (currentPassage)
-			Engine.play(currentPassage)
+		else {
+			user['role'] = userData.nick.normalize("NFD").replace(/\p{Diacritic}/gu, "");	// Replaces special characters
+			user['coins'] = 0;
+
+			// Initialize roles
+			if (!State.variables.roles) {
+				State.variables.roles = {}
+				State.variables.roles[user['role']] = { initialized: true}	// Need to put this in a conditional?
+			}
+			
+			// Initialize variables
+			if (State.variables.Start !== null) {
+				State.variables.Start = 15;
+			}
+
+			const roles = [{"faction": "Spaniards", "role": "Mariana", "Character": "Doña Mariana/Malinche", "isLeader": "FALSE"},
+				{"faction": "Spaniards", "role": "Alvarado", "Character": "Pedro de Alvarado", "isLeader": "FALSE"},
+				{"faction": "Spaniards", "role": "Aguilar", "Character": "Gerónimo de Aguilar", "isLeader": "FALSE"},
+				{"faction": "Spaniards", "role": "Garrido", "Character": "Juan Garrido", "isLeader": "FALSE"},
+				{"faction": "Spaniards", "role": "Olid", "Character": "Cristóbal de Olid", "isLeader": "FALSE"},
+				{"faction": "Aztecs", "role": "Moctezuma", "Character": "Moctezuma", "isLeader": "TRUE"},
+				{"faction": "Aztecs", "role": "Tlacaelel", "Character": "Tlacaelel Xocoyotl (aka Tlacaelel the Younger)", "isLeader": "FALSE"},
+				{"faction": "Aztecs", "role": "Cuauhte+moc", "Character": "Cuauhtémoc", "isLeader": "FALSE"},
+				{"faction": "Aztecs", "role": "Catec_Priest", "Character": "Aztec Priest", "isLeader": "FALSE"},
+				{"faction": "Aztecs", "role": "Pocamatzin", "Character": "Cacamatzín", "isLeader": "FALSE"},
+				{"faction": "Aztecs", "role": "Azchteca", "Character": "Pochteca", "isLeader": "FALSE"},
+				{"faction": "Tlaxcalans", "role": "Xicotencatl_Elder", "Character": "Xicotencatl the Elder", "isLeader": "TRUE"},
+				{"faction": "Tlaxcalans", "role": "Xicotencatl_Younger", "Character": "Xicotencatl the Younger", "isLeader": "FALSE"},
+				{"faction": "Tlaxcalans", "role": "Maxixcatl", "Character": "Maxixcatl", "isLeader": "FALSE"}]
+
+			// Get role info for the player
+			let roleInfo = roles.find((item) => {
+				return item.role === user['role']
+			})
+			console.log('role info', roleInfo)
+
+			user = Object.assign(user, roleInfo);
+
+			// Start player at the passage they left off
+			let currentPassage = State.variables[`${user['role']}_currentPassage`]
+			if (currentPassage)
+				Engine.play(currentPassage)
+			}
 	}
 <</script>>
 <<cacheaudio "Gulls_and_waves__5min_" "audio/Gulls_and_waves__5min_.mp3">>
@@ -132,6 +134,10 @@ importScripts([
 	<br>
 	/* <<print _statNames[_i]>> */
 <</for>>
+
+
+:: Name Not Recognized {"position":"350,100","size":"100,100"}
+Name not recognized. Make sure the spelling on your character's name matches your role.
 
 
 :: Act 1 Scene 1 [Done Breaks] {"position":"338,1151","size":"100,100"}
@@ -559,7 +565,7 @@ Your faction's starting strength is: <<print $Aztecs_strength >>
 <</if>>
 
 <<if $users[$userId]["faction"] is "Spaniards">>
-<<if ndef $Spaniards_strength  >>
+<<if ndef $roles.Spaniards.strength  >>
 <<set $Spaniards_strength=random(10,15)>>
 <</if>>
 Your faction's starting strength is: <<print $Spaniards_strength >>

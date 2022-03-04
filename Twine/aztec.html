@@ -105,13 +105,6 @@ var saveAs=saveAs||navigator.msSaveBlob&&navigator.msSaveBlob.bind(navigator)||f
 @import url("https://unpkg.com/jquery.nice-number@2.1.0/dist/jquery.nice-number.min.css");
 @import url("//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css");
 @import url("Twine/style.css");</style><script role="script" id="twine-user-script" type="text/twine-javascript">Config.passages.nobr = true;
-window.gameData={
-"faction":"Spaniards",
-"role":"Cortes",
-"isLeader":true,
-"Aztecs_strength":12,
-"currentPassage":"Loyalty Check",
-}
 
 var urlPrefix="static/"
 
@@ -144,6 +137,12 @@ importScripts([
 			user[&#39;role&#39;] = userData.nick.normalize(&quot;NFD&quot;).replace(/\p{Diacritic}/gu, &quot;&quot;);	// Replaces special characters
 			user[&#39;coins&#39;] = 0;
 
+			// Initialize roles
+			if (!State.variables.roles) {
+				State.variables.roles = {}
+				State.variables.roles[user[&#39;role&#39;]] = { initialized: true}	// Need to put this in a conditional?
+			}
+			
 			// Initialize variables
 			if (State.variables.Start !== null) {
 				State.variables.Start = 15;
@@ -156,7 +155,7 @@ importScripts([
 				{&quot;faction&quot;: &quot;Spaniards&quot;, &quot;role&quot;: &quot;Olid&quot;, &quot;Character&quot;: &quot;Cristóbal de Olid&quot;, &quot;isLeader&quot;: &quot;FALSE&quot;},
 				{&quot;faction&quot;: &quot;Aztecs&quot;, &quot;role&quot;: &quot;Moctezuma&quot;, &quot;Character&quot;: &quot;Moctezuma&quot;, &quot;isLeader&quot;: &quot;TRUE&quot;},
 				{&quot;faction&quot;: &quot;Aztecs&quot;, &quot;role&quot;: &quot;Tlacaelel&quot;, &quot;Character&quot;: &quot;Tlacaelel Xocoyotl (aka Tlacaelel the Younger)&quot;, &quot;isLeader&quot;: &quot;FALSE&quot;},
-				{&quot;faction&quot;: &quot;Aztecs&quot;, &quot;role&quot;: &quot;Cuauhtemoc&quot;, &quot;Character&quot;: &quot;Cuauhtémoc&quot;, &quot;isLeader&quot;: &quot;FALSE&quot;},
+				{&quot;faction&quot;: &quot;Aztecs&quot;, &quot;role&quot;: &quot;Cuauhte+moc&quot;, &quot;Character&quot;: &quot;Cuauhtémoc&quot;, &quot;isLeader&quot;: &quot;FALSE&quot;},
 				{&quot;faction&quot;: &quot;Aztecs&quot;, &quot;role&quot;: &quot;Catec_Priest&quot;, &quot;Character&quot;: &quot;Aztec Priest&quot;, &quot;isLeader&quot;: &quot;FALSE&quot;},
 				{&quot;faction&quot;: &quot;Aztecs&quot;, &quot;role&quot;: &quot;Pocamatzin&quot;, &quot;Character&quot;: &quot;Cacamatzín&quot;, &quot;isLeader&quot;: &quot;FALSE&quot;},
 				{&quot;faction&quot;: &quot;Aztecs&quot;, &quot;role&quot;: &quot;Azchteca&quot;, &quot;Character&quot;: &quot;Pochteca&quot;, &quot;isLeader&quot;: &quot;FALSE&quot;},
@@ -561,7 +560,7 @@ Your faction&#39;s starting strength is: &lt;&lt;print $Aztecs_strength &gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $users[$userId][&quot;faction&quot;] is &quot;Spaniards&quot;&gt;&gt;
-&lt;&lt;if ndef $Spaniards_strength  &gt;&gt;
+&lt;&lt;if ndef $roles.Spaniards.strength  &gt;&gt;
 &lt;&lt;set $Spaniards_strength=random(10,15)&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 Your faction&#39;s starting strength is: &lt;&lt;print $Spaniards_strength &gt;&gt;
