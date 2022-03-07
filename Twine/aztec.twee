@@ -7,7 +7,7 @@ Spanish Aztec War Ver 1.0
 	"ifid": "5CAF53F2-B97C-45CA-9E53-CBD50086BDA5",
 	"format": "SugarCube",
 	"format-version": "2.30.0",
-	"start": "The Library",
+	"start": "TestPassage",
 	"tag-colors": {
 		"Breaks": "blue",
 		"Change-Title": "yellow",
@@ -65,6 +65,7 @@ importScripts([
 		else {
 			user['role'] = userData.nick.normalize("NFD").replace(/\p{Diacritic}/gu, "");	// Replaces special characters
 			user['coins'] = 0;
+			State.variables.foo = 0
 
 			// Initialize roles
 			if (!State.variables.roles) {
@@ -122,6 +123,14 @@ importScripts([
  <<run showStats()>>
 <<run setBackground()>>
 
+
+:: TestPassage
+<<run changeStats("Cuauhtemoc",{"Wisdom":0,"Loyalty":0,"Strength":-1})>>
+<<set $foo+=1>>
+
+/* :: TestPassage2
+<<run changeStats("Cuauhtemoc",{"Wisdom":0,"Loyalty":0,"Strength":-1})>>
+<<set $foo+=1>> */
 
 :: Roles {"position":"350,100","size":"100,100"}
 /* <<textbox "$Mal_Story" "">> */

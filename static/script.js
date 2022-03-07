@@ -203,6 +203,13 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
 }
 
+function changeStats(rolePlay,newStats){
+    let roleStats = SugarCube.State.variables.roles[rolePlay].stats
+
+    Object.keys(roleStats).forEach((stat, idx) => {
+        roleStats[stat] = parseInt(newStats[stat]) + parseInt(roleStats[stat])
+    });
+}
 
 function loadRole(data) {
     //  var email = SugarCube.State.getVar("$email");

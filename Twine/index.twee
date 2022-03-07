@@ -12,10 +12,7 @@ Theyr
 }
 
 
-:: Story Stylesheet [stylesheet]
-/* .passage-in {
-	opacity: 1;
-} */
+
 
 
 :: Story JavaScript [script]

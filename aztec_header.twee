@@ -1,3 +1,4 @@
+:: Story JavaScript [script]
 Config.passages.nobr = true;
 
 var urlPrefix="static/"
@@ -32,7 +33,7 @@ importScripts([
 		}
 		
 		else {
-			user['role'] = userData.nick.normalize("NFD").replace(/\p{Diacritic}/gu, "");	// Replaces special characters
+			user['role'] = userData.nick	// Replaces special characters
 			user['coins'] = 0;
 
 			// Initialize roles
@@ -53,7 +54,7 @@ importScripts([
 				{"faction": "Spaniards", "role": "Olid", "Character": "Cristóbal de Olid", "isLeader": "FALSE"},
 				{"faction": "Aztecs", "role": "Moctezuma", "Character": "Moctezuma", "isLeader": "TRUE"},
 				{"faction": "Aztecs", "role": "Tlacaelel", "Character": "Tlacaelel Xocoyotl (aka Tlacaelel the Younger)", "isLeader": "FALSE"},
-				{"faction": "Aztecs", "role": "Cuauhte+moc", "Character": "Cuauhtémoc", "isLeader": "FALSE"},
+				{"faction": "Aztecs", "role": "Cuauhtemoc", "Character": "Cuauhtémoc", "isLeader": "FALSE"},
 				{"faction": "Aztecs", "role": "Catec_Priest", "Character": "Aztec Priest", "isLeader": "FALSE"},
 				{"faction": "Aztecs", "role": "Pocamatzin", "Character": "Cacamatzín", "isLeader": "FALSE"},
 				{"faction": "Aztecs", "role": "Azchteca", "Character": "Pochteca", "isLeader": "FALSE"},
@@ -79,3 +80,6 @@ importScripts([
 <<cacheaudio "Gulls_and_waves__5min_" "audio/Gulls_and_waves__5min_.mp3">>
 <<cacheaudio "Library" "audio/Library.mp3">>
 <!-- <<masteraudio volume 0>> -->
+
+
+:: PassageHeader {"position":"138,11","size":"100,100"}

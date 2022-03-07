@@ -164,9 +164,14 @@ function makeStats(item, container, value = 0) {
     var picker = $("<input/>", {
         "id": item,
         "type": "number",
-        "value": value
+        "value": value,
+        "disabled": true
     });
     // htm+=label[0].outerHTML+picker[0].outerHTML;
     var div = $("<div/>", {});
     container.append(div.append([label, picker]));
+    $('.statsInput').on("focus", function() {
+        console.log($(this))
+        $(this).blur()
+    })
 }
