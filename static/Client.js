@@ -88,7 +88,6 @@ setInterval(update, 100)    // Check for differences and send a socket event to 
 
 // If differences between SugarCube state and store detected, update your store and the other clients
 function update() {
-    let diff = difference(SugarCube.State.variables, store.getState());
     if(!_.isEqual(SugarCube.State.variables, store.getState())){
         let diff = difference(SugarCube.State.variables, store.getState());
         
@@ -129,10 +128,14 @@ function updateSugarCubeState(new_state) {
     reloadPassage();
 }
 
+// Reloads the passage while keeping scroll position
 function reloadPassage() {
     // if (SugarCube.State.passage !== "Character Identification")
     // console.log("SugarCube Passage:", SugarCube.)
+    let scrollX = window.scrollX
+    let scrollY = window.scrollY
     SugarCube.Engine.show();
+    window.scrollTo(scrollX, scrollY)
 }
 
 // Prints User information in the console

@@ -69,7 +69,7 @@ importScripts([
 			// Initialize roles
 			if (!State.variables.roles) {
 				State.variables.roles = {}
-				State.variables.roles[user['role']] = { initialized: true}	// Need to put this in a conditional?
+				State.variables.roles[user['role']] = { initialized: true }	// Need to put this in a conditional?
 			}
 			
 			// Initialize variables
@@ -84,7 +84,7 @@ importScripts([
 				{"faction": "Spaniards", "role": "Olid", "Character": "Cristóbal de Olid", "isLeader": "FALSE"},
 				{"faction": "Aztecs", "role": "Moctezuma", "Character": "Moctezuma", "isLeader": "TRUE"},
 				{"faction": "Aztecs", "role": "Tlacaelel", "Character": "Tlacaelel Xocoyotl (aka Tlacaelel the Younger)", "isLeader": "FALSE"},
-				{"faction": "Aztecs", "role": "Cuauhte+moc", "Character": "Cuauhtémoc", "isLeader": "FALSE"},
+				{"faction": "Aztecs", "role": "Cuauhtemoc", "Character": "Cuauhtémoc", "isLeader": "FALSE"},
 				{"faction": "Aztecs", "role": "Catec_Priest", "Character": "Aztec Priest", "isLeader": "FALSE"},
 				{"faction": "Aztecs", "role": "Pocamatzin", "Character": "Cacamatzín", "isLeader": "FALSE"},
 				{"faction": "Aztecs", "role": "Azchteca", "Character": "Pochteca", "isLeader": "FALSE"},

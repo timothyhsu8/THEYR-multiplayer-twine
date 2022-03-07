@@ -100,9 +100,9 @@ var saveAs=saveAs||navigator.msSaveBlob&&navigator.msSaveBlob.bind(navigator)||f
 		<div id="init-lacking">Your browser lacks required capabilities. Please upgrade it or switch to another to continue.</div>
 		<div id="init-loading"><div>Loading&hellip;</div></div>
 	</div>
-	<!-- UUID://01AFBAC8-E431-41ED-9051-6E99F4D55374// --><tw-storydata name="Theyr" startnode="5" creator="Tweego" creator-version="2.1.1+81d1d71" ifid="01AFBAC8-E431-41ED-9051-6E99F4D55374" zoom="1" format="SugarCube" format-version="2.30.0" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">.passage-in {
+	<!-- UUID://01AFBAC8-E431-41ED-9051-6E99F4D55374// --><tw-storydata name="Theyr" startnode="5" creator="Tweego" creator-version="2.1.1+81d1d71" ifid="01AFBAC8-E431-41ED-9051-6E99F4D55374" zoom="1" format="SugarCube" format-version="2.30.0" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* .passage-in {
 	opacity: 1;
-}</style><script role="script" id="twine-user-script" type="text/twine-javascript">importScripts([
+} */</style><script role="script" id="twine-user-script" type="text/twine-javascript">importScripts([
 	'/socket.io/socket.io.js',
 	'https://unpkg.com/redux@latest/dist/redux.min.js',
 	'https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js',
@@ -145,7 +145,58 @@ There are no more coins left in this room!
 &lt;&lt;button &quot;Steal 10 Coins for yourself&quot;&gt;&gt;
 	&lt;&lt;set $users[$userId][&quot;coins&quot;] += 10&gt;&gt;
  	&lt;&lt;set $room2coins = $room2coins - 10&gt;&gt;
-&lt;&lt;/button&gt;&gt;</tw-passagedata><tw-passagedata pid="5" name="Begin" tags="" position="862,212" size="100,100">&lt;&lt;if ($room1coins === undefined)&gt;&gt;
+&lt;&lt;/button&gt;&gt;
+
+You have been living as a slave among the Chontal Maya for many years now, but you have never forgotten your past life. Born into a noble Nahua family, you were taught many valuable lessons and were respected in your community for your wit and intelligence even at a young age. Among the many things you have acquired in your years as a slave is a facility with the Mayan language, so different from the Nahuatl with which you were raised.&lt;br&gt;
+&lt;br&gt;
+Today, like every other day, you rose before the sun to begin your chores. As you set to work grinding your corn, however, you find a crack in your metate and set off for the market to purchase a new one. While you were in the market, you overheard a conversation between a local merchant and a trader from Yucatan. Here is what they said:&lt;br&gt;
+&lt;br&gt;
+&lt;b&gt;Trader:&lt;/b&gt;&lt;i&gt; Yaan ba&#39;atelil lu&#39;um le witso&#39;obo&#39;. U páajtalil táan u k&#39;éexel yéetel ku beta&#39;al túumben bix u bisikuba&#39;ob.&lt;/i&gt;&lt;br&gt;
+&lt;br&gt;
+&lt;b&gt;Merchant:&lt;/b&gt;&lt;i&gt; Máakalmáak u jaajil le ba&#39;atelil&lt;/i&gt;&lt;br&gt;
+&lt;br&gt;
+&lt;b&gt;Trader:&lt;/b&gt;&lt;i&gt; U kaajil Cholula, otrora etail Tlaxcala, Bejla&#39;e&#39; u jach etail le mexicas.Tlaxcala chokoj Ba&#39;ale&#39; xan ti&#39; teme ti&#39; u páajtalil mexica.&lt;/i&gt;&lt;br&gt;
+&lt;br&gt;
+&lt;b&gt;Merchant:&lt;/b&gt;&lt;i&gt; Le mexicas ku ku k&#39;a&#39;ankach yéetel Amal ujo&#39;. Séeb Tlaxcala yaan k&#39;áate&#39; kaajo&#39; paach le kaambalil yo&#39;osal azteca.Le asab u yetailo&#39;ob Cholulan le ku xu&#39;ulsik.&lt;/i&gt;&lt;br&gt;
+&lt;br&gt;
+&lt;b&gt;Trader:&lt;/b&gt;&lt;i&gt; Le mexicas ken tijik u k&#39;aab Amal ka&#39;atéen asab lu&#39;um. Séeb u comerán le lu&#39;umo&#39; yéetel in lu&#39;um xan. K&#39;a&#39;abet wáaj k je&#39;ela&#39;.&lt;/i&gt;&lt;br&gt;
+&lt;br&gt;
+Once you have figured out what they said, you may continue. But [[make note of this information, because it could be important later on|Spaniards Quest Instructions 1]].&lt;br&gt;
+&lt;br&gt;
+
+You have been living as a slave among the Chontal Maya for many years now, but you have never forgotten your past life. Born into a noble Nahua family, you were taught many valuable lessons and were respected in your community for your wit and intelligence even at a young age. Among the many things you have acquired in your years as a slave is a facility with the Mayan language, so different from the Nahuatl with which you were raised.&lt;br&gt;
+&lt;br&gt;
+Today, like every other day, you rose before the sun to begin your chores. As you set to work grinding your corn, however, you find a crack in your metate and set off for the market to purchase a new one. While you were in the market, you overheard a conversation between a local merchant and a trader from Yucatan. Here is what they said:&lt;br&gt;
+&lt;br&gt;
+&lt;b&gt;Trader:&lt;/b&gt;&lt;i&gt; Yaan ba&#39;atelil lu&#39;um le witso&#39;obo&#39;. U páajtalil táan u k&#39;éexel yéetel ku beta&#39;al túumben bix u bisikuba&#39;ob.&lt;/i&gt;&lt;br&gt;
+&lt;br&gt;
+&lt;b&gt;Merchant:&lt;/b&gt;&lt;i&gt; Máakalmáak u jaajil le ba&#39;atelil&lt;/i&gt;&lt;br&gt;
+&lt;br&gt;
+&lt;b&gt;Trader:&lt;/b&gt;&lt;i&gt; U kaajil Cholula, otrora etail Tlaxcala, Bejla&#39;e&#39; u jach etail le mexicas.Tlaxcala chokoj Ba&#39;ale&#39; xan ti&#39; teme ti&#39; u páajtalil mexica.&lt;/i&gt;&lt;br&gt;
+&lt;br&gt;
+&lt;b&gt;Merchant:&lt;/b&gt;&lt;i&gt; Le mexicas ku ku k&#39;a&#39;ankach yéetel Amal ujo&#39;. Séeb Tlaxcala yaan k&#39;áate&#39; kaajo&#39; paach le kaambalil yo&#39;osal azteca.Le asab u yetailo&#39;ob Cholulan le ku xu&#39;ulsik.&lt;/i&gt;&lt;br&gt;
+&lt;br&gt;
+&lt;b&gt;Trader:&lt;/b&gt;&lt;i&gt; Le mexicas ken tijik u k&#39;aab Amal ka&#39;atéen asab lu&#39;um. Séeb u comerán le lu&#39;umo&#39; yéetel in lu&#39;um xan. K&#39;a&#39;abet wáaj k je&#39;ela&#39;.&lt;/i&gt;&lt;br&gt;
+&lt;br&gt;
+Once you have figured out what they said, you may continue. But [[make note of this information, because it could be important later on|Spaniards Quest Instructions 1]].&lt;br&gt;
+&lt;br&gt;
+
+You have been living as a slave among the Chontal Maya for many years now, but you have never forgotten your past life. Born into a noble Nahua family, you were taught many valuable lessons and were respected in your community for your wit and intelligence even at a young age. Among the many things you have acquired in your years as a slave is a facility with the Mayan language, so different from the Nahuatl with which you were raised.&lt;br&gt;
+&lt;br&gt;
+Today, like every other day, you rose before the sun to begin your chores. As you set to work grinding your corn, however, you find a crack in your metate and set off for the market to purchase a new one. While you were in the market, you overheard a conversation between a local merchant and a trader from Yucatan. Here is what they said:&lt;br&gt;
+&lt;br&gt;
+&lt;b&gt;Trader:&lt;/b&gt;&lt;i&gt; Yaan ba&#39;atelil lu&#39;um le witso&#39;obo&#39;. U páajtalil táan u k&#39;éexel yéetel ku beta&#39;al túumben bix u bisikuba&#39;ob.&lt;/i&gt;&lt;br&gt;
+&lt;br&gt;
+&lt;b&gt;Merchant:&lt;/b&gt;&lt;i&gt; Máakalmáak u jaajil le ba&#39;atelil&lt;/i&gt;&lt;br&gt;
+&lt;br&gt;
+&lt;b&gt;Trader:&lt;/b&gt;&lt;i&gt; U kaajil Cholula, otrora etail Tlaxcala, Bejla&#39;e&#39; u jach etail le mexicas.Tlaxcala chokoj Ba&#39;ale&#39; xan ti&#39; teme ti&#39; u páajtalil mexica.&lt;/i&gt;&lt;br&gt;
+&lt;br&gt;
+&lt;b&gt;Merchant:&lt;/b&gt;&lt;i&gt; Le mexicas ku ku k&#39;a&#39;ankach yéetel Amal ujo&#39;. Séeb Tlaxcala yaan k&#39;áate&#39; kaajo&#39; paach le kaambalil yo&#39;osal azteca.Le asab u yetailo&#39;ob Cholulan le ku xu&#39;ulsik.&lt;/i&gt;&lt;br&gt;
+&lt;br&gt;
+&lt;b&gt;Trader:&lt;/b&gt;&lt;i&gt; Le mexicas ken tijik u k&#39;aab Amal ka&#39;atéen asab lu&#39;um. Séeb u comerán le lu&#39;umo&#39; yéetel in lu&#39;um xan. K&#39;a&#39;abet wáaj k je&#39;ela&#39;.&lt;/i&gt;&lt;br&gt;
+&lt;br&gt;
+Once you have figured out what they said, you may continue. But [[make note of this information, because it could be important later on|Spaniards Quest Instructions 1]].&lt;br&gt;
+&lt;br&gt;</tw-passagedata><tw-passagedata pid="5" name="Begin" tags="" position="862,212" size="100,100">&lt;&lt;if ($room1coins === undefined)&gt;&gt;
 	&lt;&lt;set $room1coins to 0&gt;&gt;
 &lt;&lt;else&gt;&gt;
 	&lt;&lt;set $room1coins = $room1coins&gt;&gt;

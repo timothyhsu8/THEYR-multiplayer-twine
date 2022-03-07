@@ -13,9 +13,9 @@ Theyr
 
 
 :: Story Stylesheet [stylesheet]
-.passage-in {
+/* .passage-in {
 	opacity: 1;
-}
+} */
 
 
 :: Story JavaScript [script]
@@ -80,6 +80,57 @@ There are no more coins left in this room!
 	<<set $users[$userId]["coins"] += 10>>
  	<<set $room2coins = $room2coins - 10>>
 <</button>>
+
+You have been living as a slave among the Chontal Maya for many years now, but you have never forgotten your past life. Born into a noble Nahua family, you were taught many valuable lessons and were respected in your community for your wit and intelligence even at a young age. Among the many things you have acquired in your years as a slave is a facility with the Mayan language, so different from the Nahuatl with which you were raised.<br>
+<br>
+Today, like every other day, you rose before the sun to begin your chores. As you set to work grinding your corn, however, you find a crack in your metate and set off for the market to purchase a new one. While you were in the market, you overheard a conversation between a local merchant and a trader from Yucatan. Here is what they said:<br>
+<br>
+<b>Trader:</b><i> Yaan ba'atelil lu'um le witso'obo'. U páajtalil táan u k'éexel yéetel ku beta'al túumben bix u bisikuba'ob.</i><br>
+<br>
+<b>Merchant:</b><i> Máakalmáak u jaajil le ba'atelil</i><br>
+<br>
+<b>Trader:</b><i> U kaajil Cholula, otrora etail Tlaxcala, Bejla'e' u jach etail le mexicas.Tlaxcala chokoj Ba'ale' xan ti' teme ti' u páajtalil mexica.</i><br>
+<br>
+<b>Merchant:</b><i> Le mexicas ku ku k'a'ankach yéetel Amal ujo'. Séeb Tlaxcala yaan k'áate' kaajo' paach le kaambalil yo'osal azteca.Le asab u yetailo'ob Cholulan le ku xu'ulsik.</i><br>
+<br>
+<b>Trader:</b><i> Le mexicas ken tijik u k'aab Amal ka'atéen asab lu'um. Séeb u comerán le lu'umo' yéetel in lu'um xan. K'a'abet wáaj k je'ela'.</i><br>
+<br>
+Once you have figured out what they said, you may continue. But [[make note of this information, because it could be important later on|Spaniards Quest Instructions 1]].<br>
+<br>
+
+You have been living as a slave among the Chontal Maya for many years now, but you have never forgotten your past life. Born into a noble Nahua family, you were taught many valuable lessons and were respected in your community for your wit and intelligence even at a young age. Among the many things you have acquired in your years as a slave is a facility with the Mayan language, so different from the Nahuatl with which you were raised.<br>
+<br>
+Today, like every other day, you rose before the sun to begin your chores. As you set to work grinding your corn, however, you find a crack in your metate and set off for the market to purchase a new one. While you were in the market, you overheard a conversation between a local merchant and a trader from Yucatan. Here is what they said:<br>
+<br>
+<b>Trader:</b><i> Yaan ba'atelil lu'um le witso'obo'. U páajtalil táan u k'éexel yéetel ku beta'al túumben bix u bisikuba'ob.</i><br>
+<br>
+<b>Merchant:</b><i> Máakalmáak u jaajil le ba'atelil</i><br>
+<br>
+<b>Trader:</b><i> U kaajil Cholula, otrora etail Tlaxcala, Bejla'e' u jach etail le mexicas.Tlaxcala chokoj Ba'ale' xan ti' teme ti' u páajtalil mexica.</i><br>
+<br>
+<b>Merchant:</b><i> Le mexicas ku ku k'a'ankach yéetel Amal ujo'. Séeb Tlaxcala yaan k'áate' kaajo' paach le kaambalil yo'osal azteca.Le asab u yetailo'ob Cholulan le ku xu'ulsik.</i><br>
+<br>
+<b>Trader:</b><i> Le mexicas ken tijik u k'aab Amal ka'atéen asab lu'um. Séeb u comerán le lu'umo' yéetel in lu'um xan. K'a'abet wáaj k je'ela'.</i><br>
+<br>
+Once you have figured out what they said, you may continue. But [[make note of this information, because it could be important later on|Spaniards Quest Instructions 1]].<br>
+<br>
+
+You have been living as a slave among the Chontal Maya for many years now, but you have never forgotten your past life. Born into a noble Nahua family, you were taught many valuable lessons and were respected in your community for your wit and intelligence even at a young age. Among the many things you have acquired in your years as a slave is a facility with the Mayan language, so different from the Nahuatl with which you were raised.<br>
+<br>
+Today, like every other day, you rose before the sun to begin your chores. As you set to work grinding your corn, however, you find a crack in your metate and set off for the market to purchase a new one. While you were in the market, you overheard a conversation between a local merchant and a trader from Yucatan. Here is what they said:<br>
+<br>
+<b>Trader:</b><i> Yaan ba'atelil lu'um le witso'obo'. U páajtalil táan u k'éexel yéetel ku beta'al túumben bix u bisikuba'ob.</i><br>
+<br>
+<b>Merchant:</b><i> Máakalmáak u jaajil le ba'atelil</i><br>
+<br>
+<b>Trader:</b><i> U kaajil Cholula, otrora etail Tlaxcala, Bejla'e' u jach etail le mexicas.Tlaxcala chokoj Ba'ale' xan ti' teme ti' u páajtalil mexica.</i><br>
+<br>
+<b>Merchant:</b><i> Le mexicas ku ku k'a'ankach yéetel Amal ujo'. Séeb Tlaxcala yaan k'áate' kaajo' paach le kaambalil yo'osal azteca.Le asab u yetailo'ob Cholulan le ku xu'ulsik.</i><br>
+<br>
+<b>Trader:</b><i> Le mexicas ken tijik u k'aab Amal ka'atéen asab lu'um. Séeb u comerán le lu'umo' yéetel in lu'um xan. K'a'abet wáaj k je'ela'.</i><br>
+<br>
+Once you have figured out what they said, you may continue. But [[make note of this information, because it could be important later on|Spaniards Quest Instructions 1]].<br>
+<br>
 
 
 :: Begin {"position":"862,212","size":"100,100"}
