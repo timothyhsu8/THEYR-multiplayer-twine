@@ -7,7 +7,7 @@ Spanish Aztec War Ver 1.0
 	"ifid": "5CAF53F2-B97C-45CA-9E53-CBD50086BDA5",
 	"format": "SugarCube",
 	"format-version": "2.30.0",
-	"start": "TestPassage",
+	"start": "The Library",
 	"tag-colors": {
 		"Breaks": "blue",
 		"Change-Title": "yellow",
@@ -63,15 +63,9 @@ importScripts([
 		}
 		
 		else {
-			user['role'] = userData.nick.normalize("NFD").replace(/\p{Diacritic}/gu, "");	// Replaces special characters
+			let discName = userData.nick.normalize("NFD").replace(/\p{Diacritic}/gu, "");	// Replaces special characters
 			user['coins'] = 0;
 			State.variables.foo = 0
-
-			// Initialize roles
-			if (!State.variables.roles) {
-				State.variables.roles = {}
-				State.variables.roles[user['role']] = { initialized: true }	// Need to put this in a conditional?
-			}
 			
 			// Initialize variables
 			if (State.variables.Start !== null) {
@@ -95,9 +89,20 @@ importScripts([
 
 			// Get role info for the player
 			let roleInfo = roles.find((item) => {
-				return item.role === user['role']
+				return item.role.toLowerCase() === discName.toLowerCase()
 			})
 			console.log('role info', roleInfo)
+			
+			// Set role in the user va
+			if (roleInfo) {
+				user['role'] = roleInfo.role
+			}
+
+			// Initialize roles
+			if (!State.variables.roles) {
+				State.variables.roles = {}
+				State.variables.roles[user['role']] = {}
+			}
 
 			user = Object.assign(user, roleInfo);
 
@@ -124,13 +129,15 @@ importScripts([
 <<run setBackground()>>
 
 
-:: TestPassage
+:: TestPassage {"position":"350,100","size":"100,100"}
 <<run changeStats("Cuauhtemoc",{"Wisdom":0,"Loyalty":0,"Strength":-1})>>
-<<set $foo+=1>>
+/* <<set $foo += 1>>
+<<button "Click Me">> 
+	<<script>>
+		SugarCube.Engine.show();
+	<</script>>
+<</button>> */
 
-/* :: TestPassage2
-<<run changeStats("Cuauhtemoc",{"Wisdom":0,"Loyalty":0,"Strength":-1})>>
-<<set $foo+=1>> */
 
 :: Roles {"position":"350,100","size":"100,100"}
 /* <<textbox "$Mal_Story" "">> */

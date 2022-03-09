@@ -63,7 +63,6 @@ function setId(userId){
 
 function reducer(state, action){
     // Checks for undefined to prevent feedback loop. Skips undefined check if connecting to the game (updates game as soon as client joins)
-    console.log("In the reducer")
     if(state === undefined && action.connecting === undefined) {
         console.log("State is undefined")
         return {...state, ...SugarCube.State.variables}
@@ -73,7 +72,10 @@ function reducer(state, action){
         case 'UPDATESTORE':
             console.log('Updating Store and Other Clients', action.payload)
             socket.emit('difference', {...state, ...action.payload})
-            reloadPassage();
+            
+            if (!action.self && !action.connecting) {
+                reloadPassage();
+            }
             return _.cloneDeep(SugarCube.State.variables)
         case 'UPDATEGAME':
             console.log('Updating Game', action.payload);
@@ -98,7 +100,7 @@ function update() {
 
         console.log('diff detected', diff)
         // store.dispatch({type: 'UPDATESTORE', payload: SugarCube.State.variables});   // Old dispatch call
-        store.dispatch({type: 'UPDATESTORE', payload: diff});
+        store.dispatch({type: 'UPDATESTORE', payload: diff, self: true});
     }
 }
 

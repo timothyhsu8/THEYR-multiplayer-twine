@@ -36,12 +36,17 @@ function returnTwine(userData, response) {
 }
 
 app.get('/', async ({ query }, response) => {
-	const { code, state, test } = query;
+	const { code, state, test, nick } = query;
 	const htmlTemplate = './views/index.html'
 	let userDataScript;
-	
+
 	if (test) {
-		userDataScript = JSON.stringify({"id":"229035280496197642","nick":"Cuauhtémoc", "faction": "Aztecs", "avatar":null,"discriminator":"2739","public_flags":0,"flags":0,"banner":null,"banner_color":null,
+		let nickname = "Cuauhtémoc"
+		if (nick) {
+			nickname = nick
+		}	
+		
+		userDataScript = JSON.stringify({"id":"229035280496197642","nick":nickname, "faction": "Aztecs", "avatar":null,"discriminator":"2739","public_flags":0,"flags":0,"banner":null,"banner_color":null,
 		"accent_color":null,"locale":"en-US","mfa_enabled":false});
 		return returnTwine(userDataScript, response);
 	}
