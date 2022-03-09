@@ -125,12 +125,30 @@ importScripts([
 
 <<masteraudio unmute>>
  <<run showMap()>>
+ /* <<set $imgsrc='Twine/images/Aztecs_10.png'>> */
+ /* <img src=State.variables.imgsrc> */
  <<run showStats()>>
 <<run setBackground()>>
 
 
 :: TestPassage {"position":"350,100","size":"100,100"}
-<<run changeStats("Cuauhtemoc",{"Wisdom":0,"Loyalty":0,"Strength":-1})>>
+/* <<set $carrots=0>> */
+You have <<print $carrots>> carrots.
+
+<<link "Refresh, with more carrot-y goodness">>
+
+/% modify your variables %/
+<<set $carrots++>>
+
+/% redisplay the currently active passage %/
+<<script>>state.display(state.active.title, null, "back")<</script>>
+<</link>>
+/* <<set $users[$userId]['currentMap']='Tlaxcalans_10.png'>>
+[[TestPassageNext]] */
+
+:: TestPassageNext {"position":"350,100","size":"100,100"}
+Next passage
+/* <<run changeStats("Cuauhtemoc",{"Wisdom":0,"Loyalty":0,"Strength":-1})>> */
 /* <<set $foo += 1>>
 <<button "Click Me">> 
 	<<script>>

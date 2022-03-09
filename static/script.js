@@ -96,16 +96,21 @@ function showMap(){
         }))
     }
  
-    let { faction } = getUser();
+    let { faction, role } = getUser();
     // var faction = SugarCube.State.getVar("$faction");  
-    var currentMap = 1 && SugarCube.State.getVar(`$${faction}_currentMap`);
+    var currentMap = SugarCube.State.variables['users'][SugarCube.State.variables.userId].currentMap
+    let currentMapIndex = 0
+    if (!currentMap) {
+        currentMapIndex = SugarCube.State.getVar(`$${faction}_currentMap`);
+        currentMap = `${faction}_${currentMapIndex}.png`
+    }
     var showMap=$('#map').data("currentMap")
  
-    if(showMap!=currentMap){
+    if(showMap!=currentMap && currentMapIndex){
         console.log((showMap, currentMap))
         SugarCube.State.setVar(`$${faction}_currentMap`,currentMap);
-        $('#map').attr("src",`Twine/images/${faction}_${currentMap}.png`)
-      $('#map').data("currentMap",currentMap)
+        $('#map').attr("src",`Twine/images/${currentMap}`)
+        $('#map').data("currentMap",currentMap)
     }
 }
 
@@ -122,7 +127,7 @@ function showStats() {
     })
 
     let userId = SugarCube.State.variables.userId
-    let twineStats = SugarCube.State.variables.users[userId].stats
+    let twineStats = SugarCube.State.variables.roles[role].stats
 
     if (twineStats) {
         Object.keys(stats).forEach((stat,idx) => {
@@ -131,7 +136,7 @@ function showStats() {
             displayStats.append(
                 $('<div/>', {
                 "class": "stat",
-                "css":{"background-image":`url(images/Stats/${faction}_${stat}.png)`}
+                "css":{"background-image":`url(Twine/images/Stats/${faction}_${stat}.png)`}
             }).append($('<div/>', {
                 "class": "statNum",
                 "html":twineVar || "0" 
@@ -151,7 +156,7 @@ function showStats() {
     // let twineVar = SugarCube.State.variables.faction[faction].strength
     let twineVar = 7
     if(twineVar) { 
-        // statString = `${faction}: ${twineVar} `;
+        let statString = `${faction}: ${twineVar} `;
     
         $('#story')
             .append($('<div/>', 
@@ -163,7 +168,10 @@ function showStats() {
                     "id": "factionStrengthBar",
                     // "html": statString
                 }))
-            )
+            ).append($('<div/>', {
+                "id": "factionStrengthLabel",
+                "html": statString
+            }))
         setFactionStrength(twineVar)
     }
 
