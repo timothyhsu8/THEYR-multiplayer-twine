@@ -94,7 +94,7 @@ $testVar : this is potato - no updates
 <</button>>
 
 <<liveblock>>
-	Catra has $testVar lives left
+	You have $testVar lives left
 	$testVar, $testVar2
 <</liveblock>> : both are live!
 

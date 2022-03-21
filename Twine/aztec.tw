@@ -7,7 +7,7 @@ Spanish Aztec War Ver 1.0
 	"ifid": "5CAF53F2-B97C-45CA-9E53-CBD50086BDA5",
 	"format": "SugarCube",
 	"format-version": "2.30.0",
-	"start": "TestPassage",
+	"start": "The Library",
 	"tag-colors": {
 		"Breaks": "blue",
 		"Change-Title": "yellow",
@@ -203,12 +203,15 @@ importScripts([
 
 :: TestPassage {"position":"350,100","size":"100,100"}
 <<liveblock>>
-Catra has $foo lives left
-<<button "Add 1">>
+<<set $foo++>>
+You have $foo lives left
+/* <<button "Add 1">>
 	<<set $foo++>>
 	<<update>>
-<</button>>
+<</button>> */
 <</liveblock>>
+
+calenc
 
 
 :: TestPassageNext {"position":"350,100","size":"100,100"}
