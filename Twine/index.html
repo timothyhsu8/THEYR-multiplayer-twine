@@ -105,38 +105,95 @@ var saveAs=saveAs||navigator.msSaveBlob&&navigator.msSaveBlob.bind(navigator)||f
 	'https://unpkg.com/redux@latest/dist/redux.min.js',
 	'https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js',
 	'static/Client.js'
-])</script><tw-passagedata pid="1" name="StoryInit" tags="" position="688,59" size="100,100">/* &lt;&lt;set $users = {}&gt;&gt;
-&lt;&lt;set $users[$userId] = {}&gt;&gt; */</tw-passagedata><tw-passagedata pid="2" name="Lobby" tags="" position="867,575" size="100,100">[[Room 2]] [[Room 1]]</tw-passagedata><tw-passagedata pid="3" name="Room 1" tags="" position="713,673" size="100,100">There are &lt;&lt;print $room1coins&gt;&gt; coins in this room.
+]);
+
+(function () {
+	"use strict";
+
+	$(document).on(":liveupdate", function () {
+		$(".macro-live").trigger(":liveupdateinternal");
+	});
+
+	Macro.add(['update', 'upd'], {
+		handler: function handler() {
+			$(document).trigger(":liveupdate");
+		}
+	});
+
+	Macro.add(['live', 'l', 'lh'], {
+		skipArgs: true,
+		handler: function handler() {
+			if (this.args.full.length === 0) {
+				return this.error('no expression specified');
+			}
+			try {
+				var statement = this.args.full;
+				var result = toStringOrDefault(Scripting.evalJavaScript(statement), null);
+				if (result !== null) {
+					var lh = this.name === "lh";
+					var $el = $("<span></span>").addClass("macro-live").wiki(lh ? Util.escape(result) : result).appendTo(this.output);
+					$el.on(":liveupdateinternal", this.createShadowWrapper(function (ev) {
+						var out = toStringOrDefault(Scripting.evalJavaScript(statement), null);
+						$el.empty().wiki(lh ? Util.escape(out) : out);
+					}));
+				}
+			} catch (ex) {
+				return this.error("bad evaluation: " + (_typeof(ex) === 'object' ? ex.message : ex));
+			}
+		}
+	});
+
+	Macro.add(['liveblock', 'lb'], {
+		tags: null,
+		handler: function handler() {
+			try {
+				var content = this.payload[0].contents.trim();
+				if (content) {
+					var $el = $("<span></span>").addClass("macro-live macro-live-block").wiki(content).appendTo(this.output);
+					$el.on(":liveupdateinternal", this.createShadowWrapper(function (ev) {
+						$el.empty().wiki(content);
+					}));
+				}
+			} catch (ex) {
+				return this.error("bad evaluation: " + (_typeof(ex) === 'object' ? ex.message : ex));
+			}
+		}
+	});
+})();</script><tw-passagedata pid="1" name="StoryInit" tags="" position="688,59" size="100,100">/* &lt;&lt;set $users = {}&gt;&gt;
+&lt;&lt;set $users[$userId] = {}&gt;&gt; */</tw-passagedata><tw-passagedata pid="2" name="Lobby" tags="" position="867,575" size="100,100">[[Room 2]] [[Room 1]]</tw-passagedata><tw-passagedata pid="3" name="Room 1" tags="" position="713,673" size="100,100">&lt;&lt;liveblock&gt;&gt;
+There are &lt;&lt;print $room1coins&gt;&gt; coins in this room.
 
 [[Leave this room -&gt; Lobby]]
 
 &lt;&lt;if ($room1coins == 0)&gt;&gt;
 There are no more coins left in this room!
 
+
 &lt;&lt;else&gt;&gt;
 &lt;&lt;button &quot;Move 10 Coins to Room 2&quot;&gt;&gt;
   &lt;&lt;set $room1coins = $room1coins - 10&gt;&gt;
   &lt;&lt;set $room2coins = $room2coins + 10&gt;&gt;
-  &lt;&lt;goto &quot;Room 1&quot;&gt;&gt;
 &lt;&lt;/button&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;button &quot;Steal 10 Coins for yourself&quot;&gt;&gt;
 	&lt;&lt;set $users[$userId][&quot;coins&quot;] += 10&gt;&gt;
 	&lt;&lt;set $room1coins = $room1coins - 10&gt;&gt;
-&lt;&lt;/button&gt;&gt;</tw-passagedata><tw-passagedata pid="4" name="Room 2" tags="" position="1024,667" size="100,100">There are &lt;&lt;print $room2coins&gt;&gt; coins in this room.
-	
+&lt;&lt;/button&gt;&gt;
+&lt;&lt;/liveblock&gt;&gt;</tw-passagedata><tw-passagedata pid="4" name="Room 2" tags="" position="1024,667" size="100,100">&lt;&lt;liveblock&gt;&gt;
+There are &lt;&lt;print $room2coins&gt;&gt; coins in this room.
+
 /* You have &lt;&lt;print $users[$userId][&quot;coins&quot;]&gt;&gt; coins */
 [[Leave this room -&gt; Lobby]]
 
 &lt;&lt;if ($room2coins == 0)&gt;&gt;
 There are no more coins left in this room!
+
 &lt;&lt;else&gt;&gt;
 
 &lt;&lt;button &quot;Move 10 Coins to Room 1&quot;&gt;&gt;
 	&lt;&lt;set $room1coins = $room1coins + 10&gt;&gt;
 	&lt;&lt;set $room2coins = $room2coins - 10&gt;&gt;
-	&lt;&lt;goto &quot;Room 2&quot;&gt;&gt;
 &lt;&lt;/button&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -144,6 +201,7 @@ There are no more coins left in this room!
 	&lt;&lt;set $users[$userId][&quot;coins&quot;] += 10&gt;&gt;
  	&lt;&lt;set $room2coins = $room2coins - 10&gt;&gt;
 &lt;&lt;/button&gt;&gt;
+&lt;&lt;/liveblock&gt;&gt;
 
 You have been living as a slave among the Chontal Maya for many years now, but you have never forgotten your past life. Born into a noble Nahua family, you were taught many valuable lessons and were respected in your community for your wit and intelligence even at a young age. Among the many things you have acquired in your years as a slave is a facility with the Mayan language, so different from the Nahuatl with which you were raised.&lt;br&gt;
 &lt;br&gt;

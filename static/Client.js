@@ -1,3 +1,4 @@
+console.log("CLIENT FILE")
 var socket = io();
 var store = Redux.createStore(reducer);
 
@@ -6,8 +7,7 @@ if(userData){
     setId(userData.id)   
 }
 
-// Sets the UserId in the Users mapping
-$(document).one(':passageinit', () => {
+$(document).ready(function() {
     console.log("STORY READY");
     let users = SugarCube.State.getVar('$users');
 
@@ -25,7 +25,26 @@ $(document).one(':passageinit', () => {
     SugarCube.setup.theyrCallback();
 });
 
-// User connects, asks server for game state
+// Sets the UserId in the Users mapping
+// $(document).one(':passagedisplay', () => {
+//     console.log("STORY READY");
+//     let users = SugarCube.State.getVar('$users');
+
+//     // If Users map is not defined, initialize it
+//     if (users === undefined){
+//         users = {}
+//     } 
+
+//     // If client does not exist in Users, add them
+//     if(!(userData.id in users)) {
+//         users[userData.id] = {}
+//         users[userData.id].username= userData.username
+//         SugarCube.State.setVar('$users', users);
+//     }  
+//     SugarCube.setup.theyrCallback();
+// });
+
+// // User connects, asks server for game state
 socket.on('connect', () => {
     socket.emit('new user', socket.id);
 })
@@ -72,14 +91,15 @@ function reducer(state, action){
         case 'UPDATESTORE':
             console.log('Updating Store and Other Clients', action.payload)
             socket.emit('difference', {...state, ...action.payload})
-            
-            if (!action.self && !action.connecting) {
-                reloadPassage();
-            }
+            $(document).trigger(":liveupdate");
+            // if (!action.self && !action.connecting) {
+            //     reloadPassage();
+            // }
             return _.cloneDeep(SugarCube.State.variables)
         case 'UPDATEGAME':
             console.log('Updating Game', action.payload);
             updateSugarCubeState(action.payload);
+            $(document).trigger(":liveupdate");
             return
         default:
             return state
@@ -104,12 +124,6 @@ function update() {
     }
 }
 
-// Print SugarCube State and Store
-function printVars(){
-    console.log("STORE:", store.getState());
-    console.log("SUGARCUBE:", SugarCube.State.variables);
-}
-
 // Finds the difference between 2 different objects (Used to compare SugarCube State and Store)
 function difference(object, base) {
 	function changes(object, base) {
@@ -127,7 +141,7 @@ function updateSugarCubeState(new_state) {
     for (const [key, value] of Object.entries(new_state)) {
         SugarCube.State.variables[key] = value
     }
-    reloadPassage();
+    // reloadPassage();
 }
 
 // Reloads the passage while keeping scroll position
@@ -138,11 +152,4 @@ function reloadPassage() {
     let scrollY = window.scrollY
     SugarCube.Engine.show();
     window.scrollTo(scrollX, scrollY)
-}
-
-// Prints User information in the console
-function printUser() {
-    const userId = SugarCube.State.variables.userId
-    console.log(`User is ${userId}`)
-    console.log(SugarCube.State.variables.users[userId])
 }

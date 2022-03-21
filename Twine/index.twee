@@ -21,12 +21,67 @@ importScripts([
 	'https://unpkg.com/redux@latest/dist/redux.min.js',
 	'https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js',
 	'static/Client.js'
-])
+]);
+
+(function () {
+	"use strict";
+
+	$(document).on(":liveupdate", function () {
+		$(".macro-live").trigger(":liveupdateinternal");
+	});
+
+	Macro.add(['update', 'upd'], {
+		handler: function handler() {
+			$(document).trigger(":liveupdate");
+		}
+	});
+
+	Macro.add(['live', 'l', 'lh'], {
+		skipArgs: true,
+		handler: function handler() {
+			if (this.args.full.length === 0) {
+				return this.error('no expression specified');
+			}
+			try {
+				var statement = this.args.full;
+				var result = toStringOrDefault(Scripting.evalJavaScript(statement), null);
+				if (result !== null) {
+					var lh = this.name === "lh";
+					var $el = $("<span></span>").addClass("macro-live").wiki(lh ? Util.escape(result) : result).appendTo(this.output);
+					$el.on(":liveupdateinternal", this.createShadowWrapper(function (ev) {
+						var out = toStringOrDefault(Scripting.evalJavaScript(statement), null);
+						$el.empty().wiki(lh ? Util.escape(out) : out);
+					}));
+				}
+			} catch (ex) {
+				return this.error("bad evaluation: " + (_typeof(ex) === 'object' ? ex.message : ex));
+			}
+		}
+	});
+
+	Macro.add(['liveblock', 'lb'], {
+		tags: null,
+		handler: function handler() {
+			try {
+				var content = this.payload[0].contents.trim();
+				if (content) {
+					var $el = $("<span></span>").addClass("macro-live macro-live-block").wiki(content).appendTo(this.output);
+					$el.on(":liveupdateinternal", this.createShadowWrapper(function (ev) {
+						$el.empty().wiki(content);
+					}));
+				}
+			} catch (ex) {
+				return this.error("bad evaluation: " + (_typeof(ex) === 'object' ? ex.message : ex));
+			}
+		}
+	});
+})();
 
 :: StoryInit {"position":"22,135","size":"100,100"}
 <<script>>
+	console.log("STORY INIT");
 	setup.theyrCallback = function() {
-		console.log("Set up")
+		console.log("CALLED BACK");
 	}
 <</script>>
 
@@ -35,6 +90,7 @@ importScripts([
 
 
 :: Room 1 {"position":"713,673","size":"100,100"}
+<<liveblock>>
 There are <<print $room1coins>> coins in this room.
 
 [[Leave this room -> Lobby]]
@@ -42,11 +98,11 @@ There are <<print $room1coins>> coins in this room.
 <<if ($room1coins == 0)>>
 There are no more coins left in this room!
 
+
 <<else>>
 <<button "Move 10 Coins to Room 2">>
   <<set $room1coins = $room1coins - 10>>
   <<set $room2coins = $room2coins + 10>>
-  <<goto "Room 1">>
 <</button>>
 <</if>>
 
@@ -54,22 +110,23 @@ There are no more coins left in this room!
 	<<set $users[$userId]["coins"] += 10>>
 	<<set $room1coins = $room1coins - 10>>
 <</button>>
-
+<</liveblock>>
 
 :: Room 2 {"position":"1024,667","size":"100,100"}
+<<liveblock>>
 There are <<print $room2coins>> coins in this room.
-	
+
 /* You have <<print $users[$userId]["coins"]>> coins */
 [[Leave this room -> Lobby]]
 
 <<if ($room2coins == 0)>>
 There are no more coins left in this room!
+
 <<else>>
 
 <<button "Move 10 Coins to Room 1">>
 	<<set $room1coins = $room1coins + 10>>
 	<<set $room2coins = $room2coins - 10>>
-	<<goto "Room 2">>
 <</button>>
 <</if>>
 
@@ -77,6 +134,7 @@ There are no more coins left in this room!
 	<<set $users[$userId]["coins"] += 10>>
  	<<set $room2coins = $room2coins - 10>>
 <</button>>
+<</liveblock>>
 
 You have been living as a slave among the Chontal Maya for many years now, but you have never forgotten your past life. Born into a noble Nahua family, you were taught many valuable lessons and were respected in your community for your wit and intelligence even at a young age. Among the many things you have acquired in your years as a slave is a facility with the Mayan language, so different from the Nahuatl with which you were raised.<br>
 <br>

@@ -7,7 +7,7 @@ Spanish Aztec War Ver 1.0
 	"ifid": "5CAF53F2-B97C-45CA-9E53-CBD50086BDA5",
 	"format": "SugarCube",
 	"format-version": "2.30.0",
-	"start": "The Library",
+	"start": "TestPassage",
 	"tag-colors": {
 		"Breaks": "blue",
 		"Change-Title": "yellow",
@@ -45,6 +45,60 @@ importScripts([
 	"https://unpkg.com/jquery.nice-number@2.1.0/dist/jquery.nice-number.min.js",
 	"https://code.jquery.com/ui/1.12.1/jquery-ui.js"	
 ]);
+
+(function () {
+	"use strict";
+
+	$(document).on(":liveupdate", function () {
+		$(".macro-live").trigger(":liveupdateinternal");
+	});
+
+	Macro.add(['update', 'upd'], {
+		handler: function handler() {
+			$(document).trigger(":liveupdate");
+		}
+	});
+
+	Macro.add(['live', 'l', 'lh'], {
+		skipArgs: true,
+		handler: function handler() {
+			if (this.args.full.length === 0) {
+				return this.error('no expression specified');
+			}
+			try {
+				var statement = this.args.full;
+				var result = toStringOrDefault(Scripting.evalJavaScript(statement), null);
+				if (result !== null) {
+					var lh = this.name === "lh";
+					var $el = $("<span></span>").addClass("macro-live").wiki(lh ? Util.escape(result) : result).appendTo(this.output);
+					$el.on(":liveupdateinternal", this.createShadowWrapper(function (ev) {
+						var out = toStringOrDefault(Scripting.evalJavaScript(statement), null);
+						$el.empty().wiki(lh ? Util.escape(out) : out);
+					}));
+				}
+			} catch (ex) {
+				return this.error("bad evaluation: " + (_typeof(ex) === 'object' ? ex.message : ex));
+			}
+		}
+	});
+
+	Macro.add(['liveblock', 'lb'], {
+		tags: null,
+		handler: function handler() {
+			try {
+				var content = this.payload[0].contents.trim();
+				if (content) {
+					var $el = $("<span></span>").addClass("macro-live macro-live-block").wiki(content).appendTo(this.output);
+					$el.on(":liveupdateinternal", this.createShadowWrapper(function (ev) {
+						$el.empty().wiki(content);
+					}));
+				}
+			} catch (ex) {
+				return this.error("bad evaluation: " + (_typeof(ex) === 'object' ? ex.message : ex));
+			}
+		}
+	});
+})();
 
 
 :: StoryInit {"position":"22,135","size":"100,100"}
@@ -119,7 +173,23 @@ importScripts([
 
 
 :: PassageHeader {"position":"138,11","size":"100,100"}
-<<print passage()>> 
+<<script>>
+	function setupPassage() {
+		let users = State.variables.users;
+		if (typeof(showMap) !== 'undefined' && typeof(showStats) !== 'undefined' && typeof(setBackground) !== 'undefined' && users !== undefined) {
+			console.log("In passage setup");
+			showMap(); 
+			showStats();
+			setBackground();
+		}
+		else {
+			setTimeout(setupPassage, 100);
+		}
+	}
+
+	setupPassage();
+<</script>>
+/* <<print passage()>> 
 <<audio ":all" stop>>
 <!-- <<masteraudio mute>> -->
 
@@ -127,24 +197,19 @@ importScripts([
  <<run showMap()>>
  /* <<set $imgsrc='Twine/images/Aztecs_10.png'>> */
  /* <img src=State.variables.imgsrc> */
- <<run showStats()>>
-<<run setBackground()>>
+ /* <<run showStats()>>
+<<run setBackground()>> */
 
 
 :: TestPassage {"position":"350,100","size":"100,100"}
-/* <<set $carrots=0>> */
-You have <<print $carrots>> carrots.
+<<liveblock>>
+Catra has $foo lives left
+<<button "Add 1">>
+	<<set $foo++>>
+	<<update>>
+<</button>>
+<</liveblock>>
 
-<<link "Refresh, with more carrot-y goodness">>
-
-/% modify your variables %/
-<<set $carrots++>>
-
-/% redisplay the currently active passage %/
-<<script>>state.display(state.active.title, null, "back")<</script>>
-<</link>>
-/* <<set $users[$userId]['currentMap']='Tlaxcalans_10.png'>>
-[[TestPassageNext]] */
 
 :: TestPassageNext {"position":"350,100","size":"100,100"}
 Next passage

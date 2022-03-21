@@ -100,7 +100,7 @@ var saveAs=saveAs||navigator.msSaveBlob&&navigator.msSaveBlob.bind(navigator)||f
 		<div id="init-lacking">Your browser lacks required capabilities. Please upgrade it or switch to another to continue.</div>
 		<div id="init-loading"><div>Loading&hellip;</div></div>
 	</div>
-	<!-- UUID://5CAF53F2-B97C-45CA-9E53-CBD50086BDA5// --><tw-storydata name="Spanish Aztec War Ver 1.0" startnode="96" creator="Tweego" creator-version="2.1.1+81d1d71" ifid="5CAF53F2-B97C-45CA-9E53-CBD50086BDA5" zoom="1" format="SugarCube" format-version="2.30.0" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">@import url('https://fonts.googleapis.com/css2?family=Langar&display=swap');
+	<!-- UUID://5CAF53F2-B97C-45CA-9E53-CBD50086BDA5// --><tw-storydata name="Spanish Aztec War Ver 1.0" startnode="3" creator="Tweego" creator-version="2.1.1+81d1d71" ifid="5CAF53F2-B97C-45CA-9E53-CBD50086BDA5" zoom="1" format="SugarCube" format-version="2.30.0" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">@import url('https://fonts.googleapis.com/css2?family=Langar&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
 @import url("https://unpkg.com/jquery.nice-number@2.1.0/dist/jquery.nice-number.min.css");
 @import url("//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css");
@@ -119,7 +119,61 @@ importScripts([
 	"https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/1.0.11/jquery.csv.min.js",
 	"https://unpkg.com/jquery.nice-number@2.1.0/dist/jquery.nice-number.min.js",
 	"https://code.jquery.com/ui/1.12.1/jquery-ui.js"	
-]);</script><tw-tag name="Breaks" color="blue"></tw-tag><tw-tag name="Change-Title" color="yellow"></tw-tag><tw-tag name="Coding-Problem" color="red"></tw-tag><tw-tag name="Done" color="green"></tw-tag><tw-tag name="New-Passage" color="purple"></tw-tag><tw-tag name="Text-to-be-updated-by-Ashley" color="orange"></tw-tag><tw-passagedata pid="1" name="StoryInit" tags="" position="22,135" size="100,100">&lt;&lt;script&gt;&gt;
+]);
+
+(function () {
+	"use strict";
+
+	$(document).on(":liveupdate", function () {
+		$(".macro-live").trigger(":liveupdateinternal");
+	});
+
+	Macro.add(['update', 'upd'], {
+		handler: function handler() {
+			$(document).trigger(":liveupdate");
+		}
+	});
+
+	Macro.add(['live', 'l', 'lh'], {
+		skipArgs: true,
+		handler: function handler() {
+			if (this.args.full.length === 0) {
+				return this.error('no expression specified');
+			}
+			try {
+				var statement = this.args.full;
+				var result = toStringOrDefault(Scripting.evalJavaScript(statement), null);
+				if (result !== null) {
+					var lh = this.name === "lh";
+					var $el = $("<span></span>").addClass("macro-live").wiki(lh ? Util.escape(result) : result).appendTo(this.output);
+					$el.on(":liveupdateinternal", this.createShadowWrapper(function (ev) {
+						var out = toStringOrDefault(Scripting.evalJavaScript(statement), null);
+						$el.empty().wiki(lh ? Util.escape(out) : out);
+					}));
+				}
+			} catch (ex) {
+				return this.error("bad evaluation: " + (_typeof(ex) === 'object' ? ex.message : ex));
+			}
+		}
+	});
+
+	Macro.add(['liveblock', 'lb'], {
+		tags: null,
+		handler: function handler() {
+			try {
+				var content = this.payload[0].contents.trim();
+				if (content) {
+					var $el = $("<span></span>").addClass("macro-live macro-live-block").wiki(content).appendTo(this.output);
+					$el.on(":liveupdateinternal", this.createShadowWrapper(function (ev) {
+						$el.empty().wiki(content);
+					}));
+				}
+			} catch (ex) {
+				return this.error("bad evaluation: " + (_typeof(ex) === 'object' ? ex.message : ex));
+			}
+		}
+	});
+})();</script><tw-tag name="Breaks" color="blue"></tw-tag><tw-tag name="Change-Title" color="yellow"></tw-tag><tw-tag name="Coding-Problem" color="red"></tw-tag><tw-tag name="Done" color="green"></tw-tag><tw-tag name="New-Passage" color="purple"></tw-tag><tw-tag name="Text-to-be-updated-by-Ashley" color="orange"></tw-tag><tw-passagedata pid="1" name="StoryInit" tags="" position="22,135" size="100,100">&lt;&lt;script&gt;&gt;
 	setup.theyrCallback = function() {
 		let users = State.variables.users;
 		let userId = State.variables.userId;
@@ -142,8 +196,6 @@ importScripts([
 			if (State.variables.Start !== null) {
 				State.variables.Start = 15;
 			}
-
-			State.variables.carrots = 0
 
 			const roles = [{&quot;faction&quot;: &quot;Spaniards&quot;, &quot;role&quot;: &quot;Mariana&quot;, &quot;Character&quot;: &quot;Doña Mariana/Malinche&quot;, &quot;isLeader&quot;: &quot;FALSE&quot;},
 				{&quot;faction&quot;: &quot;Spaniards&quot;, &quot;role&quot;: &quot;Alvarado&quot;, &quot;Character&quot;: &quot;Pedro de Alvarado&quot;, &quot;isLeader&quot;: &quot;FALSE&quot;},
@@ -188,7 +240,23 @@ importScripts([
 &lt;&lt;/script&gt;&gt;
 &lt;&lt;cacheaudio &quot;Gulls_and_waves__5min_&quot; &quot;audio/Gulls_and_waves__5min_.mp3&quot;&gt;&gt;
 &lt;&lt;cacheaudio &quot;Library&quot; &quot;audio/Library.mp3&quot;&gt;&gt;
-&lt;!-- &lt;&lt;masteraudio volume 0&gt;&gt; --&gt;</tw-passagedata><tw-passagedata pid="2" name="PassageHeader" tags="" position="138,11" size="100,100">&lt;&lt;print passage()&gt;&gt; 
+&lt;!-- &lt;&lt;masteraudio volume 0&gt;&gt; --&gt;</tw-passagedata><tw-passagedata pid="2" name="PassageHeader" tags="" position="138,11" size="100,100">&lt;&lt;script&gt;&gt;
+	function setupPassage() {
+		let users = State.variables.users;
+		if (typeof(showMap) !== &#39;undefined&#39; &amp;&amp; typeof(showStats) !== &#39;undefined&#39; &amp;&amp; typeof(setBackground) !== &#39;undefined&#39; &amp;&amp; users !== undefined) {
+			console.log(&quot;In passage setup&quot;);
+			showMap(); 
+			showStats();
+			setBackground();
+		}
+		else {
+			setTimeout(setupPassage, 100);
+		}
+	}
+
+	setupPassage();
+&lt;&lt;/script&gt;&gt;
+/* &lt;&lt;print passage()&gt;&gt; 
 &lt;&lt;audio &quot;:all&quot; stop&gt;&gt;
 &lt;!-- &lt;&lt;masteraudio mute&gt;&gt; --&gt;
 
@@ -196,20 +264,14 @@ importScripts([
  &lt;&lt;run showMap()&gt;&gt;
  /* &lt;&lt;set $imgsrc=&#39;Twine/images/Aztecs_10.png&#39;&gt;&gt; */
  /* &lt;img src=State.variables.imgsrc&gt; */
- &lt;&lt;run showStats()&gt;&gt;
-&lt;&lt;run setBackground()&gt;&gt;</tw-passagedata><tw-passagedata pid="3" name="TestPassage" tags="" position="350,100" size="100,100">/* &lt;&lt;set $carrots=0&gt;&gt; */
-You have &lt;&lt;print $carrots&gt;&gt; carrots.
-
-&lt;&lt;link &quot;Refresh, with more carrot-y goodness&quot;&gt;&gt;
-
-/% modify your variables %/
-&lt;&lt;set $carrots++&gt;&gt;
-
-/% redisplay the currently active passage %/
-&lt;&lt;script&gt;&gt;state.display(state.active.title, null, &quot;back&quot;)&lt;&lt;/script&gt;&gt;
-&lt;&lt;/link&gt;&gt;
-/* &lt;&lt;set $users[$userId][&#39;currentMap&#39;]=&#39;Tlaxcalans_10.png&#39;&gt;&gt;
-[[TestPassageNext]] */</tw-passagedata><tw-passagedata pid="4" name="TestPassageNext" tags="" position="350,100" size="100,100">Next passage
+ /* &lt;&lt;run showStats()&gt;&gt;
+&lt;&lt;run setBackground()&gt;&gt; */</tw-passagedata><tw-passagedata pid="3" name="TestPassage" tags="" position="350,100" size="100,100">&lt;&lt;liveblock&gt;&gt;
+Catra has $foo lives left
+&lt;&lt;button &quot;Add 1&quot;&gt;&gt;
+	&lt;&lt;set $foo++&gt;&gt;
+	&lt;&lt;update&gt;&gt;
+&lt;&lt;/button&gt;&gt;
+&lt;&lt;/liveblock&gt;&gt;</tw-passagedata><tw-passagedata pid="4" name="TestPassageNext" tags="" position="350,100" size="100,100">Next passage
 /* &lt;&lt;run changeStats(&quot;Cuauhtemoc&quot;,{&quot;Wisdom&quot;:0,&quot;Loyalty&quot;:0,&quot;Strength&quot;:-1})&gt;&gt; */
 /* &lt;&lt;set $foo += 1&gt;&gt;
 &lt;&lt;button &quot;Click Me&quot;&gt;&gt; 
