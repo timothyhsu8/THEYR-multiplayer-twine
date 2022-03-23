@@ -73,27 +73,27 @@ importScripts(
 
 
 :: Start {"position":"404,168.5","size":"100,100"}
+<<script>>
+	console.log("In passage")
+<</script>>
+<<liveblock>>
 <<set $testVar to 0, $testVar2 to 0>>
 
 <<button "Add 1">>
 	<<set $testVar++>>
-	<<update>>
 <</button>>
 
 $testVar : this is potato - no updates
 
 <<button "Add 1">>
 	<<set $testVar2++>>
-	<<update>>
 <</button>>
 
 <!-- block level -->
 <<button "Add 1 to both">>
 	<<set $testVar++, $testVar2++>>
-	<<update>>
 <</button>>
 
-<<liveblock>>
 	You have $testVar lives left
 	$testVar, $testVar2
 <</liveblock>> : both are live!

@@ -1,6 +1,8 @@
 import gaze from 'gaze'
 import fs from 'fs'
 import { exec } from 'child_process';
+import Extwee, { HTMLWriter, StoryFormat, StoryFormatParser, TweeWriter } from 'extwee'
+
 let coolDown = 0;
 
 // Watch all .js files/dirs in process.cwd() 
@@ -23,21 +25,23 @@ gaze('Twine/*.*', function (err, watcher) {
         let command;
 
         if (suffix == "html") {
-            command = `node ./node_modules/twine-utils/bin/entwee.js "${prefix}.${suffix}" > "${prefix}.tw"`
-            // command = `node node_modules/extwee/index.js -c -i "${prefix}.${suffix}" -s sugarcube-2 -o "${prefix}.tw"`
-            // command = `node node_modules/extwee/index.js -d -i "${prefix}.${suffix}" -o "${prefix}.tw"`
-            // command = `tweego -f sugarcube-2 -d -o "${prefix}".twee "${prefix}".html`
-        } else if (suffix == "twee" || suffix == 'tw') {
-            // command = `node node_modules/extwee/index.js -c -i "${prefix}.${suffix}" -s sugarcube-2 -o "${prefix}.html"`
-            command = `node ./node_modules/twine-utils/bin/entwine.js "${prefix}.${suffix}" -f "storyformats/sugarcube-2/format.js" > "${prefix}.html"`
-            // command = `tweego -f sugarcube-2  "${prefix}".twee -o "${prefix}".html`
+            command = `tweego -f sugarcube-2 -d -o "${prefix}".twee "${prefix}".html`
+            // command = `node ./node_modules/twine-utils/bin/entwee.js "${prefix}.${suffix}" > "${prefix}.tw"`
+        } else if (suffix == "twee" || suffix == "tw") {
+            // let file = new Extwee.FileReader(`${prefix}.twee`);
+            // let tp = new Extwee.TweeParser(file.contents);
+            // let sfp = new StoryFormatParser("storyformats/sugarcube-2/format.js")
+            // new HTMLWriter(`${prefix}.html`, tp.story, sfp.storyformat)  // Write to HTML file
+            
+            
+            command = `tweego -f sugarcube-2  "${prefix}".twee -o "${prefix}".html`
+            // command = `node ./node_modules/twine-utils/bin/entwine.js "${prefix}.${suffix}" -f "storyformats/sugarcube-2/format.js" > "${prefix}.html"`
         } 
         else {
             console.log(prefix, suffix)
             return
         }
-        console.log("Commmand:", command)
-
+        
         const mtime = fs.statSync(filepath).mtime;
         if (mtime - coolDown > 1000) {
             coolDown = mtime

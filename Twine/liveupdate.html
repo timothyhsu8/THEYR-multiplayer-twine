@@ -156,27 +156,27 @@ var saveAs=saveAs||navigator.msSaveBlob&&navigator.msSaveBlob.bind(navigator)||f
 			}
 		}
 	});
-})();</script><tw-passagedata pid="1" name="Start" tags="" position="404,168.5" size="100,100">&lt;&lt;set $testVar to 0, $testVar2 to 0&gt;&gt;
+})();</script><tw-passagedata pid="1" name="Start" tags="" position="404,168.5" size="100,100">&lt;&lt;script&gt;&gt;
+	console.log(&quot;In passage&quot;)
+&lt;&lt;/script&gt;&gt;
+&lt;&lt;liveblock&gt;&gt;
+&lt;&lt;set $testVar to 0, $testVar2 to 0&gt;&gt;
 
 &lt;&lt;button &quot;Add 1&quot;&gt;&gt;
 	&lt;&lt;set $testVar++&gt;&gt;
-	&lt;&lt;update&gt;&gt;
 &lt;&lt;/button&gt;&gt;
 
 $testVar : this is potato - no updates
 
 &lt;&lt;button &quot;Add 1&quot;&gt;&gt;
 	&lt;&lt;set $testVar2++&gt;&gt;
-	&lt;&lt;update&gt;&gt;
 &lt;&lt;/button&gt;&gt;
 
 &lt;!-- block level --&gt;
 &lt;&lt;button &quot;Add 1 to both&quot;&gt;&gt;
 	&lt;&lt;set $testVar++, $testVar2++&gt;&gt;
-	&lt;&lt;update&gt;&gt;
 &lt;&lt;/button&gt;&gt;
 
-&lt;&lt;liveblock&gt;&gt;
 	You have $testVar lives left
 	$testVar, $testVar2
 &lt;&lt;/liveblock&gt;&gt; : both are live!</tw-passagedata></tw-storydata>
