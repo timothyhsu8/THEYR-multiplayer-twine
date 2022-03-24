@@ -99,18 +99,15 @@ function showMap(){
     let { faction, role } = getUser();
     // var faction = SugarCube.State.getVar("$faction");  
     var currentMap = SugarCube.State.variables['users'][SugarCube.State.variables.userId].currentMap
-    let currentMapIndex = 0
+    // let currentMapIndex = 0
     if (!currentMap) {
-        currentMapIndex = SugarCube.State.getVar(`$${faction}_currentMap`);
+        let currentMapIndex = SugarCube.State.getVar(`$${faction}_currentMap`) || 0;
         currentMap = `${faction}_${currentMapIndex}.png`
     }
-    var showMap=$('#map').data("currentMap")
- 
-    if(showMap!=currentMap && currentMapIndex){
-        console.log((showMap, currentMap))
-        SugarCube.State.setVar(`$${faction}_currentMap`,currentMap);
+    let map_src = $('#map').attr("src")
+
+    if(map_src != currentMap) {
         $('#map').attr("src",`Twine/images/${currentMap}`)
-        $('#map').data("currentMap",currentMap)
     }
 }
 

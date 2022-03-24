@@ -1,7 +1,6 @@
 :: StoryTitle
 Spanish Aztec War Ver 1.0
 
-
 :: StoryData
 {
 	"ifid": "5CAF53F2-B97C-45CA-9E53-CBD50086BDA5",
@@ -19,18 +18,12 @@ Spanish Aztec War Ver 1.0
 	"zoom": 1
 }
 
-
-:: fooofooo
-passage
-
-
 :: Story Stylesheet [stylesheet]
 @import url('https://fonts.googleapis.com/css2?family=Langar&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
 @import url("https://unpkg.com/jquery.nice-number@2.1.0/dist/jquery.nice-number.min.css");
 @import url("//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css");
 @import url("Twine/style.css");
-
 
 :: Story JavaScript [script]
 Config.passages.nobr = true;
@@ -103,7 +96,6 @@ importScripts([
 		}
 	});
 })();
-
 
 :: StoryInit {"position":"22,135","size":"100,100"}
 <<liveblock>>
@@ -179,7 +171,6 @@ importScripts([
 
 <</liveblock>>
 
-
 :: PassageHeader {"position":"138,11","size":"100,100"}
 <<script>>
 	function setupPassage() {
@@ -208,7 +199,6 @@ importScripts([
  /* <<run showStats()>>
 <<run setBackground()>> */
 
-
 :: TestPassage {"position":"350,100","size":"100,100"}
 <<script>>
 	console.log("Passage reset")
@@ -221,7 +211,6 @@ You have $foo lives left
 <</button>>
 <</liveblock>>
 
-
 :: TestPassageNext {"position":"350,100","size":"100,100"}
 Next passage
 /* <<run changeStats("Cuauhtemoc",{"Wisdom":0,"Loyalty":0,"Strength":-1})>> */
@@ -231,7 +220,6 @@ Next passage
 		SugarCube.Engine.show();
 	<</script>>
 <</button>> */
-
 
 :: Roles {"position":"350,100","size":"100,100"}
 <<liveblock>>
@@ -249,10 +237,8 @@ Next passage
 
 <</liveblock>>
 
-
 :: Name Not Recognized {"position":"350,100","size":"100,100"}
 Name not recognized. Make sure the spelling on your character's name matches your role.
-
 
 :: Act 1 Scene 1 [Done,Breaks] {"position":"338,1151","size":"100,100"}
 <<liveblock>>
@@ -291,7 +277,6 @@ You wonder what the next day will bring. Return here to find out.<br>
 
 <</liveblock>>
 
-
 :: To Mutiny or Not [Done,Breaks] {"position":"225,1584","size":"100,100"}
 <<switch $users[$userId]["role"]>>
 <<case "Cortes">>
@@ -325,7 +310,6 @@ Once you have decided where your loyalty lies, [[continue to the next screen|Mut
 
 <</switch>>
 
-
 :: Cortes Beaches Ships {"position":"600,100","size":"100,100"}
 <<liveblock>>
 You have made your case to the men, but can you really trust them? Now is not the time for inaction; the risk is too high and the reward too great!<br>
@@ -338,7 +322,6 @@ Even if your men have turned against you, there's [[no going back|Mutiny Outcome
 
 <</liveblock>>
 
-
 :: Mutiny Vote {"position":"725,100","size":"100,100"}
 You have heard what Cortés and Olid had to say and now it is time to decide: which do you trust to lead you to glory?<br>
 <br>
@@ -346,7 +329,6 @@ You have heard what Cortés and Olid had to say and now it is time to decide: wh
 Vote <<link "Cortes" "Mutiny Outcome">><<set $Mut_Cor = $Mut_Cor + 1>><<set $Mutiny_Voted = $Mutiny_Voted + 1>><</link>><br>
 <br>
 Vote <<link "Olid" "Mutiny Outcome">><<set $Mut_Olid = $Mut_Olid + 1>><<set $Mutiny_Voted = $Mutiny_Voted + 1>><</link>>
-
 
 :: Mutiny Outcome {"position":"850,100","size":"100,100"}
 <<liveblock>>
@@ -404,7 +386,6 @@ You have voted to mutiny! Cortés is livid at the turn of events, while Olid see
 
 <</liveblock>>
 
-
 :: Spaniards Cannot Go Back {"position":"975,100","size":"100,100"}
 <<switch $users[$userId]["role"]>>
 <<case "Cortes">>
@@ -459,7 +440,6 @@ There is little choice now but to forge onward. Head to the Spanish discussion b
 <</if>>
 <</switch>>
 
-
 :: Cortes' Men leave Santiago [Done] {"position":"563,296","size":"100,100"}
 <<liveblock>>
 <<if $Start <=4>>
@@ -485,7 +465,6 @@ You cast your doubts aside, as Cortés assures you of the riches that undoubtedl
 
 <</liveblock>>
 
-
 :: Tlaxcalans Observe the Ship Burning [Done,Breaks] {"position":"1606,1839","size":"100,100"}
 You have continued to observe events along the coast, waiting to see what this strange turn of events will mean for you. The news that arrives next is intriguing.<br>
 <br>
@@ -510,7 +489,6 @@ or you can [[attack the Mexica on their way back to Tenochtitlan|Tlaxcalans Atta
 <</if>>
 <br>
 <br>
-
 
 :: The Spaniards Head Inland [Done,Breaks] {"position":"1002,2382","size":"100,100"}
 <<liveblock>>
@@ -540,13 +518,11 @@ Exhausted from the events of the last few weeks, you settle down on your sleepin
 
 <</liveblock>>
 
-
 :: Tlaxcalans let Cortes move inland [Done,Breaks] {"position":"735,2211","size":"100,100"}
 You have decided that it’s best to remain patient. You will leave both groups to carry on their journeys undisturbed, watching carefully and waiting for your opening.<br>
 <br>
 You <<link "head back to Tlaxcala" "The Spaniards Head Inland">><<run changeStats("Xicotencatl_Elder",{"Wisdom":1,"Loyalty":0,"Strength":0})>><<run changeStats("Xicotencatl_Younger",{"Wisdom":1,"Loyalty":0,"Strength":0})>><<run changeStats("Maxixcatl",{"Wisdom":1,"Loyalty":0,"Strength":0})>><</link>> wondering what the future holds.<br>
 <br>
-
 
 :: Tlaxcalans attack Cortes in Veracruz [Done,Breaks] {"position":"792,2050","size":"100,100"}
 <<liveblock>>
@@ -569,7 +545,6 @@ Hopefully, this doesn't leave you vulnerable down the road! If only you had been
 
 <</liveblock>>
 
-
 :: Tlaxcalans Attack Aztecs on return journey [Done,Breaks] {"position":"1101,1638","size":"100,100"}
 <<switch $users[$userId]["faction"]>>
 <<case "Aztecs">>
@@ -585,7 +560,6 @@ You hope you don't regret this decision later!<br>
 It's time to <<link "return to Tlaxcala" "The Spaniards Head Inland">><<set $Tlaxcalans_strength-=1>><<set $Tlaxcalans_currentMap=1>><</link>> and regroup.<br>
 <br>
 <</switch>>
-
 
 :: Cortes Leaves Santiago [Done] {"position":"763,292","size":"100,100"}
 <<liveblock>>
@@ -613,7 +587,6 @@ You forge onward, dreaming of the riches that surely await you! [[Without risk, 
 
 <</liveblock>>
 
-
 :: Spaniards Leave Cuba [Done] {"position":"886,500","size":"100,100"}
 <<switch $users[$userId]["role"]>>
 <<case "Cortes">>
@@ -631,7 +604,6 @@ Adjourn to the Spanish discussion board and listen to what Cortes has to say. De
 
 When you have come to an agreement, you may  [[continue on|The Spaniards Decide to Continue]].<br>
 <br>
-
 
 :: Spaniards arrive at Yucatan [Done,Breaks] {"position":"556,935","size":"100,100"}
 <<liveblock>>
@@ -681,7 +653,6 @@ You now <<link "continue on your journey" "Spaniards Battle the Tabascans">><<se
 
 <</liveblock>>
 
-
 :: Faction Identification [Coding-Problem] {"position":"746,27","size":"100,100"}
 Welcome to the Spanish Aztec War! 
 <<set $charCreated="true">>
@@ -726,7 +697,6 @@ Your faction's starting strength is: <<print $Tlaxcalans_strength >>
 
 Now let's [[learn about your role|The Library]]!
 
-
 :: A Spanish Victory [Done] {"position":"1592,930","size":"100,100"}
 <<liveblock>>
 You’ve won a victory against the Tlaxcalans, but it was not easy.  They are fierce warriors.  You lost men in battle, and even with your superior weapons, it took three weeks of hard fighting.<br>
@@ -740,7 +710,6 @@ When you have finished discussing and strategizing, [[enter the city of Tlaxcala
 
 
 <</liveblock>>
-
 
 :: The Aztec Legend of Queztalcoatl [Done] {"position":"955,163","size":"100,100"}
 <<if $Start <=11>>
@@ -756,7 +725,6 @@ Mexica, over the last 200 years, you have vanquished your enemies one by one to 
 Many moons ago, during the time of the 4th sun, Quetzalcoatl walked the Earth and ruled over the sacred city of Tollan. Jealous of his power, Quetzalcoatl’s brother, Tezcatlipoca, disguised himself as a sorcerer and tricked Quetzalcoatl into drunkenly cavorting with his sister, the priestess Quetzalpetlatl. The next day, Quetzalcoatl left Tollan in shame, never to return. Quetzalcoatl died in exile, whereupon he was cremated and his remains mixed with the blood of four sacrificed children to symbolize his heart. The heart was then placed in a wooden box and locked in one of the many temples that dot the landscape of central Mexico. The priests who guard this temple hold great power and only they can grant <<link "the blessing that you seek" "The Aztec Quest for Legitimacy">><<set $Aztecs_currentMap=2>><</link>>.<br>
 <br>
 <</if>>
-
 
 :: The Tlaxcalan Legend of Quetzalcoatl [Done] {"position":"1179,220","size":"100,100"}
 <<liveblock>>
@@ -776,7 +744,6 @@ Many moons ago, during the time of the 4th sun, Quetzalcoatl walked the Earth an
 
 <</liveblock>>
 
-
 :: News from the land of the Olmeca Xicalanca [Done,Breaks] {"position":"1372,559","size":"100,100"}
 You return from your journey to find the city buzzing with news. One of your spies has just returned from the coast, where a band of strangers recently arrived from across the sea. The strangers are pale in skin and covered in hair. <br>
 <br>
@@ -791,7 +758,6 @@ Moctezuma orders the men--Tlacaelel Xocoyotl, Cuauhtémoc, Cacamatzin, and the P
 Moctezuma <<link "orders you to the coast" "The Land of the Olmeca Xicalanca">><<set $Aztecs_currentMap=3>><</link>> to learn more. You prepare for the journey as he returns to the palace with his priest.<br>
 <br>
 <</switch>>
-
 
 :: Rumors from the Coast [Done,Breaks] {"position":"1357,966","size":"100,100"}
 <<liveblock>>
@@ -833,7 +799,6 @@ You are waiting for <<print $Tlax_Leader>>
 
 <</liveblock>>
 
-
 :: An Unexpected Loss for Tlaxcala [Done] {"position":"1899,873","size":"100,100"}
 <<if $Tlax_Leader is $users[$userId]["role"]>>
 You are fierce and savvy warriors, having defended yourselves against the Aztec Empire for decades. And yet these foreigners have bested you on the battlefield! Perhaps you can use their strength to your advantage. <br>
@@ -855,7 +820,6 @@ Prepare yourself, the Spaniards are [[entering your city|Tlaxcalans Negotiate Pe
 <br>
 <</if>>
 
-
 :: Aguilar Among the Maya [Done] {"position":"319,168","size":"100,100"}
 <<liveblock>>
 <<if $Start <=4>>
@@ -876,7 +840,6 @@ This morning began like any other, but things take a turn when you overhear some
 
 <</liveblock>>
 
-
 :: Marina Tells Her Story [Done,Breaks] {"position":"60,836","size":"100,100"}
 The village is in a state of chaos and you hear that the Chontal elders have been trying to decide what they should do about these powerful foreigners. It is clear to everyone that they cannot risk losing hundreds more men in battle and there is little doubt that, even if the strange men leave, they will return again in the future. Not only would the Chontal people be vulnerable to the strangers, but the devastating losses would also weaken them in the face of their traditional enemies. The chiefs send a messenger to offer peace. <br>
 <br>
@@ -890,7 +853,6 @@ You only have one chance to tell your story. If you click through without comple
 <br>
 Now that you've augmented the historical record, [[you can move forward|Spaniards Meet Marina]].<br>
 <br>
-
 
 :: Spaniards Meet Marina [Done,Breaks] {"position":"155,994","size":"100,100"}
 <<liveblock>>
@@ -950,7 +912,6 @@ You <<link "don't trust her" "Spaniards and Marina Talk">><<run changeStats("Mar
 
 <</liveblock>>
 
-
 :: Marina in Slavery [Done] {"position":"54,289","size":"100,100"}
 <<if $Start <=4>>
 You must wait for all the team members to gather for gameplay to begin.<br>
@@ -978,7 +939,6 @@ Once you have figured out what they said, you may continue. But [[make note of t
 
 
 <</if>>
-
 
 :: Character Identification [Done] {"position":"631,157","size":"100,100"}
 <<liveblock>>
@@ -1149,7 +1109,6 @@ Are you ready to <<link "begin your journey" "Aguilar Among the Maya">><<set $St
 
 <</liveblock>>
 
-
 :: The Spaniards Decide to Continue [Done] {"position":"1112,619","size":"100,100"}
 Now that you've made a decision, you can move forward. <br>
 <br>
@@ -1173,7 +1132,6 @@ Cortes, you have convinced your men somehow.  As you move to the next page, note
 <br>
 <</switch>>
 
-
 :: Maya Gossip [Done] {"position":"413,376","size":"100,100"}
 <<liveblock>>
 <b>Yich’ak-k’ak’:</b> <i>Jo'oljeak, táan te' k'íiwiko' tu'ux tin k'ajóoltaj u juntúul máak Tulum. Ku beetik jump'éel k'iino'ob, táan paakat le k'áak'náabo' ka tu yilaj jump'éel nuxi' naj chíikpajal ichil le ja'o'. Le najo' Náats' Amal ka'atéen asab yéetel xiibo'obo' le kaajo' múuch'o'ob utia'al in wil le najo'. Ka le najo' Náats' páajchajo'obij wil táan Chuup yéetel wíiniko'ob yéetel yoot'el n wíinkilil yéetel ya'ab tso'otsel. Xiibo'obo' Tulum ma' sabían tu'ux venía le naja', ba'ale' tu yilo'ob toop. Tu beetajo'ob juum ka menta'abij tunicho'ob ti' le k'áak'náabo'. Le najo' sunaj ka lanchajal. </i> <br>
@@ -1191,7 +1149,6 @@ Once you have figured out what they said, [[you may continue|Spaniards Quest Ins
 
 <</liveblock>>
 
-
 :: Maya Gossip Response [Done] {"position":"231,485","size":"100,100"}
 You've mulled over what you heard while sweeping the temple steps.  How are you feeling right now? <br>
 <br>
@@ -1203,7 +1160,6 @@ What they said is leaving you feeling <<link "very scared" "Scared">><<set $Agui
 <br>
 These rumors <<link "make you sad" "Sad">><<set $Aguilar_Wisdom-=1>><</link>>!<br>
 <br>
-
 
 :: Angry [Done] {"position":"260,670","size":"100,100"}
 <<liveblock>>
@@ -1228,7 +1184,6 @@ Now it is time to [[head to the coast |Aguilar Receives a Letter]]. You pack up 
 
 <</liveblock>>
 
-
 :: Happy [Done] {"position":"400,570","size":"100,100"}
 You've gained a wisdom point! Your wisdom is now <<print $Aguilar_Wisdom>>.<br>
 <br>
@@ -1247,7 +1202,6 @@ Translation: <br>
 <br>
 Now it is time to [[head to the coast |Aguilar Receives a Letter]]. You pack up and flee the village alone.<br>
 <br>
-
 
 :: Scared [Done] {"position":"569,556","size":"100,100"}
 <<liveblock>>
@@ -1272,7 +1226,6 @@ Now it is time to [[head to the coast |Aguilar Receives a Letter]]. You pack up 
 
 <</liveblock>>
 
-
 :: Sad [Done] {"position":"726,554","size":"100,100"}
 You've lost a wisdom point! Your wisdom is now <<print $Aguilar_Wisdom>>.<br>
 <br>
@@ -1291,7 +1244,6 @@ Translation: <br>
 <br>
 Now it is time to [[head to the coast|Aguilar Receives a Letter]]. You pack up and flee the village alone.<br>
 <br>
-
 
 :: The Aztec Quest for Legitimacy [Done] {"position":"1061,368","size":"100,100"}
 <<liveblock>>
@@ -1327,7 +1279,6 @@ Enter the palace and [[begin your quest|Scavenger Hunt Hub]].<br>
 
 <</liveblock>>
 
-
 :: The Tlaxcalan Quest for Legitimacy [Done] {"position":"1359,375","size":"100,100"}
 <<if $users[$userId]["role"] is "Xicotencatl_Younger">>
 You will find the heart of Quetzalcoatl in the city of Cholula. You must travel there to claim the heart and secure his blessing. Your journey will be long and difficult, however, and you will need many resources to sustain you if you are to succeed. Collecting these resources is the key to victory. Xicotencatl the Younger, you have much to prove and this is your chance. It is up to you to lead your team on this quest!<br>
@@ -1357,7 +1308,6 @@ Enter the palace and [[begin your quest|Scavenger Hunt Hub]].<br>
 <br>
 <</if>>
 
-
 :: Act 3, Scene 1: The Great Encounter {"position":"5144,489","size":"100,100"}
 <<liveblock>>
 Causeway leading into Tenochtitlán, November 8th, 1519
@@ -1378,7 +1328,6 @@ All three factions mingle on the causeway, getting to know each other and formul
 
 <</liveblock>>
 
-
 :: Act 3, Scene 2: Moctezuma Speaks {"position":"4840,541","size":"100,100"}
 Causeway leading into Tenochtitlán, November 8th, 1519
 
@@ -1391,7 +1340,6 @@ The crowd quiets and it becomes clear that Moctezuma, the huey tlatoani, is abou
 
 [[Aztecs Attack: Battle on the Causeway!]]
 
-
 :: Act 3: The Great Encounter {"position":"5509,540","size":"100,100"}
 <<liveblock>>
 [[Secret Information Drop Moctezuma and Tlacaelel the Younger]]
@@ -1400,7 +1348,6 @@ The crowd quiets and it becomes clear that Moctezuma, the huey tlatoani, is abou
 
 
 <</liveblock>>
-
 
 :: Secret Information Drop Moctezuma and Tlacaelel the Younger {"position":"5191,363","size":"100,100"}
 Moctezuma and Tlacaelel the Younger, the Spaniards are approaching your city.  As the rulers of the Empire, it is up to you to decide how to treat the strangers.  In the next scene, you and the rest of your faction will have the opportunity to get to these strangers in your city. However, at the end of the day, DAY 10, after everybody has had a chance to get to know each other, you should be prepared to advance to the next scene with a decision you have secretly made together.  Assess the situation in the next discussion board conversation, and then decide how you want to behave towards the Spaniards and their allies. 
@@ -1421,7 +1368,6 @@ Option 3: Order the Spaniards to leave the city.
 Click through to the page titled "Moctezuma Speaks", follow the link to the Go to the main discussion board, and post your decision for all to read by the beginning of DAY 11.
 
 [[Act 3, Scene 1: The Great Encounter]]
-
 
 :: A Friendly Invitation {"position":"5081,698","size":"100,100"}
 <<liveblock>>
@@ -1453,7 +1399,6 @@ Option 3: You accept the invitation and enter the city, taking your Tlaxcalan co
 
 <</liveblock>>
 
-
 :: Moctezuma Respectfully Asks the Spaniards and their Allies to Leave {"position":"5180,894","size":"100,100"}
 Causeway leading into Tenochtitlán, November 8th, 1519
 
@@ -1473,7 +1418,6 @@ Option 2: Return to Tlaxcala.
 [[Battle on the Causeway: Spaniards Attack]] 
 
 [[Spaniards Return to Tlaxcala]]
-
 
 :: Aztecs Attack: Battle on the Causeway! {"position":"4854,350","size":"100,100"}
 <<liveblock>>
@@ -1498,10 +1442,8 @@ Option 2: Turn against your Spanish companions and help drive them out of the ci
 
 <</liveblock>>
 
-
 :: Battle on the Causeway: Spaniards Attack {"position":"4682,884","size":"100,100"}
 Double-click this passage to edit it.
-
 
 :: Spaniards Return to Tlaxcala {"position":"5046,923","size":"100,100"}
 <<liveblock>>
@@ -1510,10 +1452,8 @@ Double-click this passage to edit it.
 
 <</liveblock>>
 
-
 :: Into Tenochtitlan {"position":"4762,711","size":"100,100"}
 Double-click this passage to edit it.
-
 
 :: Battle on the Causeway: Tlaxcala sides with Spaniards {"position":"4955,584","size":"100,100"}
 <<liveblock>>
@@ -1522,10 +1462,8 @@ Double-click this passage to edit it.
 
 <</liveblock>>
 
-
 :: Battle on the Causeway: Tlaxcala sides with Aztecs {"position":"5217,749","size":"100,100"}
 [[Game Over: Aztecs Win the Battle on the Causeway]]
-
 
 :: Game Over: Aztecs Win the Battle on the Causeway {"position":"4636,1247","size":"100,100"}
 <<liveblock>>
@@ -1534,10 +1472,8 @@ Double-click this passage to edit it.
 
 <</liveblock>>
 
-
 :: Act 4: Tenochtitlan {"position":"4391,600","size":"100,100"}
 [[Act 4, Scene 1: The Aztecs Give the visitors a Tour of Tenochtitlan]]
-
 
 :: Act 4, Scene 1: The Aztecs Give the visitors a Tour of Tenochtitlan {"position":"4479,423","size":"100,100"}
 <<liveblock>>
@@ -1562,12 +1498,10 @@ Remember, your journey is far from over, and this is a rare opportunity for ever
 
 <</liveblock>>
 
-
 :: Act 2, Scene 2: Moctezuma's Arrest {"position":"4681,389","size":"100,100"}
 [[Moctezuma's Arrest: Spaniards explain themselves to Tlaxcala]]
 
 [[Moctezuma's Arrest:  The Aztecs React]]
-
 
 :: Moctezuma's Arrest: Spaniards explain themselves to Tlaxcala {"position":"4541,649","size":"100,100"}
 <<liveblock>>
@@ -1576,10 +1510,8 @@ Remember, your journey is far from over, and this is a rare opportunity for ever
 
 <</liveblock>>
 
-
 :: Moctezuma's Arrest:  The Aztecs React {"position":"5023,407","size":"100,100"}
 [[The Festival of Toxcatl]]
-
 
 :: The Festival of Toxcatl {"position":"4718,535","size":"100,100"}
 <<liveblock>>
@@ -1592,10 +1524,8 @@ Remember, your journey is far from over, and this is a rare opportunity for ever
 
 <</liveblock>>
 
-
 :: The Festival of Toxcatl: The Spaniards {"position":"4551,908","size":"100,100"}
 [[La Noche Triste]]
-
 
 :: The Festival of Toxcatl: The Aztecs {"position":"4870,887","size":"100,100"}
 <<liveblock>>
@@ -1604,10 +1534,8 @@ Remember, your journey is far from over, and this is a rare opportunity for ever
 
 <</liveblock>>
 
-
 :: The Festival of Toxcatl: The Tlaxcalans {"position":"5018,803","size":"100,100"}
 [[La Noche Triste]]
-
 
 :: La Noche Triste {"position":"5151,1156","size":"100,100"}
 <<liveblock>>
@@ -1616,14 +1544,12 @@ Remember, your journey is far from over, and this is a rare opportunity for ever
 
 <</liveblock>>
 
-
 :: Tlaxcalans Respond to La Noche Triste {"position":"4952,1106","size":"100,100"}
 [[Game Over: Aztecs Win La Noche Triste]]
 
 [[The Tlaxcalans and Spaniards Flee]]
 
 [[The Aztecs Regroup]]
-
 
 :: The Tlaxcalans and Spaniards Flee {"position":"4813,1318","size":"100,100"}
 <<liveblock>>
@@ -1632,10 +1558,8 @@ Double-click this passage to edit it.
 
 <</liveblock>>
 
-
 :: The Aztecs Regroup {"position":"4963,1318","size":"100,100"}
 Double-click this passage to edit it.
-
 
 :: Game Over: Aztecs Win La Noche Triste {"position":"4477,1267","size":"100,100"}
 <<liveblock>>
@@ -1643,7 +1567,6 @@ Double-click this passage to edit it.
 
 
 <</liveblock>>
-
 
 :: Spaniards Send a Letter [Done,Breaks] {"position":"673,753","size":"100,100"}
 Spaniards, you have been at sea for many weeks when you land on the shores of Cozumel.<br>
@@ -1669,7 +1592,6 @@ You settle in and [[wait for a response|Spaniards arrive at Yucatan]].<br>
 <br>
 
 <</if>>
-
 
 :: Aguilar Receives a Letter [Done,Breaks] {"position":"490,766","size":"100,100"}
 <<liveblock>>
@@ -1697,7 +1619,6 @@ You inform Guerrero that God will never forgive him and warn him that he will be
 
 
 <</liveblock>>
-
 
 :: Cortes Leadership Check [Done] {"position":"940,754","size":"100,100"}
 <<switch $users[$userId]["role"]>>
@@ -1755,7 +1676,6 @@ For now, you may [[continue on your journey|Spaniards Send a Letter]].<br>
 
 <</switch>>
 
-
 :: New Leader [Done,Breaks] {"position":"797,885","size":"100,100"}
 <<liveblock>>
 <<if $Alvarado_Loyalty >= $Cortes_Loyalty and $Alvarado_Loyalty >= $Olid_Loyalty and $Alvarado_Loyalty >= $Garrido_Loyalty>><<set $Span_Leader="Alvarado">><<set $Spaniards_currentMap=2>>
@@ -1789,7 +1709,6 @@ Together, under his leadership, you may [[now continue|Spaniards Send a Letter]]
 
 <</liveblock>>
 
-
 :: Master Spanish Faction Leadership Test All {"position":"150,130","size":"100,100"}
 <<if $Cortes_Loyalty >=$Alvarado_Loyalty and $Cortes_Loyalty >= $Marina_Loyalty and $Cortes_Loyalty >= $Aguilar_Loyalty and $Cortes_Loyalty >= $Olid_Loyalty and $Cortes_Loyalty >= $Garrido_Loyalty>><<set $Span_Leader="Cortes">>
 
@@ -1807,7 +1726,6 @@ Together, under his leadership, you may [[now continue|Spaniards Send a Letter]]
 
 
 Your new leader is: <<print$Span_Leader>>
-
 
 :: the Omens [Done] {"position":"1374,746","size":"100,100"}
 <<liveblock>>
@@ -1900,7 +1818,6 @@ You are waiting for the Tlaxcalan team to make a decision.<br>
 
 <</liveblock>>
 
-
 :: The Land of the Olmeca Xicalanca [Done,Breaks] {"position":"910,1007","size":"100,100"}
 <<switch $users[$userId]["role"]>>
 <<case "Tlacaelel">>
@@ -1958,7 +1875,6 @@ You are waiting for Tlacaelel to input his decision.<br>
 <</if>>
 
 <</switch>>
-
 
 :: On a Beach in Veracruz: Gifts [Done,Breaks] {"position":"398,1369","size":"100,100"}
 <<liveblock>>
@@ -2051,7 +1967,6 @@ You will continue to observe these developments closely as you consider your nex
 
 <</liveblock>>
 
-
 :: Discuss these options with your men [Done,Breaks] {"position":"1212,1048","size":"100,100"}
 You have discussed these options with your men, and together you have decided you will:<br>
 <br>
@@ -2095,7 +2010,6 @@ Tlacaelel has not yet entered your decision.<br>
 <</if>>
 
 <</switch>>
-
 
 :: Attack On a Beach in Veracruz [Done,Breaks] {"position":"1068,1324","size":"100,100"}
 <<liveblock>>
@@ -2175,7 +2089,6 @@ After the skirmish was done and the Mexica retreated back to Tenochtitlán, the 
 
 <</liveblock>>
 
-
 :: Aztecs Return to Tenochtitlan to report [Done,Breaks] {"position":"1011,2066","size":"100,100"}
 <<switch $users[$userId]["role"]>>
 <<case "Moctezuma">>
@@ -2223,7 +2136,6 @@ Go to the Aztec discussion board to inform him of all that transpired on your jo
 When your satisfied with your discussion, [[head home|The Spaniards Head Inland]] for a well-deserved and much needed rest.<br>
 <br>
 
-
 :: Rumors of Mutiny [Done,Breaks] {"position":"582,1744","size":"100,100"}
 <<liveblock>>
 <<print $Span_Leader>>, you have heard rumors and rumblings amongst your faction that they are planning a mutiny. You don’t know whether or not this is true, but you are fearful for your life and must not let them rob you of the glory that lies ahead. As you move to the group discussion board on the next screen, you must ensure that the entire faction is ready to follow you inland in pursuit of your dreams.<br>
@@ -2235,7 +2147,6 @@ Proceed to the next page, where you will learn [[if there is mutiny|Burning the 
 
 
 <</liveblock>>
-
 
 :: Spaniards Battle the Tabascans [Done,Breaks] {"position":"356,959","size":"100,100"}
 You continue along the coast, stopping next at a place called Tabasco. <br>
@@ -2250,7 +2161,6 @@ Your battle with the Tabascans was fierce, but in the end it was the cavalry tha
 You continue inland, [[following behind|Spaniards Meet Marina]] the native messengers.<br>
 <br>
 
-
 :: The Tabascans battle the Spaniards [Done,Breaks] {"position":"70,589","size":"100,100"}
 <<liveblock>>
 For weeks now, the Chontal leaders have been hearing rumors that a group of foreigners has been traveling along the coast, making their way towards your village. When word arrived that they had landed upon your shores, the local chiefs sent an army to head them off. Much to everyone’s surprise, many of the men came back wounded, telling stories of their defeat. <br>
@@ -2262,7 +2172,6 @@ Never before have you felt such fear among the Chontal people. As they consider 
 
 
 <</liveblock>>
-
 
 :: Spaniards and Marina Talk [Done,Breaks] {"position":"70,1132","size":"100,100"}
 <<switch $users[$userId]["role"]>>
@@ -2285,7 +2194,6 @@ When you feel like you have gotten to know Marina <<link "continue on" "Act 1 Sc
 <br><br>
 <br>
 <</switch>>
-
 
 :: Mutiny in Veracruz [Done,Breaks] {"position":"125,1745","size":"100,100"}
 <<liveblock>>
@@ -2311,7 +2219,6 @@ Olid has tried to convince you to mutiny, but it is a risky path. Will you join 
 
 <</liveblock>>
 
-
 :: Burning the Ships [Done,Breaks] {"position":"346,1826","size":"100,100"}
 <<if $Mutiny_Voted_sum isnot 5>>
 
@@ -2332,7 +2239,6 @@ The rabblerouser [[chickened out|Burning the Ships: Failed Mutiny]]!<br>
 [[There is a mutiny|Burning the Ships: Mutiny]]!<br>
 <br>
 <</if>>
-
 
 :: Burning the Ships: Mutiny [Done,Breaks] {"position":"87,2035","size":"100,100"}
 <<liveblock>>
@@ -2356,7 +2262,6 @@ All of this turmoil surrounding the mutiny has caused shifts in loyalty.  Has <<
 
 <</liveblock>>
 
-
 :: Burning the Ships: No Mutiny [Done,Breaks] {"position":"283,2004","size":"100,100"}
 <<if $Span_Leader isnot $users[$userId]["role"]>>
 After the first encounter with the fabled Mexica, the group is wary of the journey that lies ahead, but the potential for glory is too great to resist. <br>
@@ -2375,7 +2280,6 @@ Head to the Spanish discussion board and explain yourself. How can you rebuild t
 
 All of this turmoil surrounding the mutiny has caused shifts in loyalty.  Have you retained enough of everybody's trust to remain in charge?  [[Continue on|Leadership After the Mutiny]] to find out.<br>
 <br>
-
 
 :: Burning the Ships: Failed Mutiny [Done,Breaks] {"position":"548,1938","size":"100,100"}
 <<liveblock>>
@@ -2398,7 +2302,6 @@ All of this turmoil surrounding the mutiny has caused shifts in loyalty.  Has <<
 
 
 <</liveblock>>
-
 
 :: On a Beach in Veracruz: No Gifts [Done,Breaks] {"position":"730,1351","size":"100,100"}
 <<switch $users[$userId]["faction"]>>
@@ -2482,7 +2385,6 @@ You will [[continue to observe these developments closely|Tlaxcalans Observe the
 
 <</switch>>
 
-
 :: Tlaxcalans wait [Done] {"position":"1393,1380","size":"100,100"}
 <<liveblock>>
 <<<<if $Mutiny_Voted_sum <3>>>>
@@ -2499,7 +2401,6 @@ Your guards have seen Aztec spies running to and from the coast. Clearly [[thing
 
 
 <</liveblock>>
-
 
 :: Tlaxcala sends spies to Veracruz [Done,Breaks] {"position":"1453,1135","size":"100,100"}
 You disguise yourselves as Huastec traders, and you head to the coast of Veracruz.  There, you observe the meeting of the Mexica and the bearded strangers from afar.<br>
@@ -2530,7 +2431,6 @@ You are waiting for the Aztecs to make a move.<br>
 
 <</if>>
 
-
 :: Tlaxcalans and Aztecs meet [Done,Breaks] {"position":"1173,865","size":"100,100"}
 <<liveblock>>
 <<switch $users[$userId]["faction"]>>
@@ -2552,7 +2452,6 @@ When you are done negotiating, you return to the palace and wait anxiously for w
 
 
 <</liveblock>>
-
 
 :: Leadership After the Mutiny [Done,Breaks] {"position":"456,2106","size":"100,100"}
 <<if $Cortes_Loyalty >=$Alvarado_Loyalty and $Cortes_Loyalty >= $Marina_Loyalty and $Cortes_Loyalty >= $Aguilar_Loyalty and $Cortes_Loyalty >= $Olid_Loyalty and $Cortes_Loyalty >= $Garrido_Loyalty>><<set $Span_Leader="Cortes">>
@@ -2596,7 +2495,6 @@ You are waiting for the Tlaxcalan team to make a decision.<br>
 <br>
 <</if>>
 
-
 :: Scripts {"position":"14,22","size":"100,100"}
 <<liveblock>>
 /* <<audio "Library" play>> */
@@ -2615,8 +2513,9 @@ Vote is 2
 
 <</liveblock>>
 
-
 :: The Library [Done] {"position":"521,25","size":"100,100"}
+<<print $userId>>
+/* <<set $users[$userId].currentMap='Aztecs_9.png'>> */
 It’s six weeks into the semester and you’re already drowning in work. You have your first exams this week, you need to get started on some research, and now your history professor has sprung a surprise assignment on you at the last minute--and it’s due tomorrow! The only way you’re going to get everything done is to pull an all-nighter. There’s no way you’ll be able to stay awake at home; your bed is there and it’s just too tempting. So you head to the library. <br>
 <br>
 It’s 7 pm and the library is more crowded than usual. It looks like you’re not the only one with a mountain of work to do this week! There’s no way you’ll be able to focus in the midst of so many people. Maybe the top floor is quieter. You head upstairs towards the study carrels, but they’re all taken. It’s dead quiet up here, but there’s nowhere to work. You begin wandering down unfamiliar hallways, poking your head into all the different rooms, but none of them work. You’re beginning to get frustrated when you notice a door you’ve never seen before. It’s tucked into an alcove in the very back corner of the building. You decide to check this one last spot before you give up and join the masses downstairs. <br>
@@ -2627,7 +2526,6 @@ You unload your books and make yourself comfortable--maybe a little too comforta
 <br>
 Suddenly, <<link "you’re startled by a loud noise" "Character Identification">><<set $Spaniards_currentMap=1>><<set $Spaniards_strength = 7>><<set $Tlaxcalans_currentMap=1>><<set $Tlaxcalans_strength = 7>><<set $Aztecs_currentMap=1>><<set $Aztecs_strength = 7>><</link>>!<br>
 <br>
-
 
 :: Waking up in the library [Done,Breaks] {"position":"1192,2282","size":"100,100"}
 <<liveblock>>
@@ -2654,7 +2552,6 @@ As you close the door of the weird little room behind you, you know <<link "you'
 
 
 <</liveblock>>
-
 
 :: Scavenger Hunt Hub [Done,Breaks] {"position":"726,3004","size":"100,100"}
 Click each of the following glyphs to visit key sites around the Aztec Empire. Once you have read the clue and figured out your location, your quest leader must enter the name of the place into the text box provided. When you have obtained enough resources to survive your journey, you will be given the location of Quetzalcoatl’s heart. <br>
@@ -2773,7 +2670,6 @@ You cannot yet travel to Cholula, continue your quest to gather all the items ne
 <</if>>
 <</switch>>
 
-
 :: Cholula [Done,Breaks] {"position":"833,3660","size":"100,100"}
 <<liveblock>>
 You've made it to Cholula!<br>
@@ -2850,7 +2746,6 @@ This is the [[end of your quest|End of Quest]].<br>
 
 <</liveblock>>
 
-
 :: Xochimilco [Done,Breaks] {"position":"323,3381","size":"100,100"}
 If you are to survive your journey, you will need to stop first at the place of flowers. Be careful as you seek what you came for, as you could easily get stuck in the mud.<br>
 <br>
@@ -2878,7 +2773,6 @@ This city is <<textbox "$Xochimilco_Ans_T" "">><br>
 <br>
 <</if>>
 <</switch>>
-
 
 :: Chapultepec [Done,Breaks] {"position":"590,3441","size":"100,100"}
 <<liveblock>>
@@ -2925,7 +2819,6 @@ This city is <<textbox "$Chapultepec_Ans_T" "">><br>
 
 <</liveblock>>
 
-
 :: Cuauhnahuac [Done,Breaks] {"position":"1130,3318","size":"100,100"}
 You descend the mountains into the place near the trees, in search of something tropical and sweet. This place is lush and green. No wonder it’s been so coveted by Mexica leaders!<br>
 <br>
@@ -2953,7 +2846,6 @@ This city is <<textbox "$Cuauhnahuac_Ans_T" "">><br>
 <br>
 <</if>>
 <</switch>>
-
 
 :: Tlatelolco [Done,Breaks] {"position":"1195,2886","size":"100,100"}
 <<liveblock>>
@@ -2987,7 +2879,6 @@ This city is <<textbox "$Tlatelolco_Ans_T" "">><br>
 
 <</liveblock>>
 
-
 :: Azcapotzalco [Done,Breaks] {"position":"667,2667","size":"100,100"}
 The many things you gather in preparation for your journey will undoubtedly be a great weight to carry. In the place of the ants you will find a way to lessen your burden.<br>
 <br>
@@ -3015,7 +2906,6 @@ This city is <<textbox "$Azcapotzalco_Ans_T" "">><br>
 <br>
 <</if>>
 <</switch>>
-
 
 :: Chapultepec 2 [Done,Breaks] {"position":"733,3474","size":"100,100"}
 <<liveblock>>
@@ -3073,7 +2963,6 @@ Your answer is incorrect.  You may [[try again|Chapultepec]], or you may return 
 
 <</liveblock>>
 
-
 :: Cuauhnahuac 2 [Done,Breaks] {"position":"1244,3127","size":"100,100"}
 <<switch $users[$userId]["faction"]>>
 <<case "Aztecs">>
@@ -3117,7 +3006,6 @@ Your answer is incorrect.  You may [[try again|Cuauhnahuac]], or you may return 
 <br>
 <</if>>
 <</switch>>
-
 
 :: Tlatelolco 2 [Done,Breaks] {"position":"1017,2693","size":"100,100"}
 <<liveblock>>
@@ -3167,7 +3055,6 @@ Your answer is incorrect.  You may [[try again|Tlatelolco]], or you may return t
 
 <</liveblock>>
 
-
 :: Malinalco [Done,Breaks] {"position":"311,3005","size":"100,100"}
 To seek approval from the Gods, you must enter the mouth of the serpent. There, under the watchful eye of the eagles, you shall let your own blood in sacrifice.<br>
 <br>
@@ -3194,7 +3081,6 @@ This city is <<textbox "$Malinalco_Ans_T" "">><br>
 <br>
 <</if>>
 <</switch>>
-
 
 :: Malinalco 2 [Done,Breaks] {"position":"288,3234","size":"100,100"}
 <<liveblock>>
@@ -3244,7 +3130,6 @@ Your answer is incorrect.  You may [[try again|Malinalco]], or you may return to
 
 <</liveblock>>
 
-
 :: Xochimilco 2 [Done,Breaks] {"position":"465,3529","size":"100,100"}
 <<switch $users[$userId]["faction"]>>
 <<case "Aztecs">>
@@ -3290,7 +3175,6 @@ Your answer is incorrect. You may [[try again|Xochimilco]], or you may return to
 <</if>>
 <</switch>>
 
-
 :: End of Quest [Done,Breaks] {"position":"1022,3621","size":"100,100"}
 <<liveblock>>
 <<switch $users[$userId]["faction"]>>
@@ -3306,7 +3190,6 @@ Now that your quest is complete, <<link "you return home exhausted" "Rumors from
 
 
 <</liveblock>>
-
 
 :: Azcapotzalco 2 [Done,Breaks] {"position":"423,2765","size":"100,100"}
 <<switch $users[$userId]["faction"]>>
@@ -3352,7 +3235,6 @@ Your answer is incorrect.  You may [[try again|Azcapotzalco]], or you may return
 <</if>>
 <</switch>>
 
-
 :: Tlaxcalans keep waiting [Done] {"position":"1388,1759","size":"100,100"}
 <<liveblock>>
 Unfortunately, you have no way of knowing what’s going on. If only you had eyes on the coast, you might be better able to prepare.<br>
@@ -3365,7 +3247,6 @@ When you have made your plan, <<link "click here to continue" "A Tlaxcalan Nap">
 
 <</liveblock>>
 
-
 :: A Tlaxcalan Nap [Done,Breaks] {"position":"1271,2040","size":"100,100"}
 For days now, you’ve been worried about events outside your control. It’s clear the Aztecs are preparing for something, but you have no way to know what this is.<br>
 <br>
@@ -3373,7 +3254,6 @@ For three nights straight, you haven’t slept a wink. You’ve lain awake worry
 <br>
 You awake to find yourself in <<link "a vaguely familiar place" "Waking up in the library">><<set $Tlaxcalans_currentMap=0>><</link>>.<br>
 <br>
-
 
 :: return to the library_no door [Done,Breaks] {"position":"1214,2451","size":"100,100"}
 <<liveblock>>
@@ -3386,7 +3266,6 @@ You arrive on the top floor and round the corner but you can’t find the door! 
 
 
 <</liveblock>>
-
 
 :: Return to the Library_Door [Done] {"position":"2051,17","size":"100,100"}
 <<audio "Library" play>>
@@ -3416,7 +3295,6 @@ You make your way to the chair and you hear the door swing shut behind you. You 
 <br>
 <</switch>>
 
-
 :: Tlaxcalans Prepare for a Council Meeting [Done] {"position":"1764,44","size":"100,100"}
 <<liveblock>>
 You wake to the buzz of people talking. You haven’t even opened your eyes when you catch the scent of tortillas cooking over an open fire and you know you’re back in Tlaxcala!<br>
@@ -3441,7 +3319,6 @@ Once your statement is prepared, paste a link here to share with your fellow Cou
 
 <</liveblock>>
 
-
 :: Tlaxcalans Hold for a Council Meeting [Done] {"position":"1603,116","size":"100,100"}
 You gather together with the other two members of your leadership council. All of you have prepared your statements, which you share with the others. <br>
 <br>
@@ -3453,7 +3330,6 @@ Once you have composed your statement, you must present it to the rest of the co
 <br>
 [[Click here|Tlaxcalans Vote on Attacking Spaniards]] when you are ready to cast your vote.<br>
 <br>
-
 
 :: Tlaxcalans Vote on Attacking Spaniards [Done] {"position":"1537,264","size":"100,100"}
 <<liveblock>>
@@ -3468,7 +3344,6 @@ You sit in the council chamber weighing the arguments made by the other two men.
 
 
 <</liveblock>>
-
 
 :: Tlaxcalan Wisdom Check [Done] {"position":"1704,400","size":"100,100"}
 <<if $TL_St_Voted_sum <3>>
@@ -3498,7 +3373,6 @@ The Tlaxcalan leader is <<print $Tlax_Leader>><br>
 Now, despite these deliberations, will you [[go to war|The Tlaxcalan Leader Decides]]?<br>
 <br>
 <</if>>
-
 
 :: Aztecs Prepare for a Council Meeting [Done] {"position":"1940,147","size":"100,100"}
 <<liveblock>>
@@ -3539,7 +3413,6 @@ Once you have composed your statement, you must paste the link below to share wi
 
 <</liveblock>>
 
-
 :: Marina's Choice [Done] {"position":"2227,169","size":"100,100"}
 You wake to the sound of snoring and open your eyes to find you are back at camp. You feel the hard ground beneath you and look up at the stars. You’ve never seen a night so clear. The horses rest nearby and the men sleep in the open, scattered around the site. As you lay in the dark, you reflect upon the events that have brought you here and you ponder your situation...Marina’s that is.<br>
 <br>
@@ -3559,7 +3432,6 @@ You lie awake for hours, weighing this question carefully. Shortly before the su
 <br>
 <<link "You are going to go it alone" "Marina the Independent Woman">><<set $Mal_Boy="alone">><</link>>.<br>
 <br>
-
 
 :: Spaniards wake up at camp [Done] {"position":"2375,79","size":"100,100"}
 <<liveblock>>
@@ -3594,7 +3466,6 @@ Finally, dawn comes. You rise and begin packing up [[eager to continue your jour
 
 
 <</liveblock>>
-
 
 :: Aztecs Hold a Council Meeting [Done] {"position":"1895,298","size":"100,100"}
 Tlacaelel's Statement: <<print $Tlac_Statement>><br>
@@ -3634,7 +3505,6 @@ When Moctezuma has come to a decision, you may continue on to [[read his proclam
 <</if>>
 <</switch>>
 
-
 :: Moctezuma Makes his Proclamation [Done] {"position":"1917,477","size":"100,100"}
 <<liveblock>>
 You may read Moctezuma's Proclamation here:  <<print $Moc_Proc>><br>
@@ -3670,7 +3540,6 @@ After meeting without you, your counselors call you [[into the chamber|Moctezuma
 
 <</liveblock>>
 
-
 :: Marina's Boyfriend [Done] {"position":"2525,273","size":"100,100"}
 <<if $users[$userId]["role"] is "Marina">>
 Having made your decision, you quietly make your way to <<print $Mal_Boy>>. He wakes with a start, but calms when he realizes it’s you.<br>
@@ -3687,7 +3556,6 @@ Morning comes too soon, and you reluctantly pack up camp to [[continue your jour
 
 <</if>>
 
-
 :: Marina the Independent Woman [Done] {"position":"2120,337","size":"100,100"}
 <<liveblock>>
 You would rather go it alone than subject yourself to the whims and desires of such brutish men. You worry about what might come next, but you are confident that your wits have gotten you this far.<br>
@@ -3697,7 +3565,6 @@ You rise from your sleeping mat to build a fire. Soon, the rest of camp begins t
 
 
 <</liveblock>>
-
 
 :: The Tlaxcalan Leader Decides [Done] {"position":"1585,548","size":"100,100"}
 <<if $Tlax_Leader is $users[$userId]["role"]>>
@@ -3721,7 +3588,6 @@ You march across the plains [[in hopes of peace|Tlaxcala Doesn't Attack in Puebl
 <br>
 <</if>>
 
-
 :: Tlaxcala Attacks in Puebla [Done] {"position":"1553,716","size":"100,100"}
 <<liveblock>>
 <<switch $users[$userId]["faction"]>>
@@ -3744,7 +3610,6 @@ The foreigners surround you, however, almost as though they knew what to expect!
 
 <</liveblock>>
 
-
 :: Tlaxcala Doesn't Attack in Puebla [Done] {"position":"1801,687","size":"100,100"}
 <<switch $users[$userId]["faction"]>>
 <<case "Spaniards">>
@@ -3762,7 +3627,6 @@ You prepare for the arrival of these strange visitors and take a delegation out 
 A bloody battle ensues. It lasts many days and you kill many of their men, but their weapons are too much for you and you are overwhelmed by the giant deer that they ride into battle. Despite your best efforts, the foreigners prove to be too much and you are eventually [[forced to retreat|An Unexpected Loss for Tlaxcala]]. <br>
 <br>
 <</switch>>
-
 
 :: Moctezuma Confidence Vote [Done] {"position":"2098,744","size":"100,100"}
 <<liveblock>>
@@ -3973,7 +3837,6 @@ With this decided, how will you [[engage with the strangers|Aztec Leader Makes a
 
 <</liveblock>>
 
-
 :: On the way to Puebla [Done] {"position":"2335,486","size":"100,100"}
 You’ve been on the road for weeks now and can hardly believe the things you’ve seen. You marched for three days through desert, where all the water you found was salt and you feared you might die of thirst. You’ve survived a sandstorm and bitter cold. All the men remarked on how long it had been since they felt such cold as this. Many of the Indian porters fell ill. You have climbed mountains and discovered villages, everywhere hearing tales about the Mexica capital, a place of untold treasure and bloody sacrifice. <br>
 <br>
@@ -3992,7 +3855,6 @@ Along your journey, you have met many people. Some have been willing allies of t
 Along your journey, you have met many people. Some have been willing allies of the Mexica, while others have chafed under Mexica rule and were eager to give you their support. After all this, you are now approaching Tlaxcala. Many of your informants have told you of Tlaxcala’s hatred for the Mexica and you are hopeful that you might win them to your side, but you’ve also been warned that they are fierce warriors and do not respond well to strangers in their territory. You remain on guard, aware that danger [[may lie just around the next corner|Tlaxcala Doesn't Attack in Puebla]].<br>
 <br>
 <</if>>
-
 
 :: Aztec Leader Makes a Choice [Done] {"position":"2276,668","size":"100,100"}
 <<liveblock>>
@@ -4019,7 +3881,6 @@ What will he choose? [[Making Plans for Cholula]]<br>
 
 <</liveblock>>
 
-
 :: Making Plans for Cholula [Done] {"position":"2378,840","size":"100,100"}
 <<if ndef $Cholula_Attack or $Cholula_Attack eq "">>
 
@@ -4042,7 +3903,6 @@ Luckily for you, an opportunity has presented itself. Your spies have informed y
 You send word to Cholula, telling them of the strangers who have befriended their Tlaxcalan foe. <<link "You enlist their help to gain intelligence" "Aztecs Gather Intelligence in Cholula">><<set $Aztecs_currentMap=4>><</link>>.<br>
 <br>
 <</if>>
-
 
 :: Tlaxcalans Negotiate Peace [Done] {"position":"1789,1025","size":"100,100"}
 <<liveblock>>
@@ -4079,7 +3939,6 @@ Now that you have made your decision, go to the Spanish-Tlaxcalan discussion boa
 
 
 <</liveblock>>
-
 
 :: Spaniards and Tlaxcalans on the way to Cholula [Done] {"position":"1741,1217","size":"100,100"}
 <<switch $users[$userId]["faction"]>>
@@ -4123,7 +3982,6 @@ After a long night, you wake to a visit from some [[Cholulan delegates|Cholula M
 <</if>>
 <</switch>>
 
-
 :: Cholula Makes an Invitation [Done] {"position":"2132,1216","size":"100,100"}
 <<liveblock>>
 <<switch $users[$userId]["faction"]>>
@@ -4141,7 +3999,6 @@ As your allies pack up camp and prepare to enter the city of your enemy, [[you r
 
 
 <</liveblock>>
-
 
 :: Tlaxcalans Wait Outside and Send Spies [Done] {"position":"1605,1544","size":"100,100"}
 You watch your allies enter the city of Cholula where they will consort with your enemy. When they are out of sight, you send out spies to keep watch. It is clearly to your benefit to know exactly what goes on inside the city walls.<br>
@@ -4207,7 +4064,6 @@ How do you feel about these events? Go to the Tlaxcalan discussion board and dec
 Meanwhile, you wait impatiently to [[carry on your journey|Into the Mountain Pass]]. 
 <</if>>
 
-
 :: Spaniards Enter Cholula [Done] {"position":"2339,1236","size":"100,100"}
 <<liveblock>>
 <<if ndef $Cholula_Attack or $Cholula_Attack eq "">>
@@ -4250,7 +4106,6 @@ Your hosts treat you to a feast and provide you with the finest accommodations. 
 
 <</liveblock>>
 
-
 :: Marina Hears a Rumor [Done] {"position":"2522,1424","size":"100,100"}
 You follow the wizened old woman around the corner, into a cramped alleyway. She informs you--and you alone--that the Spaniards have walked into a trap. The leaders of the city are planning an ambush and there is an Aztec army hidden nearby. <br>
 <br>
@@ -4258,7 +4113,6 @@ Do you believe this woman or not? What will you do with the information? <br>
 <br>
 You have two choices, <<link "you can share the information" "Marina responds to the rumor">><<set $Mal_Share="Yes">><</link>> with your Spanish friends or you <<link "can remain quiet" "Marina responds to the rumor">><<set $Mal_Share="No">><</link>>, leaving their fate in the hands of the Cholulans.<br>
 <br>
-
 
 :: Marina responds to the rumor [Done] {"position":"2591,1632","size":"100,100"}
 <<liveblock>>
@@ -4273,7 +4127,6 @@ You have decided to share the rumor with your Spanish friends. You make your way
 
 <</liveblock>>
 
-
 :: Marina Hears a Real Rumor [Done] {"position":"1908,1401","size":"100,100"}
 You follow the wizened old woman around the corner, into a cramped alleyway. She informs you--and you alone--that the Spaniards have walked into a trap. The leaders of the city are planning an ambush and there is an Aztec army hidden nearby. <br>
 <br>
@@ -4281,7 +4134,6 @@ Do you believe this woman or not? What will you do with the information? <br>
 <br>
 You have two choices, <<link "you can share the information" "Marina responds to the attack">><<set $Mal_Share="Yes">><</link>> with your Spanish friends or you <<link "can remain quiet" "Marina responds to the attack">><<set $Mal_Share="No">><</link>>, leaving their fate in the hands of the Cholulans.<br>
 <br>
-
 
 :: Marina responds to the attack [Done] {"position":"1780,1525","size":"100,100"}
 <<liveblock>>
@@ -4295,7 +4147,6 @@ You have decided to share the rumor with your Spanish friends. You make your way
 
 
 <</liveblock>>
-
 
 :: A Trap in Cholula [Done] {"position":"2053,1462","size":"100,100"}
 <<if $Mal_Share eq "" or ndef $Mal_Share>>
@@ -4369,7 +4220,6 @@ Thankfully, your Tlaxcalan allies have come to your defense! You fight your way 
 <br>
 <</if>>
 
-
 :: Marina Warns of the Attack [Done] {"position":"2181,1477","size":"100,100"}
 <<liveblock>>
 <<if $Mal_Span is "Yes" and $users[$userId]["role"] is $Span_Leader>>
@@ -4414,7 +4264,6 @@ You go to bed hopeful that you have [[read the situation correctly|Cholulans Att
 
 <</liveblock>>
 
-
 :: Cholula Spanish Leadership Challenge {"position":"3944,916","size":"100,100"}
 <<if $Span_Leader is $users[$userId]["role"]>>
 You have made your decisions and led your people through a complicated situation, but do they still believe in your leadership? <br>
@@ -4437,7 +4286,6 @@ Option 3: <<link "Aguilar" "Cholula Spanish Leadership Results">><<set $Sp_Ld_Ag
 Option 4: <<link "Garrido" "Cholula Spanish Leadership Results">><<set $Sp_Ld_Gar = $Sp_Ld_Gar + 1>><<run changeStats("Garrido",{"Wisdom":2,"Loyalty":0,"Strength":0})>><<set $Sp_Ld_Vote = $Sp_Ld_Vote + 1>><</link>> is your best chance of suriving these strange turns of events.<br>
 <br>
 <</if>>
-
 
 :: Cholula Spanish Leadership Results {"position":"3784,953","size":"100,100"}
 <<liveblock>>
@@ -4486,10 +4334,8 @@ The group has made a decision.  Continue to the next page to find out <<link "wh
 
 <</liveblock>>
 
-
 :: Cholula New Spanish Leader {"position":"3743,1106","size":"100,100"}
 After much angry debate , you finally determine that <<print $Span_Leader>> has the greatest loyalty of his men, and you [[move forward under his leadership|Into the Mountain Pass]]
-
 
 :: Into the Mountain Pass [Done] {"position":"1769,1918","size":"100,100"}
 <<liveblock>>
@@ -4529,7 +4375,6 @@ When you are ready, you bed down for the night. Your enemies are close and <<lin
 
 <</liveblock>>
 
-
 :: Cholulans Attack [Done] {"position":"1998,1714","size":"100,100"}
 <<if $users[$userId]["role"] is "Marina">>
 You try to sleep, but your nerves are frayed and you anxiously listen for any noise that might alert you to an attack. <br>
@@ -4546,7 +4391,6 @@ You finally drift into a fitful sleep in the early hours of the morning, only to
 Thankfully, your Tlaxcalan allies have come to your defense! You fight your way out of the city and [[barely escape with your lives|Cholula Spanish Leadership Challenge]]. <br>
 <br>
 <</if>>
-
 
 :: Spaniards Attack [Done] {"position":"2170,1766","size":"100,100"}
 <<liveblock>>
@@ -4577,7 +4421,6 @@ You leave the city of Cholula a smoldering mess and [[carry on your journey|Chol
 
 
 <</liveblock>>
-
 
 :: No Trap in Cholula [Done] {"position":"2371,1575","size":"100,100"}
 <<if $Mal_Share eq "" or ndef $Mal_Share>>
@@ -4648,7 +4491,6 @@ Your Cholulan hosts are generous and treat you as esteemed visitors. You pass a 
 <br>
 <</if>>
 
-
 :: Marina Warns of No Attack [Done] {"position":"2427,1786","size":"100,100"}
 <<liveblock>>
 <<if $Mal_Span is "Yes" and $users[$userId]["role"] is $Span_Leader>>
@@ -4693,7 +4535,6 @@ You go to bed hopeful that you have [[read the situation correctly|Cholulans Don
 
 <</liveblock>>
 
-
 :: Cholulans Don't Attack [Done] {"position":"2262,1914","size":"100,100"}
 <<if $users[$userId]["role"] is "Marina">>
 You try to sleep, but your nerves are frayed and you anxiously listen for any noise that might alert you to an attack. <br>
@@ -4706,7 +4547,6 @@ You go to bed satisfied, full of food and a strange Cholulan wine.
 The next day proceeds much as the last. It seems you were right and the rumor was unfounded. Your Cholulan hosts are generous and treat you as esteemed visitors. You pass a pleasant stay in the city before [[carrying on with your journey|Cholula Spanish Leadership Challenge]]. <br>
 <br>
 <</if>>
-
 
 :: Aztecs Lay a Trap in Cholula [Done] {"position":"2398,1047","size":"100,100"}
 <<liveblock>>
@@ -4752,7 +4592,6 @@ Your men have wisely decided not to give chase, for the strangers travel with th
 
 <</liveblock>>
 
-
 :: Aztecs Gather Intelligence in Cholula [Done] {"position":"2163,1024","size":"100,100"}
 Your Cholulan allies send word that the foreigners have entered their city. They have plied them with food and wine, treating the strangers as honored guests. All is going according to plan.<br>
 <br>
@@ -4792,7 +4631,6 @@ The strangers asked many questions--questions about your great city and the trea
 
 <</if>>
 
-
 :: Waking up in the library 3 [Done] {"position":"2036,2002","size":"100,100"}
 <<liveblock>>
 You wake from a fitful sleep, disturbed by dreams of battle. When you open your eyes, you are surprised to find that you’re not on the battlefield but back in the library once again. <br>
@@ -4808,7 +4646,6 @@ You decide that you’ll hand the assignment in this time and <<link "go back la
 
 
 <</liveblock>>
-
 
 :: Return to the Library_Another Door {"position":"3337,1","size":"100,100"}
 <<audio "Library" play>>
@@ -4830,7 +4667,6 @@ You hurry toward the library, make your way to the top floor, and there it is: t
 You hurry toward the library, make your way to the top floor, and there it is: the magical door. You can barely contain your excitement as you enter the room and close the door quietly behind you. You know the routine by now. You set your assignment on the table beside you, sink into that big cozy chair, and <<link "drift into a deep sleep" "Tlaxcalans Face a Choice">><<set $Tlaxcalans_currentMap=5>><</link>>.<br>
 <br>
 <</switch>>
-
 
 :: Discussing the Omens {"position":"3527,158","size":"100,100"}
 <<liveblock>>
@@ -4862,7 +4698,6 @@ Your nerves are frayed, wondering what lies ahead, but Moctezuma has informed yo
 
 
 <</liveblock>>
-
 
 :: Debating the Omens {"position":"3337,275","size":"100,100"}
 <<switch $users[$userId]["role"]>>
@@ -4905,7 +4740,6 @@ When you have come to an understanding, you may [[decide how to deal with the st
 <</if>>
 <</switch>>
 
-
 :: Aztec Leader will make an invitation {"position":"3489,388","size":"100,100"}
 <<liveblock>>
 <<if $Aztec_Leader is $users[$userId]["role"]>>
@@ -4923,13 +4757,11 @@ As <<print $Aztec_Leader>> gathers a welcoming party and gets ready to <<link "m
 
 <</liveblock>>
 
-
 :: Spaniards Descend into the Valley {"position":"3212,192","size":"100,100"}
 You wake to find yourself exactly where you hoped: back at camp, on the road to Tenochtitlán! You lead an army of over 10,000 men, with your Tlaxcalan allies at your side.<br>
 <br>
 You pack up camp and set out for your destination. Your Tlaxcalan friends have assured you that Tenochtitlán is just around the corner. You crest a hill and can [[hardly believe your eyes|Spaniards Write Letters]]. <br>
 <br>
-
 
 :: Spaniards Write Letters {"position":"2928,507","size":"100,100"}
 <<liveblock>>
@@ -5003,7 +4835,6 @@ Once you have entered your link, you may <<link "continue your journey" "On the 
 
 <</liveblock>>
 
-
 :: Tlaxcalans Face a Choice {"position":"3903,225","size":"100,100"}
 You wake to find yourself exactly where you hoped: back at camp, on the road to Tenochtitlán! You lead an army of over 10,000 men, with your Spanish allies at your side.<br>
 <br>
@@ -5016,7 +4847,6 @@ You pack up camp and set out for your destination, assuring your Spanish friends
 
 The sight that lies ahead has [[a much different meaning for you|Tlaxcalans consider their options]].<br>
 <br>
-
 
 :: Tlaxcalans consider their options {"position":"3850,364","size":"100,100"}
 <<liveblock>>
@@ -5037,7 +4867,6 @@ When you have reached a decision, <<print $Tlax_Leader>> [[must input your choic
 
 
 <</liveblock>>
-
 
 :: Tlaxcalans decide where to go {"position":"3798,508","size":"100,100"}
 <<if $Tlax_Leader is $users[$userId]["role"]>>
@@ -5070,7 +4899,6 @@ You will honor an existing but secret alliance with the Aztecs and <<link "enter
 <</if>>
 <</if>>
 
-
 :: Tlaxcalans cut their losses {"position":"3688,284","size":"100,100"}
 <<liveblock>>
 You’ve packed up camp and are headed for home when you find yourself surrounded by a group of angry warriors. Their weapons trained upon you, the allies that have marched at your side since you began this journey are angry. They remind you that it’s not only the Spaniards you have left at the mercy of the Aztecs. They demand that you stay and fight. <br>
@@ -5082,7 +4910,6 @@ You turn back [[towards Tenochtitlan|On the Causeway]].<br>
 
 
 <</liveblock>>
-
 
 :: On the Causeway {"position":"3607,513","size":"100,100"}
 <<if $Causeway_sum <=12>>
@@ -5164,7 +4991,6 @@ As you join the Spaniards and [[head towards the city|Into the City]], you take 
 <</switch>>
 <</if>>
 
-
 :: Into the City {"position":"3029,694","size":"100,100"}
 <<liveblock>>
 Together you make your way down the long causeway and enter the city of Tenochtitlán. As you look at the faces of the strangers in your midst you cannot help but wonder what this visit has in store for you.<br>
@@ -5200,7 +5026,6 @@ Your lodgings are sparse, but you have what you need. The pochteca allows you ti
 
 <</liveblock>>
 
-
 :: Aztecs Hold a Council {"position":"3875,695","size":"100,100"}
 <<if $Aztec_Leader is $users[$userId]["role"]>>
 You have left your guests under the watchful eye of your most trusted guards and must now face your council. The city is buzzing and, though no one would dare question you, you know that many are uneasy at your decision to allow the strangers--and your Tlaxcalan enemies!--into the city. <br><br>
@@ -5226,7 +5051,6 @@ Go to the Aztec discussion board and hear what he has to say. Consider his words
 When you are satisfied you have heard everything <<print $Aztec_Leader>> has to say, [[you may continue|Aztec Leadership Challenge Again]]. But don't rush! Your future and the future of your people hinges on this moment!<br><br>
 
 <</if>>
-
 
 :: Tlaxcalans Visit Tlatelolco {"position":"3585,777","size":"100,100"}
 <<liveblock>>
@@ -5284,7 +5108,6 @@ When your work is complete, you may continue <<link "on to the feast" "Everyone 
 
 
 <</liveblock>>
-
 
 :: Spaniards Tour Tenochtitlan {"position":"2733,679","size":"100,100"}
 You settle in quickly, eager to see everything this remarkable city has to offer. Moctezuma has sent a group of Aztec nobles to be your guides and they have presented you with an itinerary:<br>
@@ -5367,7 +5190,6 @@ Your entry is:  <<textbox "$Ga_TG" "">><br>
 When your contribution to the guidebook is ready, you may continue <<link "on to the feast" "Everyone Gathers for a Feast">><<set $Feast = $Feast + 1>><</link>>!<br>
 <br>
 
-
 :: Aztec Leadership Challenge Again {"position":"3944,916","size":"100,100"}
 <<liveblock>>
 <<if $Aztec_Leader is $users[$userId]["role"]>>
@@ -5394,7 +5216,6 @@ Option 4: <<link "Cacamatzin" "Aztec Leadership Results">><<set $Az_Ld_Cac = $Az
 
 
 <</liveblock>>
-
 
 :: Aztec Leadership Results {"position":"3784,953","size":"100,100"}
 <<if $Aztec_Leader is $users[$userId]["role"] and $Az_Ld_Vote_sum isnot 4>>
@@ -5444,14 +5265,12 @@ The council has made a decision.  Continue to the next page to find out <<link "
 <</if>>
 <</if>>
 
-
 :: New Aztec Leader {"position":"3743,1106","size":"100,100"}
 <<liveblock>>
 After much angry debate in the Council Room, you finally determine that <<print $Aztec_Leader>> has the greatest loyalty of his men, and you [[move forward under his leadership|Set up for the Feast]]
 
 
 <</liveblock>>
-
 
 :: Set up for the Feast {"position":"3943,1154","size":"100,100"}
 While your guests are off exploring the city, it’s time to prepare for the greatest feast this city has ever seen! <br>
@@ -5513,7 +5332,6 @@ Your recipe is:  <<textbox "$AP_Rec" "">><br>
 
 When your contribution to the cookbook is ready, you may continue <<link "on to the feast" "Everyone Gathers for a Feast">><<set $Feast = $Feast + 1>><</link>>!
 
-
 :: Everyone Gathers for a Feast {"position":"3493,1363","size":"100,100"}
 <<liveblock>>
 <<if $Feast_sum <=12>>
@@ -5560,7 +5378,6 @@ Your Aztec hosts agree and, in exchange, offer you a copy of a cookbook. It seem
 
 
 <</liveblock>>
-
 
 :: Judging the Feast Documents {"position":"850,2100","size":"100,100"}
 <<switch $users[$userId]["faction"]>>
@@ -5630,7 +5447,6 @@ The Aztec Priest's entry is:  <<print "$AP_Rec">><br>
 
 <</switch>>
 
-
 :: Cortes' Contribution {"position":"975,2100","size":"100,100"}
 <<liveblock>>
 <<switch $users[$userId]["faction"]>>
@@ -5684,7 +5500,6 @@ The Aztec Priest's entry is:  <<print "$AP_Rec">><br>
 
 <</liveblock>>
 
-
 :: Alvarado's Contribution {"position":"1100,2100","size":"100,100"}
 <<switch $users[$userId]["faction"]>>
 <<case "Aztecs">>
@@ -5737,7 +5552,6 @@ The Aztec Priest's entry is:  <<print "$AP_Rec">><br>
 <br>
 
 <</switch>>
-
 
 :: Aguilar's Contribution {"position":"1225,2100","size":"100,100"}
 <<liveblock>>
@@ -5799,7 +5613,6 @@ The Aztec Priest's entry is:  <<print "$AP_Rec">><br>
 
 <</liveblock>>
 
-
 :: Olid's Contribution {"position":"127,2626","size":"100,100"}
 <<switch $users[$userId]["faction"]>>
 <<case "Aztecs">>
@@ -5859,7 +5672,6 @@ Does he <<link "PASS" "After the Feast">><<run changeStats("Aztec_Priest",{"Wisd
 <br>
 <</switch>>
 
-
 :: Garrido's Contribution {"position":"231,2766","size":"100,100"}
 <<liveblock>>
 <<switch $users[$userId]["faction"]>>
@@ -5898,7 +5710,6 @@ The Tlaxcalan's Insider's Guide is:  <<print "$Tl_IG">><br>
 
 
 <</liveblock>>
-
 
 :: Tlaxcalan's Contribution {"position":"512,2590","size":"100,100"}
 <<switch $users[$userId]["faction"]>>
@@ -5941,7 +5752,6 @@ Do they <<link "PASS" "After the Feast">><<set $Tlaxcalans_strength+=3>><</link>
 
 <</switch>>
 
-
 :: After the Feast {"position":"475,2225","size":"100,100"}
 <<liveblock>>
 After an eventful evening full of food, pulque and heated debate about your documents, you go back to your quarters and fall into the kind of deep sleep that only comes from over-indulging [[in so many delicious things|Waking up in the Library on a Full Belly]]. <br>
@@ -5950,13 +5760,11 @@ After an eventful evening full of food, pulque and heated debate about your docu
 
 <</liveblock>>
 
-
 :: Waking up in the Library on a Full Belly {"position":"600,2225","size":"100,100"}
 You wake to find yourself back in the library, sprawled across the comfy chair. You missed dinner, but somehow your belly feels strangely full. You swear you can still taste the pulque on your lips, but that can’t possibly be true... can it? <br>
 <br>
 You look at the stack of papers on the floor, and, sure enough, there’s your latest history assignment, complete and ready to hand in. Buoyed by the knowledge that another A grade is coming your way, you pack up your things and head home. <br>
 <br>
-
 
 :: No Library Door Once Again {"position":"725,2225","size":"100,100"}
 <<liveblock>>
@@ -5970,13 +5778,11 @@ You trudge home wondering how you can possibly wait so long. Maybe if you tell y
 
 <</liveblock>>
 
-
 :: Back to the Library Yet Again {"position":"850,2225","size":"100,100"}
 Your plan worked! It’s only been two days since you last woke up in the library, but you convinced your history teacher to let you start the assignment early. Since you’re now an ‘A’ student, she didn’t seem surprised that you would want to get ahead.<br>
 <br>
 Assignment in hand, you make a beeline for the library. You head for the top floor, round the corner, and there’s the door! Eager to get back to Tenochtitlán, you slip inside and flop out in the chair. You close your eyes and [[fall into a deep sleep|Waking up 6 months later]].<br>
 <br>
-
 
 :: Waking up 6 months later {"position":"975,2225","size":"100,100"}
 <<liveblock>>
@@ -6005,7 +5811,6 @@ As you begin to prepare for your day, you hear word that the Spaniards have rece
 
 
 <</liveblock>>
-
 
 :: Cortes gets called to the coast {"position":"1100,2225","size":"100,100"}
 <<switch $users[$userId]["role"]>>
@@ -6074,7 +5879,6 @@ You wonder at what is [[about to unfold|Toxcatl]].<br>
 <</if>>
 <</switch>>
 
-
 :: Absent Cortes Leadership Challenge {"position":"850,2350","size":"100,100"}
 <<liveblock>>
 <<if $Span_Leader is "Cortes">>
@@ -6118,7 +5922,6 @@ Option 5: <<link "Olid" "Tenochtitlan Spanish Leadership Results">><<set $Sp_Ld_
 
 
 <</liveblock>>
-
 
 :: Tenochtitlan Spanish Leadership Results {"position":"3784,953","size":"100,100"}
 <<if $Sp_Ld_Vote_Teno_sum isnot 5>>
@@ -6172,7 +5975,6 @@ The group has made a decision.  Continue to the next page to find out <<link "wh
 <</if>>
 <</if>>
 
-
 :: Tenochtitlan New Spanish Leader {"position":"3743,1106","size":"100,100"}
 <<liveblock>>
 After much  debate , you finally determine that <<print $Span_Leader>> has the greatest loyalty , and you [[move forward under his leadership|Toxcatl]].<br>
@@ -6180,7 +5982,6 @@ After much  debate , you finally determine that <<print $Span_Leader>> has the g
 
 
 <</liveblock>>
-
 
 :: Cortes takes Tlaxcalans to the coast {"position":"1225,2225","size":"100,100"}
 Your journey is long and arduous, but at least it is familiar this time. Along the way, you prepare your allies for what you might encounter. Your Tlaxcalan friends listen closely and you can’t help but wonder at their allegiance. As you prepare to face Velazquez’ forces, you are completely at the mercy of your native allies. You do everything in your power to win them over, but is it enough?<br>
@@ -6203,7 +6004,6 @@ You are waiting for the Tlaxcalans to do something.<br>
 <br>
 <</if>>
 
-
 :: Tlaxcalans go with Cortes to the coast {"position":"354,2624","size":"100,100"}
 <<liveblock>>
 You travel for many days and many nights. Cortes warns you of the force that you will likely encounter. They will be men like his own, but they will carry even more weapons. He reminds you of the battle you once fought against each other and the giant pipes that made smoke and noise. He calls them cannons and prepares you to face them once again.<br>
@@ -6221,7 +6021,6 @@ Once your team has decided on the best course of action, [[proceed to the next p
 
 
 <</liveblock>>
-
 
 :: Tlaxcalans decide whether or not to fight with Cortes {"position":"59,2398","size":"100,100"}
 <<if $users[$userId]["role"] is $Tlax_Leader>>
@@ -6258,7 +6057,6 @@ You wait for <<print $Tlax_Leader>> to finalize your decision.<br>
 <</if>>
 <</if>>
 
-
 :: Tlaxcalans agree to fight {"position":"350,2350","size":"100,100"}
 <<liveblock>>
 <<if $users[$userId]["role"] is "Cortes">>
@@ -6286,7 +6084,6 @@ As you depart the scene of the battle, Cortes instructs you to take the large an
 
 <</liveblock>>
 
-
 :: Tlaxcalans announce their departure {"position":"475,2350","size":"100,100"}
 <<if $users[$userId]["role"] is "Cortes">>
 Much to your dismay, your fears turn out to be valid. As you near Tlaxcala,  <<print $Tlax_Leader>> informs you that he and his men will not be carrying on the rest of the way. They will remain in Tlaxcala, leaving you to face the enemy with a greatly-diminished force.<br>
@@ -6312,7 +6109,6 @@ You host the troops for the night and see them on their way the next morning, co
 <br>
 <</if>>
 
-
 :: Tlaxcalans leave Cortes to fend for himself {"position":"600,2350","size":"100,100"}
 <<liveblock>>
 <<if $users[$userId]["role"] is "Cortes">>
@@ -6336,7 +6132,6 @@ At midnight, Cortes makes the signal to attack, hoping to catch the enemy forces
 
 <</liveblock>>
 
-
 :: Cortes Attacks Narvaez {"position":"850,2350","size":"100,100"}
 You have received word that the enemy camp lies just ahead. The time has come to make your move.<br>
 <br>
@@ -6346,7 +6141,6 @@ You are alive, but you are weakened. You have lost many men, but you gather thos
 <br>
 <<link "back to Tenochtitlán" "Cortes Returns Victorious">><<set $Cortes_Strength-=5>><<set $Cortes_Dead="No">><</link>><br>
 <br>
-
 
 :: Cortes Proposes a meeting with Narvaez {"position":"975,2350","size":"100,100"}
 <<liveblock>>
@@ -6362,11 +6156,9 @@ The next day, you are thrown on a boat and [[sent to Cuba|Cortes Waits]]. <br>
 
 <</liveblock>>
 
-
 :: Cortes Waits {"position":"1100,2350","size":"100,100"}
 You suffer through the journey in the hold of the boat, wondering what awaits you [[back on the island|Cortes Gets Sent to Cuba]].<br>
 <br>
-
 
 :: Cortes Gets Sent to Cuba {"position":"1225,2350","size":"100,100"}
 <<liveblock>>
@@ -6379,7 +6171,6 @@ As you are thrown in chains into the hold of another ship, you wonder why <<link
 
 
 <</liveblock>>
-
 
 :: Toxcatl {"position":"475,2475","size":"100,100"}
 <<switch $users[$userId]["faction"]>>
@@ -6424,7 +6215,6 @@ As the dust settles, people flood into the plaza. You join the mob in an attempt
 <br>
 <</if>>
 <</switch>>
-
 
 :: Aztec Leader taken prisoner {"position":"600,2475","size":"100,100"}
 <<liveblock>>
@@ -6521,7 +6311,6 @@ You are waiting for The Tlaxcalans to do something.<br>
 
 <</liveblock>>
 
-
 :: Cortes Returns Victorious {"position":"100,2475","size":"100,100"}
 <<switch $users[$userId]["faction"]>>
 <<case "Spaniards">>
@@ -6556,7 +6345,6 @@ The people are restless and this new turn of events [[makes you nervous|Aztec Le
 <br>
 <</if>>
 <</switch>>
-
 
 :: Cortes Returns Weakened {"position":"350,2600","size":"100,100"}
 <<liveblock>>
@@ -6597,7 +6385,6 @@ The people are restless and this new turn of events [[makes you nervous|Aztec Le
 
 <</liveblock>>
 
-
 :: Cortes Doesn't Return {"position":"475,2600","size":"100,100"}
 <<switch $users[$userId]["faction"]>>
 <<case "Spaniards">>
@@ -6618,7 +6405,6 @@ This turn of events gives you hope as you [[continue your preparations|Aztec Lea
 <br>
 <</if>>
 <</switch>>
-
 
 :: Aztec Leader gives a speech {"position":"600,2600","size":"100,100"}
 <<liveblock>>
@@ -6687,7 +6473,6 @@ Option 2: Oppose <<print $Aztec_Leader>>, who is clearly weak and no longer repr
 
 <</liveblock>>
 
-
 :: Aztecs Decide About The Riot {"position":"725,2600","size":"100,100"}
 <<if $Riot_Vote_sum isnot 5>>
 You wait while the rest of your team casts their vote. <br>
@@ -6703,7 +6488,6 @@ You have decided now is not the time to fight. You gather the council together a
 <br>
 <</if>>
 <</if>>
-
 
 :: Aztec Mob Recedes {"position":"850,2600","size":"100,100"}
 <<liveblock>>
@@ -6777,7 +6561,6 @@ As the mob retreats and quiet returns to the city, you watch the Spaniards lead 
 
 <</liveblock>>
 
-
 :: Spaniards Keep Aztec Leader Alive {"position":"975,2600","size":"100,100"}
 <<switch $users[$userId]["faction"]>>
 <<case "Spaniards">>
@@ -6797,7 +6580,6 @@ An uneasy calm has settled upon the city, but it is clear this situation cannot 
 <br>
 <</if>>
 <</switch>>
-
 
 :: Spaniards Kill Aztec Leader {"position":"1100,2600","size":"100,100"}
 <<liveblock>>
@@ -6826,7 +6608,6 @@ The council gathers in haste. [[Decisions must be made|Aztec Leader Dies and Azt
 
 
 <</liveblock>>
-
 
 :: Aztecs Riot {"position":"1225,2600","size":"100,100"}
 <<switch $users[$userId]["faction"]>>
@@ -6897,7 +6678,6 @@ Chaos unfolds around you and you [[wonder what lies ahead for your once-powerful
 <</if>>
 <</switch>>
 
-
 :: Spaniards Keep Aztec Leader Alive Riot {"position":"100,2725","size":"100,100"}
 <<liveblock>>
 <<switch $users[$userId]["faction"]>>
@@ -6918,7 +6698,6 @@ The riot lasted for many hours, as the residents of the city released months of 
 
 
 <</liveblock>>
-
 
 :: Spaniards Kill Aztec Leader Riot {"position":"225,2725","size":"100,100"}
 <<switch $users[$userId]["faction"]>>
@@ -6942,7 +6721,6 @@ The council gathers in haste. [[Decisions must be made|Aztec Leader Dies and Azt
 <br>
 <</if>>
 <</switch>>
-
 
 :: Aztec Leader Lives and Aztecs Choose a Leader Riot {"position":"350,2725","size":"100,100"}
 <<liveblock>>
@@ -7027,7 +6805,6 @@ You gather for a council meeting and decide to elect a new leader. Who among you
 
 <</liveblock>>
 
-
 :: Aztec Leader Dies and Aztecs Choose a Leader Riot {"position":"475,2725","size":"100,100"}
 Overcome by grief, you gather for a council meeting. Now is not the time for mourning; that must wait. The first task at hand is to elect a new leader, but who among you is capable of leading your people in this difficult moment? Who do you trust? <br>
 <br>
@@ -7107,7 +6884,6 @@ Overcome by grief, you gather for a council meeting. Now is not the time for mou
 <br>
 <</if>>
 
-
 :: After the Riot Vote {"position":"600,2725","size":"100,100"}
 <<liveblock>>
 <<if $Moc_Riot_Vote_sum isnot 5>>
@@ -7171,20 +6947,17 @@ The votes have been cast, click through to find out who your <<link "next leader
 
 <</liveblock>>
 
-
 :: After the Riot Leader {"position":"725,2725","size":"100,100"}
 Your new leader is <<print $New_Aztec_Leader>>.<br>
 <br>
 Now that your leader has been chosen, it’s time to confront [[the bigger question at hand|Aztecs Plot Against the Spanish]].<br>
 <br>
 
-
 :: Tlaxcalans take cannons to Tlaxcala {"position":"225,2475","size":"100,100"}
 <<liveblock>>
 
 
 <</liveblock>>
-
 
 :: Spaniards Plot their Departure {"position":"975,2725","size":"100,100"}
 <<switch $users[$userId]["faction"]>>
@@ -7242,7 +7015,6 @@ Tension grips the city and you listen as your captors plot their escape. It seem
 <</if>>
 <</switch>>
 
-
 :: Offer to Bargain or Not {"position":"1100,2725","size":"100,100"}
 <<liveblock>>
 <<if ndef $Hostage or $Hostage eq "">>
@@ -7278,7 +7050,6 @@ As you feel the knife in your back, you cry out to your attacker. Do you not des
 
 
 <</liveblock>>
-
 
 :: Aztecs Plot Against the Spanish {"position":"1225,2725","size":"100,100"}
 <<if ndef $Hostage or $Hostage eq "">>
@@ -7327,7 +7098,6 @@ Unable to reach a decision, the members of the council debate into the quietest 
 You and the other members of the council spring into action. The streets ring out with your war cries as the residents of the city flood the streets, determined to [[prevent your enemies from making their escape|Noche Triste]]!<br>
 <br>
 <</if>>
-
 
 :: Aztecs Decide Whether to Make an Exchange {"position":"100,2850","size":"100,100"}
 <<liveblock>>
@@ -7383,7 +7153,6 @@ Once the deed is done, you decide that your best chance of escape is to leave by
 
 <</liveblock>>
 
-
 :: Noche Triste {"position":"225,2850","size":"100,100"}
 <<switch $users[$userId]["faction"]>>
 <<case "Spaniards">>
@@ -7417,7 +7186,6 @@ On this morning, you receive a shocking report. It seems the Spaniards attempted
 You wonder if they will [[eventually make their way back to Tlaxcala|Spaniards Decide How to Proceed]].<br>
 <br>
 <</switch>>
-
 
 :: Spaniards Decide Whether to Retreat to Tlaxcala {"position":"350,2850","size":"100,100"}
 <<liveblock>>
@@ -7481,7 +7249,6 @@ Go to the Spanish discussion board and consider your options. When you have made
 
 <</liveblock>>
 
-
 :: Spaniards Decide How to Proceed {"position":"475,2850","size":"100,100"}
 <<switch $users[$userId]["faction"]>>
 <<case "Spaniards">>
@@ -7544,7 +7311,6 @@ You wait and [[wonder what the Spaniards will do next|Spaniards Retreat to Tlaxc
 <</if>>
 <</switch>>
 
-
 :: Spaniards Fight the Aztecs Alone {"position":"600,2850","size":"100,100"}
 <<liveblock>>
 <<if $Hostage_Exch is "Yes">>
@@ -7603,7 +7369,6 @@ The battle is like nothing you’ve seen before. The stakes are high and this wi
 
 <</liveblock>>
 
-
 :: Victory Decision Aztecs versus Spaniards {"position":"725,2850","size":"100,100"}
 <<switch $users[$userId]["faction"]>>
 <<case "Spaniards">>
@@ -7624,7 +7389,6 @@ You watch as <<print $Aztec_Leader>> raises his macuahuitl and [[strikes the fin
 <</if>>
 <</switch>>
 
-
 :: Battle Outcome Aztecs Versus Spaniards {"position":"850,2850","size":"100,100"}
 <<liveblock>>
 <<if $Final_Aztec Points is "" or ndef $Final_Aztec_Points or $Final_Spanish_Points is "" or ndef $Final_Spanish_Points>>
@@ -7636,7 +7400,6 @@ You wait for the haze of war to clear.<br>
 
 
 <</liveblock>>
-
 
 :: Smallpox in Tenochtitlán {"position":"975,2850","size":"100,100"}
 <<if $Hostage_Exch is "Yes">>
@@ -7657,7 +7420,6 @@ The sickness lasts for many moons and by the time it finally leaves, only half t
 <</if>>
 NEED SOMETHING HERE THAT LINKS TO NEXT PASSAGE AND TAKES AWAY HALF OF THE TEAM STRENGTH POINTS.
 
-
 :: Spaniards Retreat to Tlaxcala {"position":"1100,2850","size":"100,100"}
 <<liveblock>>
 <<if $Cortes_Dead is "Yes">>
@@ -7669,7 +7431,6 @@ You have decided that your best course of action is to return to Tlaxcala. There
 
 
 <</liveblock>>
-
 
 :: Spaniards in Tlaxcala Cortes Alive {"position":"1225,2850","size":"100,100"}
 <<switch $users[$userId]["faction"]>>
@@ -7795,7 +7556,6 @@ When you have agreed on the best course of action, <<print $Tlax_Leader>> will i
 <</if>>
 <</switch>>
 
-
 :: Spaniards in Tlaxcala Cortes Dead {"position":"100,2975","size":"100,100"}
 <<liveblock>>
 <<switch $users[$userId]["faction"]>>
@@ -7908,7 +7668,6 @@ When you have agreed on the best course of action, <<print $Tlax_Leader>> will i
 
 <</liveblock>>
 
-
 :: Tlaxcala helps the Spaniards {"position":"225,2975","size":"100,100"}
 <<switch $users[$userId]["faction"]>>
 <<case "Spaniards">>
@@ -7962,7 +7721,6 @@ The enemy exits the mountain pass. You can barely believe your eyes as they make
 <br>
 <</switch>>
 
-
 :: Tlaxcalans and Spaniards Fight Aztecs Aztec Victory {"position":"350,2975","size":"100,100"}
 <<liveblock>>
 <<switch $users[$userId]["faction"]>>
@@ -7982,7 +7740,6 @@ The battle seemed as though it would never end. Your city lies in ruins and coun
 
 <</liveblock>>
 
-
 :: Tlaxcalans and Spaniards Fight Aztecs Spanish and Tlaxcalan Victory {"position":"475,2975","size":"100,100"}
 <<switch $users[$userId]["faction"]>>
 <<case "Spaniards">>
@@ -7996,13 +7753,11 @@ You put up a valiant fight, but it was not enough. Your enemies had the Gods on 
 <br>
 <</switch>>
 
-
 :: The End {"position":"975,2475","size":"100,100"}
 <<liveblock>>
 
 
 <</liveblock>>
-
 
 :: Spaniards Quest Instructions 1 {"position":"725,2975","size":"100,100"}
 <<switch $users[$userId]["role"]>>
@@ -8044,7 +7799,6 @@ Further along the coast, you did battle with a fierce group of warriors who you 
 It is now time to [[investigate these two individuals|Spaniards Quest Instructions 2]].<br>
 <br>
 <</switch>>
-
 
 :: Spaniards Quest Instructions 2 {"position":"850,2975","size":"100,100"}
 <<liveblock>>
@@ -8142,7 +7896,6 @@ Congratulations! You have sucessfully completed the quest!  You may now continue
 
 
 <</liveblock>>
-
 
 :: Aguilar Quest {"position":"975,2975","size":"100,100"}
 <<switch $users[$userId]["role"]>>
@@ -8347,7 +8100,6 @@ You have answered Question 3. The strangers fired rocks into the sea and fled.<b
 <</if>>
 <</switch>>
 
-
 :: Aguilar Answers {"position":"1100,2975","size":"100,100"}
 <<liveblock>>
 <<switch $users[$userId]["role"]>>
@@ -8482,7 +8234,6 @@ You have answered question 3 correctly! The strangers fired rocks into the sea a
 
 
 <</liveblock>>
-
 
 :: Malinche Quest {"position":"1225,2975","size":"100,100"}
 <<switch $users[$userId]["role"]>>
@@ -8685,7 +8436,6 @@ You have answered Question 3 correctly. Tlaxcala might make a valuable ally.<br>
 <</if>>
 <</switch>>
 
-
 :: Malinche Answers {"position":"100,3100","size":"100,100"}
 <<liveblock>>
 <<switch $users[$userId]["role"]>>
@@ -8810,7 +8560,6 @@ You have answered question 3 correctly! Tlaxcala might prove a valuable ally in 
 
 <</liveblock>>
 
-
 :: On The Way to Veracruz {"position":"225,3100","size":"100,100"}
 <<switch $users[$userId]["role"]>>
 <<case "Aguilar">>
@@ -8832,7 +8581,6 @@ You reach the end or your journey up the coast, landing at a site that you decid
 <br>
 <</switch>>
 
-
 :: Dashboard {"position":"1100,2475","size":"100,100"}
 <<liveblock>>
 <b> THE SPANISH AZTEC WAR DASHBOARD</b><br>
@@ -8847,7 +8595,6 @@ You reach the end or your journey up the coast, landing at a site that you decid
 
 
 <</liveblock>>
-
 
 :: test equations {"position":"475,3100","size":"100,100"}
 <<print $Aztecs_strength>><br>
@@ -8881,7 +8628,6 @@ Set Final Totals<br>
 <<link "Set the Final Tlaxcalan Points" "test equations outcome">><<set $Final_Tlaxcalan_Players=$Xicotencatl_Elder_Strength+$Xicotencatl_Elder_Loyalty+$Xicotencatl_Elder_Wisdom+$Xicotencatl_Younger_Strength+$Xicotencatl_Younger_Loyalty+$Xicotencatl_Younger_Wisdom+$Maxixcatl_Strength+$Maxixcatl_Loyalty+$Maxixcatl_Wisdom>><<set $Final_Tlaxcalan_Players/=3>><<set $Final_Tlaxcalan_Points=$Tlaxcalans_strength+$Final_Tlaxcalan_Players>><</link>>. <br>
 <br>
 
-
 :: test equations outcome {"position":"600,3100","size":"100,100"}
 <<liveblock>>
 <<print $Aztecs_strength>><br>
@@ -8901,7 +8647,6 @@ Set Final Totals<br>
 
 
 <</liveblock>>
-
 
 :: Control: Player Status {"position":"350,2475","size":"100,100"}
 <b>CURRENT STATUS OF TEAMS AND PLAYERS</b><br>
@@ -8973,7 +8718,6 @@ Strength: <<print $Maxixcatl_Strength>>   Wisdom: <<print $Maxixcatl_Wisdom>>   
 [[Change Player Location|Control: Change Passage]]<br>
 [[Return to the Dashboard|Dashboard]]<br>
 
-
 :: Control: Votes {"position":"100,2600","size":"100,100"}
 <<liveblock>>
 <b>STATUS OF VOTES AND HOLDS</b><br>
@@ -9034,7 +8778,6 @@ Has the hold been cleared? <b><<if $TL_Attacks eq "" or ndef $TL_Attacks>> No <<
 
 
 <</liveblock>>
-
 
 :: Control: Change Passage {"position":"225,2600","size":"100,100"}
 <b>CHANGE THE LOCATION OF PLAYERS</b><br>
@@ -9107,7 +8850,6 @@ New Location: <<textbox "$Maxixcatl_currentPassage" "">><br>
 [[Check the Status of Holds and Votes|Control: Votes]]<br>
 [[Return to the Dashboard|Dashboard]]<br>
 
-
 :: Status of the Quest {"position":"350,2600","size":"100,100"}
 <<liveblock>>
 [[Check Player and Team Status and Location|Control: Player Status]]<br>
@@ -9117,12 +8859,10 @@ New Location: <<textbox "$Maxixcatl_currentPassage" "">><br>
 
 <</liveblock>>
 
-
 :: Assignments Summary {"position":"475,2600","size":"100,100"}
 [[Check Player and Team Status and Location|Control: Player Status]]<br>
 [[Check the Status of Holds and Votes|Control: Votes]]<br>
 [[Return to the Dashboard|Dashboard]]<br>
-
 
 :: Game Setup {"position":"600,2600","size":"100,100"}
 <<liveblock>>
@@ -9132,7 +8872,6 @@ New Location: <<textbox "$Maxixcatl_currentPassage" "">><br>
 
 
 <</liveblock>>
-
 
 :: Spanish Leadership Challenge {"position":"3944,916","size":"100,100"}
 <<if $Span_Leader is $users[$userId]["role"]>>
@@ -9156,7 +8895,6 @@ Option 3: <<link "Aguilar" "Generic Spanish Leadership Results">><<set $Sp_Ld_Ag
 Option 4: <<link "Garrido" "Generic Spanish Leadership Results">><<set $Sp_Ld_Gar = $Sp_Ld_Gar + 1>><<run changeStats("Garrido",{"Wisdom":2,"Loyalty":0,"Strength":0})>><<set $Sp_Ld_Vote = $Sp_Ld_Vote + 1>><</link>> is your best chance of suriving these strange turns of events.<br>
 <br>
 <</if>>
-
 
 :: Generic Spanish Leadership Results {"position":"3784,953","size":"100,100"}
 <<liveblock>>
@@ -9210,8 +8948,14 @@ The group has made a decision.  Continue to the next page to find out <<link "wh
 
 <</liveblock>>
 
-
 :: Generic New Spanish Leader {"position":"3743,1106","size":"100,100"}
 After much angry debate , you finally determine that <<print $Span_Leader>> has the greatest loyalty of his men, and you [[move forward under his leadership|Into the Mountain Pass]]
 
+:: StoryTitle
+Spanish Aztec War Ver 1.0
 
+:: StoryData
+{
+  "creator": "twine-utils",
+  "startnode": "101"
+}

@@ -25,17 +25,18 @@ gaze('Twine/*.*', function (err, watcher) {
         let command;
 
         if (suffix == "html") {
-            command = `tweego -f sugarcube-2 -d -o "${prefix}".twee "${prefix}".html`
-            // command = `node ./node_modules/twine-utils/bin/entwee.js "${prefix}.${suffix}" > "${prefix}.tw"`
-        } else if (suffix == "twee" || suffix == "tw") {
-            // let file = new Extwee.FileReader(`${prefix}.twee`);
-            // let tp = new Extwee.TweeParser(file.contents);
+            // command = `tweego -f sugarcube-2 -d -o "${prefix}".twee "${prefix}".html`
+            command = `node ./node_modules/twine-utils/bin/entwee.js "${prefix}.${suffix}" > "${prefix}.tw"`
+        } 
+        else if (suffix == "twee" || suffix == "tw") {
+            let file = new Extwee.FileReader(`${prefix}.${suffix}`);
+            let tp = new Extwee.TweeParser(file.contents);
+            let start = tp.story.metadata.start
             // let sfp = new StoryFormatParser("storyformats/sugarcube-2/format.js")
             // new HTMLWriter(`${prefix}.html`, tp.story, sfp.storyformat)  // Write to HTML file
             
-            
-            command = `tweego -f sugarcube-2  "${prefix}".twee -o "${prefix}".html`
-            // command = `node ./node_modules/twine-utils/bin/entwine.js "${prefix}.${suffix}" -f "storyformats/sugarcube-2/format.js" > "${prefix}.html"`
+            // command = `tweego -f sugarcube-2  "${prefix}".twee -o "${prefix}".html`
+            command = `node ./node_modules/twine-utils/bin/entwine.js "${prefix}.${suffix}" -f "storyformats/sugarcube-2/format.js" > "${prefix}.html" -s "${start}"`
         } 
         else {
             console.log(prefix, suffix)
