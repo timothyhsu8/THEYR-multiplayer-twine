@@ -97,14 +97,60 @@ importScripts([
 	});
 })();
 
+// Generates a random ID
+function generateId() {
+	let id = "";
+	for (let i = 0; i < 18; i++) {
+		id += Math.floor(Math.random() * 10);
+	}
+	return parseInt(id);
+}
+
+// Set ID in SugarCube and LocalStorage
+function setId(userId){
+    localStorage.setItem('userId', userId);
+    State.variables.userId = userId;
+}
+
+// Run when passage starts 
+$(document).one(":passagestart", () => {
+    let users = State.variables.users;
+
+    // If Users map is not defined, initialize it
+    if (users === undefined){
+        State.variables.users = {};
+		users = State.variables.users
+    } 
+	
+    // If client does not exist in Users, add them
+    if (!(userData.id in users)) {
+        users[userData.id] = {}
+        users[userData.id].username = userData.nick 	// Should this be username instead of nick?
+    }  
+
+	// Set userId from userData if it exists
+	if (userData) {
+    	setId(userData.id);
+	}
+
+	// Generate new userId if firsttime user, otherwise set as the userId from localstorage
+	else {
+		localStorage.getItem('userId') === null ? setId(generateId()) : setId(localStorage.getItem('userId'));
+	}
+
+    setup.theyrCallback();
+});
+
+
 :: StoryInit {"position":"22,135","size":"100,100"}
-<<liveblock>>
 <<script>>
 	setup.theyrCallback = function() {
 		let users = State.variables.users;
 		let userId = State.variables.userId;
 		let user = users[userId];
 
+
+		console.log("USER DATA", userData)
 		// Initialize user variables
 		// user['role'] = 'Cuauhtemoc';
 
@@ -115,8 +161,6 @@ importScripts([
 		
 		else {
 			let discName = userData.nick.normalize("NFD").replace(/\p{Diacritic}/gu, "");	// Replaces special characters
-			user['coins'] = 0;
-			State.variables.foo = 0
 			
 			// Initialize variables
 			if (State.variables.Start !== null) {
@@ -161,22 +205,19 @@ importScripts([
 			let currentPassage = State.variables[`${user['role']}_currentPassage`]
 			if (currentPassage)
 				Engine.play(currentPassage)
-			}
+		}
 	}
+
 <</script>>
 <<cacheaudio "Gulls_and_waves__5min_" "audio/Gulls_and_waves__5min_.mp3">>
 <<cacheaudio "Library" "audio/Library.mp3">>
 <!-- <<masteraudio volume 0>> -->
 
-
-<</liveblock>>
-
 :: PassageHeader {"position":"138,11","size":"100,100"}
 <<script>>
 	function setupPassage() {
 		let users = State.variables.users;
-		if (typeof(showMap) !== 'undefined' && typeof(showStats) !== 'undefined' && typeof(setBackground) !== 'undefined' && users !== undefined) {
-			console.log("In passage setup");
+		if (typeof(showMap) !== 'undefined' && typeof(showStats) !== 'undefined' && typeof(setBackground) !== 'undefined') {
 			showMap(); 
 			showStats();
 			setBackground();
@@ -185,19 +226,23 @@ importScripts([
 			setTimeout(setupPassage, 100);
 		}
 	}
-
 	setupPassage();
 <</script>>
-/* <<print passage()>> 
+
+
+
+/* <<liveblock>>
 <<audio ":all" stop>>
 <!-- <<masteraudio mute>> -->
 
 <<masteraudio unmute>>
- <<run showMap()>>
- /* <<set $imgsrc='Twine/images/Aztecs_10.png'>> */
- /* <img src=State.variables.imgsrc> */
- /* <<run showStats()>>
-<<run setBackground()>> */
+<<run showMap()>>
+// <<set $imgsrc='Twine/images/Aztecs_10.png'>>
+// <img src=State.variables.imgsrc>
+<<run showStats()>>
+<<run setBackground()>>
+<</liveblock>> */
+
 
 :: TestPassage {"position":"350,100","size":"100,100"}
 <<script>>
@@ -211,15 +256,6 @@ You have $foo lives left
 <</button>>
 <</liveblock>>
 
-:: TestPassageNext {"position":"350,100","size":"100,100"}
-Next passage
-/* <<run changeStats("Cuauhtemoc",{"Wisdom":0,"Loyalty":0,"Strength":-1})>> */
-/* <<set $foo += 1>>
-<<button "Click Me">> 
-	<<script>>
-		SugarCube.Engine.show();
-	<</script>>
-<</button>> */
 
 :: Roles {"position":"350,100","size":"100,100"}
 <<liveblock>>
@@ -2514,6 +2550,7 @@ Vote is 2
 <</liveblock>>
 
 :: The Library [Done] {"position":"521,25","size":"100,100"}
+<<liveblock>>
 <<print $userId>>
 /* <<set $users[$userId].currentMap='Aztecs_9.png'>> */
 It’s six weeks into the semester and you’re already drowning in work. You have your first exams this week, you need to get started on some research, and now your history professor has sprung a surprise assignment on you at the last minute--and it’s due tomorrow! The only way you’re going to get everything done is to pull an all-nighter. There’s no way you’ll be able to stay awake at home; your bed is there and it’s just too tempting. So you head to the library. <br>
@@ -2526,6 +2563,7 @@ You unload your books and make yourself comfortable--maybe a little too comforta
 <br>
 Suddenly, <<link "you’re startled by a loud noise" "Character Identification">><<set $Spaniards_currentMap=1>><<set $Spaniards_strength = 7>><<set $Tlaxcalans_currentMap=1>><<set $Tlaxcalans_strength = 7>><<set $Aztecs_currentMap=1>><<set $Aztecs_strength = 7>><</link>>!<br>
 <br>
+<</liveblock>>
 
 :: Waking up in the library [Done,Breaks] {"position":"1192,2282","size":"100,100"}
 <<liveblock>>

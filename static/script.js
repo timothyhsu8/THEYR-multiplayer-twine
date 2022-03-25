@@ -95,7 +95,7 @@ function showMap(){
         "name":"map"
         }))
     }
- 
+    
     let { faction, role } = getUser();
     // var faction = SugarCube.State.getVar("$faction");  
     var currentMap = SugarCube.State.variables['users'][SugarCube.State.variables.userId].currentMap
@@ -281,7 +281,8 @@ function loadGameData(data) {
 
 // Returns the role of the current player
 function getUser() {
-    var userId = SugarCube.State.getVar("$userId");
-    var user = SugarCube.State.getVar("$users")[userId];
+    let userId = SugarCube.State.getVar("$userId");
+    // console.log("STATE:", SugarCube.State.variables);
+    let user = SugarCube.State.getVar("$users")[userId];
     return user;
 }
