@@ -137,7 +137,6 @@ $(document).one(":passagestart", () => {
 	else {
 		localStorage.getItem('userId') === null ? setId(generateId()) : setId(localStorage.getItem('userId'));
 	}
-
     setup.theyrCallback();
 });
 
@@ -153,6 +152,7 @@ $(document).one(":passagestart", () => {
 		console.log("USER DATA", userData)
 		// Initialize user variables
 		// user['role'] = 'Cuauhtemoc';
+		State.variables.foo = 0;
 
 		// Nickname not recognized
 		if (!userData.nick) {

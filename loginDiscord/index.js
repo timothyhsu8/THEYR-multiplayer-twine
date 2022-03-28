@@ -42,11 +42,13 @@ app.get('/', async ({ query }, response) => {
 
 	if (test) {
 		let nickname = "Cuauhtémoc"
+		let id = "229035280496197642"
 		if (nick) {
 			nickname = nick
+			id = generateId()
 		}	
 		
-		userDataScript = JSON.stringify({"id":"229035280496197642","nick":nickname, "faction": "Aztecs", "avatar":null,"discriminator":"2739","public_flags":0,"flags":0,"banner":null,"banner_color":null,
+		userDataScript = JSON.stringify({"id":id,"nick":nickname, "faction": "Aztecs", "avatar":null,"discriminator":"2739","public_flags":0,"flags":0,"banner":null,"banner_color":null,
 		"accent_color":null,"locale":"en-US","mfa_enabled":false});
 		return returnTwine(userDataScript, response);
 	}
@@ -113,5 +115,12 @@ app.get('/', async ({ query }, response) => {
 	return response.send(foo);
 });
 
-
+// Generates a random ID
+function generateId() {
+	let id = "";
+	for (let i = 0; i < 18; i++) {
+		id += Math.floor(Math.random() * 10);
+	}
+	return id;
+}
 

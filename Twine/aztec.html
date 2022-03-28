@@ -229,7 +229,6 @@ $(document).one(&quot;:passagestart&quot;, () =&gt; {
 	else {
 		localStorage.getItem(&apos;userId&apos;) === null ? setId(generateId()) : setId(localStorage.getItem(&apos;userId&apos;));
 	}
-
     setup.theyrCallback();
 });</tw-passagedata><tw-passagedata position="22,135" size="100,100" name="StoryInit" pid="5">&lt;&lt;script&gt;&gt;
 	setup.theyrCallback = function() {
@@ -241,6 +240,7 @@ $(document).one(&quot;:passagestart&quot;, () =&gt; {
 		console.log(&quot;USER DATA&quot;, userData)
 		// Initialize user variables
 		// user[&apos;role&apos;] = &apos;Cuauhtemoc&apos;;
+		State.variables.foo = 0;
 
 		// Nickname not recognized
 		if (!userData.nick) {
@@ -303,7 +303,6 @@ $(document).one(&quot;:passagestart&quot;, () =&gt; {
 	function setupPassage() {
 		let users = State.variables.users;
 		if (typeof(showMap) !== &apos;undefined&apos; &amp;&amp; typeof(showStats) !== &apos;undefined&apos; &amp;&amp; typeof(setBackground) !== &apos;undefined&apos;) {
-			console.log(&quot;In passage setup&quot;);
 			showMap(); 
 			showStats();
 			setBackground();
@@ -8426,7 +8425,6 @@ $(document).one(":passagestart", () => {
 	else {
 		localStorage.getItem('userId') === null ? setId(generateId()) : setId(localStorage.getItem('userId'));
 	}
-
     setup.theyrCallback();
 });</script></tw-storydata>
 	<script id="script-sugarcube" type="text/javascript">

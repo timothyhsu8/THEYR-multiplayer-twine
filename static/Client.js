@@ -46,8 +46,8 @@ socket.on('new connection', (state) => {
 
 
     console.log("Connecting state:", state)
-    // store.dispatch({type: 'UPDATEGAME', payload: state, connecting: true})
-    // store.dispatch({type: 'UPDATESTORE', payload: state, connecting: true})
+    store.dispatch({type: 'UPDATEGAME', payload: state, connecting: true})
+    store.dispatch({type: 'UPDATESTORE', payload: state, connecting: true})
 })
 
 
@@ -55,7 +55,7 @@ socket.on('new connection', (state) => {
 socket.on('difference', (state) => {
     console.log("Difference received from the server")
     store.dispatch({type: 'UPDATEGAME', payload:state})
-    store.dispatch({type: 'UPDATESTORE', payload: state})
+    store.dispatch({type: 'UPDATESTORE', payload: state, noUpdate: true})
 })
 
 // Reducer to update your store and send the difference to all other clients
@@ -66,7 +66,7 @@ function setId(userId){
 
 function reducer(state, action){
     // Checks for undefined to prevent feedback loop. Skips undefined check if connecting to the game (updates game as soon as client joins)
-    if(state === undefined && action.connecting === undefined) {
+    if(state === undefined && action.connecting !== undefined) {
         console.log("State is undefined")
         return {...state, ...SugarCube.State.variables}
     }
@@ -74,7 +74,9 @@ function reducer(state, action){
     switch(action.type){
         case 'UPDATESTORE':
             console.log('Updating Store and Other Clients', action.payload)
-            socket.emit('difference', {...state, ...action.payload})
+            if (!action.noUpdate) {
+                socket.emit('difference', {...state, ...action.payload})
+            }
             $(document).trigger(":liveupdate");
             // if (!action.self && !action.connecting && lastUpdate < new Date() - 1000) {
             //     reloadPassage();
