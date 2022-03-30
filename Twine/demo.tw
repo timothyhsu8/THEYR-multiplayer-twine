@@ -1,0 +1,169 @@
+:: StoryTitle
+Wishing Wells
+
+:: StoryData
+{
+	"ifid": "5CAF53F2-B97C-45CA-9E53-CBD50086BDA5",
+	"format": "SugarCube",
+	"format-version": "2.30.0",
+	"start": "Wishing Wells",
+	"tag-colors": {
+		"Breaks": "blue",
+		"Change-Title": "yellow",
+		"Coding-Problem": "red",
+		"Done": "green",
+		"New-Passage": "purple",
+		"Text-to-be-updated-by-Ashley": "orange"
+	},
+	"zoom": 1
+}
+
+:: Story JavaScript [script]
+Config.passages.nobr = true;
+
+var urlPrefix="static/"
+
+importScripts([
+	'/socket.io/socket.io.js',
+	'https://unpkg.com/redux@latest/dist/redux.min.js',
+	'https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js',
+	`${urlPrefix}script.js`,
+	`${urlPrefix}resize.js`,
+	`${urlPrefix}picker.js`,
+	`${urlPrefix}Client.js`,
+	"https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/1.0.11/jquery.csv.min.js",
+	"https://unpkg.com/jquery.nice-number@2.1.0/dist/jquery.nice-number.min.js",
+	"https://code.jquery.com/ui/1.12.1/jquery-ui.js"	
+]);
+
+(function () {
+	"use strict";
+
+	$(document).on(":liveupdate", function () {
+		$(".macro-live").trigger(":liveupdateinternal");
+	});
+
+	Macro.add(['update', 'upd'], {
+		handler: function handler() {
+			$(document).trigger(":liveupdate");
+		}
+	});
+
+	Macro.add(['live', 'l', 'lh'], {
+		skipArgs: true,
+		handler: function handler() {
+			if (this.args.full.length === 0) {
+				return this.error('no expression specified');
+			}
+			try {
+				var statement = this.args.full;
+				var result = toStringOrDefault(Scripting.evalJavaScript(statement), null);
+				if (result !== null) {
+					var lh = this.name === "lh";
+					var $el = $("<span></span>").addClass("macro-live").wiki(lh ? Util.escape(result) : result).appendTo(this.output);
+					$el.on(":liveupdateinternal", this.createShadowWrapper(function (ev) {
+						var out = toStringOrDefault(Scripting.evalJavaScript(statement), null);
+						$el.empty().wiki(lh ? Util.escape(out) : out);
+					}));
+				}
+			} catch (ex) {
+				return this.error("bad evaluation: " + (_typeof(ex) === 'object' ? ex.message : ex));
+			}
+		}
+	});
+
+	Macro.add(['liveblock', 'lb'], {
+		tags: null,
+		handler: function handler() {
+			try {
+				var content = this.payload[0].contents.trim();
+				if (content) {
+					var $el = $("<span></span>").addClass("macro-live macro-live-block").wiki(content).appendTo(this.output);
+					$el.on(":liveupdateinternal", this.createShadowWrapper(function (ev) {
+						$el.empty().wiki(content);
+					}));
+				}
+			} catch (ex) {
+				return this.error("bad evaluation: " + (_typeof(ex) === 'object' ? ex.message : ex));
+			}
+		}
+	});
+})();
+
+// Generates a random ID
+function generateId() {
+	let id = "";
+	for (let i = 0; i < 18; i++) {
+		id += Math.floor(Math.random() * 10);
+	}
+	return parseInt(id);
+}
+
+// Set ID in SugarCube and LocalStorage
+function setId(userId){
+    localStorage.setItem('userId', userId);
+    State.variables.userId = userId;
+}
+
+// Run when passage starts 
+$(document).one(":passagestart", () => {
+    let users = State.variables.users;
+	
+    // If Users map is not defined, initialize it
+    if (users === undefined) {
+        State.variables.users = {};
+		users = State.variables.users;
+	} 
+
+    // If client does not exist in Users, add them
+    if (!(userData.id in users)) {
+        users[userData.id] = {};
+        users[userData.id].username = userData.nick; 	// Should this be username instead of nick?
+    }  
+
+	// Set userId from userData if it exists
+	if (userData) {
+    	setId(userData.id);
+	}
+
+	// Generate new userId if firsttime user, otherwise set as the userId from localstorage
+	else {
+		localStorage.getItem('userId') === null ? setId(generateId()) : setId(localStorage.getItem('userId'));
+	}
+	
+	// State.variables.users = "bussin";
+	// console.log("Passage state", State.variables.users)
+    setup.theyrCallback();
+});
+
+
+:: StoryInit {"position":"22,135","size":"100,100"}
+<<script>>
+    setup.theyrCallback = function() {
+		State.variables.tiger_coins = 0;
+		State.variables.ox_coins = 0;
+		State.variables.rabbit_coins = 0;
+	}
+<</script>>
+
+
+
+:: Wishing Wells {"position":"350,100","size":"100,100"}
+<<liveblock>>
+There are three wishing wells: The Tiger Well, Ox Well, and Rabbit Well. 
+<br> <br>
+Tiger Well: $tiger_coins <br>
+Ox Well: $ox_coins <br>
+Rabbit Well: $rabbit_coins
+<br> <br>
+
+<<button "Add to Tiger Well">>
+	<<set $tiger_coins++>>
+<</button>>
+<<button "Add to Ox Well">>
+	<<set $ox_coins++>>
+<</button>>
+<<button "Add to Rabbit Well">>
+	<<set $rabbit_coins++>>
+<</button>>
+<</liveblock>>

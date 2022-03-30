@@ -46,6 +46,19 @@ socket.on('new connection', (state) => {
 
 
     console.log("Connecting state:", state)
+    console.log("Current State:", SugarCube.State.variables)
+
+    // If the server's state is empty, set with this client's state
+    if (_.isEqual(state, {})) {
+        state = SugarCube.State.variables
+    }
+
+    // If server's state doesn't have your id yet, set it with this client's state
+    let userId = SugarCube.State.variables.userId
+    if (state.users[userId] === undefined) {
+        state.users[userId] = SugarCube.State.variables.users[userId];
+    }
+
     store.dispatch({type: 'UPDATEGAME', payload: state, connecting: true})
     store.dispatch({type: 'UPDATESTORE', payload: state, connecting: true})
 })
@@ -65,16 +78,18 @@ function setId(userId){
 }
 
 function reducer(state, action){
+    
     // Checks for undefined to prevent feedback loop. Skips undefined check if connecting to the game (updates game as soon as client joins)
-    if(state === undefined && action.connecting !== undefined) {
-        console.log("State is undefined")
-        return {...state, ...SugarCube.State.variables}
-    }
+    // if(state === undefined && action.connecting !== undefined) {
+    //     console.log("State is undefined")
+    //     return {...state, ...SugarCube.State.variables}
+    // }
 
     switch(action.type){
         case 'UPDATESTORE':
             console.log('Updating Store and Other Clients', action.payload)
             if (!action.noUpdate) {
+                console.log("Difference emitted")
                 socket.emit('difference', {...state, ...action.payload})
             }
             $(document).trigger(":liveupdate");
