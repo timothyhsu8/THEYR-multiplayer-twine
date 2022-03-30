@@ -150,13 +150,27 @@ $(document).one(":passagestart", () => {
 
 :: Wishing Wells {"position":"350,100","size":"100,100"}
 <<liveblock>>
-There are three wishing wells: The Tiger Well, Ox Well, and Rabbit Well. 
-<br> <br>
-Tiger Well: $tiger_coins <br>
-Ox Well: $ox_coins <br>
-Rabbit Well: $rabbit_coins
-<br> <br>
+You approach a shrine that has three wishing wells: The Tiger Well, Ox Well, and Rabbit Well. 
+<br><br>
+<table>
+	<tr>
+		<td> Tiger Well: </td>
+		<td />
+		<td> <b> $tiger_coins Coins </b> </td>
+	</tr>
+	<tr>
+		<td> Ox Well: </td>
+		<td />
+		<td>  <b> $ox_coins Coins </b> </td>
+	</tr>
+	<tr>
+		<td> Rabbit Well: </td>
+		<td />
+		<td> <b> $rabbit_coins  Coins </b> </td>
+	</tr>
 
+</table>
+<br>
 <<button "Add to Tiger Well">>
 	<<set $tiger_coins++>>
 <</button>>
@@ -166,4 +180,5 @@ Rabbit Well: $rabbit_coins
 <<button "Add to Rabbit Well">>
 	<<set $rabbit_coins++>>
 <</button>>
+
 <</liveblock>>

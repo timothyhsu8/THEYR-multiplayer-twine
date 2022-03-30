@@ -236,13 +236,27 @@ $(document).one(&quot;:passagestart&quot;, () =&gt; {
 		State.variables.rabbit_coins = 0;
 	}
 &lt;&lt;/script&gt;&gt;</tw-passagedata><tw-passagedata position="350,100" size="100,100" name="Wishing Wells" pid="5">&lt;&lt;liveblock&gt;&gt;
-There are three wishing wells: The Tiger Well, Ox Well, and Rabbit Well. 
-&lt;br&gt; &lt;br&gt;
-Tiger Well: $tiger_coins &lt;br&gt;
-Ox Well: $ox_coins &lt;br&gt;
-Rabbit Well: $rabbit_coins
-&lt;br&gt; &lt;br&gt;
+You approach a shrine that has three wishing wells: The Tiger Well, Ox Well, and Rabbit Well. 
+&lt;br&gt;&lt;br&gt;
+&lt;table&gt;
+	&lt;tr&gt;
+		&lt;td&gt; Tiger Well: &lt;/td&gt;
+		&lt;td /&gt;
+		&lt;td&gt; &lt;b&gt; $tiger_coins Coins &lt;/b&gt; &lt;/td&gt;
+	&lt;/tr&gt;
+	&lt;tr&gt;
+		&lt;td&gt; Ox Well: &lt;/td&gt;
+		&lt;td /&gt;
+		&lt;td&gt;  &lt;b&gt; $ox_coins Coins &lt;/b&gt; &lt;/td&gt;
+	&lt;/tr&gt;
+	&lt;tr&gt;
+		&lt;td&gt; Rabbit Well: &lt;/td&gt;
+		&lt;td /&gt;
+		&lt;td&gt; &lt;b&gt; $rabbit_coins  Coins &lt;/b&gt; &lt;/td&gt;
+	&lt;/tr&gt;
 
+&lt;/table&gt;
+&lt;br&gt;
 &lt;&lt;button &quot;Add to Tiger Well&quot;&gt;&gt;
 	&lt;&lt;set $tiger_coins++&gt;&gt;
 &lt;&lt;/button&gt;&gt;
@@ -252,6 +266,7 @@ Rabbit Well: $rabbit_coins
 &lt;&lt;button &quot;Add to Rabbit Well&quot;&gt;&gt;
 	&lt;&lt;set $rabbit_coins++&gt;&gt;
 &lt;&lt;/button&gt;&gt;
+
 &lt;&lt;/liveblock&gt;&gt;</tw-passagedata><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css"></style><script role="script" id="twine-user-script" type="text/twine-javascript">
 Config.passages.nobr = true;
 

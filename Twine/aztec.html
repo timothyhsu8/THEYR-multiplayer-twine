@@ -302,7 +302,7 @@ $(document).one(&quot;:passagestart&quot;, () =&gt; {
 &lt;!-- &lt;&lt;masteraudio volume 0&gt;&gt; --&gt;</tw-passagedata><tw-passagedata position="138,11" size="100,100" name="PassageHeader" pid="6">&lt;&lt;script&gt;&gt;
 	function setupPassage() {
 		let users = State.variables.users;
-		if (typeof(showMap) !== &apos;undefined&apos; &amp;&amp; typeof(showStats) !== &apos;undefined&apos; &amp;&amp; typeof(setBackground) !== &apos;undefined&apos;) {
+		if (typeof(showMap) !== &apos;undefined&apos; &amp;&amp; typeof(showStats) !== &apos;undefined&apos; &amp;&amp; typeof(setBackground) !== &apos;undefined&apos; &amp;&amp; users !== undefined) {
 			showMap(); 
 			showStats();
 			setBackground();

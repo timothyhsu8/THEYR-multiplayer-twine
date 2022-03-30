@@ -217,7 +217,7 @@ $(document).one(":passagestart", () => {
 <<script>>
 	function setupPassage() {
 		let users = State.variables.users;
-		if (typeof(showMap) !== 'undefined' && typeof(showStats) !== 'undefined' && typeof(setBackground) !== 'undefined') {
+		if (typeof(showMap) !== 'undefined' && typeof(showStats) !== 'undefined' && typeof(setBackground) !== 'undefined' && users !== undefined) {
 			showMap(); 
 			showStats();
 			setBackground();
