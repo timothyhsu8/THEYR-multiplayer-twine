@@ -7,11 +7,6 @@ let coolDown = 0;
 
 // Watch all .js files/dirs in process.cwd() 
 gaze('Twine/*.*', function (err, watcher) {
-    // Files have all started watching 
-    // watcher === this
-
-    
-    console.log('Watching files...');
 
     // Get all watched files 
     var watched = this.watched();
@@ -25,24 +20,25 @@ gaze('Twine/*.*', function (err, watcher) {
         let command;
 
         if (suffix == "html") {
+            let outFile = `${prefix}.tw`
+            command = `node ./node_modules/twine-utils/bin/entwee.js "${prefix}.${suffix}" > "${outFile}${count}"`
             // command = `tweego -f sugarcube-2 -d -o "${prefix}".twee "${prefix}".html`
-            command = `node ./node_modules/twine-utils/bin/entwee.js "${prefix}.${suffix}" > "${prefix}.tw"`
         } 
         else if (suffix == "twee" || suffix == "tw") {
             let file = new Extwee.FileReader(`${prefix}.${suffix}`);
             let tp = new Extwee.TweeParser(file.contents);
             let start = tp.story.metadata.start
-            // let sfp = new StoryFormatParser("storyformats/sugarcube-2/format.js")
-            // new HTMLWriter(`${prefix}.html`, tp.story, sfp.storyformat)  // Write to HTML file
             
-            // command = `tweego -f sugarcube-2  "${prefix}".twee -o "${prefix}".html`
             command = `node ./node_modules/twine-utils/bin/entwine.js "${prefix}.${suffix}" -f "storyformats/sugarcube-2/format.js" > "${prefix}.html" -s "${start}"`
+            // command = `tweego -f sugarcube-2  "${prefix}".twee -o "${prefix}".html`
         } 
         else {
             console.log(prefix, suffix)
             return
         }
-        
+
+
+        // Execute command
         const mtime = fs.statSync(filepath).mtime;
         if (mtime - coolDown > 1000) {
             coolDown = mtime
