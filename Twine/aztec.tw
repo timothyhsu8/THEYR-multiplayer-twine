@@ -195,8 +195,10 @@ $(document).one(":passagestart", () => {
 
 			// Initialize roles
 			if (!State.variables.roles) {
-				State.variables.roles = {}
-				State.variables.roles[user['role']] = {}
+				State.variables.roles = {
+					"Mariana": {}, "Alvarado": {}, "Aguilar": {}, "Garrido": {}, "Olid": {}, "Moctezuma": {}, "Tlacaelel": {}, "Cuauhtemoc": {}, 
+					"Catec_Priest": {}, "Pocamatzin": {}, "Azchteca": {}, "Xicotencatl_Elder": {}, "Xicotencatl_Younger": {}, "Maxixcatl": {}
+			}
 			}
 
 			user = Object.assign(user, roleInfo);
@@ -977,7 +979,6 @@ Once you have figured out what they said, you may continue. But [[make note of t
 <</if>>
 
 :: Character Identification [Done] {"position":"631,157","size":"100,100"}
-<<liveblock>>
 <<switch $users[$userId]["role"]>>
 <<case "Cortes">>
 You open your eyes and find yourself on a ship. The boom you heard was the sound of cannon fire and you startle as another shot tears through the sky. <br>
@@ -1142,8 +1143,6 @@ Are you ready to <<link "begin your journey" "Aguilar Among the Maya">><<set $St
 
 </div>
 
-
-<</liveblock>>
 
 :: The Spaniards Decide to Continue [Done] {"position":"1112,619","size":"100,100"}
 Now that you've made a decision, you can move forward. <br>

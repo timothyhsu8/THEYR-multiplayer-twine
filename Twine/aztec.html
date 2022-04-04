@@ -283,8 +283,10 @@ $(document).one(&quot;:passagestart&quot;, () =&gt; {
 
 			// Initialize roles
 			if (!State.variables.roles) {
-				State.variables.roles = {}
-				State.variables.roles[user[&apos;role&apos;]] = {}
+				State.variables.roles = {
+					&quot;Mariana&quot;: {}, &quot;Alvarado&quot;: {}, &quot;Aguilar&quot;: {}, &quot;Garrido&quot;: {}, &quot;Olid&quot;: {}, &quot;Moctezuma&quot;: {}, &quot;Tlacaelel&quot;: {}, &quot;Cuauhtemoc&quot;: {}, 
+					&quot;Catec_Priest&quot;: {}, &quot;Pocamatzin&quot;: {}, &quot;Azchteca&quot;: {}, &quot;Xicotencatl_Elder&quot;: {}, &quot;Xicotencatl_Younger&quot;: {}, &quot;Maxixcatl&quot;: {}
+			}
 			}
 
 			user = Object.assign(user, roleInfo);
@@ -970,8 +972,7 @@ Once you have figured out what they said, you may continue. But [[make note of t
 &lt;br&gt;
 
 
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata position="631,157" size="100,100" tags="Done" name="Character Identification" pid="36">&lt;&lt;liveblock&gt;&gt;
-&lt;&lt;switch $users[$userId][&quot;role&quot;]&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata position="631,157" size="100,100" tags="Done" name="Character Identification" pid="36">&lt;&lt;switch $users[$userId][&quot;role&quot;]&gt;&gt;
 &lt;&lt;case &quot;Cortes&quot;&gt;&gt;
 You open your eyes and find yourself on a ship. The boom you heard was the sound of cannon fire and you startle as another shot tears through the sky. &lt;br&gt;
 &lt;br&gt;
@@ -1133,10 +1134,7 @@ Are you ready to &lt;&lt;link &quot;begin your journey&quot; &quot;Aguilar Among
 &lt;br&gt;
 &lt;&lt;/switch&gt;&gt;
 
-&lt;/div&gt;
-
-
-&lt;&lt;/liveblock&gt;&gt;</tw-passagedata><tw-passagedata position="1112,619" size="100,100" tags="Done" name="The Spaniards Decide to Continue" pid="37">Now that you&apos;ve made a decision, you can move forward. &lt;br&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata position="1112,619" size="100,100" tags="Done" name="The Spaniards Decide to Continue" pid="37">Now that you&apos;ve made a decision, you can move forward. &lt;br&gt;
 &lt;br&gt;
 &lt;&lt;switch $users[$userId][&quot;role&quot;]&gt;&gt;
 &lt;&lt;case &quot;Olid&quot; OR &quot;Alvarado&quot; OR &quot;Garrido&quot;&gt;&gt;
