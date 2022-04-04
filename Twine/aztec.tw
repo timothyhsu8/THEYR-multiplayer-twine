@@ -28,8 +28,11 @@ Spanish Aztec War Ver 1.0
 :: Story JavaScript [script]
 Config.passages.nobr = true;
 
-var urlPrefix="static/"
+Window.SugarCubeState = State;
+var jsLoaded = false;
+var urlPrefix="static/";
 
+setup.JSLoaded = false;
 importScripts([
 	'/socket.io/socket.io.js',
 	'https://unpkg.com/redux@latest/dist/redux.min.js',
@@ -41,7 +44,15 @@ importScripts([
 	"https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/1.0.11/jquery.csv.min.js",
 	"https://unpkg.com/jquery.nice-number@2.1.0/dist/jquery.nice-number.min.js",
 	"https://code.jquery.com/ui/1.12.1/jquery-ui.js"	
-]);
+])
+	.then(function() {
+		Engine.show();
+		// console.log("Finished loading");
+		// setup.JSLoaded = true;
+	}).catch(function(error) {
+		alert("Error: Could not find file 'YourExternalCode.js'.");
+	}
+);
 
 (function () {
 	"use strict";
@@ -82,6 +93,7 @@ importScripts([
 	Macro.add(['liveblock', 'lb'], {
 		tags: null,
 		handler: function handler() {
+			console.log("In liveblock");
 			try {
 				var content = this.payload[0].contents.trim();
 				if (content) {
@@ -137,7 +149,7 @@ $(document).one(":passagestart", () => {
 	else {
 		localStorage.getItem('userId') === null ? setId(generateId()) : setId(localStorage.getItem('userId'));
 	}
-    setup.theyrCallback();
+    setup.theyrCallback(State);
 });
 
 
@@ -205,6 +217,7 @@ $(document).one(":passagestart", () => {
 
 			// Start player at the passage they left off
 			let currentPassage = State.variables[`${user['role']}_currentPassage`]
+			console.log("Current passage is ", currentPassage)
 			if (currentPassage)
 				Engine.play(currentPassage)
 		}

@@ -120,8 +120,11 @@ var saveAs=saveAs||navigator.msSaveBlob&&navigator.msSaveBlob.bind(navigator)||f
 @import url(&quot;//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css&quot;);
 @import url(&quot;Twine/style.css&quot;);</tw-passagedata><tw-passagedata tags="script" name="Story JavaScript" pid="4">Config.passages.nobr = true;
 
-var urlPrefix=&quot;static/&quot;
+Window.SugarCubeState = State;
+var jsLoaded = false;
+var urlPrefix=&quot;static/&quot;;
 
+setup.JSLoaded = false;
 importScripts([
 	&apos;/socket.io/socket.io.js&apos;,
 	&apos;https://unpkg.com/redux@latest/dist/redux.min.js&apos;,
@@ -133,7 +136,15 @@ importScripts([
 	&quot;https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/1.0.11/jquery.csv.min.js&quot;,
 	&quot;https://unpkg.com/jquery.nice-number@2.1.0/dist/jquery.nice-number.min.js&quot;,
 	&quot;https://code.jquery.com/ui/1.12.1/jquery-ui.js&quot;	
-]);
+])
+	.then(function() {
+		Engine.show();
+		// console.log(&quot;Finished loading&quot;);
+		// setup.JSLoaded = true;
+	}).catch(function(error) {
+		alert(&quot;Error: Could not find file &apos;YourExternalCode.js&apos;.&quot;);
+	}
+);
 
 (function () {
 	&quot;use strict&quot;;
@@ -174,6 +185,7 @@ importScripts([
 	Macro.add([&apos;liveblock&apos;, &apos;lb&apos;], {
 		tags: null,
 		handler: function handler() {
+			console.log(&quot;In liveblock&quot;);
 			try {
 				var content = this.payload[0].contents.trim();
 				if (content) {
@@ -229,7 +241,7 @@ $(document).one(&quot;:passagestart&quot;, () =&gt; {
 	else {
 		localStorage.getItem(&apos;userId&apos;) === null ? setId(generateId()) : setId(localStorage.getItem(&apos;userId&apos;));
 	}
-    setup.theyrCallback();
+    setup.theyrCallback(State);
 });</tw-passagedata><tw-passagedata position="22,135" size="100,100" name="StoryInit" pid="5">&lt;&lt;script&gt;&gt;
 	setup.theyrCallback = function() {
 		let users = State.variables.users;
@@ -293,6 +305,7 @@ $(document).one(&quot;:passagestart&quot;, () =&gt; {
 
 			// Start player at the passage they left off
 			let currentPassage = State.variables[`${user[&apos;role&apos;]}_currentPassage`]
+			console.log(&quot;Current passage is &quot;, currentPassage)
 			if (currentPassage)
 				Engine.play(currentPassage)
 		}
@@ -8314,8 +8327,11 @@ The group has made a decision.  Continue to the next page to find out &lt;&lt;li
 @import url("Twine/style.css");</style><script role="script" id="twine-user-script" type="text/twine-javascript">
 Config.passages.nobr = true;
 
-var urlPrefix="static/"
+Window.SugarCubeState = State;
+var jsLoaded = false;
+var urlPrefix="static/";
 
+setup.JSLoaded = false;
 importScripts([
 	'/socket.io/socket.io.js',
 	'https://unpkg.com/redux@latest/dist/redux.min.js',
@@ -8327,7 +8343,15 @@ importScripts([
 	"https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/1.0.11/jquery.csv.min.js",
 	"https://unpkg.com/jquery.nice-number@2.1.0/dist/jquery.nice-number.min.js",
 	"https://code.jquery.com/ui/1.12.1/jquery-ui.js"	
-]);
+])
+	.then(function() {
+		Engine.show();
+		// console.log("Finished loading");
+		// setup.JSLoaded = true;
+	}).catch(function(error) {
+		alert("Error: Could not find file 'YourExternalCode.js'.");
+	}
+);
 
 (function () {
 	"use strict";
@@ -8368,6 +8392,7 @@ importScripts([
 	Macro.add(['liveblock', 'lb'], {
 		tags: null,
 		handler: function handler() {
+			console.log("In liveblock");
 			try {
 				var content = this.payload[0].contents.trim();
 				if (content) {
@@ -8423,7 +8448,7 @@ $(document).one(":passagestart", () => {
 	else {
 		localStorage.getItem('userId') === null ? setId(generateId()) : setId(localStorage.getItem('userId'));
 	}
-    setup.theyrCallback();
+    setup.theyrCallback(State);
 });</script></tw-storydata>
 	<script id="script-sugarcube" type="text/javascript">
 	/*! SugarCube JS */

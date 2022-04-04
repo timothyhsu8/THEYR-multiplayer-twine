@@ -115,7 +115,7 @@ var saveAs=saveAs||navigator.msSaveBlob&&navigator.msSaveBlob.bind(navigator)||f
 	},
 	&quot;zoom&quot;: 1
 }</tw-passagedata><tw-passagedata tags="script" name="Story JavaScript" pid="3">Config.passages.nobr = true;
-
+Window.SugarCubeState = State;
 var urlPrefix=&quot;static/&quot;
 
 importScripts([
@@ -135,11 +135,13 @@ importScripts([
 	&quot;use strict&quot;;
 
 	$(document).on(&quot;:liveupdate&quot;, function () {
+		console.log(&quot;In liveupdate&quot;);
 		$(&quot;.macro-live&quot;).trigger(&quot;:liveupdateinternal&quot;);
 	});
 
 	Macro.add([&apos;update&apos;, &apos;upd&apos;], {
 		handler: function handler() {
+			console.log(&quot;In update macro&quot;);
 			$(document).trigger(&quot;:liveupdate&quot;);
 		}
 	});
@@ -147,6 +149,7 @@ importScripts([
 	Macro.add([&apos;live&apos;, &apos;l&apos;, &apos;lh&apos;], {
 		skipArgs: true,
 		handler: function handler() {
+			console.log(&quot;In live macro&quot;);
 			if (this.args.full.length === 0) {
 				return this.error(&apos;no expression specified&apos;);
 			}
@@ -170,6 +173,7 @@ importScripts([
 	Macro.add([&apos;liveblock&apos;, &apos;lb&apos;], {
 		tags: null,
 		handler: function handler() {
+			console.log(&quot;In liveblock&quot;);
 			try {
 				var content = this.payload[0].contents.trim();
 				if (content) {
@@ -269,7 +273,7 @@ You approach a shrine that has three wishing wells: The Tiger Well, Ox Well, and
 
 &lt;&lt;/liveblock&gt;&gt;</tw-passagedata><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css"></style><script role="script" id="twine-user-script" type="text/twine-javascript">
 Config.passages.nobr = true;
-
+Window.SugarCubeState = State;
 var urlPrefix="static/"
 
 importScripts([
@@ -289,11 +293,13 @@ importScripts([
 	"use strict";
 
 	$(document).on(":liveupdate", function () {
+		console.log("In liveupdate");
 		$(".macro-live").trigger(":liveupdateinternal");
 	});
 
 	Macro.add(['update', 'upd'], {
 		handler: function handler() {
+			console.log("In update macro");
 			$(document).trigger(":liveupdate");
 		}
 	});
@@ -301,6 +307,7 @@ importScripts([
 	Macro.add(['live', 'l', 'lh'], {
 		skipArgs: true,
 		handler: function handler() {
+			console.log("In live macro");
 			if (this.args.full.length === 0) {
 				return this.error('no expression specified');
 			}
@@ -324,6 +331,7 @@ importScripts([
 	Macro.add(['liveblock', 'lb'], {
 		tags: null,
 		handler: function handler() {
+			console.log("In liveblock");
 			try {
 				var content = this.payload[0].contents.trim();
 				if (content) {

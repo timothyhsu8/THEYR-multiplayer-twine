@@ -20,7 +20,7 @@ Wishing Wells
 
 :: Story JavaScript [script]
 Config.passages.nobr = true;
-
+Window.SugarCubeState = State;
 var urlPrefix="static/"
 
 importScripts([
@@ -40,11 +40,13 @@ importScripts([
 	"use strict";
 
 	$(document).on(":liveupdate", function () {
+		console.log("In liveupdate");
 		$(".macro-live").trigger(":liveupdateinternal");
 	});
 
 	Macro.add(['update', 'upd'], {
 		handler: function handler() {
+			console.log("In update macro");
 			$(document).trigger(":liveupdate");
 		}
 	});
@@ -52,6 +54,7 @@ importScripts([
 	Macro.add(['live', 'l', 'lh'], {
 		skipArgs: true,
 		handler: function handler() {
+			console.log("In live macro");
 			if (this.args.full.length === 0) {
 				return this.error('no expression specified');
 			}
@@ -75,6 +78,7 @@ importScripts([
 	Macro.add(['liveblock', 'lb'], {
 		tags: null,
 		handler: function handler() {
+			console.log("In liveblock");
 			try {
 				var content = this.payload[0].contents.trim();
 				if (content) {

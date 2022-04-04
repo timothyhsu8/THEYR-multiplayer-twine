@@ -175,3 +175,5 @@ function makeStats(item, container, value = 0) {
         $(this).blur()
     })
 }
+
+jsLoaded = true
