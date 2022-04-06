@@ -1,8 +1,12 @@
 import gaze from 'gaze'
 import fs from 'fs'
-import { exec } from 'child_process';
+import { exec, execFile } from 'child_process';
 import Extwee, { HTMLWriter, StoryFormat, StoryFormatParser, TweeWriter } from 'extwee'
 
+let tweegoBinaries = {"win32":"binaries/tweego-2.1.1-windows-x64", "linux":"binaries/tweego-2.1.1-macos-x64", "darwin":"binaries/tweego-2.1.1-macos-x64"};
+let tweeBinary = tweegoBinaries[process.platform] || tweegoBinaries["linux"];
+console.log({tweeBinary});
+console.log("In twee gaze");
 let coolDown = 0;
 
 // Watch all .js files/dirs in process.cwd() 
@@ -21,22 +25,24 @@ gaze('Twine/*.*', function (err, watcher) {
 
             let [suffix, ...prefix] = filepath.split(".").reverse();
             prefix = prefix.reverse().join(".");
-            let command;
-
+            let command, args;
             if (suffix == "html") {
                 let outFile = `${prefix}.tw`
                 fs.truncate(outFile, 0, ((err) => {}))
 
-                command = `node ./node_modules/twine-utils/bin/entwee.js "${prefix}.${suffix}" > "${outFile}"`
-                // command = `tweego -f sugarcube-2 -d -o "${prefix}".twee "${prefix}".html`
+                // command = `node ./node_modules/twine-utils/bin/entwee.js "${prefix}.${suffix}" > "${outFile}"`
+                command = `${tweeBinary}/tweego`;
+                args = ["-f", "sugarcube-2", "-d", "-o", `${prefix}.twee`, `${prefix}.html`];
             } 
             else if (suffix == "twee" || suffix == "tw") {
                 let file = new Extwee.FileReader(`${prefix}.${suffix}`);
-                let tp = new Extwee.TweeParser(file.contents);
-                let start = tp.story.metadata.start
+                let tpstory = new Extwee.TweeParser(file.contents).story;
+                // console.log(tpstory.passages[0]);
+                let start = tpstory.metadata?.start || tpstory.passages[tpstory.metadata.startnode-1].name;
                 
-                command = `node ./node_modules/twine-utils/bin/entwine.js "${prefix}.${suffix}" -f "storyformats/sugarcube-2/format.js" > "${prefix}.html" -s "${start}"`
-                // command = `tweego -f sugarcube-2  "${prefix}".twee -o "${prefix}".html`
+                // command = `node ./node_modules/twine-utils/bin/entwine.js "${prefix}.${suffix}" -f "storyformats/sugarcube-2/format.js" > "${prefix}.html" -s "${start}"`
+                command = `${tweeBinary}/tweego`
+                args = [`"${prefix}.twee"`, "-o", `${prefix}.html`];
             } 
             else {
                 console.log(prefix, suffix)
@@ -44,7 +50,7 @@ gaze('Twine/*.*', function (err, watcher) {
             }
 
             // Executes shell command 
-            exec(command, (err, stdout, stderr) => { // tweego -d -o index.twee index.html
+            execFile(command, args, (err, stdout, stderr) => { // tweego -d -o index.twee index.html
                 if (err) {
                     console.error(err)
                 }
