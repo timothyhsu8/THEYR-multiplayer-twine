@@ -20,10 +20,6 @@ Spanish Aztec War Ver 1.0
 }
 
 
-:: fooofooo
-passage
-
-
 :: Story Stylesheet [stylesheet]
 @import url('https://fonts.googleapis.com/css2?family=Langar&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
@@ -34,7 +30,7 @@ passage
 
 :: Story JavaScript [script]
 Config.passages.nobr = true;
-
+Window.SugarCubeState = State;
 var urlPrefix="static/"
 
 importScripts([
@@ -48,7 +44,9 @@ importScripts([
 	"https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/1.0.11/jquery.csv.min.js",
 	"https://unpkg.com/jquery.nice-number@2.1.0/dist/jquery.nice-number.min.js",
 	"https://code.jquery.com/ui/1.12.1/jquery-ui.js"	
-]);
+]).then(() => {
+	Engine.show();
+});
 
 (function () {
 	"use strict";
@@ -166,10 +164,10 @@ importScripts([
 			user = Object.assign(user, roleInfo);
 
 			// Start player at the passage they left off
-			let currentPassage = State.variables[`${user['role']}_currentPassage`]
-			if (currentPassage)
-				Engine.play(currentPassage)
-			}
+			// let currentPassage = State.variables[`${user['role']}_currentPassage`]
+			// if (currentPassage)
+			// 	Engine.play(currentPassage)
+		}
 	}
 <</script>>
 <<cacheaudio "Gulls_and_waves__5min_" "audio/Gulls_and_waves__5min_.mp3">>
