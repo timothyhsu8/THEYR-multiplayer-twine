@@ -1,66 +1,64 @@
 var socket = io();
 var store = Redux.createStore(reducer);
+let lastUpdate = new Date()
 
 // If userData exists already, set your ID in localStorage
-if(userData){
-    setId(userData.id)   
-}
-
-// Sets the UserId in the Users mapping
-$(document).one(':passageinit', () => {
-    // SugarCube.setup.promise.then(() => {
-        console.log("STORY READY")
-        let users = SugarCube.State.getVar('$users');
-        console.log(users)
-        // If Users map is not defined, initialize it
-        if (users === undefined){
-            users = {}
-        } 
-
-        // If client does not exist in Users, add them
-        if(!(userData.id in users)) {
-            users[userData.id] = {}
-            users[userData.id].username= userData.username
-            SugarCube.State.setVar('$users', users);
-        }  
-    // })
-});
-
-// function theyrInit() {
-//     let users = SugarCube.State.getVar('$users');
-//     console.log(users)
-//     // If Users map is not defined, initialize it
-//     if (users === undefined){
-//         users = {}
-//     } 
-
-//     // If client does not exist in Users, add them
-//     if(!(userData.id in users)) {
-//         users[userData.id] = {}
-//         users[userData.id].username= userData.username
-//         SugarCube.State.setVar('$users', users);
-//     }  
+// if(userData){
+//     setId(userData.id)   
 // }
 
-// User connects, asks server for game state
+// Sets the UserId in the Users mapping
+// ISSUE: This won't run unless the passage reloads using the reloadPassage() function (BECAUSE STORY LOADS BEFORE THIS CLIENT FILE IS LOADED)
+// $(document).one(":storyready", () => {
+//     console.log("STORY READY");
+//     // let users = Window.SugarCubeState.getVar('$users');
+
+//     // // If Users map is not defined, initialize it
+//     // if (users === undefined){
+//     //     users = {}
+//     // } 
+
+//     // // If client does not exist in Users, add them
+//     // if(!(userData.id in users)) {
+//     //     users[userData.id] = {}
+//     //     users[userData.id].username= userData.username
+//     //     Window.SugarCubeState.setVar('$users', users);
+//     // }  
+//     // SugarCube.setup.theyrCallback();
+// });
+
+// // User connects, asks server for game state
 socket.on('connect', () => {
     socket.emit('new user', socket.id);
 })
 
 // Receive state from server upon connecting, then update all other clients that you've connected
 socket.on('new connection', (state) => {
+    // // If this is the first time a user is connecting, assign them a userId in local storage
+    // if (localStorage.getItem('userId') === null) {
+    //     setId(socket.id)
+    // }
 
-    // If this is the first time a user is connecting, assign them a userId in local storage
-    if (localStorage.getItem('userId') === null) {
-        setId(socket.id)
+    // // Returning user, get correct user state from database
+    // else {
+    //     setId(localStorage.getItem('userId'))
+    // }
+
+
+    console.log("Connecting state:", state)
+    console.log("Current State:", Window.SugarCubeState.variables)
+
+    // If the server's state is empty, set with this client's state
+    if (_.isEqual(state, {})) {
+        state = Window.SugarCubeState.variables
     }
 
-    // Returning user, get correct user state from database
-    else {
-        setId(localStorage.getItem('userId'))
+    // If server's state doesn't have your id yet, set it with this client's state
+    let userId = Window.SugarCubeState.variables.userId
+    if (state.users[userId] === undefined) {
+        state.users[userId] = Window.SugarCubeState.variables.users[userId];
     }
-    
-    console.log("NEW CONNECTION")
+
     store.dispatch({type: 'UPDATEGAME', payload: state, connecting: true})
     store.dispatch({type: 'UPDATESTORE', payload: state, connecting: true})
 })
@@ -70,31 +68,39 @@ socket.on('new connection', (state) => {
 socket.on('difference', (state) => {
     console.log("Difference received from the server")
     store.dispatch({type: 'UPDATEGAME', payload:state})
-    store.dispatch({type: 'UPDATESTORE', payload: state})
+    store.dispatch({type: 'UPDATESTORE', payload: state, noUpdate: true})
 })
 
 // Reducer to update your store and send the difference to all other clients
 function setId(userId){
     localStorage.setItem('userId', userId);
-    SugarCube.State.setVar('$userId', userId);
+    Window.SugarCubeState.setVar('$userId', userId);
 }
 
 function reducer(state, action){
+    
     // Checks for undefined to prevent feedback loop. Skips undefined check if connecting to the game (updates game as soon as client joins)
-    if(state === undefined && action.connecting === undefined) {
-        console.log("State is undefined")
-        return {...state, ...SugarCube.State.variables}
-    }
+    // if(state === undefined && action.connecting !== undefined) {
+    //     console.log("State is undefined")
+    //     return {...state, ...Window.SugarCubeState.variables}
+    // }
 
     switch(action.type){
         case 'UPDATESTORE':
             console.log('Updating Store and Other Clients', action.payload)
-            socket.emit('difference', {...state, ...action.payload})
-            SugarCube.Engine.show()
-            return {...state, ...action.payload}
+            if (!action.noUpdate) {
+                console.log("Difference emitted")
+                socket.emit('difference', {...state, ...action.payload})
+            }
+            $(document).trigger(":liveupdate");
+            // if (!action.self && !action.connecting && lastUpdate < new Date() - 1000) {
+            //     reloadPassage();
+            // }
+            return _.cloneDeep(Window.SugarCubeState.variables)
         case 'UPDATEGAME':
             console.log('Updating Game', action.payload);
             updateSugarCubeState(action.payload);
+            $(document).trigger(":liveupdate");
             return
         default:
             return state
@@ -105,33 +111,26 @@ setInterval(update, 100)    // Check for differences and send a socket event to 
 
 // If differences between SugarCube state and store detected, update your store and the other clients
 function update() {
-    if(!_.isEqual(SugarCube.State.variables, store.getState())){
-        let diff = difference(SugarCube.State.variables, store.getState());
-        
-        // let diffKeys = Object.keys(diff)
-        // // If the only difference is userId, don't update
-        // if (diffKeys.length === 1 && diffKeys[0] === "userId")
-        //     return
-
+    if(!_.isEqual(Window.SugarCubeState.variables, store.getState())){
+        let diff = difference(Window.SugarCubeState.variables, store.getState());
         console.log('diff detected', diff)
-        store.dispatch({type: 'UPDATESTORE', payload: SugarCube.State.variables});
-        // store.dispatch({type: 'UPDATESTORE', payload: diff});    // Old dispatch call
+        store.dispatch({type: 'UPDATESTORE', payload: diff, self: true});
+        // store.dispatch({type: 'UPDATESTORE', payload: Window.SugarCubeState.variables});   // Old dispatch call
     }
-}
-
-// Print SugarCube State and Store
-function printVars(){
-    console.log("STORE:", store.getState());
-    console.log("SUGARCUBE:", SugarCube.State.variables);
 }
 
 // Finds the difference between 2 different objects (Used to compare SugarCube State and Store)
 function difference(object, base) {
 	function changes(object, base) {
 		return _.transform(object, function(result, value, key) {
-			if (!_.isEqual(value, base[key])) {
-				result[key] = (_.isObject(value) && _.isObject(base[key])) ? changes(value, base[key]) : value;
-			}
+            try {
+                if (!_.isEqual(value, base[key])) {
+                    result[key] = (_.isObject(value) && _.isObject(base[key])) ? changes(value, base[key]) : value;
+                }
+            }
+            catch(err) {
+                // console.log("Error in diff:", err);
+            }
 		});
 	}
 	return changes(object, base);
@@ -140,14 +139,17 @@ function difference(object, base) {
 // Updates client's SugarCube State when state changes are received from the server
 function updateSugarCubeState(new_state) {
     for (const [key, value] of Object.entries(new_state)) {
-        SugarCube.State.variables[key] = value
+        Window.SugarCubeState.variables[key] = value
     }
-    SugarCube.Engine.show()
+    // reloadPassage();
 }
 
-// Prints User information in the console
-function printUser() {
-    const userId = SugarCube.State.variables.userId
-    console.log(`User is ${userId}`)
-    console.log(SugarCube.State.variables.users[userId])
-}
+// Reloads the passage while keeping scroll position
+// function reloadPassage() {
+//     // if (Window.SugarCubeState.passage !== "Character Identification")
+//     // console.log("SugarCube Passage:", SugarCube.)
+//     let scrollX = window.scrollX
+//     let scrollY = window.scrollY
+//     SugarCube.Engine.show();
+//     window.scrollTo(scrollX, scrollY)
+// } 

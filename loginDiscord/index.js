@@ -26,9 +26,32 @@ const HEROKU_URL = process.env.herokuURL || herokuURL
 
 const { app } = new webstack(PORT).get();
 
+function returnTwine(userData, response) {
+	let userDataScript =  `
+	<script> let userData=${userData} </script>
+	`
+	let file = TWINE_PATH
+	let fileContents = fs.readFileSync(file)
+	return response.send(`${fileContents} ${userDataScript}`);
+}
+
 app.get('/', async ({ query }, response) => {
-	const { code } = query;
+	const { code, state, test, nick } = query;
 	const htmlTemplate = './views/index.html'
+	let userDataScript;
+
+	if (test) {
+		let nickname = "Cuauhtémoc"
+		let id = "229035280496197642"
+		if (nick) {
+			nickname = nick
+			id = generateId()
+		}	
+		
+		userDataScript = JSON.stringify({"id":id,"nick":nickname, "faction": "Aztecs", "avatar":null,"discriminator":"2739","public_flags":0,"flags":0,"banner":null,"banner_color":null,
+		"accent_color":null,"locale":"en-US","mfa_enabled":false});
+		return returnTwine(userDataScript, response);
+	}
 
 	if (code) {
 		try {
@@ -53,19 +76,31 @@ app.get('/', async ({ query }, response) => {
 					authorization: `${oauthData.token_type} ${oauthData.access_token}`,
 				},
 			});
+			
 			const userResultJson = await userResult.json();
 			let userData = JSON.stringify(userResultJson);
-			let userDataScript = `
-			<script> let userData=${userData} </script>
-			`
-			let file = TWINE_PATH
-			if (userResultJson.message) {
-				return response.send(JSON.stringify(userResultJson));
-            	file = path.join(__dirname, 'index.html')
-			}
 			
-			let fileContents = fs.readFileSync(file)
-			return response.send(`${fileContents} ${userDataScript}`);
+			const guildResult = await fetch('https://discord.com/api/users/@me/guilds/931624626491101245/member', {
+				headers: {
+					authorization: `${oauthData.token_type} ${oauthData.access_token}`,
+				},
+			});
+			const guildResultJson = await guildResult.json();
+			let guildData = JSON.stringify(guildResultJson);
+			
+			const combineData = JSON.stringify({...guildResultJson, ...userResultJson});
+			
+
+			if (userResultJson.message) {
+				return response.send(JSON.stringify(combineData));
+				// file = path.join(__dirname, 'index.html')
+			}
+
+			// userDataScript = `
+			// <script> let userData=${userData} </script>
+			// `
+
+			return returnTwine(combineData, response);
 			
 		} catch (error) {
 			// NOTE: An unauthorized token will not throw an error;
@@ -80,5 +115,12 @@ app.get('/', async ({ query }, response) => {
 	return response.send(foo);
 });
 
-
+// Generates a random ID
+function generateId() {
+	let id = "";
+	for (let i = 0; i < 18; i++) {
+		id += Math.floor(Math.random() * 10);
+	}
+	return id;
+}
 
