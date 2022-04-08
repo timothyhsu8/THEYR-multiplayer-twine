@@ -1,5 +1,5 @@
 import gaze from 'gaze'
-import fs from 'fs'
+import fs, { existsSync } from 'fs'
 import { exec, execFile } from 'child_process';
 import Extwee, { HTMLWriter, StoryFormat, StoryFormatParser, TweeWriter } from 'extwee'
 
@@ -35,14 +35,14 @@ gaze('Twine/*.*', function (err, watcher) {
                 args = ["-f", "sugarcube-2", "-d", "-o", `${prefix}.twee`, `${prefix}.html`];
             } 
             else if (suffix == "twee" || suffix == "tw") {
-                let file = new Extwee.FileReader(`${prefix}.${suffix}`);
-                let tpstory = new Extwee.TweeParser(file.contents).story;
+                // let file = new Extwee.FileReader(`${prefix}.${suffix}`);
+                // let tpstory = new Extwee.TweeParser(file.contents).story;
                 // console.log(tpstory.passages[0]);
-                let start = tpstory.metadata?.start || tpstory.passages[tpstory.metadata.startnode-1].name;
-                
+                // let start = tpstory.metadata?.start || tpstory.passages[tpstory.metadata.startnode-1].name;
                 // command = `node ./node_modules/twine-utils/bin/entwine.js "${prefix}.${suffix}" -f "storyformats/sugarcube-2/format.js" > "${prefix}.html" -s "${start}"`
+                // command = `tweego -f sugarcube-2  "${prefix}".twee -o "${prefix}".html`
                 command = `${tweeBinary}/tweego`
-                args = [`"${prefix}.twee"`, "-o", `${prefix}.html`];
+                args = ["-f", "sugarcube-2", `${prefix}.${suffix}`, "-o", `${prefix}.html`];
             } 
             else {
                 console.log(prefix, suffix)
@@ -50,12 +50,14 @@ gaze('Twine/*.*', function (err, watcher) {
             }
 
             // Executes shell command 
-            execFile(command, args, (err, stdout, stderr) => { // tweego -d -o index.twee index.html
+            execFile(command, args, (err, stdout, stderr) => { 
                 if (err) {
                     console.error(err)
                 }
             });
 
+            // console.log(existsSync());
+            // console.log(existsSync(`${prefix}.${suffix}`))
             console.log(filepath + ' was changed');
         }
     });
