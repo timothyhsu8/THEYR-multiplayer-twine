@@ -49,9 +49,26 @@ importScripts([
 	"https://code.jquery.com/ui/1.12.1/jquery-ui.js"	
 ])
 	.then(function() {
-		Engine.show();
-		// console.log("Finished loading");
-		// setup.JSLoaded = true;
+		function reloadStory() {
+			if (stateReceived) {
+				let userId = State.variables.userId;
+				let role = State.variables['users'][userId]['role'];
+				let currentPassage = State.variables[`Cuauhtemoc_currentPassage`];
+				console.log("current passage:", currentPassage);
+				// Start where you left off. Otherwise, reload passage
+				if (currentPassage) {
+					Engine.play(currentPassage);
+				}
+				else {
+					Engine.show();
+				}
+			}
+			else {
+				setTimeout(reloadStory, 100);
+			}
+		}
+
+		reloadStory();
 	}).catch(function(error) {
 		alert("Error: Could not find file 'YourExternalCode.js'.");
 	}
@@ -219,10 +236,11 @@ $(document).one(":passagestart", () => {
 			user = Object.assign(user, roleInfo);
 
 			// Start player at the passage they left off
-			let currentPassage = State.variables[`${user['role']}_currentPassage`]
-			console.log("Current passage is ", currentPassage)
-			if (currentPassage)
-				Engine.play(currentPassage)
+			// let currentPassage = State.variables[`${user['role']}_currentPassage`]
+			// console.log("Current passage is ", currentPassage);
+			// Engine.play("The Aztec Quest for Legitimacy");
+			// if (currentPassage)
+			// 	Engine.play(currentPassage)
 		}
 	}
 

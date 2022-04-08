@@ -1,5 +1,6 @@
 var socket = io();
 var store = Redux.createStore(reducer);
+var stateReceived = false;
 let lastUpdate = new Date()
 
 // If userData exists already, set your ID in localStorage
@@ -61,6 +62,7 @@ socket.on('new connection', (state) => {
 
     store.dispatch({type: 'UPDATEGAME', payload: state, connecting: true})
     store.dispatch({type: 'UPDATESTORE', payload: state, connecting: true})
+    stateReceived = true;
 })
 
 
