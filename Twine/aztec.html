@@ -128,8 +128,8 @@ importScripts([
 			if (stateReceived) {
 				let userId = State.variables.userId;
 				let role = State.variables['users'][userId]['role'];
-				let currentPassage = State.variables[`Cuauhtemoc_currentPassage`];
-				console.log("current passage:", currentPassage);
+				let currentPassage = State.variables[`${role}_currentPassage`];
+
 				// Start where you left off. Otherwise, reload passage
 				if (currentPassage) {
 					Engine.play(currentPassage);
@@ -245,7 +245,7 @@ $(document).one(":passagestart", () => {
 		localStorage.getItem('userId') === null ? setId(generateId()) : setId(localStorage.getItem('userId'));
 	}
     setup.theyrCallback(State);
-});</script><tw-tag name="Change-Title" color="yellow"></tw-tag><tw-tag name="Coding-Problem" color="red"></tw-tag><tw-tag name="Done" color="green"></tw-tag><tw-tag name="New-Passage" color="purple"></tw-tag><tw-tag name="Text-to-be-updated-by-Ashley" color="orange"></tw-tag><tw-tag name="Breaks" color="blue"></tw-tag><tw-passagedata pid="1" name="StoryInit" tags="" position="22,135" size="100,100">&lt;&lt;script&gt;&gt;
+});</script><tw-tag name="Breaks" color="blue"></tw-tag><tw-tag name="Change-Title" color="yellow"></tw-tag><tw-tag name="Coding-Problem" color="red"></tw-tag><tw-tag name="Done" color="green"></tw-tag><tw-tag name="New-Passage" color="purple"></tw-tag><tw-tag name="Text-to-be-updated-by-Ashley" color="orange"></tw-tag><tw-passagedata pid="1" name="StoryInit" tags="" position="22,135" size="100,100">&lt;&lt;script&gt;&gt;
 	setup.theyrCallback = function() {
 		let users = State.variables.users;
 		let userId = State.variables.userId;

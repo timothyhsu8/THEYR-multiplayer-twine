@@ -53,8 +53,8 @@ importScripts([
 			if (stateReceived) {
 				let userId = State.variables.userId;
 				let role = State.variables['users'][userId]['role'];
-				let currentPassage = State.variables[`Cuauhtemoc_currentPassage`];
-				console.log("current passage:", currentPassage);
+				let currentPassage = State.variables[`${role}_currentPassage`];
+
 				// Start where you left off. Otherwise, reload passage
 				if (currentPassage) {
 					Engine.play(currentPassage);
@@ -207,9 +207,9 @@ $(document).one(":passagestart", () => {
 				{"faction": "Aztecs", "role": "Moctezuma", "Character": "Moctezuma", "isLeader": "TRUE"},
 				{"faction": "Aztecs", "role": "Tlacaelel", "Character": "Tlacaelel Xocoyotl (aka Tlacaelel the Younger)", "isLeader": "FALSE"},
 				{"faction": "Aztecs", "role": "Cuauhtemoc", "Character": "Cuauhtémoc", "isLeader": "FALSE"},
-				{"faction": "Aztecs", "role": "Catec_Priest", "Character": "Aztec Priest", "isLeader": "FALSE"},
-				{"faction": "Aztecs", "role": "Pocamatzin", "Character": "Cacamatzín", "isLeader": "FALSE"},
-				{"faction": "Aztecs", "role": "Azchteca", "Character": "Pochteca", "isLeader": "FALSE"},
+				{"faction": "Aztecs", "role": "Aztec_Priest", "Character": "Aztec Priest", "isLeader": "FALSE"},
+				{"faction": "Aztecs", "role": "Cacamatzin", "Character": "Cacamatzín", "isLeader": "FALSE"},
+				{"faction": "Aztecs", "role": "Pochteca", "Character": "Pochteca", "isLeader": "FALSE"},
 				{"faction": "Tlaxcalans", "role": "Xicotencatl_Elder", "Character": "Xicotencatl the Elder", "isLeader": "TRUE"},
 				{"faction": "Tlaxcalans", "role": "Xicotencatl_Younger", "Character": "Xicotencatl the Younger", "isLeader": "FALSE"},
 				{"faction": "Tlaxcalans", "role": "Maxixcatl", "Character": "Maxixcatl", "isLeader": "FALSE"}]
