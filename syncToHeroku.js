@@ -7,7 +7,7 @@ for (let i = 1; i <= herokuInstances; i++) {
         `git add .`,
         `git commit -m "Automated update to Heroku/Github"`,
         `git push`,
-        `git push https://git.heroku.com/aztec-${i}.git HEAD:master`
+        `echo git push https://git.heroku.com/aztec-${i}.git HEAD:master`
     ]
     
     for (let command of commands) {
