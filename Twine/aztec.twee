@@ -230,7 +230,7 @@ $(document).one(":passagestart", () => {
 				State.variables.roles = {
 					"Mariana": {}, "Alvarado": {}, "Aguilar": {}, "Garrido": {}, "Olid": {}, "Moctezuma": {}, "Tlacaelel": {}, "Cuauhtemoc": {}, 
 					"Catec_Priest": {}, "Pocamatzin": {}, "Azchteca": {}, "Xicotencatl_Elder": {}, "Xicotencatl_Younger": {}, "Maxixcatl": {}
-			}
+				}
 			}
 
 			user = Object.assign(user, roleInfo);
