@@ -14,7 +14,7 @@ for (let i = 1; i <= herokuInstances; i++) {
         try {
             execSync(command, console.log);
         } catch(err) {}
-        commands = [commands.pop()];
         console.log(commands);
     }
+    commands = [commands.pop()];
 }
