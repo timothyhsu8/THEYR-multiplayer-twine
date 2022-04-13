@@ -110,7 +110,7 @@ app.get('/', async ({ query }, response) => {
 	}
 
 	let htmlContents = fs.readFileSync(htmlTemplate, 'utf8')
-	let foo = htmlContents.replace("redirectURL", REDIRECTURL)
+	let foo = htmlContents.replace("%redirectURL%", REDIRECTURL)
 
 	return response.send(foo);
 });

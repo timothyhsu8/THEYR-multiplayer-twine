@@ -56,10 +56,14 @@ class JSONFS {
                 if (this.dataType(value) != "object" && this.dataType(value) != "array") {
                     let newDir = this.home + passedObject + key
                     this.delTree(newDir)
-                    fs.mkdirSync(this.home + passedObject, {
-                        recursive: true
-                    });
-                    fs.writeFileSync(newDir, JSON.stringify(value)) // Serializes data as a string in order to store as a text file
+                    try {
+                        fs.mkdirSync(this.home + passedObject, {
+                            recursive: true
+                        });
+                        fs.writeFileSync(newDir, JSON.stringify(value)) // Serializes data as a string in order to store as a text file
+                    } catch(err) {
+                        console.log(err);
+                    }
 
                 } else {
                     // let newDir = this.home + passedObject + key
