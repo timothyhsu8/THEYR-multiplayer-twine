@@ -286,3 +286,13 @@ function getUser() {
     let user = SugarCube.State.getVar("$users")[userId];
     return user;
 }
+
+function updateChat() {
+    const userId = Window.SugarCubeState.variables.userId;
+    const username = Window.SugarCubeState.variables.users[userId].username;
+    let currentText = Window.SugarCubeState.variables.chat;
+    const newText = document.getElementById('chatinput').value;
+    Window.SugarCubeState.setVar('$chat', currentText + '\n' + `${username}: ${newText}`);
+	// document.getElementById('chat').innerHTML = Window.SugarCubeState.variables.chat;
+}
+ 
