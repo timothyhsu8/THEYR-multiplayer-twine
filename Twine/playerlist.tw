@@ -34,21 +34,7 @@ importScripts([
 	"https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/1.0.11/jquery.csv.min.js",
 	"https://unpkg.com/jquery.nice-number@2.1.0/dist/jquery.nice-number.min.js",
 	"https://code.jquery.com/ui/1.12.1/jquery-ui.js"	
-]).then(function() {
-		function reloadStory() {
-			if (stateReceived) {
-				Engine.show();
-			}
-			else {
-				setTimeout(reloadStory, 100);
-			}
-		}
-
-		reloadStory();
-	}).catch(function(error) {
-		alert("Error: Could not find file 'YourExternalCode.js'.");
-	}
-);
+]);
 
 (function () {
 	"use strict";
@@ -150,8 +136,6 @@ $(document).one(":passagestart", () => {
 		localStorage.getItem('userId') === null ? setId(generateId()) : setId(localStorage.getItem('userId'));
 	}
 	
-	// State.variables.users = "bussin";
-	// console.log("Passage state", State.variables.users)
     setup.theyrCallback();
 });
 
@@ -166,6 +150,7 @@ $(document).one(":passagestart", () => {
 <</script>>
 
 :: PassageHeader {"position":"138,11","size":"100,100"}
+<<liveblock>>
 <<set _currentTime=new Date()>>
 <<set $users[$userId].lastSeen=_currentTime.getTime()>>
 
@@ -180,6 +165,8 @@ Active Players
 	<</if>>
 <</for>>
 <br>
+<</liveblock>>
+
 
 :: Wishing Wells {"position":"350,100","size":"100,100"}
 <<liveblock>>
