@@ -229,7 +229,7 @@ $(document).one(":passagestart", () => {
 			if (!State.variables.roles) {
 				State.variables.roles = {
 					"Mariana": {}, "Alvarado": {}, "Aguilar": {}, "Garrido": {}, "Olid": {}, "Moctezuma": {}, "Tlacaelel": {}, "Cuauhtemoc": {}, 
-					"Catec_Priest": {}, "Pocamatzin": {}, "Azchteca": {}, "Xicotencatl_Elder": {}, "Xicotencatl_Younger": {}, "Maxixcatl": {}
+					"Aztec_Priest": {}, "Cacamatzin": {}, "Pochteca": {}, "Xicotencatl_Elder": {}, "Xicotencatl_Younger": {}, "Maxixcatl": {}
 				}
 			}
 
