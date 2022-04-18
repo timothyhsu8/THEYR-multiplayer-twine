@@ -8,13 +8,13 @@ let commands = [
 ]
 
 for (let i = 1; i <= herokuInstances; i++) {
-    commands.push(`echo git push https://git.heroku.com/aztec-${i}.git HEAD:master`);
+    commands.push(`git push https://git.heroku.com/aztec-${i}.git HEAD:master`);
 
     for (let command of commands) {
         try {
             execSync(command, console.log);
         } catch(err) {}
-        console.log(commands);
+        // console.log(commands);
     }
     commands = [];
 }
