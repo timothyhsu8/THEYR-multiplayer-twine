@@ -55,10 +55,17 @@ importScripts([
 				let role = State.variables['users'][userId]['role'];
 				let currentPassage = State.variables[`${role}_currentPassage`];
 
-				// Start where you left off. Otherwise, reload passage
-				if (currentPassage) {
+				// Play Unrecognized Passage if role is undefined
+				if (role === undefined) {
+					Engine.play("Name Not Recognized");
+				}
+
+				// Start where you left off
+				else if (currentPassage) {
 					Engine.play(currentPassage);
 				}
+
+				// Reload passage if it's your first time connecting
 				else {
 					Engine.show();
 				}
@@ -252,20 +259,22 @@ $(document).one(":passagestart", () => {
 
 :: PassageHeader {"position":"138,11","size":"100,100"}
 <<script>>
-	function setupPassage() {
-		let users = State.variables.users;
-		if (typeof(showMap) !== 'undefined' && typeof(showStats) !== 'undefined' && typeof(setBackground) !== 'undefined' && users !== undefined) {
-			console.log("In passage setup");
-			showMap(); 
-			showStats();
-			setBackground();
+	if (State.passage !== "Name Not Recognized") {
+		function setupPassage() {
+			let users = State.variables.users;
+			if (typeof(showMap) !== 'undefined' && typeof(showStats) !== 'undefined' && typeof(setBackground) !== 'undefined' && users !== undefined) {
+				console.log("In passage setup");
+				showMap(); 
+				showStats();
+				setBackground();
+			}
+			else {
+				setTimeout(setupPassage, 100);
+			}
 		}
-		else {
-			setTimeout(setupPassage, 100);
-		}
-	}
 
-	setupPassage();
+		setupPassage();
+	}
 <</script>>
 /* <<print passage()>> 
 <<audio ":all" stop>>
@@ -278,29 +287,6 @@ $(document).one(":passagestart", () => {
  /* <<run showStats()>>
 <<run setBackground()>> */
 
-
-:: TestPassage {"position":"350,100","size":"100,100"}
-<<script>>
-	console.log("Passage reset")
-<</script>>
-
-<<liveblock>>
-You have $foo lives left
-<<button "Add 1">>
-	<<set $foo++>>
-<</button>>
-<</liveblock>>
-
-
-:: TestPassageNext {"position":"350,100","size":"100,100"}
-Next passage
-/* <<run changeStats("Cuauhtemoc",{"Wisdom":0,"Loyalty":0,"Strength":-1})>> */
-/* <<set $foo += 1>>
-<<button "Click Me">> 
-	<<script>>
-		SugarCube.Engine.show();
-	<</script>>
-<</button>> */
 
 
 :: Roles {"position":"350,100","size":"100,100"}
@@ -321,8 +307,22 @@ Next passage
 
 
 :: Name Not Recognized {"position":"350,100","size":"100,100"}
-Name not recognized. Make sure the spelling on your character's name matches your role.
-
+Name not recognized. Make sure the spelling on your character's name matches your role. <br>
+<u> Roles: </u> <br>
+Mariana <br>
+Alvarado <br>
+Aguilar <br> 
+Garrido <br>
+Olid <br> 
+Moctezuma <br>
+Tlacaelel <br>
+Cuauhtemoc <br> 
+Aztec_Priest <br>
+Cacamatzin <br>
+Pochteca <br>
+Xicotencatl_Elder <br>
+Xicotencatl_Younger <br>
+Maxixcatl
 
 :: Act 1 Scene 1 [Done,Breaks] {"position":"338,1151","size":"100,100"}
 <<liveblock>>
