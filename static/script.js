@@ -28,10 +28,14 @@ function init() {
 function setBackground(image) {
     // image = image || "paper.jpg"
     let { faction } = getUser();
+    let imageURL = `url('Twine/images/Borders/Observer.jpg')`
+    if (faction) {
+        imageURL = `url('Twine/images/Borders/${faction}.jpg')`
+    }
 
     $(() => {
         $('#story').css({
-            'background-image': `url('Twine/images/Borders/${faction}.jpg'),url('Twine/images/Borders/Observer.jpg')`,
+            'background-image': imageURL,
             'background-position': '30% 70%,0 0',
             'background-size': '100% 100%'
         })
@@ -124,54 +128,55 @@ function showStats() {
     })
 
     let userId = SugarCube.State.variables.userId
-    let twineStats = SugarCube.State.variables.roles[role].stats
+    if (SugarCube.State.variables.roles[role]) {
+        let twineStats = SugarCube.State.variables.roles[role].stats
 
-    if (twineStats) {
-        Object.keys(stats).forEach((stat,idx) => {
-            var twineVar = twineStats[stat]
+        if (twineStats) {
+            Object.keys(stats).forEach((stat,idx) => {
+                var twineVar = twineStats[stat]
 
-            displayStats.append(
-                $('<div/>', {
-                "class": "stat",
-                "css":{"background-image":`url(Twine/images/Stats/${faction}_${stat}.png)`}
-            }).append($('<div/>', {
-                "class": "statNum",
-                "html":twineVar || "0" 
-            })))
-        })
-
-        var dispLayStatsDOM = $('#displayStats')
-
-        if(!dispLayStatsDOM.length){
-            $('#story').append(displayStats)
-        }
-        else{
-            dispLayStatsDOM.replaceWith(displayStats)
-        }
-    }
-
-    // let twineVar = SugarCube.State.variables.faction[faction].strength
-    let twineVar = 7
-    if(twineVar) { 
-        let statString = `${faction}: ${twineVar} `;
-    
-        $('#story')
-            .append($('<div/>', 
-                {
-                    "id": "factionStrength",
-                })
-                .append(
+                displayStats.append(
                     $('<div/>', {
-                    "id": "factionStrengthBar",
-                    // "html": statString
-                }))
-            ).append($('<div/>', {
-                "id": "factionStrengthLabel",
-                "html": statString
-            }))
-        setFactionStrength(twineVar)
-    }
+                    "class": "stat",
+                    "css":{"background-image":`url(Twine/images/Stats/${faction}_${stat}.png)`}
+                }).append($('<div/>', {
+                    "class": "statNum",
+                    "html":twineVar || "0" 
+                })))
+            })
 
+            var dispLayStatsDOM = $('#displayStats')
+
+            if(!dispLayStatsDOM.length){
+                $('#story').append(displayStats)
+            }
+            else{
+                dispLayStatsDOM.replaceWith(displayStats)
+            }
+        }
+
+        // let twineVar = SugarCube.State.variables.faction[faction].strength
+        let twineVar = 7
+        if(twineVar) { 
+            let statString = `${faction}: ${twineVar} `;
+        
+            $('#story')
+                .append($('<div/>', 
+                    {
+                        "id": "factionStrength",
+                    })
+                    .append(
+                        $('<div/>', {
+                        "id": "factionStrengthBar",
+                        // "html": statString
+                    }))
+                ).append($('<div/>', {
+                    "id": "factionStrengthLabel",
+                    "html": statString
+                }))
+            setFactionStrength(twineVar)
+        }
+    }
 }
 
 
