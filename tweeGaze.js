@@ -42,7 +42,7 @@ gaze('Twine/*.*', function (err, watcher) {
                 // command = `node ./node_modules/twine-utils/bin/entwine.js "${prefix}.${suffix}" -f "storyformats/sugarcube-2/format.js" > "${prefix}.html" -s "${start}"`
                 // command = `tweego -f sugarcube-2  "${prefix}".twee -o "${prefix}".html`
                 command = `${tweeBinary}/tweego`
-                args = ["-f", "sugarcube-2", `${prefix}.${suffix}`, "-o", `${prefix}.html`];
+                args = ["-f", "sugarcube-2", "--module=Client.js", `${prefix}.${suffix}`, "-o", `${prefix}.html`];
             } 
             else {
                 console.log(prefix, suffix)

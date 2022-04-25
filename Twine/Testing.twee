@@ -307,7 +307,6 @@ $(document).one(":passagestart", () => {
 <<run setBackground()>> */
 
 
-
 :: Roles {"position":"350,100","size":"100,100"}
 <<liveblock>>
 /* <<textbox "$Mal_Story" "">> */
@@ -342,6 +341,7 @@ Pochteca <br>
 Xicotencatl_Elder <br>
 Xicotencatl_Younger <br>
 Maxixcatl
+
 
 :: Act 1 Scene 1 [Done,Breaks] {"position":"338,1151","size":"100,100"}
 <<liveblock>>

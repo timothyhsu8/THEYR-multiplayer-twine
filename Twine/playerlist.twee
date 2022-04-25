@@ -158,6 +158,7 @@ $(document).one(":passagestart", () => {
 
 
 :: PassageHeader {"position":"138,11","size":"100,100"}
+<div id="activePlayers">
 <<liveblock>>
 <<set _currentTime=new Date()>>
 <<set $users[$userId].lastSeen=_currentTime.getTime()>>
@@ -174,7 +175,7 @@ Active Players
 <</for>>
 <br>
 <</liveblock>>
-
+</div>
 
 :: Wishing Wells {"position":"350,100","size":"100,100"}
 <<liveblock>>
