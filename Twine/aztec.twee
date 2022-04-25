@@ -189,15 +189,9 @@ $(document).one(":passagestart", () => {
 		// Initialize user variables
 		// user['role'] = 'Cuauhtemoc';
 		State.variables.foo = 0;
+
 		
-		// Get Name From Discord
-		let discName = userData.nick
-		if (discName) {
-			discName = discName.normalize("NFD").replace(/\p{Diacritic}/gu, "");	// Replaces special characters
-		}
-		else {
-			discName = "Unknown";
-		}
+		let discName = userData.nick.normalize("NFD").replace(/\p{Diacritic}/gu, "");	// Replaces special characters
 		
 		// Initialize variables
 		if (State.variables.Start !== null) {
