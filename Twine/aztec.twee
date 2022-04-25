@@ -43,36 +43,40 @@ importScripts([
 	`${urlPrefix}script.js`,
 	`${urlPrefix}resize.js`,
 	`${urlPrefix}picker.js`,
-	// `${urlPrefix}Client.js`,
+	`${urlPrefix}Client.js`,
 	"https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/1.0.11/jquery.csv.min.js",
 	"https://unpkg.com/jquery.nice-number@2.1.0/dist/jquery.nice-number.min.js",
 	"https://code.jquery.com/ui/1.12.1/jquery-ui.js"	
 ])
 	.then(function() {
-		startSockets().then(() => {
-			console.log("Start Sockets");
-			let userId = State.variables.userId;
-			let role = State.variables['users'][userId]['role'];
-			let currentPassage = State.variables[`${role}_currentPassage`];
+		function playPassage() {
+			if (stateReceived) {
+				console.log("Start Sockets");
+				let userId = State.variables.userId;
+				let role = State.variables['users'][userId]['role'];
+				let currentPassage = State.variables[`${role}_currentPassage`];
 
-			// Play Unrecognized Passage if role is undefined
-			if (role === undefined) {
-				// Engine.play("Name Not Recognized");
-				Engine.show();
+				// Play Unrecognized Passage if role is undefined
+				if (role === undefined) {
+					// Engine.play("Name Not Recognized");
+					Engine.show();
+				}
+
+				// Start where you left off
+				else if (currentPassage) {
+					Engine.play(currentPassage);
+				}
+
+				// Reload passage if it's your first time connecting
+				else {
+					Engine.show();
+				}
 			}
-
-			// Start where you left off
-			else if (currentPassage) {
-				Engine.play(currentPassage);
-			}
-
-			// Reload passage if it's your first time connecting
 			else {
-				Engine.show();
+				setTimeout(playPassage, 100);
 			}
-		})
-	}).catch(function(error) {
-		alert("Error: Could not find file 'YourExternalCode.js'.");
+		}
+		playPassage();
 	}
 );
 
@@ -148,6 +152,7 @@ function setId(userId){
 
 // Run when passage starts 
 $(document).one(":passagestart", () => {
+	console.log("PASSAGE START");
     let users = State.variables.users;
 
     // If Users map is not defined, initialize it
@@ -249,28 +254,6 @@ $(document).one(":passagestart", () => {
 
 
 :: PassageHeader {"position":"138,11","size":"100,100"}
-<div id="activePlayers">
-<<liveblock>>
-<<set _currentTime=new Date()>>
-/* <<print JSON.stringify($users[$userId])>> */
-<<if ndef $users[$userId]['Username']>>
-	<<set $users[$userId].lastSeen=_currentTime.getTime()>>
-
-	/* Player list */
-	Active Players
-	<br>
-	<<for _i, _name range $users>>
-		<<if new Date(_currentTime.getTime()-$lastSeenDelay) < _name.lastSeen>>
-			<<print _name.username>>
-			<<print new Date(_name.lastSeen)>>
-			<br>
-		<</if>>
-	<</for>>
-	<br>
-<</if>>
-
-<</liveblock>>
-</div>
 <<script>>
 	if (State.passage !== "Name Not Recognized") {
 		function setupPassage() {

@@ -118,36 +118,40 @@ importScripts([
 	`${urlPrefix}script.js`,
 	`${urlPrefix}resize.js`,
 	`${urlPrefix}picker.js`,
-	// `${urlPrefix}Client.js`,
+	`${urlPrefix}Client.js`,
 	"https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/1.0.11/jquery.csv.min.js",
 	"https://unpkg.com/jquery.nice-number@2.1.0/dist/jquery.nice-number.min.js",
 	"https://code.jquery.com/ui/1.12.1/jquery-ui.js"	
 ])
 	.then(function() {
-		startSockets().then(() => {
-			console.log("Start Sockets");
-			let userId = State.variables.userId;
-			let role = State.variables['users'][userId]['role'];
-			let currentPassage = State.variables[`${role}_currentPassage`];
+		function playPassage() {
+			if (stateReceived) {
+				console.log("Start Sockets");
+				let userId = State.variables.userId;
+				let role = State.variables['users'][userId]['role'];
+				let currentPassage = State.variables[`${role}_currentPassage`];
 
-			// Play Unrecognized Passage if role is undefined
-			if (role === undefined) {
-				// Engine.play("Name Not Recognized");
-				Engine.show();
+				// Play Unrecognized Passage if role is undefined
+				if (role === undefined) {
+					// Engine.play("Name Not Recognized");
+					Engine.show();
+				}
+
+				// Start where you left off
+				else if (currentPassage) {
+					Engine.play(currentPassage);
+				}
+
+				// Reload passage if it's your first time connecting
+				else {
+					Engine.show();
+				}
 			}
-
-			// Start where you left off
-			else if (currentPassage) {
-				Engine.play(currentPassage);
-			}
-
-			// Reload passage if it's your first time connecting
 			else {
-				Engine.show();
+				setTimeout(playPassage, 100);
 			}
-		})
-	}).catch(function(error) {
-		alert("Error: Could not find file 'YourExternalCode.js'.");
+		}
+		playPassage();
 	}
 );
 
@@ -223,6 +227,7 @@ function setId(userId){
 
 // Run when passage starts 
 $(document).one(":passagestart", () => {
+	console.log("PASSAGE START");
     let users = State.variables.users;
 
     // If Users map is not defined, initialize it
@@ -247,7 +252,9 @@ $(document).one(":passagestart", () => {
 		localStorage.getItem('userId') === null ? setId(generateId()) : setId(localStorage.getItem('userId'));
 	}
     setup.theyrCallback(State);
-});</script><tw-tag name="Coding-Problem" color="red"></tw-tag><tw-tag name="Done" color="green"></tw-tag><tw-tag name="New-Passage" color="purple"></tw-tag><tw-tag name="Text-to-be-updated-by-Ashley" color="orange"></tw-tag><tw-tag name="Breaks" color="blue"></tw-tag><tw-tag name="Change-Title" color="yellow"></tw-tag><tw-passagedata pid="1" name="StoryInit" tags="" position="22,135" size="100,100">&lt;&lt;script&gt;&gt;
+});</script><tw-tag name="Breaks" color="blue"></tw-tag><tw-tag name="Change-Title" color="yellow"></tw-tag><tw-tag name="Coding-Problem" color="red"></tw-tag><tw-tag name="Done" color="green"></tw-tag><tw-tag name="New-Passage" color="purple"></tw-tag><tw-tag name="Text-to-be-updated-by-Ashley" color="orange"></tw-tag><tw-passagedata pid="1" name="StoryInit" tags="" position="22,135" size="100,100">/* &lt;&lt;set $lastSeenDelay=60 * 5000&gt;&gt; */
+/* &lt;&lt;print $users[$userId][&#39;role&#39;]&gt;&gt; */
+&lt;&lt;script&gt;&gt;
 	setup.theyrCallback = function() {
 		let users = State.variables.users;
 		let userId = State.variables.userId;
@@ -314,29 +321,7 @@ $(document).one(":passagestart", () => {
 &lt;&lt;/script&gt;&gt;
 &lt;&lt;cacheaudio &quot;Gulls_and_waves__5min_&quot; &quot;audio/Gulls_and_waves__5min_.mp3&quot;&gt;&gt;
 &lt;&lt;cacheaudio &quot;Library&quot; &quot;audio/Library.mp3&quot;&gt;&gt;
-&lt;!-- &lt;&lt;masteraudio volume 0&gt;&gt; --&gt;</tw-passagedata><tw-passagedata pid="2" name="PassageHeader" tags="" position="138,11" size="100,100">&lt;div id=&quot;activePlayers&quot;&gt;
-&lt;&lt;liveblock&gt;&gt;
-&lt;&lt;set _currentTime=new Date()&gt;&gt;
-/* &lt;&lt;print JSON.stringify($users[$userId])&gt;&gt; */
-&lt;&lt;if ndef $users[$userId][&#39;Username&#39;]&gt;&gt;
-	&lt;&lt;set $users[$userId].lastSeen=_currentTime.getTime()&gt;&gt;
-
-	/* Player list */
-	Active Players
-	&lt;br&gt;
-	&lt;&lt;for _i, _name range $users&gt;&gt;
-		&lt;&lt;if new Date(_currentTime.getTime()-$lastSeenDelay) &lt; _name.lastSeen&gt;&gt;
-			&lt;&lt;print _name.username&gt;&gt;
-			&lt;&lt;print new Date(_name.lastSeen)&gt;&gt;
-			&lt;br&gt;
-		&lt;&lt;/if&gt;&gt;
-	&lt;&lt;/for&gt;&gt;
-	&lt;br&gt;
-&lt;&lt;/if&gt;&gt;
-
-&lt;&lt;/liveblock&gt;&gt;
-&lt;/div&gt;
-&lt;&lt;script&gt;&gt;
+&lt;!-- &lt;&lt;masteraudio volume 0&gt;&gt; --&gt;</tw-passagedata><tw-passagedata pid="2" name="PassageHeader" tags="" position="138,11" size="100,100">&lt;&lt;script&gt;&gt;
 	if (State.passage !== &quot;Name Not Recognized&quot;) {
 		function setupPassage() {
 			let users = State.variables.users;

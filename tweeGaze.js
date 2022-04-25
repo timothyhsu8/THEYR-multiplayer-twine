@@ -55,9 +55,9 @@ gaze('Twine/*.*', function (err, watcher) {
                 ]
 
                 args = ["-f", "sugarcube-2", `${prefix}.${suffix}`, "-o", `${prefix}.html`];
-                for (const module of modules) {
-                    args.push(module);
-                }
+                // for (const module of modules) {
+                //     args.push(module);
+                // }
             } 
             else {
                 console.log(prefix, suffix)
