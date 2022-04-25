@@ -1,7 +1,8 @@
 var socket = io();
 var store = Redux.createStore(reducer);
 var stateReceived = false;
-let lastUpdate = new Date()
+let lastUpdate = new Date();
+// console.log("SOCKET IS", socket);
 
 // If userData exists already, set your ID in localStorage
 // if(userData){
@@ -35,7 +36,7 @@ socket.on('connect', () => {
 
 // Receive state from server upon connecting, then update all other clients that you've connected
 function startSockets() {
-    console.log("in start socket function");
+    // socketTest();
     let promise = new Promise((resolve, reject) => {
         socket.on('new connection', (state) => {
             // // If this is the first time a user is connecting, assign them a userId in local storage
@@ -161,3 +162,5 @@ function updateSugarCubeState(new_state) {
 //     SugarCube.Engine.show();
 //     window.scrollTo(scrollX, scrollY)
 // } 
+
+console.log("Client finished loading");

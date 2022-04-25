@@ -37,9 +37,9 @@ var urlPrefix="static/";
 
 setup.JSLoaded = false;
 importScripts([
-	'/socket.io/socket.io.js',
-	'https://unpkg.com/redux@latest/dist/redux.min.js',
-	'https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js',
+	// '/socket.io/socket.io.js',
+	// 'https://unpkg.com/redux@latest/dist/redux.min.js',
+	// 'https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js',
 	`${urlPrefix}script.js`,
 	`${urlPrefix}resize.js`,
 	`${urlPrefix}picker.js`,
@@ -72,7 +72,7 @@ importScripts([
 			}
 		})
 	}).catch(function(error) {
-		alert("Error: Could not find file 'YourExternalCode.js'.");
+		alert(error);
 	}
 );
 

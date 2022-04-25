@@ -42,7 +42,22 @@ gaze('Twine/*.*', function (err, watcher) {
                 // command = `node ./node_modules/twine-utils/bin/entwine.js "${prefix}.${suffix}" -f "storyformats/sugarcube-2/format.js" > "${prefix}.html" -s "${start}"`
                 // command = `tweego -f sugarcube-2  "${prefix}".twee -o "${prefix}".html`
                 command = `${tweeBinary}/tweego`
-                args = ["-f", "sugarcube-2", "--module=Client.js", `${prefix}.${suffix}`, "-o", `${prefix}.html`];
+
+                let modulePath = '--module=Twine/modules/'
+                let modules = [
+                    `${modulePath}socket.io.js`,
+                    `${modulePath}redux.min.js`,
+                    `${modulePath}Client.js`,
+                    `${modulePath}lodash.min.js`,
+                    // `${modulePath}script.js`,
+                    // `${modulePath}resize.js`,
+                    // `${modulePath}picker.js`,
+                ]
+
+                args = ["-f", "sugarcube-2", `${prefix}.${suffix}`, "-o", `${prefix}.html`];
+                for (const module of modules) {
+                    args.push(module);
+                }
             } 
             else {
                 console.log(prefix, suffix)
