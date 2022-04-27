@@ -133,8 +133,8 @@ importScripts([
 
 				// Play Unrecognized Passage if role is undefined
 				if (role === undefined) {
-					// Engine.play("Name Not Recognized");
-					Engine.show();
+					Engine.play("Name Not Recognized");
+					// Engine.show();
 				}
 
 				// Start where you left off
@@ -252,7 +252,7 @@ $(document).one(":passagestart", () => {
 		localStorage.getItem('userId') === null ? setId(generateId()) : setId(localStorage.getItem('userId'));
 	}
     setup.theyrCallback(State);
-});</script><tw-tag name="Breaks" color="blue"></tw-tag><tw-tag name="Change-Title" color="yellow"></tw-tag><tw-tag name="Coding-Problem" color="red"></tw-tag><tw-tag name="Done" color="green"></tw-tag><tw-tag name="New-Passage" color="purple"></tw-tag><tw-tag name="Text-to-be-updated-by-Ashley" color="orange"></tw-tag><tw-passagedata pid="1" name="StoryInit" tags="" position="22,135" size="100,100">/* &lt;&lt;set $lastSeenDelay=60 * 5000&gt;&gt; */
+});</script><tw-tag name="Coding-Problem" color="red"></tw-tag><tw-tag name="Done" color="green"></tw-tag><tw-tag name="New-Passage" color="purple"></tw-tag><tw-tag name="Text-to-be-updated-by-Ashley" color="orange"></tw-tag><tw-tag name="Breaks" color="blue"></tw-tag><tw-tag name="Change-Title" color="yellow"></tw-tag><tw-passagedata pid="1" name="StoryInit" tags="" position="22,135" size="100,100">/* &lt;&lt;set $lastSeenDelay=60 * 5000&gt;&gt; */
 /* &lt;&lt;print $users[$userId][&#39;role&#39;]&gt;&gt; */
 &lt;&lt;script&gt;&gt;
 	setup.theyrCallback = function() {
@@ -267,7 +267,14 @@ $(document).one(":passagestart", () => {
 		State.variables.foo = 0;
 
 		
-		let discName = userData.nick.normalize(&quot;NFD&quot;).replace(/\p{Diacritic}/gu, &quot;&quot;);	// Replaces special characters
+		// Get Name From Discord
+		let discName = userData.nick
+		if (discName) {
+			discName = discName.normalize(&quot;NFD&quot;).replace(/\p{Diacritic}/gu, &quot;&quot;);	// Replaces special characters
+		}
+		else {
+			discName = &quot;Unknown&quot;;
+		}
 		
 		// Initialize variables
 		if (State.variables.Start !== null) {
@@ -295,7 +302,7 @@ $(document).one(":passagestart", () => {
 		})
 		console.log(&#39;role info&#39;, roleInfo)
 		
-		// Set role in the user va
+		// Set role in the user variable
 		if (roleInfo) {
 			user[&#39;role&#39;] = roleInfo.role
 		}

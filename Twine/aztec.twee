@@ -58,8 +58,8 @@ importScripts([
 
 				// Play Unrecognized Passage if role is undefined
 				if (role === undefined) {
-					// Engine.play("Name Not Recognized");
-					Engine.show();
+					Engine.play("Name Not Recognized");
+					// Engine.show();
 				}
 
 				// Start where you left off
@@ -196,7 +196,14 @@ $(document).one(":passagestart", () => {
 		State.variables.foo = 0;
 
 		
-		let discName = userData.nick.normalize("NFD").replace(/\p{Diacritic}/gu, "");	// Replaces special characters
+		// Get Name From Discord
+		let discName = userData.nick
+		if (discName) {
+			discName = discName.normalize("NFD").replace(/\p{Diacritic}/gu, "");	// Replaces special characters
+		}
+		else {
+			discName = "Unknown";
+		}
 		
 		// Initialize variables
 		if (State.variables.Start !== null) {
@@ -224,7 +231,7 @@ $(document).one(":passagestart", () => {
 		})
 		console.log('role info', roleInfo)
 		
-		// Set role in the user va
+		// Set role in the user variable
 		if (roleInfo) {
 			user['role'] = roleInfo.role
 		}
@@ -284,7 +291,6 @@ $(document).one(":passagestart", () => {
 <<run setBackground()>> */
 
 
-
 :: Roles {"position":"350,100","size":"100,100"}
 <<liveblock>>
 /* <<textbox "$Mal_Story" "">> */
@@ -319,6 +325,7 @@ Pochteca <br>
 Xicotencatl_Elder <br>
 Xicotencatl_Younger <br>
 Maxixcatl
+
 
 :: Act 1 Scene 1 [Done,Breaks] {"position":"338,1151","size":"100,100"}
 <<liveblock>>
