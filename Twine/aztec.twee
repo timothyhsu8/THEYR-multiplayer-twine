@@ -205,6 +205,8 @@ $(document).one(":passagestart", () => {
 			discName = "Unknown";
 		}
 		
+		console.log("DISCNAME IS", discName);
+
 		// Initialize variables
 		if (State.variables.Start !== null) {
 			State.variables.Start = 15;

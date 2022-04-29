@@ -14,7 +14,7 @@ const __dirname = path.dirname(__filename)
 let config_path = 'config.json'
 
 if (fs.existsSync(__dirname + "/" + config_path)) {
-	var { clientId, clientSecret, twinePath, port, redirectURL, herokuURL } = require('./' + config_path);
+	var { clientId, clientSecret, twinePath, port, redirectURL, herokuURL, guildId } = require('./' + config_path);
 }
 
 const CLIENT_ID = process.env.clientId || clientId
@@ -23,6 +23,7 @@ const TWINE_PATH = process.env.twinePath || twinePath
 const REDIRECTURL = process.env.redirectURL || redirectURL
 const PORT = process.env.PORT || port
 const HEROKU_URL = process.env.herokuURL || herokuURL
+const GUILD_ID = process.env.guildId || guildId
 
 const { app } = new webstack(PORT).get();
 
@@ -80,7 +81,7 @@ app.get('/', async ({ query }, response) => {
 			const userResultJson = await userResult.json();
 			let userData = JSON.stringify(userResultJson);
 			
-			const guildResult = await fetch('https://discord.com/api/users/@me/guilds/931624626491101245/member', {
+			const guildResult = await fetch(`https://discord.com/api/users/@me/guilds/${GUILD_ID}/member`, {
 				headers: {
 					authorization: `${oauthData.token_type} ${oauthData.access_token}`,
 				},
