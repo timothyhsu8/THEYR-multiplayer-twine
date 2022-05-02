@@ -207,9 +207,17 @@ $(document).one(":passagestart", () => {
 		
 		console.log("DISCNAME IS", discName);
 
-		// Initialize variables
-		if (State.variables.Start !== null) {
-			State.variables.Start = 15;
+		// Initialize variables (Syntax: [sv.VarName, initValue] )
+		let sv = State.variables;
+		let initVars = [
+			["Start", 15],
+			["Quest_Points_A", 0]
+		]
+
+		for (const v of initVars) {
+			if (sv[v[0]] === undefined) {
+				sv[v[0]] = v[1];
+			}
 		}
 
 		const roles = [{"faction": "Spaniards", "role": "Mariana", "Character": "Doña Mariana/Malinche", "isLeader": "FALSE"},
@@ -2733,6 +2741,7 @@ As you close the door of the weird little room behind you, you know <<link "you'
 
 
 :: Scavenger Hunt Hub [Done,Breaks] {"position":"726,3004","size":"100,100"}
+<<liveblock>>
 Click each of the following glyphs to visit key sites around the Aztec Empire. Once you have read the clue and figured out your location, your quest leader must enter the name of the place into the text box provided. When you have obtained enough resources to survive your journey, you will be given the location of Quetzalcoatl’s heart. <br>
 <br>
 Remember: You must enter the proper Nahuatl name and you must use the correct spelling! The text box will remain available until you enter the correct response.<br>
@@ -2784,12 +2793,12 @@ You have already completed your quest to Malinalco, and you have offered all the
 <br>
 <</if>>
 
-Your team has accumulated <<print $Quest_Points_A_sum>> points. <br>
+Your team has accumulated <<print $Quest_Points_A>> points. <br>
 <br>
-<<if $Quest_Points_A_sum >=10>>
+<<if $Quest_Points_A >=10>>
 Congratulations! You've gathered all the materials necessary for your journey.  You may now travel to <<link "Cholula" "Cholula">><<set $Aztecs_currentMap=4>><</link>>.<br>
 <br>
-<<elseif $Quest_Points_A_sum <=9>>
+<<elseif $Quest_Points_A <=9>>
 You cannot yet travel to Cholula, continue your quest to gather all the items necessary to travel.<br>
 <br>
 <</if>>
@@ -2849,7 +2858,7 @@ You cannot yet travel to Cholula, continue your quest to gather all the items ne
 <</if>>
 <</switch>>
 
-
+<</liveblock>>
 :: Cholula [Done,Breaks] {"position":"833,3660","size":"100,100"}
 <<liveblock>>
 You've made it to Cholula!<br>

@@ -252,7 +252,7 @@ $(document).one(":passagestart", () => {
 		localStorage.getItem('userId') === null ? setId(generateId()) : setId(localStorage.getItem('userId'));
 	}
     setup.theyrCallback(State);
-});</script><tw-tag name="New-Passage" color="purple"></tw-tag><tw-tag name="Text-to-be-updated-by-Ashley" color="orange"></tw-tag><tw-tag name="Breaks" color="blue"></tw-tag><tw-tag name="Change-Title" color="yellow"></tw-tag><tw-tag name="Coding-Problem" color="red"></tw-tag><tw-tag name="Done" color="green"></tw-tag><tw-passagedata pid="1" name="StoryInit" tags="" position="22,135" size="100,100">/* &lt;&lt;set $lastSeenDelay=60 * 5000&gt;&gt; */
+});</script><tw-tag name="Coding-Problem" color="red"></tw-tag><tw-tag name="Done" color="green"></tw-tag><tw-tag name="New-Passage" color="purple"></tw-tag><tw-tag name="Text-to-be-updated-by-Ashley" color="orange"></tw-tag><tw-tag name="Breaks" color="blue"></tw-tag><tw-tag name="Change-Title" color="yellow"></tw-tag><tw-passagedata pid="1" name="StoryInit" tags="" position="22,135" size="100,100">/* &lt;&lt;set $lastSeenDelay=60 * 5000&gt;&gt; */
 /* &lt;&lt;print $users[$userId][&#39;role&#39;]&gt;&gt; */
 &lt;&lt;script&gt;&gt;
 	setup.theyrCallback = function() {
@@ -278,9 +278,17 @@ $(document).one(":passagestart", () => {
 		
 		console.log(&quot;DISCNAME IS&quot;, discName);
 
-		// Initialize variables
-		if (State.variables.Start !== null) {
-			State.variables.Start = 15;
+		// Initialize variables (Syntax: [sv.VarName, initValue] )
+		let sv = State.variables;
+		let initVars = [
+			[&quot;Start&quot;, 15],
+			[&quot;Quest_Points_A&quot;, 0]
+		]
+
+		for (const v of initVars) {
+			if (sv[v[0]] === undefined) {
+				sv[v[0]] = v[1];
+			}
 		}
 
 		const roles = [{&quot;faction&quot;: &quot;Spaniards&quot;, &quot;role&quot;: &quot;Mariana&quot;, &quot;Character&quot;: &quot;Doña Mariana/Malinche&quot;, &quot;isLeader&quot;: &quot;FALSE&quot;},
@@ -2424,7 +2432,8 @@ As you close the door of the weird little room behind you, you know &lt;&lt;link
 &lt;br&gt;
 
 
-&lt;&lt;/liveblock&gt;&gt;</tw-passagedata><tw-passagedata pid="96" name="Scavenger Hunt Hub" tags="Done,Breaks" position="726,3004" size="100,100">Click each of the following glyphs to visit key sites around the Aztec Empire. Once you have read the clue and figured out your location, your quest leader must enter the name of the place into the text box provided. When you have obtained enough resources to survive your journey, you will be given the location of Quetzalcoatl’s heart. &lt;br&gt;
+&lt;&lt;/liveblock&gt;&gt;</tw-passagedata><tw-passagedata pid="96" name="Scavenger Hunt Hub" tags="Done,Breaks" position="726,3004" size="100,100">&lt;&lt;liveblock&gt;&gt;
+Click each of the following glyphs to visit key sites around the Aztec Empire. Once you have read the clue and figured out your location, your quest leader must enter the name of the place into the text box provided. When you have obtained enough resources to survive your journey, you will be given the location of Quetzalcoatl’s heart. &lt;br&gt;
 &lt;br&gt;
 Remember: You must enter the proper Nahuatl name and you must use the correct spelling! The text box will remain available until you enter the correct response.&lt;br&gt;
 &lt;br&gt;
@@ -2475,12 +2484,12 @@ You have already completed your quest to Malinalco, and you have offered all the
 &lt;br&gt;
 &lt;&lt;/if&gt;&gt;
 
-Your team has accumulated &lt;&lt;print $Quest_Points_A_sum&gt;&gt; points. &lt;br&gt;
+Your team has accumulated &lt;&lt;print $Quest_Points_A&gt;&gt; points. &lt;br&gt;
 &lt;br&gt;
-&lt;&lt;if $Quest_Points_A_sum &gt;=10&gt;&gt;
+&lt;&lt;if $Quest_Points_A &gt;=10&gt;&gt;
 Congratulations! You&#39;ve gathered all the materials necessary for your journey.  You may now travel to &lt;&lt;link &quot;Cholula&quot; &quot;Cholula&quot;&gt;&gt;&lt;&lt;set $Aztecs_currentMap=4&gt;&gt;&lt;&lt;/link&gt;&gt;.&lt;br&gt;
 &lt;br&gt;
-&lt;&lt;elseif $Quest_Points_A_sum &lt;=9&gt;&gt;
+&lt;&lt;elseif $Quest_Points_A &lt;=9&gt;&gt;
 You cannot yet travel to Cholula, continue your quest to gather all the items necessary to travel.&lt;br&gt;
 &lt;br&gt;
 &lt;&lt;/if&gt;&gt;
@@ -2538,7 +2547,9 @@ Congratulations! You&#39;ve gathered all the materials necessary for your journe
 You cannot yet travel to Cholula, continue your quest to gather all the items necessary to travel.&lt;br&gt;
 &lt;br&gt;
 &lt;&lt;/if&gt;&gt;
-&lt;&lt;/switch&gt;&gt;</tw-passagedata><tw-passagedata pid="97" name="Cholula" tags="Done,Breaks" position="833,3660" size="100,100">&lt;&lt;liveblock&gt;&gt;
+&lt;&lt;/switch&gt;&gt;
+
+&lt;&lt;/liveblock&gt;&gt;</tw-passagedata><tw-passagedata pid="97" name="Cholula" tags="Done,Breaks" position="833,3660" size="100,100">&lt;&lt;liveblock&gt;&gt;
 You&#39;ve made it to Cholula!&lt;br&gt;
 &lt;br&gt;
 &lt;&lt;switch $users[$userId][&quot;faction&quot;]&gt;&gt;

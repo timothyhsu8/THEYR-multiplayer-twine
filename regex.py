@@ -28,4 +28,4 @@ new_twee = regex.sub(twee_header, new_twee)
 
 # Write to output file 
 out_file = open("regex_output.twee", "w")
-out_file.write(replacement)
+out_file.write(new_twee)
