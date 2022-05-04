@@ -8,7 +8,9 @@ import re
 replacements = [{'regex': '\$role', 'replace': '$users[$userId]["role"]'},
                 {'regex': '\$faction', 'replace': '$users[$userId]["faction"]'},
                 {'regex': '<<run[ ]*counter\(([^,]*),"([^"]*)"\)', 'replace': r'<<set $\2 = $\2 + \1'},
-                {'regex': '<<run[ ]*changeStats\(([^,]*),"([^"]*)"\)', 'replace': r'<<set $\2 = $\2 + \1'}
+                {'regex': '<<run[ ]*changeStats\(([^,]*),"([^"]*)"\)', 'replace': r'<<set $\2 = $\2 + \1'},
+                {'regex': '(\$\w+)_sum', 'replace': r'\1'},
+                {'regex': 'images\/', 'replace': 'Twine/images/'}
                 ]
 
 # Iterates through replacement array and makes replacements
@@ -20,11 +22,11 @@ for replacement in replacements:
 
 
 # Replaces the header
-header_in_file = open(sys.argv[2],  encoding="utf-8")
-twee_header = header_in_file.read()
+# header_in_file = open(sys.argv[2],  encoding="utf-8")
+# twee_header = header_in_file.read()
 
-regex = re.compile('(:: Story JavaScript).*(:: PassageHeader.*?\n)',re.DOTALL)
-new_twee = regex.sub(twee_header, new_twee)
+# regex = re.compile('(:: Story JavaScript).*(:: PassageHeader.*?\n)',re.DOTALL)
+# new_twee = regex.sub(twee_header, new_twee)
 
 
 # Write to output file 
