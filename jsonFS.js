@@ -39,7 +39,13 @@ class JSONFS {
                     flag: 'r'
                 });
 
-                container[file] = JSON.parse(fileContents); // Converts data back to its original type from String
+                if (file === '{}') {
+                    container = {};
+                }
+
+                else {
+                    container[file] = JSON.parse(fileContents); // Converts data back to its original type from String
+                }
             }
         };
         if (isArray) {
@@ -50,32 +56,40 @@ class JSONFS {
     }
 
     setJSON(jsonObj, passedObject = "") {
+        console.log({passedObject, jsonObj});
         if (jsonObj !== null && (this.dataType(jsonObj) == "object" || this.dataType(jsonObj) == "array")) {
+            if (JSON.stringify(jsonObj) === '{}') {
+                this.setKeyPair("{}", "", passedObject);
+            }
+            
             Object.entries(jsonObj).forEach(([key, value]) => {
-
-                if (this.dataType(value) != "object" && this.dataType(value) != "array") {
-                    let newDir = this.home + passedObject + key
-                    this.delTree(newDir)
-                    try {
-                        fs.mkdirSync(this.home + passedObject, {
-                            recursive: true
-                        });
-                        fs.writeFileSync(newDir, JSON.stringify(value)) // Serializes data as a string in order to store as a text file
-                    } catch(err) {
-                        console.log(err);
-                    }
-
-                } else {
-                    // let newDir = this.home + passedObject + key
-                    if (this.dataType(value) === "object") {
-                        key = `-${key}-`
-                    }
-
-                    // console.log("Key is", key)
-                    // console.log(value, passedObject + key + path.sep)
-                    return this.setJSON(value, passedObject + key + path.sep);
-                }
+                this.setKeyPair(key, value, passedObject);
             });
+        }
+    }
+
+    setKeyPair(key, value, passedObject) {
+        if (this.dataType(value) != "object" && this.dataType(value) != "array") {
+            let newDir = this.home + passedObject + key
+            this.delTree(newDir)
+            try {
+                fs.mkdirSync(this.home + passedObject, {
+                    recursive: true
+                });
+                fs.writeFileSync(newDir, JSON.stringify(value)) // Serializes data as a string in order to store as a text file
+            } catch(err) {
+                console.log(err);
+            }
+
+        } else {
+            // let newDir = this.home + passedObject + key
+            if (this.dataType(value) === "object") {
+                key = `-${key}-`
+            }
+
+            // console.log("Key is", key)
+            // console.log(value, passedObject + key + path.sep)
+            return this.setJSON(value, passedObject + key + path.sep);
         }
     }
 
