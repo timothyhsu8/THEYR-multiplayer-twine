@@ -26,6 +26,7 @@ twee_header = header_in_file.read()
 regex = re.compile('(:: Story JavaScript).*(:: PassageHeader.*?\n)',re.DOTALL)
 new_twee = regex.sub(twee_header, new_twee)
 
+
 # Write to output file 
-out_file = open("regex_output.twee", "w")
+out_file = open("regex_output.twee", "w", encoding="utf-8")
 out_file.write(new_twee)
