@@ -131,36 +131,29 @@ importScripts([
 	"https://code.jquery.com/ui/1.12.1/jquery-ui.js"	
 ])
 	.then(function() {
-			function playPassage() {
-				if (stateReceived) {
-					console.log("Start Sockets");
-					let userId = State.variables.userId;
-					let role = State.variables['users'][userId]['role'];
-					let currentPassage = State.variables[`${role}_currentPassage`];
+		waitForData.then(() => {
+			console.log("Start Sockets");
+			let userId = State.variables.userId;
+			let role = State.variables['users'][userId]['role'];
+			let currentPassage = State.variables[`${role}_currentPassage`];
 
-					// Play Unrecognized Passage if role is undefined
-					if (role === undefined) {
-						Engine.play("Name Not Recognized");
-						// Engine.show();
-					}
-
-					// Start where you left off
-					else if (currentPassage) {
-						Engine.play(currentPassage);
-					}
-
-					// Reload passage if it's your first time connecting
-					else {
-						Engine.show();
-					}
-				}
-				else {
-					setTimeout(playPassage, 100);
-				}
+			// Play Unrecognized Passage if role is undefined
+			if (role === undefined) {
+				Engine.play("Name Not Recognized");
 			}
-			playPassage();
-		}
-	);
+
+			// Start where you left off
+			else if (currentPassage) {
+				Engine.play(currentPassage);
+			}
+
+			// Reload passage if it's your first time connecting
+			else {
+				Engine.show();
+			}
+    	});	
+	}
+);
 
 (function () {
 	"use strict";
@@ -228,8 +221,8 @@ $(document).one(":passagestart", () => {
 	else {
 		localStorage.getItem('userId') === null ? setId(generateId()) : setId(localStorage.getItem('userId'));
 	}
-    setup.theyrCallback(State);
-});</script><tw-tag name="Done" color="green"></tw-tag><tw-tag name="New-Passage" color="purple"></tw-tag><tw-tag name="Text-to-be-updated-by-Ashley" color="orange"></tw-tag><tw-tag name="Breaks" color="blue"></tw-tag><tw-tag name="Change-Title" color="yellow"></tw-tag><tw-tag name="Coding-Problem" color="red"></tw-tag><tw-passagedata pid="1" name="StoryInit" tags="" position="22,135" size="100,100">&lt;&lt;theyr&gt;&gt;
+    setup.theyrCallback();
+});</script><tw-tag name="Breaks" color="blue"></tw-tag><tw-tag name="Change-Title" color="yellow"></tw-tag><tw-tag name="Coding-Problem" color="red"></tw-tag><tw-tag name="Done" color="green"></tw-tag><tw-tag name="New-Passage" color="purple"></tw-tag><tw-tag name="Text-to-be-updated-by-Ashley" color="orange"></tw-tag><tw-passagedata pid="1" name="StoryInit" tags="" position="22,135" size="100,100">&lt;&lt;theyr&gt;&gt;
 /* &lt;&lt;set $lastSeenDelay=60 * 5000&gt;&gt; */
 /* &lt;&lt;print $users[$userId][&#39;role&#39;]&gt;&gt; */
 &lt;&lt;script&gt;&gt;
@@ -237,12 +230,7 @@ $(document).one(":passagestart", () => {
 		let users = State.variables.users;
 		let userId = State.variables.userId;
 		let user = users[userId];
-
-
 		console.log(&quot;USER DATA&quot;, userData)
-		// Initialize user variables
-		// user[&#39;role&#39;] = &#39;Cuauhtemoc&#39;;
-		State.variables.foo = 0;
 
 		
 		// Get Name From Discord

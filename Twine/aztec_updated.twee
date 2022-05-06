@@ -55,36 +55,29 @@ importScripts([
 	"https://code.jquery.com/ui/1.12.1/jquery-ui.js"	
 ])
 	.then(function() {
-			function playPassage() {
-				if (stateReceived) {
-					console.log("Start Sockets");
-					let userId = State.variables.userId;
-					let role = State.variables['users'][userId]['role'];
-					let currentPassage = State.variables[`${role}_currentPassage`];
+		waitForData.then(() => {
+			console.log("Start Sockets");
+			let userId = State.variables.userId;
+			let role = State.variables['users'][userId]['role'];
+			let currentPassage = State.variables[`${role}_currentPassage`];
 
-					// Play Unrecognized Passage if role is undefined
-					if (role === undefined) {
-						Engine.play("Name Not Recognized");
-						// Engine.show();
-					}
-
-					// Start where you left off
-					else if (currentPassage) {
-						Engine.play(currentPassage);
-					}
-
-					// Reload passage if it's your first time connecting
-					else {
-						Engine.show();
-					}
-				}
-				else {
-					setTimeout(playPassage, 100);
-				}
+			// Play Unrecognized Passage if role is undefined
+			if (role === undefined) {
+				Engine.play("Name Not Recognized");
 			}
-			playPassage();
-		}
-	);
+
+			// Start where you left off
+			else if (currentPassage) {
+				Engine.play(currentPassage);
+			}
+
+			// Reload passage if it's your first time connecting
+			else {
+				Engine.show();
+			}
+    	});	
+	}
+);
 
 (function () {
 	"use strict";
@@ -152,7 +145,7 @@ $(document).one(":passagestart", () => {
 	else {
 		localStorage.getItem('userId') === null ? setId(generateId()) : setId(localStorage.getItem('userId'));
 	}
-    setup.theyrCallback(State);
+    setup.theyrCallback();
 });
 
 
@@ -166,12 +159,7 @@ $(document).one(":passagestart", () => {
 		let users = State.variables.users;
 		let userId = State.variables.userId;
 		let user = users[userId];
-
-
 		console.log("USER DATA", userData)
-		// Initialize user variables
-		// user['role'] = 'Cuauhtemoc';
-		State.variables.foo = 0;
 
 		
 		// Get Name From Discord

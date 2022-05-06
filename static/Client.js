@@ -1,32 +1,11 @@
 var socket = io();
 var store = Redux.createStore(reducer);
 var stateReceived = false;
-// let lastUpdate = new Date()
 
-// If userData exists already, set your ID in localStorage
-// if(userData){
-//     setId(userData.id)   
-// }
-
-// Sets the UserId in the Users mapping
-// ISSUE: This won't run unless the passage reloads using the reloadPassage() function (BECAUSE STORY LOADS BEFORE THIS CLIENT FILE IS LOADED)
-// $(document).one(":storyready", () => {
-//     console.log("STORY READY");
-//     // let users = Window.SugarCubeState.getVar('$users');
-
-//     // // If Users map is not defined, initialize it
-//     // if (users === undefined){
-//     //     users = {}
-//     // } 
-
-//     // // If client does not exist in Users, add them
-//     // if(!(userData.id in users)) {
-//     //     users[userData.id] = {}
-//     //     users[userData.id].username= userData.username
-//     //     Window.SugarCubeState.setVar('$users', users);
-//     // }  
-//     // SugarCube.setup.theyrCallback();
-// });
+let deferred;
+let waitForData = new Promise((resolve, reject) => {
+    deferred = {resolve: resolve, reject: reject};
+});
 
 // // User connects, asks server for game state
 socket.on('connect', () => {
@@ -36,17 +15,6 @@ socket.on('connect', () => {
 // Receive state from server upon connecting, then update all other clients that you've connected
 console.log("in start socket function");
 socket.on('new connection', (state) => {
-    // // If this is the first time a user is connecting, assign them a userId in local storage
-    // if (localStorage.getItem('userId') === null) {
-    //     setId(socket.id)
-    // }
-
-    // // Returning user, get correct user state from database
-    // else {
-    //     setId(localStorage.getItem('userId'))
-    // }
-
-
     console.log("Connecting state:", state)
     console.log("Current State:", Window.SugarCubeState.variables)
 
@@ -64,6 +32,8 @@ socket.on('new connection', (state) => {
     store.dispatch({type: 'UPDATEGAME', payload: state, connecting: true})
     store.dispatch({type: 'UPDATESTORE', payload: state, connecting: true})
     stateReceived = true;
+
+    deferred.resolve("");
 });
 
 // Incoming difference, update your state and store

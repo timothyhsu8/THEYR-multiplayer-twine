@@ -124,34 +124,28 @@ importScripts([
 	"https://code.jquery.com/ui/1.12.1/jquery-ui.js"	
 ])
 	.then(function() {
-		function playPassage() {
-			if (stateReceived) {
-				console.log("Start Sockets");
-				let userId = State.variables.userId;
-				let role = State.variables['users'][userId]['role'];
-				let currentPassage = State.variables[`${role}_currentPassage`];
+		waitForData.then(() => {
+			console.log("Start Sockets");
+			let userId = State.variables.userId;
+			let role = State.variables['users'][userId]['role'];
+			let currentPassage = State.variables[`${role}_currentPassage`];
 
-				// Play Unrecognized Passage if role is undefined
-				if (role === undefined) {
-					Engine.play("Name Not Recognized");
-					// Engine.show();
-				}
-
-				// Start where you left off
-				else if (currentPassage) {
-					Engine.play(currentPassage);
-				}
-
-				// Reload passage if it's your first time connecting
-				else {
-					Engine.show();
-				}
+			// Play Unrecognized Passage if role is undefined
+			if (role === undefined) {
+				Engine.play("Name Not Recognized");
+				// Engine.show();
 			}
+
+			// Start where you left off
+			else if (currentPassage) {
+				Engine.play(currentPassage);
+			}
+
+			// Reload passage if it's your first time connecting
 			else {
-				setTimeout(playPassage, 100);
+				Engine.show();
 			}
-		}
-		playPassage();
+    	});	
 	}
 );
 
@@ -194,7 +188,6 @@ importScripts([
 	Macro.add(['liveblock', 'lb'], {
 		tags: null,
 		handler: function handler() {
-			console.log("In liveblock", this);
 			try {
 				var content = this.payload[0].contents.trim();
 				if (content) {
@@ -252,7 +245,7 @@ $(document).one(":passagestart", () => {
 		localStorage.getItem('userId') === null ? setId(generateId()) : setId(localStorage.getItem('userId'));
 	}
     setup.theyrCallback(State);
-});</script><tw-tag name="Change-Title" color="yellow"></tw-tag><tw-tag name="Coding-Problem" color="red"></tw-tag><tw-tag name="Done" color="green"></tw-tag><tw-tag name="New-Passage" color="purple"></tw-tag><tw-tag name="Text-to-be-updated-by-Ashley" color="orange"></tw-tag><tw-tag name="Breaks" color="blue"></tw-tag><tw-passagedata pid="1" name="StoryInit" tags="" position="22,135" size="100,100">/* &lt;&lt;set $lastSeenDelay=60 * 5000&gt;&gt; */
+});</script><tw-tag name="Done" color="green"></tw-tag><tw-tag name="New-Passage" color="purple"></tw-tag><tw-tag name="Text-to-be-updated-by-Ashley" color="orange"></tw-tag><tw-tag name="Breaks" color="blue"></tw-tag><tw-tag name="Change-Title" color="yellow"></tw-tag><tw-tag name="Coding-Problem" color="red"></tw-tag><tw-passagedata pid="1" name="StoryInit" tags="" position="22,135" size="100,100">/* &lt;&lt;set $lastSeenDelay=60 * 5000&gt;&gt; */
 /* &lt;&lt;print $users[$userId][&#39;role&#39;]&gt;&gt; */
 &lt;&lt;script&gt;&gt;
 	setup.theyrCallback = function() {
@@ -326,13 +319,6 @@ $(document).one(":passagestart", () => {
 		}
 
 		user = Object.assign(user, roleInfo);
-
-		// Start player at the passage they left off
-		// let currentPassage = State.variables[`${user[&#39;role&#39;]}_currentPassage`]
-		// console.log(&quot;Current passage is &quot;, currentPassage);
-		// Engine.play(&quot;The Aztec Quest for Legitimacy&quot;);
-		// if (currentPassage)
-		// 	Engine.play(currentPassage)
 	}
 
 &lt;&lt;/script&gt;&gt;

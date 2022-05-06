@@ -56,7 +56,6 @@ class JSONFS {
     }
 
     setJSON(jsonObj, passedObject = "") {
-        console.log({passedObject, jsonObj});
         if (jsonObj !== null && (this.dataType(jsonObj) == "object" || this.dataType(jsonObj) == "array")) {
             if (JSON.stringify(jsonObj) === '{}') {
                 this.setKeyPair("{}", "", passedObject);

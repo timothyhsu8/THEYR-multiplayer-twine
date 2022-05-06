@@ -49,34 +49,28 @@ importScripts([
 	"https://code.jquery.com/ui/1.12.1/jquery-ui.js"	
 ])
 	.then(function() {
-		function playPassage() {
-			if (stateReceived) {
-				console.log("Start Sockets");
-				let userId = State.variables.userId;
-				let role = State.variables['users'][userId]['role'];
-				let currentPassage = State.variables[`${role}_currentPassage`];
+		waitForData.then(() => {
+			console.log("Start Sockets");
+			let userId = State.variables.userId;
+			let role = State.variables['users'][userId]['role'];
+			let currentPassage = State.variables[`${role}_currentPassage`];
 
-				// Play Unrecognized Passage if role is undefined
-				if (role === undefined) {
-					Engine.play("Name Not Recognized");
-					// Engine.show();
-				}
-
-				// Start where you left off
-				else if (currentPassage) {
-					Engine.play(currentPassage);
-				}
-
-				// Reload passage if it's your first time connecting
-				else {
-					Engine.show();
-				}
+			// Play Unrecognized Passage if role is undefined
+			if (role === undefined) {
+				Engine.play("Name Not Recognized");
+				// Engine.show();
 			}
+
+			// Start where you left off
+			else if (currentPassage) {
+				Engine.play(currentPassage);
+			}
+
+			// Reload passage if it's your first time connecting
 			else {
-				setTimeout(playPassage, 100);
+				Engine.show();
 			}
-		}
-		playPassage();
+    	});	
 	}
 );
 
@@ -254,13 +248,6 @@ $(document).one(":passagestart", () => {
 		}
 
 		user = Object.assign(user, roleInfo);
-
-		// Start player at the passage they left off
-		// let currentPassage = State.variables[`${user['role']}_currentPassage`]
-		// console.log("Current passage is ", currentPassage);
-		// Engine.play("The Aztec Quest for Legitimacy");
-		// if (currentPassage)
-		// 	Engine.play(currentPassage)
 	}
 
 <</script>>
@@ -2858,6 +2845,8 @@ You cannot yet travel to Cholula, continue your quest to gather all the items ne
 <</switch>>
 
 <</liveblock>>
+
+
 :: Cholula [Done,Breaks] {"position":"833,3660","size":"100,100"}
 <<liveblock>>
 You've made it to Cholula!<br>
