@@ -161,7 +161,6 @@ $(document).one(":passagestart", () => {
 		let user = users[userId];
 		console.log("USER DATA", userData)
 
-		
 		// Get Name From Discord
 		let discName = userData.nick
 		if (discName) {
@@ -218,7 +217,6 @@ $(document).one(":passagestart", () => {
 				"Aztec_Priest": {}, "Cacamatzin": {}, "Pochteca": {}, "Xicotencatl_Elder": {}, "Xicotencatl_Younger": {}, "Maxixcatl": {}
 			}
 		}
-		console.log("ROLES:", State.variables.roles);
 
 		user = Object.assign(user, roleInfo);
 

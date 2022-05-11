@@ -93,7 +93,8 @@ app.get('/', async ({ query }, response) => {
 			
 
 			if (userResultJson.message) {
-				return response.send(JSON.stringify(combineData));
+				return returnTwine(combineData, response);
+				// return response.send(JSON.stringify(combineData));
 				// file = path.join(__dirname, 'index.html')
 			}
 
@@ -111,9 +112,9 @@ app.get('/', async ({ query }, response) => {
 	}
 
 	let htmlContents = fs.readFileSync(htmlTemplate, 'utf8')
-	let foo = htmlContents.replace("%redirectURL%", REDIRECTURL)
+	let indexHtml = htmlContents.replace("%redirectURL%", REDIRECTURL)
 
-	return response.send(foo);
+	return response.send(indexHtml);
 });
 
 // Generates a random ID

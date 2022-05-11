@@ -13,7 +13,7 @@
         "twinePath":"Twine/aztec.html",
         "redirectURL": "https://discord.com/api/oauth2/authorize?client_id=966339589734293544&redirect_uri=https%3A%2F%2Faztec-2.herokuapp.com&response_type=code&scope=identify%20guilds.members.read%20guilds",
         "herokuURL": "https://aztec-2.herokuapp.com",
-        "guildId": "968922771692339291"
+        "guildId": "973210028087603270"
     },
     {
         "clientId": "966339941070176366",

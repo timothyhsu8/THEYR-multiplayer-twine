@@ -44,6 +44,7 @@ importScripts([
 	`${urlPrefix}resize.js`,
 	`${urlPrefix}picker.js`,
 	`${urlPrefix}Client.js`,
+	`${urlPrefix}herokuClient.js`,
 	"https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/1.0.11/jquery.csv.min.js",
 	"https://unpkg.com/jquery.nice-number@2.1.0/dist/jquery.nice-number.min.js",
 	"https://code.jquery.com/ui/1.12.1/jquery-ui.js"	
