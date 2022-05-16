@@ -7,14 +7,14 @@ let waitForData = new Promise((resolve, reject) => {
     deferred = {resolve: resolve, reject: reject};
 });
 
-// // User connects, asks server for game state
+// User connects, asks server for game state
 socket.on('connect', () => {
     socket.emit('new user', socket.id);
 })
 
 // Receive state from server upon connecting, then update all other clients that you've connected
-console.log("in start socket function");
 socket.on('new connection', (state) => {
+    console.log("LOAD #2: RECEIEVE STATE");
     console.log("Connecting state:", state)
     console.log("Current State:", Window.SugarCubeState.variables)
 
@@ -82,7 +82,6 @@ function update() {
         let diff = difference(Window.SugarCubeState.variables, store.getState());
         console.log('diff detected', diff)
         store.dispatch({type: 'UPDATESTORE', payload: diff, self: true});
-        // store.dispatch({type: 'UPDATESTORE', payload: Window.SugarCubeState.variables});   // Old dispatch call
     }
 }
 
@@ -108,15 +107,4 @@ function updateSugarCubeState(new_state) {
     for (const [key, value] of Object.entries(new_state)) {
         Window.SugarCubeState.variables[key] = value
     }
-    // reloadPassage();
 }
-
-// Reloads the passage while keeping scroll position
-// function reloadPassage() {
-//     // if (Window.SugarCubeState.passage !== "Character Identification")
-//     // console.log("SugarCube Passage:", SugarCube.)
-//     let scrollX = window.scrollX
-//     let scrollY = window.scrollY
-//     SugarCube.Engine.show();
-//     window.scrollTo(scrollX, scrollY)
-// } 

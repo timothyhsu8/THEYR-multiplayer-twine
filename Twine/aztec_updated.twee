@@ -30,14 +30,6 @@ Spanish Aztec War Ver 1.0
 
 :: Story JavaScript [script]
 Config.passages.nobr = true;
-// window.gameData={
-// "faction":"Spaniards",
-// "role":"Cortes",
-// "isLeader":true,
-// "Aztecs_strength":12,
-// "currentPassage":"Loyalty Check",
-// }
-
 Window.SugarCubeState = State;
 var jsLoaded = false;
 var urlPrefix="static/";
@@ -57,6 +49,7 @@ importScripts([
 ])
 	.then(function() {
 		waitForData.then(() => {
+			console.log("LOAD #3: THEN FUNCTION CALLED");
 			console.log("Start Sockets");
 			let userId = State.variables.userId;
 			let role = State.variables['users'][userId]['role'];
@@ -108,7 +101,7 @@ importScripts([
 
 // Run when passage starts 
 $(document).one(":passagestart", () => {
-	console.log("PASSAGE START");
+	console.log("LOAD #1: PASSAGE START");
     let usersCheck = State.variables.users || {};
 	State.variables.users = usersCheck;
 	let users = State.variables.users;
