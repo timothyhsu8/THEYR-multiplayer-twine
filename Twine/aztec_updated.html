@@ -238,7 +238,7 @@ $(document).one(":passagestart", () => {
 
 	// Get role info for the player
 	let roleInfo = roles.find((item) => {
-		return item.role.replace(/[^a-z0-9]/gi, '') === discName.replace(/[^a-z0-9]/gi, '')
+		return item.role.toLowerCase().replace(/[^a-z0-9]/gi, '') === discName.toLowerCase().replace(/[^a-z0-9]/gi, '')
 	})
 	console.log('role info', roleInfo)
 	
@@ -256,76 +256,9 @@ $(document).one(":passagestart", () => {
 	}
 
 	user = Object.assign(user, roleInfo);
-});</script><tw-tag name="Done" color="green"></tw-tag><tw-tag name="New-Passage" color="purple"></tw-tag><tw-tag name="Text-to-be-updated-by-Ashley" color="orange"></tw-tag><tw-tag name="Breaks" color="blue"></tw-tag><tw-tag name="Change-Title" color="yellow"></tw-tag><tw-tag name="Coding-Problem" color="red"></tw-tag><tw-passagedata pid="1" name="StoryInit" tags="" position="22,135" size="100,100">&lt;&lt;theyr&gt;&gt;
+});</script><tw-tag name="Coding-Problem" color="red"></tw-tag><tw-tag name="Done" color="green"></tw-tag><tw-tag name="New-Passage" color="purple"></tw-tag><tw-tag name="Text-to-be-updated-by-Ashley" color="orange"></tw-tag><tw-tag name="Breaks" color="blue"></tw-tag><tw-tag name="Change-Title" color="yellow"></tw-tag><tw-passagedata pid="1" name="StoryInit" tags="" position="22,135" size="100,100">&lt;&lt;theyr&gt;&gt;
 /* &lt;&lt;set $lastSeenDelay=60 * 5000&gt;&gt; */
 /* &lt;&lt;print $users[$userId][&#39;role&#39;]&gt;&gt; */
-&lt;&lt;script&gt;&gt;
-	setup.theyrCallback = function() {
-		// let users = State.variables.users;
-		// let userId = State.variables.userId;
-		// let user = users[userId];
-		// console.log(&quot;USER DATA&quot;, userData)
-
-		// // Get Name From Discord
-		// let discName = userData.nick
-		// if (discName) {
-		// 	discName = discName.normalize(&quot;NFD&quot;).replace(/\p{Diacritic}/gu, &quot;&quot;);	// Replaces special characters
-		// }
-		// else {
-		// 	discName = &quot;Unknown&quot;;
-		// }
-		
-		// console.log(&quot;DISCNAME IS&quot;, discName);
-
-		// // Initialize variables (Syntax: [sv.VarName, initValue] )
-		// let sv = State.variables;
-		// let initVars = [
-		// 	[&quot;Start&quot;, 15],
-		// 	[&quot;Quest_Points_A&quot;, 0]
-		// ]
-		// for (const v of initVars) {
-		// 	if (sv[v[0]] === undefined) {
-		// 		sv[v[0]] = v[1];
-		// 	}
-		// }
-
-		// const roles = [{&quot;faction&quot;: &quot;Spaniards&quot;, &quot;role&quot;: &quot;Mariana&quot;, &quot;Character&quot;: &quot;Doña Mariana/Malinche&quot;, &quot;isLeader&quot;: &quot;FALSE&quot;},
-		// 	{&quot;faction&quot;: &quot;Spaniards&quot;, &quot;role&quot;: &quot;Alvarado&quot;, &quot;Character&quot;: &quot;Pedro de Alvarado&quot;, &quot;isLeader&quot;: &quot;FALSE&quot;},
-		// 	{&quot;faction&quot;: &quot;Spaniards&quot;, &quot;role&quot;: &quot;Aguilar&quot;, &quot;Character&quot;: &quot;Gerónimo de Aguilar&quot;, &quot;isLeader&quot;: &quot;FALSE&quot;},
-		// 	{&quot;faction&quot;: &quot;Spaniards&quot;, &quot;role&quot;: &quot;Garrido&quot;, &quot;Character&quot;: &quot;Juan Garrido&quot;, &quot;isLeader&quot;: &quot;FALSE&quot;},
-		// 	{&quot;faction&quot;: &quot;Spaniards&quot;, &quot;role&quot;: &quot;Olid&quot;, &quot;Character&quot;: &quot;Cristóbal de Olid&quot;, &quot;isLeader&quot;: &quot;FALSE&quot;},
-		// 	{&quot;faction&quot;: &quot;Aztecs&quot;, &quot;role&quot;: &quot;Moctezuma&quot;, &quot;Character&quot;: &quot;Moctezuma&quot;, &quot;isLeader&quot;: &quot;TRUE&quot;},
-		// 	{&quot;faction&quot;: &quot;Aztecs&quot;, &quot;role&quot;: &quot;Tlacaelel&quot;, &quot;Character&quot;: &quot;Tlacaelel Xocoyotl (aka Tlacaelel the Younger)&quot;, &quot;isLeader&quot;: &quot;FALSE&quot;},
-		// 	{&quot;faction&quot;: &quot;Aztecs&quot;, &quot;role&quot;: &quot;Cuauhtemoc&quot;, &quot;Character&quot;: &quot;Cuauhtémoc&quot;, &quot;isLeader&quot;: &quot;FALSE&quot;},
-		// 	{&quot;faction&quot;: &quot;Aztecs&quot;, &quot;role&quot;: &quot;Aztec_Priest&quot;, &quot;Character&quot;: &quot;Aztec Priest&quot;, &quot;isLeader&quot;: &quot;FALSE&quot;},
-		// 	{&quot;faction&quot;: &quot;Aztecs&quot;, &quot;role&quot;: &quot;Cacamatzin&quot;, &quot;Character&quot;: &quot;Cacamatzín&quot;, &quot;isLeader&quot;: &quot;FALSE&quot;},
-		// 	{&quot;faction&quot;: &quot;Aztecs&quot;, &quot;role&quot;: &quot;Pochteca&quot;, &quot;Character&quot;: &quot;Pochteca&quot;, &quot;isLeader&quot;: &quot;FALSE&quot;},
-		// 	{&quot;faction&quot;: &quot;Tlaxcalans&quot;, &quot;role&quot;: &quot;Xicotencatl_Elder&quot;, &quot;Character&quot;: &quot;Xicotencatl the Elder&quot;, &quot;isLeader&quot;: &quot;TRUE&quot;},
-		// 	{&quot;faction&quot;: &quot;Tlaxcalans&quot;, &quot;role&quot;: &quot;Xicotencatl_Younger&quot;, &quot;Character&quot;: &quot;Xicotencatl the Younger&quot;, &quot;isLeader&quot;: &quot;FALSE&quot;},
-		// 	{&quot;faction&quot;: &quot;Tlaxcalans&quot;, &quot;role&quot;: &quot;Maxixcatl&quot;, &quot;Character&quot;: &quot;Maxixcatl&quot;, &quot;isLeader&quot;: &quot;FALSE&quot;}]
-
-		// // Get role info for the player
-		// let roleInfo = roles.find((item) =&gt; {
-		// 	return item.role.toLowerCase().replace(/[^a-z0-9]/gi, &#39;&#39;) === discName.toLowerCase().replace(/[^a-z0-9]/gi, &#39;&#39;)
-		// })
-		// console.log(&#39;role info&#39;, roleInfo)
-		
-		// // Set role in the user variable
-		// if (roleInfo) {
-		// 	user[&#39;role&#39;] = roleInfo.role
-		// }
-
-		// // Initialize roles
-		// if (!State.variables.roles) {
-		// 	State.variables.roles = {
-		// 		&quot;Mariana&quot;: {}, &quot;Alvarado&quot;: {}, &quot;Aguilar&quot;: {}, &quot;Garrido&quot;: {}, &quot;Olid&quot;: {}, &quot;Moctezuma&quot;: {}, &quot;Tlacaelel&quot;: {}, &quot;Cuauhtemoc&quot;: {}, 
-		// 		&quot;Aztec_Priest&quot;: {}, &quot;Cacamatzin&quot;: {}, &quot;Pochteca&quot;: {}, &quot;Xicotencatl_Elder&quot;: {}, &quot;Xicotencatl_Younger&quot;: {}, &quot;Maxixcatl&quot;: {}
-		// 	}
-		// }
-
-		// user = Object.assign(user, roleInfo);
-	}
-&lt;&lt;/script&gt;&gt;
 
 &lt;&lt;cacheaudio &quot;Gulls_and_waves__5min_&quot; &quot;audio/Gulls_and_waves__5min_.mp3&quot;&gt;&gt;
 &lt;&lt;cacheaudio &quot;Library&quot; &quot;audio/Library.mp3&quot;&gt;&gt;
@@ -333,7 +266,7 @@ $(document).one(":passagestart", () => {
 
 
 &lt;&lt;/theyr&gt;&gt;</tw-passagedata><tw-passagedata pid="2" name="PassageHeader" tags="" position="138,11" size="100,100">&lt;&lt;theyr&gt;&gt;
-&lt;&lt;script&gt;&gt;
+/* &lt;&lt;script&gt;&gt;
 	if (State.passage !== &quot;Name Not Recognized&quot;) {
 		function setupPassage() {
 			let users = State.variables.users;
@@ -350,15 +283,16 @@ $(document).one(":passagestart", () => {
 
 		setupPassage();
 	}
-&lt;&lt;/script&gt;&gt;
+&lt;&lt;/script&gt;&gt; */
+
 /* &lt;&lt;print passage()&gt;&gt;  */
 /* &lt;&lt;audio &quot;:all&quot; stop&gt;&gt; */
 &lt;!-- &lt;&lt;masteraudio mute&gt;&gt; --&gt;
 
-/* &lt;&lt;masteraudio unmute&gt;&gt;
+&lt;&lt;masteraudio unmute&gt;&gt;
  &lt;&lt;run showMap()&gt;&gt;
  &lt;&lt;run showStats()&gt;&gt;
-&lt;&lt;run setBackground()&gt;&gt; */
+&lt;&lt;run setBackground()&gt;&gt;
 
 &lt;&lt;/theyr&gt;&gt;</tw-passagedata><tw-passagedata pid="3" name="Name Not Recognized" tags="" position="350,100" size="100,100">&lt;&lt;theyr&gt;&gt;
 Name not recognized. Make sure the spelling on your character&#39;s name matches your role. &lt;br&gt;
