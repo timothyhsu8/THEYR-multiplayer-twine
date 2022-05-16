@@ -1,16 +1,16 @@
 [
     {
-        "clientId": "965680167081095321",
-        "clientSecret": "cJIWt6pHsoxPDIfYUyMU4AUYoV504SNt",
-        "twinePath":"Twine/aztec.html",
-        "redirectURL": "https://discord.com/api/oauth2/authorize?client_id=965680167081095321&redirect_uri=https%3A%2F%2Faztec-1.herokuapp.com%2F&response_type=code&scope=identify%20guilds%20guilds.members.read",
+        "clientId": "973930115820052490",
+        "clientSecret": "7LueI_7mVXNogaTKZI261yz1YbIAuSh2",
+        "twinePath":"Twine/aztec_updated.html",
+        "redirectURL": "https://discord.com/api/oauth2/authorize?client_id=973930115820052490&redirect_uri=https%3A%2F%2Faztec-1.herokuapp.com&response_type=code&scope=identify%20guilds%20guilds.members.read",
         "herokuURL": "https://aztec-1.herokuapp.com",
         "guildId": "968922771692339291"
     },
     {
         "clientId": "966339589734293544",
         "clientSecret": "K3wiTQIC5ANHto0F211mItp34J4uBExQ",
-        "twinePath":"Twine/aztec.html",
+        "twinePath":"Twine/aztec_updated.html",
         "redirectURL": "https://discord.com/api/oauth2/authorize?client_id=966339589734293544&redirect_uri=https%3A%2F%2Faztec-2.herokuapp.com&response_type=code&scope=identify%20guilds.members.read%20guilds",
         "herokuURL": "https://aztec-2.herokuapp.com",
         "guildId": "973210028087603270"
@@ -18,7 +18,7 @@
     {
         "clientId": "966339941070176366",
         "clientSecret": "j9RBcqyg0E5DpWZ0LTJ-MXZcnVKovVPK",
-        "twinePath":"Twine/aztec.html",
+        "twinePath":"Twine/aztec_updated.html",
         "redirectURL": "https://discord.com/api/oauth2/authorize?client_id=966339941070176366&redirect_uri=https%3A%2F%2Faztec-3.herokuapp.com&response_type=code&scope=identify%20guilds%20guilds.members.read",
         "herokuURL": "https://aztec-3.herokuapp.com",
         "guildId": "968922771692339291"
@@ -26,7 +26,7 @@
     {
         "clientId": "966340336962109512",
         "clientSecret": "cHoJKUvBl882gY-LjC4OjFF2SGQvHBr6",
-        "twinePath":"Twine/aztec.html",
+        "twinePath":"Twine/aztec_updated.html",
         "redirectURL": "https://discord.com/api/oauth2/authorize?client_id=966340336962109512&redirect_uri=https%3A%2F%2Faztec-4.herokuapp.com&response_type=code&scope=identify%20guilds%20guilds.members.read",
         "herokuURL": "https://aztec-4.herokuapp.com",
         "guildId": "968922771692339291"
@@ -34,7 +34,7 @@
     {
         "clientId": "966341253363007580",
         "clientSecret": "1S04JoWsQnHCLYpDyshbUXSEfglhDZaO",
-        "twinePath":"Twine/aztec.html",
+        "twinePath":"Twine/aztec_updated.html",
         "redirectURL": "https://discord.com/api/oauth2/authorize?client_id=966341253363007580&redirect_uri=https%3A%2F%2Faztec-5.herokuapp.com&response_type=code&scope=identify%20guilds%20guilds.members.read",
         "herokuURL": "https://aztec-5.herokuapp.com",
         "guildId": "968922771692339291"

@@ -28,18 +28,19 @@ const GUILD_ID = process.env.guildId || guildId
 const { app } = new webstack(PORT).get();
 
 function returnTwine(userData, response) {
-	let userDataScript =  `
+	let userDataScriptTag =  `
 	<script> let userData=${userData} </script>
 	`
 	let file = TWINE_PATH
 	let fileContents = fs.readFileSync(file)
-	return response.send(`${fileContents} ${userDataScript}`);
+	return response.send(`${fileContents} ${userDataScriptTag}`);
 }
 
 app.get('/', async ({ query }, response) => {
+	console.log({query});
 	const { code, state, test, nick } = query;
 	const htmlTemplate = './views/index.html'
-	let userDataScript;
+	let userDataJSON;
 
 	if (test) {
 		let nickname = "Cuauhtémoc"
@@ -49,9 +50,9 @@ app.get('/', async ({ query }, response) => {
 			id = generateId()
 		}	
 		
-		userDataScript = JSON.stringify({"id":id,"nick":nickname, "faction": "Aztecs", "avatar":null,"discriminator":"2739","public_flags":0,"flags":0,"banner":null,"banner_color":null,
+		userDataJSON = JSON.stringify({"id":id,"nick":nickname, "faction": "Aztecs", "avatar":null,"discriminator":"2739","public_flags":0,"flags":0,"banner":null,"banner_color":null,
 		"accent_color":null,"locale":"en-US","mfa_enabled":false});
-		return returnTwine(userDataScript, response);
+		return returnTwine(userDataJSON, response);
 	}
 
 	if (code) {
@@ -87,22 +88,17 @@ app.get('/', async ({ query }, response) => {
 				},
 			});
 			const guildResultJson = await guildResult.json();
-			let guildData = JSON.stringify(guildResultJson);
 			
-			const combineData = JSON.stringify({...guildResultJson, ...userResultJson});
+			const userDataJSON = JSON.stringify({...guildResultJson, ...userResultJson});
 			
 
-			if (userResultJson.message) {
-				return returnTwine(combineData, response);
-				// return response.send(JSON.stringify(combineData));
-				// file = path.join(__dirname, 'index.html')
-			}
+			// if (userResultJson.message) {
+			// 	return returnTwine(userDataJSON, response);
+			// 	// return response.send(JSON.stringify(combineData));
+			// 	// file = path.join(__dirname, 'index.html')
+			// }
 
-			// userDataScript = `
-			// <script> let userData=${userData} </script>
-			// `
-
-			return returnTwine(combineData, response);
+			return returnTwine(userDataJSON, response);
 			
 		} catch (error) {
 			// NOTE: An unauthorized token will not throw an error;

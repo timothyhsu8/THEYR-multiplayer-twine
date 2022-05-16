@@ -25,7 +25,7 @@ socket.on('new connection', (state) => {
 
     // If server's state doesn't have your id yet, set it with this client's state
     let userId = Window.SugarCubeState.variables.userId
-    if (state.users[userId] === undefined) {
+    if (state.users[userId] === undefined || JSON.stringify(state.users[userId]) === {}) {
         state.users[userId] = Window.SugarCubeState.variables.users[userId];
     }
 
@@ -43,11 +43,6 @@ socket.on('difference', (state) => {
     store.dispatch({type: 'UPDATESTORE', payload: state, noUpdate: true})
 })
 
-// Reducer to update your store and send the difference to all other clients
-function setId(userId){
-    localStorage.setItem('userId', userId);
-    Window.SugarCubeState.setVar('$userId', userId);
-}
 
 function reducer(state, action){
     

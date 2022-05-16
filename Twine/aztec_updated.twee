@@ -104,48 +104,82 @@ importScripts([
 	});
 })();
 
-// Generates a random ID
-function generateId() {
-	let id = "";
-	for (let i = 0; i < 18; i++) {
-		id += Math.floor(Math.random() * 10);
-	}
-	return parseInt(id);
-}
-
-// Set ID in SugarCube and LocalStorage
-function setId(userId){
-    localStorage.setItem('userId', userId);
-    State.variables.userId = userId;
-}
 
 // Run when passage starts 
 $(document).one(":passagestart", () => {
 	console.log("PASSAGE START");
-    let users = State.variables.users;
+    let usersCheck = State.variables.users || {};
+	State.variables.users = usersCheck;
+	let users = State.variables.users;
 
-    // If Users map is not defined, initialize it
-    if (users === undefined){
-        State.variables.users = {};
-		users = State.variables.users
-    } 
-	
+
     // If client does not exist in Users, add them
     if (!(userData.id in users)) {
-        users[userData.id] = {}
-        users[userData.id].username = userData.nick 	// Should this be username instead of nick?
+        users[userData.id] = {};
+        // users[userData.id].username = userData.nick 	// Should this be username instead of nick?
     }  
 
-	// Set userId from userData if it exists
-	if (userData) {
-    	setId(userData.id);
+	// Sets userId in State and LocalStorage
+    localStorage.setItem('userId', userData.id);
+    State.variables.userId = userData.id;
+
+
+
+	//* Theyr Callback Code *//
+	let user = users[userData.id];
+
+	// Get Name From Discord
+	let discName = userData.nick || "Unknown";
+	discName = discName.normalize("NFD").replace(/\p{Diacritic}/gu, "");	// Replaces special characters
+	console.log("DISCNAME IS", discName);
+
+	// Initialize variables (Syntax: [sv.VarName, initValue] )
+	let sv = State.variables;
+	let initVars = [
+		["Start", 15],
+		["Quest_Points_A", 0]
+	]
+	for (const v of initVars) {
+		if (sv[v[0]] === undefined) {
+			sv[v[0]] = v[1];
+		}
 	}
 
-	// Generate new userId if firsttime user, otherwise set as the userId from localstorage
-	else {
-		localStorage.getItem('userId') === null ? setId(generateId()) : setId(localStorage.getItem('userId'));
+	const roles = [{"faction": "Spaniards", "role": "Mariana", "Character": "Doña Mariana/Malinche", "isLeader": "FALSE"},
+		{"faction": "Spaniards", "role": "Alvarado", "Character": "Pedro de Alvarado", "isLeader": "FALSE"},
+		{"faction": "Spaniards", "role": "Aguilar", "Character": "Gerónimo de Aguilar", "isLeader": "FALSE"},
+		{"faction": "Spaniards", "role": "Garrido", "Character": "Juan Garrido", "isLeader": "FALSE"},
+		{"faction": "Spaniards", "role": "Olid", "Character": "Cristóbal de Olid", "isLeader": "FALSE"},
+		{"faction": "Aztecs", "role": "Moctezuma", "Character": "Moctezuma", "isLeader": "TRUE"},
+		{"faction": "Aztecs", "role": "Tlacaelel", "Character": "Tlacaelel Xocoyotl (aka Tlacaelel the Younger)", "isLeader": "FALSE"},
+		{"faction": "Aztecs", "role": "Cuauhtemoc", "Character": "Cuauhtémoc", "isLeader": "FALSE"},
+		{"faction": "Aztecs", "role": "Aztec_Priest", "Character": "Aztec Priest", "isLeader": "FALSE"},
+		{"faction": "Aztecs", "role": "Cacamatzin", "Character": "Cacamatzín", "isLeader": "FALSE"},
+		{"faction": "Aztecs", "role": "Pochteca", "Character": "Pochteca", "isLeader": "FALSE"},
+		{"faction": "Tlaxcalans", "role": "Xicotencatl_Elder", "Character": "Xicotencatl the Elder", "isLeader": "TRUE"},
+		{"faction": "Tlaxcalans", "role": "Xicotencatl_Younger", "Character": "Xicotencatl the Younger", "isLeader": "FALSE"},
+		{"faction": "Tlaxcalans", "role": "Maxixcatl", "Character": "Maxixcatl", "isLeader": "FALSE"}]
+
+	// Get role info for the player
+	let roleInfo = roles.find((item) => {
+		return item.role.replace(/[^a-z0-9]/gi, '') === discName.replace(/[^a-z0-9]/gi, '')
+	})
+	console.log('role info', roleInfo)
+	
+	// Set role in the user variable
+	if (roleInfo) {
+		user['role'] = roleInfo.role
 	}
-    setup.theyrCallback();
+
+	// Initialize roles
+	if (!State.variables.roles) {
+		State.variables.roles = {
+			"Mariana": {}, "Alvarado": {}, "Aguilar": {}, "Garrido": {}, "Olid": {}, "Moctezuma": {}, "Tlacaelel": {}, "Cuauhtemoc": {}, 
+			"Aztec_Priest": {}, "Cacamatzin": {}, "Pochteca": {}, "Xicotencatl_Elder": {}, "Xicotencatl_Younger": {}, "Maxixcatl": {}
+		}
+	}
+
+	user = Object.assign(user, roleInfo);
 });
 
 
@@ -156,76 +190,69 @@ $(document).one(":passagestart", () => {
 /* <<print $users[$userId]['role']>> */
 <<script>>
 	setup.theyrCallback = function() {
-		let users = State.variables.users;
-		let userId = State.variables.userId;
-		let user = users[userId];
-		console.log("USER DATA", userData)
+		// let users = State.variables.users;
+		// let userId = State.variables.userId;
+		// let user = users[userId];
+		// console.log("USER DATA", userData)
 
-		// Get Name From Discord
-		let discName = userData.nick
-		if (discName) {
-			discName = discName.normalize("NFD").replace(/\p{Diacritic}/gu, "");	// Replaces special characters
-		}
-		else {
-			discName = "Unknown";
-		}
+		// // Get Name From Discord
+		// let discName = userData.nick
+		// if (discName) {
+		// 	discName = discName.normalize("NFD").replace(/\p{Diacritic}/gu, "");	// Replaces special characters
+		// }
+		// else {
+		// 	discName = "Unknown";
+		// }
 		
-		console.log("DISCNAME IS", discName);
+		// console.log("DISCNAME IS", discName);
 
-		// Initialize variables (Syntax: [sv.VarName, initValue] )
-		let sv = State.variables;
-		let initVars = [
-			["Start", 15],
-			["Quest_Points_A", 0]
-		]
-		for (const v of initVars) {
-			if (sv[v[0]] === undefined) {
-				sv[v[0]] = v[1];
-			}
-		}
+		// // Initialize variables (Syntax: [sv.VarName, initValue] )
+		// let sv = State.variables;
+		// let initVars = [
+		// 	["Start", 15],
+		// 	["Quest_Points_A", 0]
+		// ]
+		// for (const v of initVars) {
+		// 	if (sv[v[0]] === undefined) {
+		// 		sv[v[0]] = v[1];
+		// 	}
+		// }
 
-		const roles = [{"faction": "Spaniards", "role": "Mariana", "Character": "Doña Mariana/Malinche", "isLeader": "FALSE"},
-			{"faction": "Spaniards", "role": "Alvarado", "Character": "Pedro de Alvarado", "isLeader": "FALSE"},
-			{"faction": "Spaniards", "role": "Aguilar", "Character": "Gerónimo de Aguilar", "isLeader": "FALSE"},
-			{"faction": "Spaniards", "role": "Garrido", "Character": "Juan Garrido", "isLeader": "FALSE"},
-			{"faction": "Spaniards", "role": "Olid", "Character": "Cristóbal de Olid", "isLeader": "FALSE"},
-			{"faction": "Aztecs", "role": "Moctezuma", "Character": "Moctezuma", "isLeader": "TRUE"},
-			{"faction": "Aztecs", "role": "Tlacaelel", "Character": "Tlacaelel Xocoyotl (aka Tlacaelel the Younger)", "isLeader": "FALSE"},
-			{"faction": "Aztecs", "role": "Cuauhtemoc", "Character": "Cuauhtémoc", "isLeader": "FALSE"},
-			{"faction": "Aztecs", "role": "Aztec_Priest", "Character": "Aztec Priest", "isLeader": "FALSE"},
-			{"faction": "Aztecs", "role": "Cacamatzin", "Character": "Cacamatzín", "isLeader": "FALSE"},
-			{"faction": "Aztecs", "role": "Pochteca", "Character": "Pochteca", "isLeader": "FALSE"},
-			{"faction": "Tlaxcalans", "role": "Xicotencatl_Elder", "Character": "Xicotencatl the Elder", "isLeader": "TRUE"},
-			{"faction": "Tlaxcalans", "role": "Xicotencatl_Younger", "Character": "Xicotencatl the Younger", "isLeader": "FALSE"},
-			{"faction": "Tlaxcalans", "role": "Maxixcatl", "Character": "Maxixcatl", "isLeader": "FALSE"}]
+		// const roles = [{"faction": "Spaniards", "role": "Mariana", "Character": "Doña Mariana/Malinche", "isLeader": "FALSE"},
+		// 	{"faction": "Spaniards", "role": "Alvarado", "Character": "Pedro de Alvarado", "isLeader": "FALSE"},
+		// 	{"faction": "Spaniards", "role": "Aguilar", "Character": "Gerónimo de Aguilar", "isLeader": "FALSE"},
+		// 	{"faction": "Spaniards", "role": "Garrido", "Character": "Juan Garrido", "isLeader": "FALSE"},
+		// 	{"faction": "Spaniards", "role": "Olid", "Character": "Cristóbal de Olid", "isLeader": "FALSE"},
+		// 	{"faction": "Aztecs", "role": "Moctezuma", "Character": "Moctezuma", "isLeader": "TRUE"},
+		// 	{"faction": "Aztecs", "role": "Tlacaelel", "Character": "Tlacaelel Xocoyotl (aka Tlacaelel the Younger)", "isLeader": "FALSE"},
+		// 	{"faction": "Aztecs", "role": "Cuauhtemoc", "Character": "Cuauhtémoc", "isLeader": "FALSE"},
+		// 	{"faction": "Aztecs", "role": "Aztec_Priest", "Character": "Aztec Priest", "isLeader": "FALSE"},
+		// 	{"faction": "Aztecs", "role": "Cacamatzin", "Character": "Cacamatzín", "isLeader": "FALSE"},
+		// 	{"faction": "Aztecs", "role": "Pochteca", "Character": "Pochteca", "isLeader": "FALSE"},
+		// 	{"faction": "Tlaxcalans", "role": "Xicotencatl_Elder", "Character": "Xicotencatl the Elder", "isLeader": "TRUE"},
+		// 	{"faction": "Tlaxcalans", "role": "Xicotencatl_Younger", "Character": "Xicotencatl the Younger", "isLeader": "FALSE"},
+		// 	{"faction": "Tlaxcalans", "role": "Maxixcatl", "Character": "Maxixcatl", "isLeader": "FALSE"}]
 
-		// Get role info for the player
-		let roleInfo = roles.find((item) => {
-			return item.role.toLowerCase().replace(/[^a-z0-9]/gi, '') === discName.toLowerCase().replace(/[^a-z0-9]/gi, '')
-		})
-		console.log('role info', roleInfo)
+		// // Get role info for the player
+		// let roleInfo = roles.find((item) => {
+		// 	return item.role.toLowerCase().replace(/[^a-z0-9]/gi, '') === discName.toLowerCase().replace(/[^a-z0-9]/gi, '')
+		// })
+		// console.log('role info', roleInfo)
 		
-		// Set role in the user variable
-		if (roleInfo) {
-			user['role'] = roleInfo.role
-		}
+		// // Set role in the user variable
+		// if (roleInfo) {
+		// 	user['role'] = roleInfo.role
+		// }
 
-		// Initialize roles
-		if (!State.variables.roles) {
-			State.variables.roles = {
-				"Mariana": {name:"Mari"}, "Alvarado": {name:"Alva"}, "Aguilar": {}, "Garrido": {}, "Olid": {}, "Moctezuma": {}, "Tlacaelel": {}, "Cuauhtemoc": {}, 
-				"Aztec_Priest": {}, "Cacamatzin": {}, "Pochteca": {}, "Xicotencatl_Elder": {}, "Xicotencatl_Younger": {}, "Maxixcatl": {}
-			}
-		}
+		// // Initialize roles
+		// if (!State.variables.roles) {
+		// 	State.variables.roles = {
+		// 		"Mariana": {}, "Alvarado": {}, "Aguilar": {}, "Garrido": {}, "Olid": {}, "Moctezuma": {}, "Tlacaelel": {}, "Cuauhtemoc": {}, 
+		// 		"Aztec_Priest": {}, "Cacamatzin": {}, "Pochteca": {}, "Xicotencatl_Elder": {}, "Xicotencatl_Younger": {}, "Maxixcatl": {}
+		// 	}
+		// }
 
-		user = Object.assign(user, roleInfo);
-
-		// Start player at the passage they left off
-		// let currentPassage = State.variables[`${user['role']}_currentPassage`]
-		// console.log("Current passage is ", currentPassage);
-		// Engine.play("The Aztec Quest for Legitimacy");
-		// if (currentPassage)
-		// 	Engine.play(currentPassage)
+		// user = Object.assign(user, roleInfo);
 	}
 <</script>>
 
