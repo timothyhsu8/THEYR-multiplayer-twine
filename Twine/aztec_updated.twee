@@ -192,26 +192,6 @@ $(document).one(":passagestart", () => {
 
 :: PassageHeader {"position":"138,11","size":"100,100"}
 <<theyr>>
-/* <<script>>
-	if (State.passage !== "Name Not Recognized") {
-		function setupPassage() {
-			let users = State.variables.users;
-			if (typeof(showMap) !== 'undefined' && typeof(showStats) !== 'undefined' && typeof(setBackground) !== 'undefined' && users !== undefined) {
-				console.log("In passage setup");
-				showMap(); 
-				showStats();
-				setBackground();
-			}
-			else {
-				setTimeout(setupPassage, 100);
-			}
-		}
-
-		setupPassage();
-	}
-<</script>> */
-
-/* <<print passage()>>  */
 /* <<audio ":all" stop>> */
 <!-- <<masteraudio mute>> -->
 
@@ -3014,12 +2994,12 @@ This is the [[end of your quest|End of Quest]].<br>
 
 
 :: Xochimilco [Done Breaks] {"position":"323,3381","size":"100,100"}
-<<theyr>>
 If you are to survive your journey, you will need to stop first at the place of flowers. Be careful as you seek what you came for, as you could easily get stuck in the mud.<br>
 <br>
 
 <<switch $users[$userId]["faction"]>>
 <<case "Aztecs">>
+
 <<if $Quest_Leader_A is $users[$userId]["role"]>>
 This city is <<textbox "$Xochimilco_Ans_A" "">><br>
 <br>
@@ -3041,9 +3021,6 @@ This city is <<textbox "$Xochimilco_Ans_T" "">><br>
 <br>
 <</if>>
 <</switch>>
-
-
-<</theyr>>
 
 
 :: Chapultepec [Done Breaks] {"position":"590,3441","size":"100,100"}

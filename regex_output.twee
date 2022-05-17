@@ -27,7 +27,8 @@ Spanish Aztec War Ver 1.0
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
 @import url("https://unpkg.com/jquery.nice-number@2.1.0/dist/jquery.nice-number.min.css");
 @import url("//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css");
-@import url("Twine/style.css");
+@import url("https://apps.tlt.stonybrook.edu/Aztec/master/style.css");
+
 
 :: Story JavaScript [script]
 Config.passages.nobr = true;
@@ -188,39 +189,20 @@ $(document).one(":passagestart", () => {
 <!-- <<masteraudio volume 0>> -->
 
 
+
+
 <</theyr>>
 
 :: PassageHeader {"position":"138,11","size":"100,100"}
 <<theyr>>
-<<masteraudio unmute>>
- <<run showMap()>>
- <<run showStats()>>
-<<run setBackground()>><<script>>
-	if (State.passage !== "Name Not Recognized") {
-		function setupPassage() {
-			let users = State.variables.users;
-			if (typeof(showMap) !== 'undefined' && typeof(showStats) !== 'undefined' && typeof(setBackground) !== 'undefined' && users !== undefined) {
-				console.log("In passage setup");
-				showMap(); 
-				showStats();
-				setBackground();
-			}
-			else {
-				setTimeout(setupPassage, 100);
-			}
-		}
-
-		setupPassage();
-	}
-<</script>>
-/* <<print passage()>>  */
 /* <<audio ":all" stop>> */
 <!-- <<masteraudio mute>> -->
 
-/* <<masteraudio unmute>>
+<<masteraudio unmute>>
  <<run showMap()>>
  <<run showStats()>>
-<<run setBackground()>> */
+<<run setBackground()>>
+
 
 <</theyr>>
 
@@ -246,8 +228,7 @@ Maxixcatl
 <</theyr>>
 
 :: Act 1 Scene 1 [Done Breaks] {"position":"338,1151","size":"100,100"}
-<<theyr>>
-<<if $users[$userId]["role"] is "Marina">>
+<<theyr>><<if $users[$userId]["role"] is "Marina">>
 Since arriving at the coast of Veracruz, your companions have been visited by emissaries from a number of nearby villages. In all of these interactions, you have proven your value, translating through the man they call Aguilar, who has in turn been able to convey information to the rest of the team. Through the visitors, you've gained important intelligence. Most significantly, you've told them many things about the rich and powerful kingdom that lies to the west. They have learned of the land called Mexico and its ruler, Moctezuma, who has made many enemies in the lands that lie between you.<br>
 <br>
 <<elseif $users[$userId]["role"] isnot "Marina">>
@@ -904,6 +885,7 @@ Now that you've augmented the historical record, [[you can move forward|Spaniard
 
 
 :: Spaniards Meet Marina [Done Breaks] {"position":"155,994","size":"100,100"}
+<<theyr>>
 <<switch $users[$userId]["role"]>>
 <<case "Marina">>
 <<if ndef $Mal_Story or $Mal_Story eq "">> 
@@ -957,6 +939,8 @@ You <<link "don't trust her" "Spaniards and Marina Talk">><<run changeStats("Mar
 
 <</switch>>
 
+
+<</theyr>>
 
 :: Marina in Slavery [Done] {"position":"54,289","size":"100,100"}
 <<theyr>>
@@ -2924,7 +2908,6 @@ This is the [[end of your quest|End of Quest]].<br>
 <</theyr>>
 
 :: Xochimilco [Done Breaks] {"position":"323,3381","size":"100,100"}
-<<theyr>>
 If you are to survive your journey, you will need to stop first at the place of flowers. Be careful as you seek what you came for, as you could easily get stuck in the mud.<br>
 <br>
 
@@ -2953,10 +2936,7 @@ This city is <<textbox "$Xochimilco_Ans_T" "">><br>
 <</switch>>
 
 
-<</theyr>>
-
 :: Chapultepec [Done Breaks] {"position":"590,3441","size":"100,100"}
-<<theyr>>
 The preparations for your journey have left you tired, and you stop to rest beside a spring. Out of the corner of your eye, you spy a tasty treat hopping through the grass beside you. You reach for your stash of tortillas!<br>
 <br>
 
@@ -2998,10 +2978,7 @@ This city is <<textbox "$Chapultepec_Ans_T" "">><br>
 <</switch>>
 
 
-<</theyr>>
-
 :: Cuauhnahuac [Done Breaks] {"position":"1130,3318","size":"100,100"}
-<<theyr>>
 You descend the mountains into the place near the trees, in search of something tropical and sweet. This place is lush and green. No wonder it's been so coveted by Mexica leaders!<br>
 <br>
 
@@ -3030,10 +3007,7 @@ This city is <<textbox "$Cuauhnahuac_Ans_T" "">><br>
 <</switch>>
 
 
-<</theyr>>
-
 :: Tlatelolco [Done Breaks] {"position":"1195,2886","size":"100,100"}
-<<theyr>>
 This place has you buzzing with energy. Your senses are nearly overwhelmed! You can barely hear over the din of voices, and you find yourself drawn towards the scent of fresh tortillas, epazote, and copal smoke.<br>
 <br>
 
@@ -3062,10 +3036,7 @@ This city is <<textbox "$Tlatelolco_Ans_T" "">><br>
 <</switch>>
 
 
-<</theyr>>
-
 :: Azcapotzalco [Done Breaks] {"position":"667,2667","size":"100,100"}
-<<theyr>>
 The many things you gather in preparation for your journey will undoubtedly be a great weight to carry. In the place of the ants you will find a way to lessen your burden.<br>
 <br>
 
@@ -3094,10 +3065,7 @@ This city is <<textbox "$Azcapotzalco_Ans_T" "">><br>
 <</switch>>
 
 
-<</theyr>>
-
 :: Chapultepec 2 [Done Breaks] {"position":"733,3474","size":"100,100"}
-<<theyr>>
 <<switch $users[$userId]["faction"]>>
 <<case "Aztecs">>
 <<print $Chapultepec_Ans_A>><br>
@@ -3150,10 +3118,7 @@ Your answer is incorrect.  You may [[try again|Chapultepec]], or you may return 
 <</switch>>
 
 
-<</theyr>>
-
 :: Cuauhnahuac 2 [Done Breaks] {"position":"1244,3127","size":"100,100"}
-<<theyr>>
 <<switch $users[$userId]["faction"]>>
 <<case "Aztecs">>
 <<print $Cuauhnahuac_Ans_A>><br>
@@ -3198,10 +3163,7 @@ Your answer is incorrect.  You may [[try again|Cuauhnahuac]], or you may return 
 <</switch>>
 
 
-<</theyr>>
-
 :: Tlatelolco 2 [Done Breaks] {"position":"1017,2693","size":"100,100"}
-<<theyr>>
 <<switch $users[$userId]["faction"]>>
 <<case "Aztecs">>
 <<print $Tlatelolco_Ans_A>><br>
@@ -3246,10 +3208,7 @@ Your answer is incorrect.  You may [[try again|Tlatelolco]], or you may return t
 <</switch>>
 
 
-<</theyr>>
-
 :: Malinalco [Done Breaks] {"position":"311,3005","size":"100,100"}
-<<theyr>>
 To seek approval from the Gods, you must enter the mouth of the serpent. There, under the watchful eye of the eagles, you shall let your own blood in sacrifice.<br>
 <br>
 <<switch $users[$userId]["faction"]>>
@@ -3277,10 +3236,7 @@ This city is <<textbox "$Malinalco_Ans_T" "">><br>
 <</switch>>
 
 
-<</theyr>>
-
 :: Malinalco 2 [Done Breaks] {"position":"288,3234","size":"100,100"}
-<<theyr>>
 <<switch $users[$userId]["faction"]>>
 <<case "Aztecs">>
 <<print $Malinalco_Ans_A>><br>
@@ -3325,10 +3281,7 @@ Your answer is incorrect.  You may [[try again|Malinalco]], or you may return to
 <</switch>>
 
 
-<</theyr>>
-
 :: Xochimilco 2 [Done Breaks] {"position":"465,3529","size":"100,100"}
-<<theyr>>
 <<switch $users[$userId]["faction"]>>
 <<case "Aztecs">>
 <<print $Xochimilco_Ans_A>><br>
@@ -3374,8 +3327,6 @@ Your answer is incorrect. You may [[try again|Xochimilco]], or you may return to
 <</switch>>
 
 
-<</theyr>>
-
 :: End of Quest [Done Breaks] {"position":"1022,3621","size":"100,100"}
 <<theyr>>
 <<switch $users[$userId]["faction"]>>
@@ -3393,7 +3344,6 @@ Now that your quest is complete, <<link "you return home exhausted" "Rumors from
 <</theyr>>
 
 :: Azcapotzalco 2 [Done Breaks] {"position":"423,2765","size":"100,100"}
-<<theyr>>
 <<switch $users[$userId]["faction"]>>
 <<case "Aztecs">>
 <<print $Azcapotzalco_Ans_A>><br>
@@ -3437,8 +3387,6 @@ Your answer is incorrect.  You may [[try again|Azcapotzalco]], or you may return
 <</if>>
 <</switch>>
 
-
-<</theyr>>
 
 :: Tlaxcalans keep waiting [Done] {"position":"1388,1759","size":"100,100"}
 <<theyr>>
@@ -3509,7 +3457,6 @@ You make your way to the chair and you hear the door swing shut behind you. You 
 <</theyr>>
 
 :: Tlaxcalans Prepare for a Council Meeting [Done] {"position":"1764,44","size":"100,100"}
-<<theyr>>
 You wake to the buzz of people talking. You haven't even opened your eyes when you catch the scent of tortillas cooking over an open fire and you know you're back in Tlaxcala!<br>
 <br>
 You get up from your sleeping mat and excitedly make your way outside, where you learn that there is to be a council meeting tonight. Word has reached the village that the strangers are nearing Tlaxcalan territory and they could arrive any day now. The leadership must decide how to respond to the strangers...and that includes you.<br>
@@ -3529,8 +3476,6 @@ Once your statement is prepared, paste a link here to share with your fellow Cou
 <<textbox "$Max_Statement" "">>
 <</switch>>
 
-
-<</theyr>>
 
 :: Tlaxcalans Hold for a Council Meeting [Done] {"position":"1603,116","size":"100,100"}
 <<theyr>>
@@ -3596,7 +3541,6 @@ Now, despite these deliberations, will you [[go to war|The Tlaxcalan Leader Deci
 <</theyr>>
 
 :: Aztecs Prepare for a Council Meeting [Done] {"position":"1940,147","size":"100,100"}
-<<theyr>>
 <<switch $users[$userId]["role"]>>
 <<case "Moctezuma">>
 You wake to the buzz of people talking. You haven't even opened your eyes when you catch the scent of tortillas cooking over an open fire and you know you're back in Tenochtitlán!<br>
@@ -3631,8 +3575,6 @@ Once you have composed your statement, you must paste the link below to share wi
 <<textbox "$AzPr_Statement" "">>
 <</switch>>
 
-
-<</theyr>>
 
 :: Marina's Choice [Done] {"position":"2227,169","size":"100,100"}
 <<theyr>>
@@ -3693,7 +3635,6 @@ Finally, dawn comes. You rise and begin packing up [[eager to continue your jour
 <</theyr>>
 
 :: Aztecs Hold a Council Meeting [Done] {"position":"1895,298","size":"100,100"}
-<<theyr>>
 Tlacaelel's Statement: <<print $Tlac_Statement>><br>
 <br>
 Cuauhtemoc's Statement: <<print $Cuauh_Statement>><br>
@@ -3730,8 +3671,6 @@ When Moctezuma has come to a decision, you may continue on to [[read his proclam
 <</if>>
 <</switch>>
 
-
-<</theyr>>
 
 :: Moctezuma Makes his Proclamation [Done] {"position":"1917,477","size":"100,100"}
 <<theyr>>
@@ -4971,7 +4910,6 @@ You hurry toward the library, make your way to the top floor, and there it is: t
 <</theyr>>
 
 :: Discussing the Omens {"position":"3527,158","size":"100,100"}
-<<theyr>>
 You wake to find yourself exactly where you hoped: back in Tenochtitlán! An army of over 10,000 men is headed towards your city, led by your Tlaxcalan enemies and their foreign friends.<br>
 <br>
 <<switch $users[$userId]["role"]>>
@@ -4998,8 +4936,6 @@ Your nerves are frayed, wondering what lies ahead, but Moctezuma has informed yo
 
 <</switch>>
 
-
-<</theyr>>
 
 :: Debating the Omens {"position":"3337,275","size":"100,100"}
 <<theyr>>
@@ -5074,7 +5010,6 @@ You pack up camp and set out for your destination. Your Tlaxcalan friends have a
 <</theyr>>
 
 :: Spaniards Write Letters {"position":"2928,507","size":"100,100"}
-<<theyr>>
 Your compatriot Bernal Diaz later recalled the sight as such:<br>
 <br>
 <i>“The next morning we reached the broad high road of Iztapalapan, whence we for the first time beheld the numbers of towns and villages built in the lake, and the still greater number of large townships on the mainland, with the level causeway which ran in a straight line into Mexico. Our astonishment was indeed raised to the highest pitch, and we could not help remarking to each other, that all these buildings resembled the fairy castles we read of in Amadis de Gaul; so high, majestic, and splendid did the temples, towers, and houses of the town, all built of massive stone and lime, rise up out of the midst of the lake. Indeed, many of our men believed what they saw was a mere dream. And the reader must not feel surprised at the manner in which I have expressed myself, for it is impossible to speak coolly of things which we had never seen nor heard of, nor even could have dreamt of, beforehand.” (Lockhart, 219)</i><br>
@@ -5142,8 +5077,6 @@ When your letter is complete, input your link in the box below. Make sure you've
 Once you have entered your link, you may <<link "continue your journey" "On the Causeway">><<set $Causeway = $Causeway + 1>><<set $Spaniards_currentMap=10>><</link>>?<br>
 <br>
 
-
-<</theyr>>
 
 :: Tlaxcalans Face a Choice {"position":"3903,225","size":"100,100"}
 <<theyr>>
@@ -5379,7 +5312,6 @@ When you are satisfied you have heard everything <<print $Aztec_Leader>> has to 
 <</theyr>>
 
 :: Tlaxcalans Visit Tlatelolco {"position":"3585,777","size":"100,100"}
-<<theyr>>
 <<if $users[$userId]["role"] is "Pochteca">>
 You set out for the market with your Tlaxcalan guests in tow. They are eager to visit the legendary Tlatelolco Market and, as one of the most important agents of the market, you can't help but take pride in their excitement. You are halfway to your destination when you are approached by a messenger. He has come to assign your guests a task.<br>
 <br>
@@ -5433,10 +5365,7 @@ When your work is complete, you may continue <<link "on to the feast" "Everyone 
 <br>
 
 
-<</theyr>>
-
 :: Spaniards Tour Tenochtitlan {"position":"2733,679","size":"100,100"}
-<<theyr>>
 You settle in quickly, eager to see everything this remarkable city has to offer. Moctezuma has sent a group of Aztec nobles to be your guides and they have presented you with an itinerary:<br>
 <br>
 
@@ -5517,8 +5446,6 @@ Your entry is:  <<textbox "$Ga_TG" "">><br>
 When your contribution to the guidebook is ready, you may continue <<link "on to the feast" "Everyone Gathers for a Feast">><<set $Feast = $Feast + 1>><</link>>!<br>
 <br>
 
-
-<</theyr>>
 
 :: Aztec Leadership Challenge Again {"position":"3944,916","size":"100,100"}
 <<theyr>>
@@ -5607,7 +5534,6 @@ After much angry debate in the Council Room, you finally determine that <<print 
 <</theyr>>
 
 :: Set up for the Feast {"position":"3943,1154","size":"100,100"}
-<<theyr>>
 While your guests are off exploring the city, it's time to prepare for the greatest feast this city has ever seen! <br>
 <br>
 
@@ -5667,8 +5593,6 @@ Your recipe is:  <<textbox "$AP_Rec" "">><br>
 
 When your contribution to the cookbook is ready, you may continue <<link "on to the feast" "Everyone Gathers for a Feast">><<set $Feast = $Feast + 1>><</link>>!
 
-
-<</theyr>>
 
 :: Everyone Gathers for a Feast {"position":"3493,1363","size":"100,100"}
 <<theyr>>
@@ -11278,7 +11202,6 @@ Has the hold been cleared? <b><<if $TL_Attacks eq "" or ndef $TL_Attacks>> No <<
 <</theyr>>
 
 :: Control: Change Passage {"position":"225,2600","size":"100,100"}
-<<theyr>>
 <b>CHANGE THE LOCATION OF PLAYERS</b><br>
 
 <b>Spaniards</b><br>
@@ -11349,8 +11272,6 @@ New Location: <<textbox "$Maxixcatl_currentPassage" "">><br>
 [[Check the Status of Holds and Votes|Control: Votes]]<br>
 [[Return to the Dashboard|Dashboard]]<br>
 
-
-<</theyr>>
 
 :: Status of the Quest {"position":"350,2600","size":"100,100"}
 <<theyr>>

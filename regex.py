@@ -28,20 +28,31 @@ for replacement in replacements:
 
 
 # Replaces the header
-header_in_file = open(sys.argv[2],  encoding="utf-8")
+header_in_file = open(sys.argv[2], encoding="utf-8")
 twee_header = header_in_file.read()
 
-regex = re.compile('(:: Story JavaScript).*(:: PassageHeader.*?\n)',re.DOTALL)
+regex = re.compile('(:: Story JavaScript).*(:: Act 1 Scene 1.*?\n)', re.DOTALL)
 new_twee = regex.sub(twee_header, new_twee)
 
+
+## LIVEBLOCK TAGS ##
+whitelist = ["Character Identification"]
+
+# Whitelist all passages with textboxes in them
+expression = r'(:: ([^\n]+) {"position".*?}.*?)(?:(?=::)|(?=\Z))'
+m = re.findall(expression, new_twee, re.DOTALL)
+for match in m:
+    if "<<textbox " in match[0]:
+        passage = match[1]
+        passage = passage.replace('[Done Breaks]', '')
+        passage = passage.replace('[Done]', '')
+        whitelist.append(passage)
 
 # Add liveblock to all passages
 expression = r'(:: .*?{"position".*?})'
 output = re.sub(expression, r'<</theyr>>\n\n\1\n<<theyr>>', new_twee, flags=re.DOTALL)
 
-
 # Find whitelisted passages and remove their liveblocks
-whitelist = ["Character Identification", "Spaniards Meet Marina", "Marina Tells Her Story"]
 for item in whitelist:
     expression = r'(:: ' + item + r'.*?{"position".*?)\n<<theyr>>(.*?)<</theyr>>\n\n'
     output = re.sub(expression, r'\1\2', output, flags=re.DOTALL)

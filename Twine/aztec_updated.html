@@ -105,14 +105,6 @@ var saveAs=saveAs||navigator.msSaveBlob&&navigator.msSaveBlob.bind(navigator)||f
 @import url("https://unpkg.com/jquery.nice-number@2.1.0/dist/jquery.nice-number.min.css");
 @import url("//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css");
 @import url("Twine/style.css");</style><script role="script" id="twine-user-script" type="text/twine-javascript">Config.passages.nobr = true;
-// window.gameData={
-// "faction":"Spaniards",
-// "role":"Cortes",
-// "isLeader":true,
-// "Aztecs_strength":12,
-// "currentPassage":"Loyalty Check",
-// }
-
 Window.SugarCubeState = State;
 var jsLoaded = false;
 var urlPrefix="static/";
@@ -257,7 +249,7 @@ $(document).one(":passagestart", () => {
 	}
 
 	user = Object.assign(user, roleInfo);
-});</script><tw-tag name="Coding-Problem" color="red"></tw-tag><tw-tag name="Done" color="green"></tw-tag><tw-tag name="New-Passage" color="purple"></tw-tag><tw-tag name="Text-to-be-updated-by-Ashley" color="orange"></tw-tag><tw-tag name="Breaks" color="blue"></tw-tag><tw-tag name="Change-Title" color="yellow"></tw-tag><tw-passagedata pid="1" name="StoryInit" tags="" position="22,135" size="100,100">&lt;&lt;theyr&gt;&gt;
+});</script><tw-tag name="Text-to-be-updated-by-Ashley" color="orange"></tw-tag><tw-tag name="Breaks" color="blue"></tw-tag><tw-tag name="Change-Title" color="yellow"></tw-tag><tw-tag name="Coding-Problem" color="red"></tw-tag><tw-tag name="Done" color="green"></tw-tag><tw-tag name="New-Passage" color="purple"></tw-tag><tw-passagedata pid="1" name="StoryInit" tags="" position="22,135" size="100,100">&lt;&lt;theyr&gt;&gt;
 /* &lt;&lt;set $lastSeenDelay=60 * 5000&gt;&gt; */
 /* &lt;&lt;print $users[$userId][&#39;role&#39;]&gt;&gt; */
 
@@ -2709,12 +2701,12 @@ This is the [[end of your quest|End of Quest]].&lt;br&gt;
 &lt;&lt;/switch&gt;&gt;
 
 
-&lt;&lt;/theyr&gt;&gt;</tw-passagedata><tw-passagedata pid="97" name="Xochimilco" tags="Done Breaks" position="323,3381" size="100,100">&lt;&lt;theyr&gt;&gt;
-If you are to survive your journey, you will need to stop first at the place of flowers. Be careful as you seek what you came for, as you could easily get stuck in the mud.&lt;br&gt;
+&lt;&lt;/theyr&gt;&gt;</tw-passagedata><tw-passagedata pid="97" name="Xochimilco" tags="Done Breaks" position="323,3381" size="100,100">If you are to survive your journey, you will need to stop first at the place of flowers. Be careful as you seek what you came for, as you could easily get stuck in the mud.&lt;br&gt;
 &lt;br&gt;
 
 &lt;&lt;switch $users[$userId][&quot;faction&quot;]&gt;&gt;
 &lt;&lt;case &quot;Aztecs&quot;&gt;&gt;
+
 &lt;&lt;if $Quest_Leader_A is $users[$userId][&quot;role&quot;]&gt;&gt;
 This city is &lt;&lt;textbox &quot;$Xochimilco_Ans_A&quot; &quot;&quot;&gt;&gt;&lt;br&gt;
 &lt;br&gt;
@@ -2735,10 +2727,7 @@ This city is &lt;&lt;textbox &quot;$Xochimilco_Ans_T&quot; &quot;&quot;&gt;&gt;&
 &lt;&lt;print $Quest_Leader_T&gt;&gt; must answer this question. Please work on the discussion board to help him solve the riddle.  When he has input the answer, [[see if you&#39;ve solved the puzzle|Xochimilco 2]] &lt;br&gt;
 &lt;br&gt;
 &lt;&lt;/if&gt;&gt;
-&lt;&lt;/switch&gt;&gt;
-
-
-&lt;&lt;/theyr&gt;&gt;</tw-passagedata><tw-passagedata pid="98" name="Chapultepec" tags="Done Breaks" position="590,3441" size="100,100">&lt;&lt;theyr&gt;&gt;
+&lt;&lt;/switch&gt;&gt;</tw-passagedata><tw-passagedata pid="98" name="Chapultepec" tags="Done Breaks" position="590,3441" size="100,100">&lt;&lt;theyr&gt;&gt;
 The preparations for your journey have left you tired, and you stop to rest beside a spring. Out of the corner of your eye, you spy a tasty treat hopping through the grass beside you. You reach for your stash of tortillas!&lt;br&gt;
 &lt;br&gt;
 

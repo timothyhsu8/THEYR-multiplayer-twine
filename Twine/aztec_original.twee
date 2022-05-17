@@ -25,302 +25,48 @@ Spanish Aztec War Ver 1.0
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
 @import url("https://unpkg.com/jquery.nice-number@2.1.0/dist/jquery.nice-number.min.css");
 @import url("//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css");
-@import url("Twine/style.css");
+@import url("https://apps.tlt.stonybrook.edu/Aztec/master/style.css");
+
 
 :: Story JavaScript [script]
 Config.passages.nobr = true;
-// window.gameData={
-// "faction":"Spaniards",
-// "role":"Cortes",
-// "isLeader":true,
-// "Aztecs_strength":12,
-// "currentPassage":"Loyalty Check",
-// }
+window.gameData={
+"faction":"Spaniards",
+"role":"Cortes",
+"isLeader":true,
+"Aztecs_strength":12,
+"currentPassage":"Loyalty Check",
+}
 
-Window.SugarCubeState = State;
-var jsLoaded = false;
-var urlPrefix="static/";
+var server="https://apps.tlt.stonybrook.edu/Aztec/master/"
 
-setup.JSLoaded = false;
-importScripts([
-	'/socket.io/socket.io.js',
-	'https://unpkg.com/redux@latest/dist/redux.min.js',
-	'https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js',
-	`${urlPrefix}script.js`,
-	`${urlPrefix}resize.js`,
-	`${urlPrefix}picker.js`,
-	`${urlPrefix}Client.js`,
+importScripts(
+	`${server}script.js`,
+	`${server}resize.js`,
+	`${server}picker.js`,
 	"https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/1.0.11/jquery.csv.min.js",
-	"https://unpkg.com/jquery.nice-number@2.1.0/dist/jquery.nice-number.min.js",
-	"https://code.jquery.com/ui/1.12.1/jquery-ui.js"	
-])
-	.then(function() {
-			function playPassage() {
-				if (stateReceived) {
-					console.log("Start Sockets");
-					let userId = State.variables.userId;
-					let role = State.variables['users'][userId]['role'];
-					let currentPassage = State.variables[`${role}_currentPassage`];
-
-					// Play Unrecognized Passage if role is undefined
-					if (role === undefined) {
-						Engine.play("Name Not Recognized");
-						// Engine.show();
-					}
-
-					// Start where you left off
-					else if (currentPassage) {
-						Engine.play(currentPassage);
-					}
-
-					// Reload passage if it's your first time connecting
-					else {
-						Engine.show();
-					}
-				}
-				else {
-					setTimeout(playPassage, 100);
-				}
-			}
-			playPassage();
-		}
-	);
-
-(function () {
-	"use strict";
-
-	$(document).on(":liveupdate", function () {
-		$(".macro-live").trigger(":liveupdateinternal");
-	});
-
-	Macro.add(['update', 'upd'], {
-		handler: function handler() {
-			$(document).trigger(":liveupdate");
-		}
-	});
-
-	Macro.add(['live', 'l', 'lh'], {
-		skipArgs: true,
-		handler: function handler() {
-			if (this.args.full.length === 0) {
-				return this.error('no expression specified');
-			}
-			try {
-				var statement = this.args.full;
-				var result = toStringOrDefault(Scripting.evalJavaScript(statement), null);
-				if (result !== null) {
-					var lh = this.name === "lh";
-					var $el = $("<span></span>").addClass("macro-live").wiki(lh ? Util.escape(result) : result).appendTo(this.output);
-					$el.on(":liveupdateinternal", this.createShadowWrapper(function (ev) {
-						var out = toStringOrDefault(Scripting.evalJavaScript(statement), null);
-						$el.empty().wiki(lh ? Util.escape(out) : out);
-					}));
-				}
-			} catch (ex) {
-				return this.error("bad evaluation: " + (_typeof(ex) === 'object' ? ex.message : ex));
-			}
-		}
-	});
-
-	Macro.add(['liveblock', 'lb'], {
-		tags: null,
-		handler: function handler() {
-			try {
-				var content = this.payload[0].contents.trim();
-				if (content) {
-					var $el = $("<span></span>").addClass("macro-live macro-live-block").wiki(content).appendTo(this.output);
-					$el.on(":liveupdateinternal", this.createShadowWrapper(function (ev) {
-						$el.empty().wiki(content);
-					}));
-				}
-			} catch (ex) {
-				return this.error("bad evaluation: " + (_typeof(ex) === 'object' ? ex.message : ex));
-			}
-		}
-	});
-})();
-
-// Generates a random ID
-function generateId() {
-	let id = "";
-	for (let i = 0; i < 18; i++) {
-		id += Math.floor(Math.random() * 10);
-	}
-	return parseInt(id);
-}
-
-// Set ID in SugarCube and LocalStorage
-function setId(userId){
-    localStorage.setItem('userId', userId);
-    State.variables.userId = userId;
-}
-
-// Run when passage starts 
-$(document).one(":passagestart", () => {
-	console.log("PASSAGE START");
-    let users = State.variables.users;
-
-    // If Users map is not defined, initialize it
-    if (users === undefined){
-        State.variables.users = {};
-		users = State.variables.users
-    } 
+"https://unpkg.com/jquery.nice-number@2.1.0/dist/jquery.nice-number.min.js",
+"https://code.jquery.com/ui/1.12.1/jquery-ui.js"
 	
-    // If client does not exist in Users, add them
-    if (!(userData.id in users)) {
-        users[userData.id] = {}
-        users[userData.id].username = userData.nick 	// Should this be username instead of nick?
-    }  
-
-	// Set userId from userData if it exists
-	if (userData) {
-    	setId(userData.id);
-	}
-
-	// Generate new userId if firsttime user, otherwise set as the userId from localstorage
-	else {
-		localStorage.getItem('userId') === null ? setId(generateId()) : setId(localStorage.getItem('userId'));
-	}
-    setup.theyrCallback(State);
-});
-
+);
 
 
 :: StoryInit {"position":"22,135","size":"100,100"}
-/* <<set $lastSeenDelay=60 * 5000>> */
-/* <<print $users[$userId]['role']>> */
-<<script>>
-	setup.theyrCallback = function() {
-		let users = State.variables.users;
-		let userId = State.variables.userId;
-		let user = users[userId];
-
-
-		console.log("USER DATA", userData)
-		// Initialize user variables
-		// user['role'] = 'Cuauhtemoc';
-		State.variables.foo = 0;
-
-		
-		// Get Name From Discord
-		let discName = userData.nick
-		if (discName) {
-			discName = discName.normalize("NFD").replace(/\p{Diacritic}/gu, "");	// Replaces special characters
-		}
-		else {
-			discName = "Unknown";
-		}
-		
-		console.log("DISCNAME IS", discName);
-
-		// Initialize variables (Syntax: [sv.VarName, initValue] )
-		let sv = State.variables;
-		let initVars = [
-			["Start", 15],
-			["Quest_Points_A", 0]
-		]
-
-		for (const v of initVars) {
-			if (sv[v[0]] === undefined) {
-				sv[v[0]] = v[1];
-			}
-		}
-
-		const roles = [{"faction": "Spaniards", "role": "Mariana", "Character": "Doña Mariana/Malinche", "isLeader": "FALSE"},
-			{"faction": "Spaniards", "role": "Alvarado", "Character": "Pedro de Alvarado", "isLeader": "FALSE"},
-			{"faction": "Spaniards", "role": "Aguilar", "Character": "Gerónimo de Aguilar", "isLeader": "FALSE"},
-			{"faction": "Spaniards", "role": "Garrido", "Character": "Juan Garrido", "isLeader": "FALSE"},
-			{"faction": "Spaniards", "role": "Olid", "Character": "Cristóbal de Olid", "isLeader": "FALSE"},
-			{"faction": "Aztecs", "role": "Moctezuma", "Character": "Moctezuma", "isLeader": "TRUE"},
-			{"faction": "Aztecs", "role": "Tlacaelel", "Character": "Tlacaelel Xocoyotl (aka Tlacaelel the Younger)", "isLeader": "FALSE"},
-			{"faction": "Aztecs", "role": "Cuauhtemoc", "Character": "Cuauhtémoc", "isLeader": "FALSE"},
-			{"faction": "Aztecs", "role": "Aztec_Priest", "Character": "Aztec Priest", "isLeader": "FALSE"},
-			{"faction": "Aztecs", "role": "Cacamatzin", "Character": "Cacamatzín", "isLeader": "FALSE"},
-			{"faction": "Aztecs", "role": "Pochteca", "Character": "Pochteca", "isLeader": "FALSE"},
-			{"faction": "Tlaxcalans", "role": "Xicotencatl_Elder", "Character": "Xicotencatl the Elder", "isLeader": "TRUE"},
-			{"faction": "Tlaxcalans", "role": "Xicotencatl_Younger", "Character": "Xicotencatl the Younger", "isLeader": "FALSE"},
-			{"faction": "Tlaxcalans", "role": "Maxixcatl", "Character": "Maxixcatl", "isLeader": "FALSE"}]
-
-		// Get role info for the player
-		let roleInfo = roles.find((item) => {
-			return item.role.toLowerCase().replace(/[^a-z0-9]/gi, '') === discName.toLowerCase().replace(/[^a-z0-9]/gi, '')
-		})
-		console.log('role info', roleInfo)
-		
-		// Set role in the user variable
-		if (roleInfo) {
-			user['role'] = roleInfo.role
-		}
-
-		// Initialize roles
-		if (!State.variables.roles) {
-			State.variables.roles = {
-				"Mariana": {}, "Alvarado": {}, "Aguilar": {}, "Garrido": {}, "Olid": {}, "Moctezuma": {}, "Tlacaelel": {}, "Cuauhtemoc": {}, 
-				"Aztec_Priest": {}, "Cacamatzin": {}, "Pochteca": {}, "Xicotencatl_Elder": {}, "Xicotencatl_Younger": {}, "Maxixcatl": {}
-			}
-		}
-
-		user = Object.assign(user, roleInfo);
-
-		// Start player at the passage they left off
-		// let currentPassage = State.variables[`${user['role']}_currentPassage`]
-		// console.log("Current passage is ", currentPassage);
-		// Engine.play("The Aztec Quest for Legitimacy");
-		// if (currentPassage)
-		// 	Engine.play(currentPassage)
-	}
-<</script>>
-
 <<cacheaudio "Gulls_and_waves__5min_" "audio/Gulls_and_waves__5min_.mp3">>
 <<cacheaudio "Library" "audio/Library.mp3">>
 <!-- <<masteraudio volume 0>> -->
 
 
 :: PassageHeader {"position":"138,11","size":"100,100"}
-<<script>>
-	if (State.passage !== "Name Not Recognized") {
-		function setupPassage() {
-			let users = State.variables.users;
-			if (typeof(showMap) !== 'undefined' && typeof(showStats) !== 'undefined' && typeof(setBackground) !== 'undefined' && users !== undefined) {
-				console.log("In passage setup");
-				showMap(); 
-				showStats();
-				setBackground();
-			}
-			else {
-				setTimeout(setupPassage, 100);
-			}
-		}
-
-		setupPassage();
-	}
-<</script>>
 /* <<print passage()>>  */
-/* <<audio ":all" stop>> */
+<<audio ":all" stop>>
 <!-- <<masteraudio mute>> -->
 
-/* <<masteraudio unmute>>
+<<masteraudio unmute>>
  <<run showMap()>>
  <<run showStats()>>
-<<run setBackground()>> */
+<<run setBackground()>>
 
-:: Name Not Recognized {"position":"350,100","size":"100,100"}
-Name not recognized. Make sure the spelling on your character's name matches your role. <br>
-<u> Roles: </u> <br>
-Mariana <br>
-Alvarado <br>
-Aguilar <br> 
-Garrido <br>
-Olid <br> 
-Moctezuma <br>
-Tlacaelel <br>
-Cuauhtemoc <br> 
-Aztec_Priest <br>
-Cacamatzin <br>
-Pochteca <br>
-Xicotencatl_Elder <br>
-Xicotencatl_Younger <br>
-Maxixcatl
 
 :: Act 1 Scene 1 [Done Breaks] {"position":"338,1151","size":"100,100"}
 <<if $role is "Marina">>

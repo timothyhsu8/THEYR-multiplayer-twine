@@ -156,8 +156,34 @@ $(document).one(":passagestart", () => {
 <!-- <<masteraudio volume 0>> -->
 
 
+
+
 :: PassageHeader {"position":"138,11","size":"100,100"}
+/* <<audio ":all" stop>> */
+<!-- <<masteraudio mute>> -->
+
 <<masteraudio unmute>>
  <<run showMap()>>
  <<run showStats()>>
 <<run setBackground()>>
+
+
+:: Name Not Recognized {"position":"350,100","size":"100,100"}
+Name not recognized. Make sure the spelling on your character's name matches your role. <br>
+<u> Roles: </u> <br>
+Mariana <br>
+Alvarado <br>
+Aguilar <br> 
+Garrido <br>
+Olid <br> 
+Moctezuma <br>
+Tlacaelel <br>
+Cuauhtemoc <br> 
+Aztec_Priest <br>
+Cacamatzin <br>
+Pochteca <br>
+Xicotencatl_Elder <br>
+Xicotencatl_Younger <br>
+Maxixcatl
+
+:: Act 1 Scene 1 [Done Breaks] {"position":"338,1151","size":"100,100"}
