@@ -26,6 +26,7 @@ const HEROKU_URL = process.env.herokuURL || herokuURL
 const GUILD_ID = process.env.guildId || guildId
 
 const { app } = new webstack(PORT).get();
+const htmlTemplate = './views/index.html'
 
 function returnTwine(userData, response) {
 	let userDataScriptTag =  `
@@ -39,7 +40,6 @@ function returnTwine(userData, response) {
 app.get('/', async ({ query }, response) => {
 	console.log({query});
 	const { code, state, test, nick } = query;
-	const htmlTemplate = './views/index.html'
 	let userDataJSON;
 
 	if (test) {
@@ -73,6 +73,10 @@ app.get('/', async ({ query }, response) => {
 			});
 
 			const oauthData = await oauthResult.json();
+			if (oauthData.error) {
+				return loadHome(response);
+			}
+			
 			const userResult = await fetch('https://discord.com/api/users/@me', {
 				headers: {
 					authorization: `${oauthData.token_type} ${oauthData.access_token}`,
@@ -81,6 +85,7 @@ app.get('/', async ({ query }, response) => {
 			
 			const userResultJson = await userResult.json();
 			let userData = JSON.stringify(userResultJson);
+			console.log({userData})
 			
 			const guildResult = await fetch(`https://discord.com/api/users/@me/guilds/${GUILD_ID}/member`, {
 				headers: {
@@ -106,12 +111,15 @@ app.get('/', async ({ query }, response) => {
 			console.error(error);
 		}
 	}
+	loadHome(response);
+});
 
+function loadHome(response) {
 	let htmlContents = fs.readFileSync(htmlTemplate, 'utf8')
 	let indexHtml = htmlContents.replace("%redirectURL%", REDIRECTURL)
 
-	return response.send(indexHtml);
-});
+	response.send(indexHtml);
+}
 
 // Generates a random ID
 function generateId() {
