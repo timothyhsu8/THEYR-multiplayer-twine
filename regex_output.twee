@@ -27,7 +27,7 @@ Spanish Aztec War Ver 1.0
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
 @import url("https://unpkg.com/jquery.nice-number@2.1.0/dist/jquery.nice-number.min.css");
 @import url("//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css");
-@import url("https://apps.tlt.stonybrook.edu/Aztec/master/style.css");
+@import url("Twine/style.css");
 
 
 :: Story JavaScript [script]

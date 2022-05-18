@@ -31,7 +31,7 @@ for replacement in replacements:
 header_in_file = open(sys.argv[2], encoding="utf-8")
 twee_header = header_in_file.read()
 
-regex = re.compile('(:: Story JavaScript).*(:: Act 1 Scene 1.*?\n)', re.DOTALL)
+regex = re.compile('(:: Story Stylesheet).*(:: Act 1 Scene 1.*?\n)', re.DOTALL)
 new_twee = regex.sub(twee_header, new_twee)
 
 

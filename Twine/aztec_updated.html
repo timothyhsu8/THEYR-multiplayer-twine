@@ -125,7 +125,6 @@ importScripts([
 	.then(function() {
 		waitForData.then(() => {
 			console.log("LOAD #3: THEN FUNCTION CALLED");
-			console.log("Start Sockets");
 			let userId = State.variables.userId;
 			let role = State.variables['users'][userId]['role'];
 			let currentPassage = State.variables[`${role}_currentPassage`];
@@ -192,14 +191,12 @@ $(document).one(":passagestart", () => {
     localStorage.setItem('userId', userData.id);
     State.variables.userId = userData.id;
 
-
-
 	//* Theyr Callback Code *//
 	let user = users[userData.id];
 
 	// Get Name From Discord
 	let discName = userData.nick || "Unknown";
-	discName = discName.normalize("NFD").replace(/\p{Diacritic}/gu, "");	// Replaces special characters
+	discName = discName.normalize("NFD").replace(/[\u0300-\u036f]/g, "");	// Replaces special characters
 	console.log("DISCNAME IS", discName);
 
 	// Initialize variables (Syntax: [sv.VarName, initValue] )
@@ -249,7 +246,7 @@ $(document).one(":passagestart", () => {
 	}
 
 	user = Object.assign(user, roleInfo);
-});</script><tw-tag name="Text-to-be-updated-by-Ashley" color="orange"></tw-tag><tw-tag name="Breaks" color="blue"></tw-tag><tw-tag name="Change-Title" color="yellow"></tw-tag><tw-tag name="Coding-Problem" color="red"></tw-tag><tw-tag name="Done" color="green"></tw-tag><tw-tag name="New-Passage" color="purple"></tw-tag><tw-passagedata pid="1" name="StoryInit" tags="" position="22,135" size="100,100">&lt;&lt;theyr&gt;&gt;
+});</script><tw-tag name="Change-Title" color="yellow"></tw-tag><tw-tag name="Coding-Problem" color="red"></tw-tag><tw-tag name="Done" color="green"></tw-tag><tw-tag name="New-Passage" color="purple"></tw-tag><tw-tag name="Text-to-be-updated-by-Ashley" color="orange"></tw-tag><tw-tag name="Breaks" color="blue"></tw-tag><tw-passagedata pid="1" name="StoryInit" tags="" position="22,135" size="100,100">&lt;&lt;theyr&gt;&gt;
 /* &lt;&lt;set $lastSeenDelay=60 * 5000&gt;&gt; */
 /* &lt;&lt;print $users[$userId][&#39;role&#39;]&gt;&gt; */
 
@@ -258,27 +255,9 @@ $(document).one(":passagestart", () => {
 &lt;!-- &lt;&lt;masteraudio volume 0&gt;&gt; --&gt;
 
 
+
+
 &lt;&lt;/theyr&gt;&gt;</tw-passagedata><tw-passagedata pid="2" name="PassageHeader" tags="" position="138,11" size="100,100">&lt;&lt;theyr&gt;&gt;
-/* &lt;&lt;script&gt;&gt;
-	if (State.passage !== &quot;Name Not Recognized&quot;) {
-		function setupPassage() {
-			let users = State.variables.users;
-			if (typeof(showMap) !== &#39;undefined&#39; &amp;&amp; typeof(showStats) !== &#39;undefined&#39; &amp;&amp; typeof(setBackground) !== &#39;undefined&#39; &amp;&amp; users !== undefined) {
-				console.log(&quot;In passage setup&quot;);
-				showMap(); 
-				showStats();
-				setBackground();
-			}
-			else {
-				setTimeout(setupPassage, 100);
-			}
-		}
-
-		setupPassage();
-	}
-&lt;&lt;/script&gt;&gt; */
-
-/* &lt;&lt;print passage()&gt;&gt;  */
 /* &lt;&lt;audio &quot;:all&quot; stop&gt;&gt; */
 &lt;!-- &lt;&lt;masteraudio mute&gt;&gt; --&gt;
 
@@ -286,6 +265,7 @@ $(document).one(":passagestart", () => {
  &lt;&lt;run showMap()&gt;&gt;
  &lt;&lt;run showStats()&gt;&gt;
 &lt;&lt;run setBackground()&gt;&gt;
+
 
 &lt;&lt;/theyr&gt;&gt;</tw-passagedata><tw-passagedata pid="3" name="Name Not Recognized" tags="" position="350,100" size="100,100">&lt;&lt;theyr&gt;&gt;
 Name not recognized. Make sure the spelling on your character&#39;s name matches your role. &lt;br&gt;
@@ -305,8 +285,7 @@ Xicotencatl_Elder &lt;br&gt;
 Xicotencatl_Younger &lt;br&gt;
 Maxixcatl
 
-&lt;&lt;/theyr&gt;&gt;</tw-passagedata><tw-passagedata pid="4" name="Act 1 Scene 1" tags="Done Breaks" position="338,1151" size="100,100">&lt;&lt;theyr&gt;&gt;
-&lt;&lt;if $users[$userId][&quot;role&quot;] is &quot;Marina&quot;&gt;&gt;
+&lt;&lt;/theyr&gt;&gt;</tw-passagedata><tw-passagedata pid="4" name="Act 1 Scene 1" tags="Done Breaks" position="338,1151" size="100,100">&lt;&lt;theyr&gt;&gt;&lt;&lt;if $users[$userId][&quot;role&quot;] is &quot;Marina&quot;&gt;&gt;
 Since arriving at the coast of Veracruz, your companions have been visited by emissaries from a number of nearby villages. In all of these interactions, you have proven your value, translating through the man they call Aguilar, who has in turn been able to convey information to the rest of the team. Through the visitors, you&#39;ve gained important intelligence. Most significantly, you&#39;ve told them many things about the rich and powerful kingdom that lies to the west. They have learned of the land called Mexico and its ruler, Moctezuma, who has made many enemies in the lands that lie between you.&lt;br&gt;
 &lt;br&gt;
 &lt;&lt;elseif $users[$userId][&quot;role&quot;] isnot &quot;Marina&quot;&gt;&gt;
@@ -890,7 +869,8 @@ Put the link to your story here: &lt;br&gt;
 You only have one chance to tell your story. If you click through without completing your task, there will be a price to pay.&lt;br&gt;
 &lt;br&gt;
 Now that you&#39;ve augmented the historical record, [[you can move forward|Spaniards Meet Marina]].&lt;br&gt;
-&lt;br&gt;</tw-passagedata><tw-passagedata pid="28" name="Spaniards Meet Marina" tags="Done Breaks" position="155,994" size="100,100">&lt;&lt;switch $users[$userId][&quot;role&quot;]&gt;&gt;
+&lt;br&gt;</tw-passagedata><tw-passagedata pid="28" name="Spaniards Meet Marina" tags="Done Breaks" position="155,994" size="100,100">&lt;&lt;theyr&gt;&gt;
+&lt;&lt;switch $users[$userId][&quot;role&quot;]&gt;&gt;
 &lt;&lt;case &quot;Marina&quot;&gt;&gt;
 &lt;&lt;if ndef $Mal_Story or $Mal_Story eq &quot;&quot;&gt;&gt; 
 You haven&#39;t told the Spaniards your story.  Please [[return|Marina Tells Her Story]] and complete your task.&lt;br&gt;
@@ -941,7 +921,10 @@ You &lt;&lt;link &quot;don&#39;t trust her&quot; &quot;Spaniards and Marina Talk
 &lt;br&gt;
 &lt;&lt;/if&gt;&gt;
 
-&lt;&lt;/switch&gt;&gt;</tw-passagedata><tw-passagedata pid="29" name="Marina in Slavery" tags="Done" position="54,289" size="100,100">&lt;&lt;theyr&gt;&gt;
+&lt;&lt;/switch&gt;&gt;
+
+
+&lt;&lt;/theyr&gt;&gt;</tw-passagedata><tw-passagedata pid="29" name="Marina in Slavery" tags="Done" position="54,289" size="100,100">&lt;&lt;theyr&gt;&gt;
 &lt;&lt;if $Start &lt;=4&gt;&gt;
 You must wait for all the team members to gather for gameplay to begin.&lt;br&gt;
 &lt;br&gt;
@@ -2706,7 +2689,6 @@ This is the [[end of your quest|End of Quest]].&lt;br&gt;
 
 &lt;&lt;switch $users[$userId][&quot;faction&quot;]&gt;&gt;
 &lt;&lt;case &quot;Aztecs&quot;&gt;&gt;
-
 &lt;&lt;if $Quest_Leader_A is $users[$userId][&quot;role&quot;]&gt;&gt;
 This city is &lt;&lt;textbox &quot;$Xochimilco_Ans_A&quot; &quot;&quot;&gt;&gt;&lt;br&gt;
 &lt;br&gt;
@@ -2727,8 +2709,7 @@ This city is &lt;&lt;textbox &quot;$Xochimilco_Ans_T&quot; &quot;&quot;&gt;&gt;&
 &lt;&lt;print $Quest_Leader_T&gt;&gt; must answer this question. Please work on the discussion board to help him solve the riddle.  When he has input the answer, [[see if you&#39;ve solved the puzzle|Xochimilco 2]] &lt;br&gt;
 &lt;br&gt;
 &lt;&lt;/if&gt;&gt;
-&lt;&lt;/switch&gt;&gt;</tw-passagedata><tw-passagedata pid="98" name="Chapultepec" tags="Done Breaks" position="590,3441" size="100,100">&lt;&lt;theyr&gt;&gt;
-The preparations for your journey have left you tired, and you stop to rest beside a spring. Out of the corner of your eye, you spy a tasty treat hopping through the grass beside you. You reach for your stash of tortillas!&lt;br&gt;
+&lt;&lt;/switch&gt;&gt;</tw-passagedata><tw-passagedata pid="98" name="Chapultepec" tags="Done Breaks" position="590,3441" size="100,100">The preparations for your journey have left you tired, and you stop to rest beside a spring. Out of the corner of your eye, you spy a tasty treat hopping through the grass beside you. You reach for your stash of tortillas!&lt;br&gt;
 &lt;br&gt;
 
 &lt;&lt;switch $users[$userId][&quot;faction&quot;]&gt;&gt;
@@ -2766,11 +2747,7 @@ This city is &lt;&lt;textbox &quot;$Chapultepec_Ans_T&quot; &quot;&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
 
-&lt;&lt;/switch&gt;&gt;
-
-
-&lt;&lt;/theyr&gt;&gt;</tw-passagedata><tw-passagedata pid="99" name="Cuauhnahuac" tags="Done Breaks" position="1130,3318" size="100,100">&lt;&lt;theyr&gt;&gt;
-You descend the mountains into the place near the trees, in search of something tropical and sweet. This place is lush and green. No wonder it&#39;s been so coveted by Mexica leaders!&lt;br&gt;
+&lt;&lt;/switch&gt;&gt;</tw-passagedata><tw-passagedata pid="99" name="Cuauhnahuac" tags="Done Breaks" position="1130,3318" size="100,100">You descend the mountains into the place near the trees, in search of something tropical and sweet. This place is lush and green. No wonder it&#39;s been so coveted by Mexica leaders!&lt;br&gt;
 &lt;br&gt;
 
 &lt;&lt;switch $users[$userId][&quot;faction&quot;]&gt;&gt;
@@ -2795,11 +2772,7 @@ This city is &lt;&lt;textbox &quot;$Cuauhnahuac_Ans_T&quot; &quot;&quot;&gt;&gt;
 &lt;&lt;print $Quest_Leader_T&gt;&gt; must answer this question. Please work on the discussion board to help him solve the riddle.  When he has input the answer, [[see if you&#39;ve solved the puzzle|Cuauhnahuac 2]] &lt;br&gt;
 &lt;br&gt;
 &lt;&lt;/if&gt;&gt;
-&lt;&lt;/switch&gt;&gt;
-
-
-&lt;&lt;/theyr&gt;&gt;</tw-passagedata><tw-passagedata pid="100" name="Tlatelolco" tags="Done Breaks" position="1195,2886" size="100,100">&lt;&lt;theyr&gt;&gt;
-This place has you buzzing with energy. Your senses are nearly overwhelmed! You can barely hear over the din of voices, and you find yourself drawn towards the scent of fresh tortillas, epazote, and copal smoke.&lt;br&gt;
+&lt;&lt;/switch&gt;&gt;</tw-passagedata><tw-passagedata pid="100" name="Tlatelolco" tags="Done Breaks" position="1195,2886" size="100,100">This place has you buzzing with energy. Your senses are nearly overwhelmed! You can barely hear over the din of voices, and you find yourself drawn towards the scent of fresh tortillas, epazote, and copal smoke.&lt;br&gt;
 &lt;br&gt;
 
 &lt;&lt;switch $users[$userId][&quot;faction&quot;]&gt;&gt;
@@ -2824,11 +2797,7 @@ This city is &lt;&lt;textbox &quot;$Tlatelolco_Ans_T&quot; &quot;&quot;&gt;&gt;&
 &lt;&lt;print $Quest_Leader_T&gt;&gt; must answer this question. Please work on the discussion board to help him solve the riddle.  When he has input the answer, [[see if you&#39;ve solved the puzzle|Tlatelolco 2]] &lt;br&gt;
 &lt;br&gt;
 &lt;&lt;/if&gt;&gt;
-&lt;&lt;/switch&gt;&gt;
-
-
-&lt;&lt;/theyr&gt;&gt;</tw-passagedata><tw-passagedata pid="101" name="Azcapotzalco" tags="Done Breaks" position="667,2667" size="100,100">&lt;&lt;theyr&gt;&gt;
-The many things you gather in preparation for your journey will undoubtedly be a great weight to carry. In the place of the ants you will find a way to lessen your burden.&lt;br&gt;
+&lt;&lt;/switch&gt;&gt;</tw-passagedata><tw-passagedata pid="101" name="Azcapotzalco" tags="Done Breaks" position="667,2667" size="100,100">The many things you gather in preparation for your journey will undoubtedly be a great weight to carry. In the place of the ants you will find a way to lessen your burden.&lt;br&gt;
 &lt;br&gt;
 
 &lt;&lt;switch $users[$userId][&quot;faction&quot;]&gt;&gt;
@@ -2853,11 +2822,7 @@ This city is &lt;&lt;textbox &quot;$Azcapotzalco_Ans_T&quot; &quot;&quot;&gt;&gt
 &lt;&lt;print $Quest_Leader_T&gt;&gt; must answer this question. Please work on the discussion board to help him solve the riddle.  When he has input the answer, [[see if you&#39;ve solved the puzzle|Azcapotzalco 2]] &lt;br&gt;
 &lt;br&gt;
 &lt;&lt;/if&gt;&gt;
-&lt;&lt;/switch&gt;&gt;
-
-
-&lt;&lt;/theyr&gt;&gt;</tw-passagedata><tw-passagedata pid="102" name="Chapultepec 2" tags="Done Breaks" position="733,3474" size="100,100">&lt;&lt;theyr&gt;&gt;
-&lt;&lt;switch $users[$userId][&quot;faction&quot;]&gt;&gt;
+&lt;&lt;/switch&gt;&gt;</tw-passagedata><tw-passagedata pid="102" name="Chapultepec 2" tags="Done Breaks" position="733,3474" size="100,100">&lt;&lt;switch $users[$userId][&quot;faction&quot;]&gt;&gt;
 &lt;&lt;case &quot;Aztecs&quot;&gt;&gt;
 &lt;&lt;print $Chapultepec_Ans_A&gt;&gt;&lt;br&gt;
 &lt;br&gt;
@@ -2906,11 +2871,7 @@ Your answer is incorrect.  You may [[try again|Chapultepec]], or you may return 
 &lt;br&gt;
 &lt;&lt;/if&gt;&gt;
 
-&lt;&lt;/switch&gt;&gt;
-
-
-&lt;&lt;/theyr&gt;&gt;</tw-passagedata><tw-passagedata pid="103" name="Cuauhnahuac 2" tags="Done Breaks" position="1244,3127" size="100,100">&lt;&lt;theyr&gt;&gt;
-&lt;&lt;switch $users[$userId][&quot;faction&quot;]&gt;&gt;
+&lt;&lt;/switch&gt;&gt;</tw-passagedata><tw-passagedata pid="103" name="Cuauhnahuac 2" tags="Done Breaks" position="1244,3127" size="100,100">&lt;&lt;switch $users[$userId][&quot;faction&quot;]&gt;&gt;
 &lt;&lt;case &quot;Aztecs&quot;&gt;&gt;
 &lt;&lt;print $Cuauhnahuac_Ans_A&gt;&gt;&lt;br&gt;
 &lt;br&gt;
@@ -2951,11 +2912,7 @@ Congratulations! You have found the correct answer! You load up the two sacks of
 Your answer is incorrect.  You may [[try again|Cuauhnahuac]], or you may return to the palace and [[try another quest|Scavenger Hunt Hub]].&lt;br&gt;
 &lt;br&gt;
 &lt;&lt;/if&gt;&gt;
-&lt;&lt;/switch&gt;&gt;
-
-
-&lt;&lt;/theyr&gt;&gt;</tw-passagedata><tw-passagedata pid="104" name="Tlatelolco 2" tags="Done Breaks" position="1017,2693" size="100,100">&lt;&lt;theyr&gt;&gt;
-&lt;&lt;switch $users[$userId][&quot;faction&quot;]&gt;&gt;
+&lt;&lt;/switch&gt;&gt;</tw-passagedata><tw-passagedata pid="104" name="Tlatelolco 2" tags="Done Breaks" position="1017,2693" size="100,100">&lt;&lt;switch $users[$userId][&quot;faction&quot;]&gt;&gt;
 &lt;&lt;case &quot;Aztecs&quot;&gt;&gt;
 &lt;&lt;print $Tlatelolco_Ans_A&gt;&gt;&lt;br&gt;
 &lt;br&gt;
@@ -2996,11 +2953,7 @@ Congratulations! You have found the correct answer! You load up the two sacks of
 Your answer is incorrect.  You may [[try again|Tlatelolco]], or you may return to the palace and [[try another quest|Scavenger Hunt Hub]].&lt;br&gt;
 &lt;br&gt;
 &lt;&lt;/if&gt;&gt;
-&lt;&lt;/switch&gt;&gt;
-
-
-&lt;&lt;/theyr&gt;&gt;</tw-passagedata><tw-passagedata pid="105" name="Malinalco" tags="Done Breaks" position="311,3005" size="100,100">&lt;&lt;theyr&gt;&gt;
-To seek approval from the Gods, you must enter the mouth of the serpent. There, under the watchful eye of the eagles, you shall let your own blood in sacrifice.&lt;br&gt;
+&lt;&lt;/switch&gt;&gt;</tw-passagedata><tw-passagedata pid="105" name="Malinalco" tags="Done Breaks" position="311,3005" size="100,100">To seek approval from the Gods, you must enter the mouth of the serpent. There, under the watchful eye of the eagles, you shall let your own blood in sacrifice.&lt;br&gt;
 &lt;br&gt;
 &lt;&lt;switch $users[$userId][&quot;faction&quot;]&gt;&gt;
 &lt;&lt;case &quot;Aztecs&quot;&gt;&gt;
@@ -3024,11 +2977,7 @@ This city is &lt;&lt;textbox &quot;$Malinalco_Ans_T&quot; &quot;&quot;&gt;&gt;&l
 &lt;&lt;print $Quest_Leader_T&gt;&gt; must answer this question. Please work on the discussion board to help him solve the riddle.  When he has input the answer, [[see if you&#39;ve solved the puzzle|Malinalco 2]] &lt;br&gt;
 &lt;br&gt;
 &lt;&lt;/if&gt;&gt;
-&lt;&lt;/switch&gt;&gt;
-
-
-&lt;&lt;/theyr&gt;&gt;</tw-passagedata><tw-passagedata pid="106" name="Malinalco 2" tags="Done Breaks" position="288,3234" size="100,100">&lt;&lt;theyr&gt;&gt;
-&lt;&lt;switch $users[$userId][&quot;faction&quot;]&gt;&gt;
+&lt;&lt;/switch&gt;&gt;</tw-passagedata><tw-passagedata pid="106" name="Malinalco 2" tags="Done Breaks" position="288,3234" size="100,100">&lt;&lt;switch $users[$userId][&quot;faction&quot;]&gt;&gt;
 &lt;&lt;case &quot;Aztecs&quot;&gt;&gt;
 &lt;&lt;print $Malinalco_Ans_A&gt;&gt;&lt;br&gt;
 &lt;br&gt;
@@ -3069,11 +3018,7 @@ Congratulations! You have found the correct answer! The Gods have given their bl
 Your answer is incorrect.  You may [[try again|Malinalco]], or you may return to the palace and [[try another quest|Scavenger Hunt Hub]].&lt;br&gt;
 &lt;br&gt;
 &lt;&lt;/if&gt;&gt;
-&lt;&lt;/switch&gt;&gt;
-
-
-&lt;&lt;/theyr&gt;&gt;</tw-passagedata><tw-passagedata pid="107" name="Xochimilco 2" tags="Done Breaks" position="465,3529" size="100,100">&lt;&lt;theyr&gt;&gt;
-&lt;&lt;switch $users[$userId][&quot;faction&quot;]&gt;&gt;
+&lt;&lt;/switch&gt;&gt;</tw-passagedata><tw-passagedata pid="107" name="Xochimilco 2" tags="Done Breaks" position="465,3529" size="100,100">&lt;&lt;switch $users[$userId][&quot;faction&quot;]&gt;&gt;
 &lt;&lt;case &quot;Aztecs&quot;&gt;&gt;
 &lt;&lt;print $Xochimilco_Ans_A&gt;&gt;&lt;br&gt;
 &lt;br&gt;
@@ -3115,10 +3060,7 @@ Congratulations! You have found the correct answer! You load up the two sacks of
 Your answer is incorrect. You may [[try again|Xochimilco]], or you may return to the palace and [[try another quest|Scavenger Hunt Hub]].&lt;br&gt;
 &lt;br&gt;
 &lt;&lt;/if&gt;&gt;
-&lt;&lt;/switch&gt;&gt;
-
-
-&lt;&lt;/theyr&gt;&gt;</tw-passagedata><tw-passagedata pid="108" name="End of Quest" tags="Done Breaks" position="1022,3621" size="100,100">&lt;&lt;theyr&gt;&gt;
+&lt;&lt;/switch&gt;&gt;</tw-passagedata><tw-passagedata pid="108" name="End of Quest" tags="Done Breaks" position="1022,3621" size="100,100">&lt;&lt;theyr&gt;&gt;
 &lt;&lt;switch $users[$userId][&quot;faction&quot;]&gt;&gt;
 &lt;&lt;case &quot;Aztecs&quot;&gt;&gt;
 Now that your quest is complete, &lt;&lt;link &quot;you return home exhausted&quot; &quot;News from the land of the Olmeca Xicalanca&quot;&gt;&gt;&lt;&lt;set $Aztecs_currentMap=1&gt;&gt;&lt;&lt;/link&gt;&gt;. After all that excitement, you hope to get some rest in the coming days.&lt;br&gt;
@@ -3131,8 +3073,7 @@ Now that your quest is complete, &lt;&lt;link &quot;you return home exhausted&qu
 &lt;&lt;/switch&gt;&gt;
 
 
-&lt;&lt;/theyr&gt;&gt;</tw-passagedata><tw-passagedata pid="109" name="Azcapotzalco 2" tags="Done Breaks" position="423,2765" size="100,100">&lt;&lt;theyr&gt;&gt;
-&lt;&lt;switch $users[$userId][&quot;faction&quot;]&gt;&gt;
+&lt;&lt;/theyr&gt;&gt;</tw-passagedata><tw-passagedata pid="109" name="Azcapotzalco 2" tags="Done Breaks" position="423,2765" size="100,100">&lt;&lt;switch $users[$userId][&quot;faction&quot;]&gt;&gt;
 &lt;&lt;case &quot;Aztecs&quot;&gt;&gt;
 &lt;&lt;print $Azcapotzalco_Ans_A&gt;&gt;&lt;br&gt;
 &lt;br&gt;
@@ -3173,10 +3114,7 @@ You have found the correct answer. You now have slaves to carry your burden for 
 Your answer is incorrect.  You may [[try again|Azcapotzalco]], or you may return to the palace and [[try another quest|Scavenger Hunt Hub]].&lt;br&gt;
 &lt;br&gt;
 &lt;&lt;/if&gt;&gt;
-&lt;&lt;/switch&gt;&gt;
-
-
-&lt;&lt;/theyr&gt;&gt;</tw-passagedata><tw-passagedata pid="110" name="Tlaxcalans keep waiting" tags="Done" position="1388,1759" size="100,100">&lt;&lt;theyr&gt;&gt;
+&lt;&lt;/switch&gt;&gt;</tw-passagedata><tw-passagedata pid="110" name="Tlaxcalans keep waiting" tags="Done" position="1388,1759" size="100,100">&lt;&lt;theyr&gt;&gt;
 Unfortunately, you have no way of knowing what&#39;s going on. If only you had eyes on the coast, you might be better able to prepare.&lt;br&gt;
 &lt;br&gt;
 Head to the Tlaxcalan discussion board to discuss whether there&#39;s anything you can do to prepare for the unknown.&lt;br&gt;
@@ -3232,8 +3170,7 @@ You make your way to the chair and you hear the door swing shut behind you. You 
 &lt;&lt;/switch&gt;&gt;
 
 
-&lt;&lt;/theyr&gt;&gt;</tw-passagedata><tw-passagedata pid="114" name="Tlaxcalans Prepare for a Council Meeting" tags="Done" position="1764,44" size="100,100">&lt;&lt;theyr&gt;&gt;
-You wake to the buzz of people talking. You haven&#39;t even opened your eyes when you catch the scent of tortillas cooking over an open fire and you know you&#39;re back in Tlaxcala!&lt;br&gt;
+&lt;&lt;/theyr&gt;&gt;</tw-passagedata><tw-passagedata pid="114" name="Tlaxcalans Prepare for a Council Meeting" tags="Done" position="1764,44" size="100,100">You wake to the buzz of people talking. You haven&#39;t even opened your eyes when you catch the scent of tortillas cooking over an open fire and you know you&#39;re back in Tlaxcala!&lt;br&gt;
 &lt;br&gt;
 You get up from your sleeping mat and excitedly make your way outside, where you learn that there is to be a council meeting tonight. Word has reached the village that the strangers are nearing Tlaxcalan territory and they could arrive any day now. The leadership must decide how to respond to the strangers...and that includes you.&lt;br&gt;
 &lt;br&gt;
@@ -3250,10 +3187,7 @@ Once your statement is prepared, paste a link here to share with your fellow Cou
 &lt;&lt;textbox &quot;$XY_Statement&quot; &quot;&quot;&gt;&gt;
 &lt;&lt;case &quot;Maxixcatl&quot;&gt;&gt;
 &lt;&lt;textbox &quot;$Max_Statement&quot; &quot;&quot;&gt;&gt;
-&lt;&lt;/switch&gt;&gt;
-
-
-&lt;&lt;/theyr&gt;&gt;</tw-passagedata><tw-passagedata pid="115" name="Tlaxcalans Hold for a Council Meeting" tags="Done" position="1603,116" size="100,100">&lt;&lt;theyr&gt;&gt;
+&lt;&lt;/switch&gt;&gt;</tw-passagedata><tw-passagedata pid="115" name="Tlaxcalans Hold for a Council Meeting" tags="Done" position="1603,116" size="100,100">&lt;&lt;theyr&gt;&gt;
 You gather together with the other two members of your leadership council. All of you have prepared your statements, which you share with the others. &lt;br&gt;
 &lt;br&gt;
 Xicotencatl the Elder&#39;s Statement: &lt;&lt;print $XE_Statement&gt;&gt;&lt;br&gt;
@@ -3307,8 +3241,7 @@ Now, despite these deliberations, will you [[go to war|The Tlaxcalan Leader Deci
 &lt;&lt;/if&gt;&gt;
 
 
-&lt;&lt;/theyr&gt;&gt;</tw-passagedata><tw-passagedata pid="118" name="Aztecs Prepare for a Council Meeting" tags="Done" position="1940,147" size="100,100">&lt;&lt;theyr&gt;&gt;
-&lt;&lt;switch $users[$userId][&quot;role&quot;]&gt;&gt;
+&lt;&lt;/theyr&gt;&gt;</tw-passagedata><tw-passagedata pid="118" name="Aztecs Prepare for a Council Meeting" tags="Done" position="1940,147" size="100,100">&lt;&lt;switch $users[$userId][&quot;role&quot;]&gt;&gt;
 &lt;&lt;case &quot;Moctezuma&quot;&gt;&gt;
 You wake to the buzz of people talking. You haven&#39;t even opened your eyes when you catch the scent of tortillas cooking over an open fire and you know you&#39;re back in Tenochtitlán!&lt;br&gt;
 &lt;br&gt;
@@ -3340,10 +3273,7 @@ Once you have composed your statement, you must paste the link below to share wi
 &lt;&lt;textbox &quot;$Poch_Statement&quot; &quot;&quot;&gt;&gt;
 &lt;&lt;case &quot;Aztec_Priest&quot;&gt;&gt;
 &lt;&lt;textbox &quot;$AzPr_Statement&quot; &quot;&quot;&gt;&gt;
-&lt;&lt;/switch&gt;&gt;
-
-
-&lt;&lt;/theyr&gt;&gt;</tw-passagedata><tw-passagedata pid="119" name="Marina&#39;s Choice" tags="Done" position="2227,169" size="100,100">&lt;&lt;theyr&gt;&gt;
+&lt;&lt;/switch&gt;&gt;</tw-passagedata><tw-passagedata pid="119" name="Marina&#39;s Choice" tags="Done" position="2227,169" size="100,100">&lt;&lt;theyr&gt;&gt;
 You wake to the sound of snoring and open your eyes to find you are back at camp. You feel the hard ground beneath you and look up at the stars. You&#39;ve never seen a night so clear. The horses rest nearby and the men sleep in the open, scattered around the site. As you lay in the dark, you reflect upon the events that have brought you here and you ponder your situation...Marina&#39;s that is.&lt;br&gt;
 &lt;br&gt;
 So far, you&#39;ve made smart decisions. Your language skills have made you invaluable to these foreigners and you are already starting to understand their strange tongue. Once you can communicate with them directly, your worth will only increase. Not only have they made it clear how important you are to the team, they have each indicated their...personal appreciation of you...some more aggressively than others. Though their affections are worrisome, and even outright frightening, you wonder if this might work to your advantage. Would it be to your benefit to form a relationship with one of these men? If so, which one? Or are you better off fending for yourself? &lt;br&gt;
@@ -3395,8 +3325,7 @@ Finally, dawn comes. You rise and begin packing up [[eager to continue your jour
 &lt;&lt;/if&gt;&gt;
 
 
-&lt;&lt;/theyr&gt;&gt;</tw-passagedata><tw-passagedata pid="121" name="Aztecs Hold a Council Meeting" tags="Done" position="1895,298" size="100,100">&lt;&lt;theyr&gt;&gt;
-Tlacaelel&#39;s Statement: &lt;&lt;print $Tlac_Statement&gt;&gt;&lt;br&gt;
+&lt;&lt;/theyr&gt;&gt;</tw-passagedata><tw-passagedata pid="121" name="Aztecs Hold a Council Meeting" tags="Done" position="1895,298" size="100,100">Tlacaelel&#39;s Statement: &lt;&lt;print $Tlac_Statement&gt;&gt;&lt;br&gt;
 &lt;br&gt;
 Cuauhtemoc&#39;s Statement: &lt;&lt;print $Cuauh_Statement&gt;&gt;&lt;br&gt;
 &lt;br&gt;
@@ -3430,10 +3359,7 @@ You are waiting for Moctezuma to come to a decision.&lt;br&gt;
 When Moctezuma has come to a decision, you may continue on to [[read his proclamation|Moctezuma Makes his Proclamation]].&lt;br&gt;
 &lt;br&gt;
 &lt;&lt;/if&gt;&gt;
-&lt;&lt;/switch&gt;&gt;
-
-
-&lt;&lt;/theyr&gt;&gt;</tw-passagedata><tw-passagedata pid="122" name="Moctezuma Makes his Proclamation" tags="Done" position="1917,477" size="100,100">&lt;&lt;theyr&gt;&gt;
+&lt;&lt;/switch&gt;&gt;</tw-passagedata><tw-passagedata pid="122" name="Moctezuma Makes his Proclamation" tags="Done" position="1917,477" size="100,100">&lt;&lt;theyr&gt;&gt;
 You may read Moctezuma&#39;s Proclamation here:  &lt;&lt;print $Moc_Proc&gt;&gt;&lt;br&gt;
 &lt;br&gt;
 &lt;br&gt;
@@ -4568,8 +4494,7 @@ You hurry toward the library, make your way to the top floor, and there it is: t
 &lt;&lt;/switch&gt;&gt;
 
 
-&lt;&lt;/theyr&gt;&gt;</tw-passagedata><tw-passagedata pid="156" name="Discussing the Omens" tags="" position="3527,158" size="100,100">&lt;&lt;theyr&gt;&gt;
-You wake to find yourself exactly where you hoped: back in Tenochtitlán! An army of over 10,000 men is headed towards your city, led by your Tlaxcalan enemies and their foreign friends.&lt;br&gt;
+&lt;&lt;/theyr&gt;&gt;</tw-passagedata><tw-passagedata pid="156" name="Discussing the Omens" tags="" position="3527,158" size="100,100">You wake to find yourself exactly where you hoped: back in Tenochtitlán! An army of over 10,000 men is headed towards your city, led by your Tlaxcalan enemies and their foreign friends.&lt;br&gt;
 &lt;br&gt;
 &lt;&lt;switch $users[$userId][&quot;role&quot;]&gt;&gt;
 &lt;&lt;case &quot;Moctezuma&quot;&gt;&gt;
@@ -4593,10 +4518,7 @@ Once you have entered the link, you may [[gather with Moctezuma and the rest of 
 &lt;&lt;case &quot;Tlacaelel&quot; OR &quot;Cuauhtemoc&quot; OR &quot;Cacamatzin&quot; OR &quot;Pochteca&quot;&gt;&gt;
 Your nerves are frayed, wondering what lies ahead, but Moctezuma has informed you that he has important news! [[He gathers a group of his closest advisors|Debating the Omens]] to the Templo Mayor.&lt;br&gt;&lt;br&gt;
 
-&lt;&lt;/switch&gt;&gt;
-
-
-&lt;&lt;/theyr&gt;&gt;</tw-passagedata><tw-passagedata pid="157" name="Debating the Omens" tags="" position="3337,275" size="100,100">&lt;&lt;theyr&gt;&gt;
+&lt;&lt;/switch&gt;&gt;</tw-passagedata><tw-passagedata pid="157" name="Debating the Omens" tags="" position="3337,275" size="100,100">&lt;&lt;theyr&gt;&gt;
 &lt;&lt;switch $users[$userId][&quot;role&quot;]&gt;&gt;
 &lt;&lt;case &quot;Moctezuma&quot;&gt;&gt;
 &lt;&lt;if ndef $Omens or $Omens eq &quot;&quot;&gt;&gt;
@@ -4659,8 +4581,7 @@ You pack up camp and set out for your destination. Your Tlaxcalan friends have a
 &lt;br&gt;
 
 
-&lt;&lt;/theyr&gt;&gt;</tw-passagedata><tw-passagedata pid="160" name="Spaniards Write Letters" tags="" position="2928,507" size="100,100">&lt;&lt;theyr&gt;&gt;
-Your compatriot Bernal Diaz later recalled the sight as such:&lt;br&gt;
+&lt;&lt;/theyr&gt;&gt;</tw-passagedata><tw-passagedata pid="160" name="Spaniards Write Letters" tags="" position="2928,507" size="100,100">Your compatriot Bernal Diaz later recalled the sight as such:&lt;br&gt;
 &lt;br&gt;
 &lt;i&gt;“The next morning we reached the broad high road of Iztapalapan, whence we for the first time beheld the numbers of towns and villages built in the lake, and the still greater number of large townships on the mainland, with the level causeway which ran in a straight line into Mexico. Our astonishment was indeed raised to the highest pitch, and we could not help remarking to each other, that all these buildings resembled the fairy castles we read of in Amadis de Gaul; so high, majestic, and splendid did the temples, towers, and houses of the town, all built of massive stone and lime, rise up out of the midst of the lake. Indeed, many of our men believed what they saw was a mere dream. And the reader must not feel surprised at the manner in which I have expressed myself, for it is impossible to speak coolly of things which we had never seen nor heard of, nor even could have dreamt of, beforehand.” (Lockhart, 219)&lt;/i&gt;&lt;br&gt;
 &lt;br&gt;
@@ -4725,10 +4646,7 @@ When your letter is complete, input your link in the box below. Make sure you&#3
 &lt;&lt;/switch&gt;&gt;
 
 Once you have entered your link, you may &lt;&lt;link &quot;continue your journey&quot; &quot;On the Causeway&quot;&gt;&gt;&lt;&lt;set $Causeway = $Causeway + 1&gt;&gt;&lt;&lt;set $Spaniards_currentMap=10&gt;&gt;&lt;&lt;/link&gt;&gt;?&lt;br&gt;
-&lt;br&gt;
-
-
-&lt;&lt;/theyr&gt;&gt;</tw-passagedata><tw-passagedata pid="161" name="Tlaxcalans Face a Choice" tags="" position="3903,225" size="100,100">&lt;&lt;theyr&gt;&gt;
+&lt;br&gt;</tw-passagedata><tw-passagedata pid="161" name="Tlaxcalans Face a Choice" tags="" position="3903,225" size="100,100">&lt;&lt;theyr&gt;&gt;
 You wake to find yourself exactly where you hoped: back at camp, on the road to Tenochtitlán! You lead an army of over 10,000 men, with your Spanish allies at your side.&lt;br&gt;
 &lt;br&gt;
 
@@ -4940,8 +4858,7 @@ When you are satisfied you have heard everything &lt;&lt;print $Aztec_Leader&gt;
 &lt;&lt;/if&gt;&gt;
 
 
-&lt;&lt;/theyr&gt;&gt;</tw-passagedata><tw-passagedata pid="168" name="Tlaxcalans Visit Tlatelolco" tags="" position="3585,777" size="100,100">&lt;&lt;theyr&gt;&gt;
-&lt;&lt;if $users[$userId][&quot;role&quot;] is &quot;Pochteca&quot;&gt;&gt;
+&lt;&lt;/theyr&gt;&gt;</tw-passagedata><tw-passagedata pid="168" name="Tlaxcalans Visit Tlatelolco" tags="" position="3585,777" size="100,100">&lt;&lt;if $users[$userId][&quot;role&quot;] is &quot;Pochteca&quot;&gt;&gt;
 You set out for the market with your Tlaxcalan guests in tow. They are eager to visit the legendary Tlatelolco Market and, as one of the most important agents of the market, you can&#39;t help but take pride in their excitement. You are halfway to your destination when you are approached by a messenger. He has come to assign your guests a task.&lt;br&gt;
 &lt;br&gt;
 The messenger informs you that the Spaniards have decided to create a guide to the city that will provide useful advice to future explorers. Given the importance of Tlatelolco Market, it must occupy a central place in the guide. However, the Spaniards worry that they will be unfamiliar with many of the riches to be found there and that their description may not do it justice. They would like to enlist the help of the Tlaxcalans. As the market expert, you must assist them in their task.  As compensation for this work, however, the Spaniards have decided to include you in their dinner invitation at Moctezuma&#39;s Palace tonight, where there will be a spectacular feast!&lt;br&gt;
@@ -4991,11 +4908,7 @@ Your Insider&#39;s Guide is:  &lt;&lt;textbox &quot;$Tl_IG&quot; &quot;&quot;&gt
 &lt;&lt;/if&gt;&gt;
 
 When your work is complete, you may continue &lt;&lt;link &quot;on to the feast&quot; &quot;Everyone Gathers for a Feast&quot;&gt;&gt;&lt;&lt;set $Feast = $Feast + 1&gt;&gt;&lt;&lt;/link&gt;&gt;!&lt;br&gt;
-&lt;br&gt;
-
-
-&lt;&lt;/theyr&gt;&gt;</tw-passagedata><tw-passagedata pid="169" name="Spaniards Tour Tenochtitlan" tags="" position="2733,679" size="100,100">&lt;&lt;theyr&gt;&gt;
-You settle in quickly, eager to see everything this remarkable city has to offer. Moctezuma has sent a group of Aztec nobles to be your guides and they have presented you with an itinerary:&lt;br&gt;
+&lt;br&gt;</tw-passagedata><tw-passagedata pid="169" name="Spaniards Tour Tenochtitlan" tags="" position="2733,679" size="100,100">You settle in quickly, eager to see everything this remarkable city has to offer. Moctezuma has sent a group of Aztec nobles to be your guides and they have presented you with an itinerary:&lt;br&gt;
 &lt;br&gt;
 
 1:00-1:30		Tour the Kitchen Palace&lt;br&gt;
@@ -5073,10 +4986,7 @@ Your entry is:  &lt;&lt;textbox &quot;$Ga_TG&quot; &quot;&quot;&gt;&gt;&lt;br&gt
 &lt;&lt;/if&gt;&gt;
 
 When your contribution to the guidebook is ready, you may continue &lt;&lt;link &quot;on to the feast&quot; &quot;Everyone Gathers for a Feast&quot;&gt;&gt;&lt;&lt;set $Feast = $Feast + 1&gt;&gt;&lt;&lt;/link&gt;&gt;!&lt;br&gt;
-&lt;br&gt;
-
-
-&lt;&lt;/theyr&gt;&gt;</tw-passagedata><tw-passagedata pid="170" name="Aztec Leadership Challenge Again" tags="" position="3944,916" size="100,100">&lt;&lt;theyr&gt;&gt;
+&lt;br&gt;</tw-passagedata><tw-passagedata pid="170" name="Aztec Leadership Challenge Again" tags="" position="3944,916" size="100,100">&lt;&lt;theyr&gt;&gt;
 &lt;&lt;if $Aztec_Leader is $users[$userId][&quot;role&quot;]&gt;&gt;
 You have made your case to the council and retire from the council chamber, confident that they will trust in your infinite wisdom. &lt;br&gt;
 &lt;br&gt;
@@ -5153,8 +5063,7 @@ The council has made a decision.  Continue to the next page to find out &lt;&lt;
 After much angry debate in the Council Room, you finally determine that &lt;&lt;print $Aztec_Leader&gt;&gt; has the greatest loyalty of his men, and you [[move forward under his leadership|Set up for the Feast]]
 
 
-&lt;&lt;/theyr&gt;&gt;</tw-passagedata><tw-passagedata pid="173" name="Set up for the Feast" tags="" position="3943,1154" size="100,100">&lt;&lt;theyr&gt;&gt;
-While your guests are off exploring the city, it&#39;s time to prepare for the greatest feast this city has ever seen! &lt;br&gt;
+&lt;&lt;/theyr&gt;&gt;</tw-passagedata><tw-passagedata pid="173" name="Set up for the Feast" tags="" position="3943,1154" size="100,100">While your guests are off exploring the city, it&#39;s time to prepare for the greatest feast this city has ever seen! &lt;br&gt;
 &lt;br&gt;
 
 &lt;&lt;if $Aztec_Leader is $users[$userId][&quot;role&quot;]&gt;&gt;
@@ -5211,10 +5120,7 @@ Your recipe is:  &lt;&lt;textbox &quot;$AP_Rec&quot; &quot;&quot;&gt;&gt;&lt;br&
 &lt;&lt;/switch&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
-When your contribution to the cookbook is ready, you may continue &lt;&lt;link &quot;on to the feast&quot; &quot;Everyone Gathers for a Feast&quot;&gt;&gt;&lt;&lt;set $Feast = $Feast + 1&gt;&gt;&lt;&lt;/link&gt;&gt;!
-
-
-&lt;&lt;/theyr&gt;&gt;</tw-passagedata><tw-passagedata pid="174" name="Everyone Gathers for a Feast" tags="" position="3493,1363" size="100,100">&lt;&lt;theyr&gt;&gt;
+When your contribution to the cookbook is ready, you may continue &lt;&lt;link &quot;on to the feast&quot; &quot;Everyone Gathers for a Feast&quot;&gt;&gt;&lt;&lt;set $Feast = $Feast + 1&gt;&gt;&lt;&lt;/link&gt;&gt;!</tw-passagedata><tw-passagedata pid="174" name="Everyone Gathers for a Feast" tags="" position="3493,1363" size="100,100">&lt;&lt;theyr&gt;&gt;
 &lt;&lt;if $Feast &lt;=12&gt;&gt;
 It is rude to start eating before all the guests have arrived! You&#39;ll just have to wait, no matter how hungry you are!&lt;br&gt;
 &lt;br&gt;
@@ -10416,8 +10322,7 @@ Has the hold been cleared? &lt;b&gt;&lt;&lt;if $TL_Attacks eq &quot;&quot; or nd
 [[Return to the Dashboard|Dashboard]]&lt;br&gt;
 
 
-&lt;&lt;/theyr&gt;&gt;</tw-passagedata><tw-passagedata pid="309" name="Control: Change Passage" tags="" position="225,2600" size="100,100">&lt;&lt;theyr&gt;&gt;
-&lt;b&gt;CHANGE THE LOCATION OF PLAYERS&lt;/b&gt;&lt;br&gt;
+&lt;&lt;/theyr&gt;&gt;</tw-passagedata><tw-passagedata pid="309" name="Control: Change Passage" tags="" position="225,2600" size="100,100">&lt;b&gt;CHANGE THE LOCATION OF PLAYERS&lt;/b&gt;&lt;br&gt;
 
 &lt;b&gt;Spaniards&lt;/b&gt;&lt;br&gt;
 Cortes&lt;br&gt;
@@ -10485,10 +10390,7 @@ New Location: &lt;&lt;textbox &quot;$Maxixcatl_currentPassage&quot; &quot;&quot;
 &lt;br&gt;
 [[Check Player and Team Status and Location|Control: Player Status]]&lt;br&gt;
 [[Check the Status of Holds and Votes|Control: Votes]]&lt;br&gt;
-[[Return to the Dashboard|Dashboard]]&lt;br&gt;
-
-
-&lt;&lt;/theyr&gt;&gt;</tw-passagedata><tw-passagedata pid="310" name="Status of the Quest" tags="" position="350,2600" size="100,100">&lt;&lt;theyr&gt;&gt;
+[[Return to the Dashboard|Dashboard]]&lt;br&gt;</tw-passagedata><tw-passagedata pid="310" name="Status of the Quest" tags="" position="350,2600" size="100,100">&lt;&lt;theyr&gt;&gt;
 [[Check Player and Team Status and Location|Control: Player Status]]&lt;br&gt;
 [[Check the Status of Holds and Votes|Control: Votes]]&lt;br&gt;
 [[Return to the Dashboard|Dashboard]]&lt;br&gt;
@@ -10581,6 +10483,8 @@ The group has made a decision.  Continue to the next page to find out &lt;&lt;li
 
 &lt;&lt;/theyr&gt;&gt;</tw-passagedata><tw-passagedata pid="315" name="Generic New Spanish Leader" tags="" position="3743,1106" size="100,100">&lt;&lt;theyr&gt;&gt;
 After much angry debate , you finally determine that &lt;&lt;print $Span_Leader&gt;&gt; has the greatest loyalty of his men, and you [[move forward under his leadership|Into the Mountain Pass]]
+
+
 &lt;&lt;/theyr&gt;&gt;</tw-passagedata></tw-storydata>
 	<script id="script-sugarcube" type="text/javascript">
 	/*! SugarCube JS */

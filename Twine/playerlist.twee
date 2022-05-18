@@ -1,7 +1,6 @@
 :: StoryTitle
 Wishing Wells
 
-
 :: StoryData
 {
 	"ifid": "5CAF53F2-B97C-45CA-9E53-CBD50086BDA5",
@@ -18,7 +17,6 @@ Wishing Wells
 	},
 	"zoom": 1
 }
-
 
 :: Story JavaScript [script]
 Config.passages.nobr = true;
@@ -96,10 +94,6 @@ importScripts([
 	});
 })();
 
-function updateChat() {
-	document.getElementById('chat').innerHTML = "she ra??"
-}
-
 // Generates a random ID
 function generateId() {
 	let id = "";
@@ -145,20 +139,17 @@ $(document).one(":passagestart", () => {
     setup.theyrCallback();
 });
 
-
 :: StoryInit {"position":"22,135","size":"100,100"}
 <<script>>
     setup.theyrCallback = function() {
 		State.variables.tiger_coins = 0;
 		State.variables.ox_coins = 0;
 		State.variables.rabbit_coins = 0;
-		State.variables.chat = "Start";
+		State.variables.chat = "";
 	}
 <</script>>
 
-
 :: PassageHeader {"position":"138,11","size":"100,100"}
-<div id="activePlayers">
 <<liveblock>>
 <<set _currentTime=new Date()>>
 <<set $users[$userId].lastSeen=_currentTime.getTime()>>
@@ -175,7 +166,7 @@ Active Players
 <</for>>
 <br>
 <</liveblock>>
-</div>
+
 
 :: Wishing Wells {"position":"350,100","size":"100,100"}
 <<liveblock>>
@@ -211,12 +202,12 @@ You approach a shrine that has three wishing wells: The Tiger Well, Ox Well, and
 <</button>>
 <br> <br>
 
+$chat
+<br>
 <</liveblock>>
 
+<input type="text" id="chatinput"/>
 <button onclick='updateChat()'>
 	Update Chat
 </button>
-<input type="text" id="chatinput"/>
-<div id="chat"></div>
-
-
+/* <span style="white-space: pre-line" id="chat"></span> */
