@@ -70,6 +70,8 @@ importScripts([
 			else {
 				Engine.show();
 			}
+			
+			$("body").css({opacity:1})
     	});	
 	}
 );
