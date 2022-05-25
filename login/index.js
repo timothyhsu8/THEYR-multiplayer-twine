@@ -21,10 +21,6 @@ app.get('/', async ({ query }, response) => {
 	const userData = query;
 
 	if (userData.nick) {
-		let userDataScript=`
-		<script>let userData=${JSON.stringify(userData)}</script>
-		`
-		let fileContents = fs.readFileSync(twinePath)
 		return returnTwine(userData, response);
 	}
 
@@ -36,10 +32,10 @@ app.get('/', async ({ query }, response) => {
 });
 
 function returnTwine(userData, response) {
-	let userDataScriptTag =  `
-	<script> let userData=${userData} </script>
+	let userDataScript=`
+		<script>let userData=${JSON.stringify(userData)}</script>
 	`
 	let file = TWINE_PATH
 	let fileContents = fs.readFileSync(file)
-	return response.send(`${fileContents} ${userDataScriptTag}`);
+	return response.send(`${fileContents} ${userDataScript}`);
 }
