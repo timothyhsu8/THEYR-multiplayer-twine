@@ -14,20 +14,32 @@ const __dirname = path.dirname(__filename)
 const PORT = process.env.PORT || port
 const { app } = new webstack(PORT).get();
 
+const htmlTemplate = 'login/index.html';
+const TWINE_PATH = 'Twine/demo.html';
+
 app.get('/', async ({ query }, response) => {
 	const userData = query;
 
-	if (userData.id) {
-
-	
-			let userDataScript=`
-			<script>let userData=${JSON.stringify(userData)}</script>
-			`
-			let fileContents = fs.readFileSync(twinePath)
-			return response.send(`${fileContents} ${userDataScript}`);
-			
-	
+	if (userData.nick) {
+		let userDataScript=`
+		<script>let userData=${JSON.stringify(userData)}</script>
+		`
+		let fileContents = fs.readFileSync(twinePath)
+		return returnTwine(userData, response);
 	}
 
-	return response.sendFile(path.join(__dirname, 'index.html'));
+	else {
+		let htmlContents = fs.readFileSync(htmlTemplate, 'utf8')
+
+		response.send(htmlContents);
+	}
 });
+
+function returnTwine(userData, response) {
+	let userDataScriptTag =  `
+	<script> let userData=${userData} </script>
+	`
+	let file = TWINE_PATH
+	let fileContents = fs.readFileSync(file)
+	return response.send(`${fileContents} ${userDataScriptTag}`);
+}

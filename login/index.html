@@ -14,7 +14,10 @@
         
         <script>
             function joinGame(event) {
-               $('#id').val(Date.now())
+               let nick = $("#nick").val();
+               let id = Date.now();
+               console.log(id);
+               window.location = `?nick=${nick}&id=${id}`;
             }
         </script>
     </head>
@@ -26,8 +29,8 @@
                     <!-- Username Input -->
                     <div style="width: 85%">
                         <!-- <span style="color: #5f6363; font-size: 15px;"> <b> Username </b> </span> -->
-                        <input  type="text" class="textInput" placeholder="Username" name="username" id="username" value="Pieck" style="margin-top: 4px;">
-                        <input  type="hidden" name="id" id="id" value="Pieck"  >
+                        <input  type="text" class="textInput" placeholder="Username" name="nick" id="nick" value="Pieck" style="margin-top: 4px;">
+                        <input  type="hidden" name="id" id="id">
                     </div>
 
                     <!-- Room Code Input -->
