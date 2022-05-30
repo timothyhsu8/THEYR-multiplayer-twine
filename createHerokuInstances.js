@@ -2,28 +2,29 @@ import { exec, execSync } from 'child_process';
 import { createRequire } from "module";
 import { config, exit } from 'process';
 const require = createRequire(import.meta.url);
-const configArray = require('./loginDiscord/configHerokuInstances.json');
+const configArray = require('./login/config.json')
+const { clientId, clientSecret, twinePath, port } = configArray[0];
 
 
-let herokuInstances = 5
+let herokuInstances = configArray.length;
 for (let i = 1; i <= herokuInstances; i++) {
     let configVars = configArray.shift();
     
     // Deploy Application
     let commands = [
-        `heroku apps:destroy -a aztec-${i} --confirm aztec-${i}`,
-        `heroku create -a aztec-${i} --buildpack heroku/nodejs`, 
-        `heroku buildpacks:add -a aztec-${i} heroku-community/multi-procfile`,
-        `heroku config:set -a aztec-${i} PROCFILE=Procfile`, 
-        `git push https://git.heroku.com/aztec-${i}.git HEAD:master`
+        `heroku apps:destroy -a theyr-${i} --confirm theyr-${i}`,
+        `heroku create -a theyr-${i} --buildpack heroku/nodejs`, 
+        `heroku buildpacks:add -a theyr-${i} heroku-community/multi-procfile`,
+        `heroku config:set -a theyr-${i} PROCFILE=Procfile`, 
+        `git push https://git.heroku.com/theyr-${i}.git HEAD:master`
     ]
     
-    let redirectURL = configVars['redirectURL'];
-    configVars['redirectURL'] = redirectURL.replace("http%3A%2F%2Flocalhost%3A53134", encodeURIComponent(`https://aztec-${i}.herokuapp.com/`)).replace(/&/g, '"&"');
+    let redirectURL = `https://discord.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(`https://theyr-${i}.herokuapp.com/`).replace(/&/g, '"&"')}&response_type=code&scope=identify%20guilds.members.read%20guilds`;
+    configVars['redirectURL'] = redirectURL;
     
     // Set config variables on Heroku
     for (let key of Object.keys(configVars)) {
-        let command = `heroku config:set -a aztec-${i} ${key}=${configVars[key]}`;
+        let command = `heroku config:set -a theyr-${i} ${key}=${configVars[key]}`;
         commands.push(command);
     }
 

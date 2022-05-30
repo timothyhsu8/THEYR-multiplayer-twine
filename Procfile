@@ -1,1 +1,1 @@
-web: node loginDiscord/
+web: node login/

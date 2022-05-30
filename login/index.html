@@ -14,20 +14,24 @@
         
         <script>
             function joinGame(event) {
-               $('#id').val(Date.now())
+               let nick = $("#nick").val();
+               let id = Date.now();
+               console.log({id});
+               window.location = `?nick=${nick}&id=${id}`;
+               return false;
             }
         </script>
     </head>
     <body style="color: #383838; background-color: #b9c8f0;">
         <div style="width: 500px; height: 400px; padding: 20px; margin:auto; margin-top: 50px; background-color: white; box-shadow: 0 3px 3px rgba(0,0,0,0.2);;">
-            <form form method="GET"  onsubmit="joinGame(event)">
+            <form form method="GET"  onsubmit="return joinGame(event)" >
                 <div style='display: flex; flex-direction: column; align-items: center;'>
                     <h1 style="font-weight:bolder;"> Login </h1> 
                     <!-- Username Input -->
                     <div style="width: 85%">
                         <!-- <span style="color: #5f6363; font-size: 15px;"> <b> Username </b> </span> -->
-                        <input  type="text" class="textInput" placeholder="Username" name="username" id="username" value="Pieck" style="margin-top: 4px;">
-                        <input  type="hidden" name="id" id="id" value="Pieck"  >
+                        <input  type="text" class="textInput" placeholder="Username" name="nick" id="nick" value="Pieck" style="margin-top: 4px;">
+                        <input  type="hidden" name="id" id="id">
                     </div>
 
                     <!-- Room Code Input -->

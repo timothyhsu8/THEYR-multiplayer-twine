@@ -1,3 +1,4 @@
 loginDiscord/config.json
+loginDiscord/configHerokuInstances.json
 node_modules
 tests.js

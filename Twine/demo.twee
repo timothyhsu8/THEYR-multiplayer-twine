@@ -1,12 +1,13 @@
 :: StoryTitle
 Wishing Wells
 
+
 :: StoryData
 {
 	"ifid": "5CAF53F2-B97C-45CA-9E53-CBD50086BDA5",
 	"format": "SugarCube",
 	"format-version": "2.30.0",
-	"start": "Wishing Wells",
+	"start": "Codepen",
 	"tag-colors": {
 		"Breaks": "blue",
 		"Change-Title": "yellow",
@@ -17,6 +18,11 @@ Wishing Wells
 	},
 	"zoom": 1
 }
+
+
+:: Story Stylesheet [stylesheet]
+@import url("Twine/demo_style.css");
+
 
 :: Story JavaScript [script]
 Config.passages.nobr = true;
@@ -82,6 +88,57 @@ $(document).one(":passagestart", () => {
 	State.variables.rabbit_coins = 0;
 });
 
+$(document).one(":passageend", () => {
+	$('#submit').on("mouseup", (e) => {
+		$('#codepen_wiki').empty().wiki($('#codepen').val());
+	}).trigger("mouseup");
+	console.log($('#codepen'));
+});
+
+
+:: Chat {"position":"350,101","size":"100,100"}
+<<set $chatlog=$chatlog || "">>
+	<<set $chattext=$chattext  || "">>
+	<<liveblock>>
+	$chatlog <br>
+	<</liveblock>>
+	<<textbox "$chattext" "" autofocus>> 
+
+	<<button "Continue">>
+		<<set $chatlog += "<br>" + $users[$userId].username + ": " + $chattext>>
+	<</button>>
+	$chattext
+
+
+:: Codepen {"position":"350,101","size":"100,100"}
+<div class='maincontainer'>
+	<div class='leftchild'>
+		Welcome to Þeyr! (You can pronounce it as "Theyr") <br> <br>
+		Þeyr is an extension to Twine SugarCube that allows you to create real-time multiplayer stories. 
+		This works by sharing all SugarCube variables between the connected players. If one variable changes, all players instances will be updated and kept in sync. <br><br>
+
+		The only variable this doesn't apply to is <code>userId</code> which is a unique Id that identifies a particular client. <br><br>
+
+		Here's your <code>userId</code>: $userId <br><br>
+
+		The <code>users</code> object stores information about individual users. <code>userId</code> is used as a key to access a particular user in the <code>users</code> mapping. 
+		This entry contains all variables unique to that player. This allows Þeyr to keep track of variables pertaining to specific players, such as how many coins they've collected or what items they have. <br><br>
+
+		Change the textbox below to edit Theyr code:
+		<textarea id='codepen'> Your userId is: &dollar;userId </textarea> 
+		/* <div id="codepen" contenteditable="true">
+			&dollar;userId
+		</div> */
+		<button id="submit">Save</button>
+		
+	</div>
+	
+	<div class='rightchild'>
+		<div class='resultsbox' id='codepen_wiki'>
+			
+		</div>
+	</div>
+</div>
 
 
 :: Wishing Wells {"position":"350,100","size":"100,100"}
@@ -118,3 +175,4 @@ You approach a shrine that has three wishing wells: The Tiger Well, Ox Well, and
 <</button>>
 
 <</liveblock>>
+

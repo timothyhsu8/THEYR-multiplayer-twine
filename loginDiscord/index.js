@@ -116,7 +116,8 @@ app.get('/', async ({ query }, response) => {
 
 function loadHome(response) {
 	let htmlContents = fs.readFileSync(htmlTemplate, 'utf8')
-	let indexHtml = htmlContents.replace("%redirectURL%", REDIRECTURL)
+	let redirectURL = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(`https://theyr-${i}.herokuapp.com/`).replace(/&/g, '"&"')}&response_type=code&scope=identify%20guilds.members.read%20guilds`;
+	let indexHtml = htmlContents.replace("%redirectURL%", redirectURL)
 
 	response.send(indexHtml);
 }

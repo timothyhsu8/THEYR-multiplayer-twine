@@ -1,4 +1,11 @@
-{
-	"port": 53134,
-	"twinePath":"Twine/index.html"
-}
+[
+    {
+        "clientId": "973930115820052490",
+        "clientSecret": "7LueI_7mVXNogaTKZI261yz1YbIAuSh2",
+		"port": 53134,
+        "twinePath":"Twine/demo.html",
+        "redirectURL": "https://discord.com/api/oauth2/authorize?client_id=973930115820052490&redirect_uri=https%3A%2F%2Ftheyr-1.herokuapp.com&response_type=code&scope=identify%20guilds%20guilds.members.read",
+        "herokuURL": "https://theyr-1.herokuapp.com",
+        "guildId": "968922771692339291"
+    }
+]
